@@ -170,8 +170,8 @@ function App() {
     setMistakeCount(0);
     setLevelStartTime(Date.now());
     
-    if (Math.random() < 0.25 && data.characters.length > 0) {
-      setGoldLetter(data.characters[Math.floor(Math.random() * data.characters.length)]);
+    if (Math.random() < 0.25 && data.wheelLetters.length > 0) {
+      setGoldLetter(data.wheelLetters[Math.floor(Math.random() * data.wheelLetters.length)]);
     } else {
       setGoldLetter(null);
     }
