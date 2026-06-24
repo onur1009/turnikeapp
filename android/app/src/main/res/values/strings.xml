@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Turnike</string>
+    <string name="title_activity_main">Turnike</string>
+    <string name="package_name">com.turnike.app</string>
+    <string name="custom_url_scheme">com.turnike.app</string>
+</resources>

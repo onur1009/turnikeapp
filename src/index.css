@@ -1,0 +1,469 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Orbitron:wght@700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; }
+  body {
+    @apply bg-[#051424] text-white;
+    font-family: 'Plus Jakarta Sans', 'Space Grotesk', sans-serif;
+    margin: 0; padding: 0;
+    overflow: hidden; /* No scroll at all for native feel */
+    -webkit-font-smoothing: antialiased;
+    
+    /* NATIVE FEEL CSS */
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    touch-action: pan-x pan-y;
+  }
+  
+  /* Çentikli telefonlar (iPhone X ve üstü) için güvenli alanlar */
+  #root {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    height: 100vh;
+    height: 100dvh;
+  }
+  
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+  }
+}
+
+/* ================================================
+   TURNIKE: SÖZCÜK SEFERİ — Metro Dark Theme v3
+   Koyu gece arka plan, neon hat renkleri,
+   LED levha efektleri, cam paneller.
+   ================================================ */
+
+/* ===== METRO BACKGROUND ===== */
+/* Koyu lacivert gece, ince hat çizgisi dokusu */
+.game-bg {
+  background:
+    radial-gradient(ellipse 120% 60% at 50% -10%, rgba(34,197,94,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 80% 40% at 80% 80%,  rgba(59,130,246,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 30% at 10% 90%,  rgba(234,179,8,0.05)  0%, transparent 60%),
+    linear-gradient(180deg, #050a18 0%, #0b1428 40%, #0d1f35 70%, #091520 100%);
+  min-height: 100vh;
+  background-attachment: fixed;
+}
+
+/* Arka planda ince ray dokusu */
+.game-bg::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 79px,
+      rgba(255,255,255,0.015) 79px,
+      rgba(255,255,255,0.015) 80px
+    ),
+    repeating-linear-gradient(
+      180deg,
+      transparent,
+      transparent 79px,
+      rgba(255,255,255,0.015) 79px,
+      rgba(255,255,255,0.015) 80px
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===== COMPONENTS ===== */
+@layer components {
+
+  /* --- Cam panel (glassmorphism koyu) --- */
+  .card-panel {
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    box-shadow:
+      0 4px 32px rgba(0,0,0,0.4),
+      inset 0 1px 0 rgba(255,255,255,0.07);
+  }
+
+  /* --- Beyaz Grid Hücreleri --- */
+  .grid-cell-empty {
+    background: rgba(255,255,255,0.06);
+    border: 1.5px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+  }
+  .grid-cell-found {
+    background: #ffffff;
+    border: 2px solid rgba(255,255,255,0.9);
+    border-radius: 10px;
+    color: #0a0f1e;
+    font-weight: 800;
+    box-shadow: 0 0 16px rgba(255,255,255,0.15), 0 4px 12px rgba(0,0,0,0.3);
+  }
+
+  /* --- Çark harf düğümleri --- */
+  .wheel-letter {
+    background: rgba(255,255,255,0.92);
+    border: 3px solid rgba(255,255,255,1);
+    border-radius: 50%;
+    box-shadow:
+      0 4px 20px rgba(0,0,0,0.5),
+      0 0 12px rgba(255,255,255,0.1),
+      inset 0 -3px 0 rgba(0,0,0,0.15);
+    color: #0a0f1e;
+    font-weight: 800;
+    font-size: 28px;
+  }
+  .wheel-letter-active {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    border: 3px solid #fbbf24;
+    box-shadow:
+      0 0 24px rgba(251,191,36,0.6),
+      0 0 48px rgba(251,191,36,0.2),
+      inset 0 -3px 0 rgba(0,0,0,0.2);
+    color: #0a0f1e;
+    transform: scale(1.12);
+  }
+
+  /* --- Metro Kapsül (üst bar rozeti) --- */
+  .capsule {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 50px;
+    padding: 8px 16px;
+    color: white;
+    font-weight: 700;
+    font-size: 13px;
+    display: flex; align-items: center; gap: 6px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06);
+  }
+
+  /* --- Metro LED Tabelası (Seviye ismi) --- */
+  .metro-board {
+    font-family: 'Orbitron', monospace;
+    background: linear-gradient(135deg, #0d1f0d, #0a2010);
+    border: 1.5px solid #22c55e;
+    border-radius: 10px;
+    padding: 6px 16px;
+    color: #4ade80;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 2px;
+    box-shadow: 0 0 16px rgba(34,197,94,0.25), inset 0 0 12px rgba(34,197,94,0.05);
+    text-shadow: 0 0 8px rgba(74,222,128,0.8);
+  }
+
+  /* --- Ana Oyna butonu (neon yeşil) --- */
+  .play-btn {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    border: 2px solid rgba(74,222,128,0.4);
+    border-radius: 50px;
+    color: white;
+    font-weight: 800;
+    font-size: 18px;
+    padding: 16px 44px;
+    box-shadow:
+      0 0 32px rgba(34,197,94,0.4),
+      0 0 64px rgba(34,197,94,0.15),
+      0 8px 24px rgba(0,0,0,0.3),
+      inset 0 -4px 0 rgba(0,0,0,0.2);
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-family: 'Orbitron', monospace;
+    position: relative;
+    overflow: hidden;
+  }
+  .play-btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    animation: shine 3s ease-in-out infinite;
+  }
+  .play-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 48px rgba(34,197,94,0.55), 0 12px 32px rgba(0,0,0,0.4), inset 0 -4px 0 rgba(0,0,0,0.2);
+  }
+  .play-btn:active {
+    transform: translateY(1px) scale(0.98);
+  }
+
+  /* --- İkincil menü butonu --- */
+  .menu-btn {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 14px;
+    color: rgba(255,255,255,0.8);
+    transition: all 0.25s ease;
+  }
+  .menu-btn:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.22);
+    color: white;
+    transform: translateY(-2px);
+  }
+  .menu-btn:active { transform: scale(0.97); }
+
+  /* --- Bottom Navbar --- */
+  .bottom-nav {
+    background: linear-gradient(to top, rgba(5,10,24,0.98) 0%, rgba(5,10,24,0.85) 70%, transparent 100%);
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  /* --- Metro Hat Badge --- */
+  .line-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px 3px 7px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+}
+
+/* ===== THEME OVERRIDES ===== */
+/* LIGHT THEME */
+body.theme-light .game-bg {
+  background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%) !important;
+}
+body.theme-light .game-bg::before {
+  opacity: 0.3;
+}
+body.theme-light .text-white { color: #0f172a !important; }
+body.theme-light .text-white\/80 { color: rgba(15,23,42,0.8) !important; }
+body.theme-light .text-white\/70 { color: rgba(15,23,42,0.7) !important; }
+body.theme-light .text-white\/60 { color: rgba(15,23,42,0.6) !important; }
+body.theme-light .text-white\/50 { color: rgba(15,23,42,0.5) !important; }
+body.theme-light .text-white\/40 { color: rgba(15,23,42,0.4) !important; }
+body.theme-light .bg-white\/5 { background: rgba(0,0,0,0.05) !important; }
+body.theme-light .bg-white\/10 { background: rgba(0,0,0,0.1) !important; }
+body.theme-light .border-white\/10 { border-color: rgba(0,0,0,0.1) !important; }
+body.theme-light .border-white\/20 { border-color: rgba(0,0,0,0.2) !important; }
+body.theme-light .card-panel { background: rgba(255,255,255,0.7); border-color: rgba(0,0,0,0.1); box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+body.theme-light .grid-cell-empty { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.1); }
+body.theme-light .capsule { background: rgba(255,255,255,0.8); border-color: rgba(0,0,0,0.1); color: #0f172a; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+
+/* RETRO THEME */
+body.theme-retro {
+  font-family: 'Courier New', Courier, monospace !important;
+}
+body.theme-retro * {
+  font-family: 'Courier New', Courier, monospace !important;
+}
+body.theme-retro .game-bg {
+  background: #0f0f0f !important;
+}
+body.theme-retro .game-bg::before { display: none; }
+body.theme-retro .text-white, body.theme-retro .text-white\/80, body.theme-retro .text-white\/70, body.theme-retro .text-white\/60, body.theme-retro .text-white\/50 {
+  color: #33ff33 !important;
+}
+body.theme-retro .play-btn {
+  background: black !important;
+  color: #33ff33 !important;
+  border: 2px solid #33ff33 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+body.theme-retro .play-btn::before { display: none; }
+body.theme-retro .capsule, body.theme-retro .card-panel, body.theme-retro .bg-white\/5, body.theme-retro .bg-white\/10 {
+  background: black !important;
+  border: 2px solid #33ff33 !important;
+  border-radius: 0 !important;
+  color: #33ff33 !important;
+  box-shadow: none !important;
+}
+body.theme-retro .wheel-letter {
+  background: black !important;
+  border: 2px solid #33ff33 !important;
+  color: #33ff33 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+body.theme-retro .wheel-letter-active {
+  background: #33ff33 !important;
+  color: black !important;
+  border-color: #33ff33 !important;
+  transform: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+body.theme-retro .grid-cell-empty {
+  background: black !important;
+  border: 1px solid #33ff33 !important;
+  border-radius: 0 !important;
+}
+body.theme-retro .grid-cell-found {
+  background: #33ff33 !important;
+  color: black !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+body.theme-retro svg line { stroke-width: 8 !important; stroke-linecap: butt !important; }
+body.theme-retro .rounded-full, body.theme-retro .rounded-xl, body.theme-retro .rounded-2xl { border-radius: 0 !important; }
+
+
+/* ===== ANİMASYONLAR ===== */
+.fade-in {
+  animation: fadeIn 0.45s ease-out both;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.scale-in {
+  animation: scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.7); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.float-slow {
+  animation: floatSlow 5s ease-in-out infinite;
+}
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+.pulse-soft {
+  animation: pulseSoft 2s ease-in-out infinite;
+}
+@keyframes pulseSoft {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50%       { opacity: 1; transform: scale(1.06); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+.animate-shake {
+  animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes balanceFlash {
+  0% { box-shadow: 0 0 24px rgba(34,197,94,0.8); border-color: #22c55e; transform: scale(1.05); }
+  100% { box-shadow: 0 2px 12px rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.12); transform: scale(1); }
+}
+.balance-flash {
+  animation: balanceFlash 0.6s ease-out;
+}
+
+/* Turnike kapısı geçiş tarama efekti */
+@keyframes scanLine {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+/* Parlaklık sweep (play-btn) */
+@keyframes shine {
+  0%   { left: -100%; }
+  50%, 100% { left: 150%; }
+}
+
+/* Neon LED yanıp sönme */
+@keyframes neonBlink {
+  0%, 96%, 100% { opacity: 1; }
+  98%           { opacity: 0.6; }
+}
+.neon-blink {
+  animation: neonBlink 4s ease-in-out infinite;
+}
+
+/* İstasyon pulse */
+@keyframes stationPulse {
+  0%, 100% { box-shadow: 0 0 0 0 currentColor; }
+  50%       { box-shadow: 0 0 0 8px transparent; }
+}
+
+/* ===== TOAST ===== */
+.toast-container {
+  position: fixed;
+  top: 14%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  pointer-events: none;
+}
+.toast {
+  padding: 10px 28px;
+  border-radius: 50px;
+  color: white;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 2px;
+  font-family: 'Orbitron', monospace;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  animation: toastPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.toast.correct {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  border: 1px solid rgba(74,222,128,0.4);
+  box-shadow: 0 0 24px rgba(34,197,94,0.5), 0 8px 32px rgba(0,0,0,0.4);
+  text-shadow: 0 0 10px rgba(255,255,255,0.6);
+}
+.toast.wrong {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  border: 1px solid rgba(252,165,165,0.3);
+  box-shadow: 0 0 20px rgba(239,68,68,0.4), 0 8px 32px rgba(0,0,0,0.4);
+}
+.toast.exists {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  border: 1px solid rgba(251,191,36,0.3);
+  box-shadow: 0 0 20px rgba(245,158,11,0.4), 0 8px 32px rgba(0,0,0,0.4);
+}
+@keyframes toastPop {
+  from { opacity: 0; transform: translateY(-16px) scale(0.85); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ===== LOADING RING ===== */
+.loading-ring {
+  animation: spin 1.1s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ===== METRO LOGO LINES ===== */
+/* Logonun arkasındaki dekoratif metro hatları */
+.metro-lines-deco {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: inherit;
+}
+.metro-lines-deco::before {
+  content: '';
+  position: absolute;
+  top: 30%; left: -20%;
+  width: 140%; height: 3px;
+  background: linear-gradient(90deg, transparent, rgba(34,197,94,0.3), transparent);
+  transform: rotate(-20deg);
+}
+.metro-lines-deco::after {
+  content: '';
+  position: absolute;
+  bottom: 25%; left: -20%;
+  width: 140%; height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(59,130,246,0.25), transparent);
+  transform: rotate(-20deg);
+}
