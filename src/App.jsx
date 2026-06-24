@@ -130,15 +130,17 @@ function App() {
     return () => { backListener.then(l => l.remove()).catch(()=>{}); };
   }, [screen]);
 
-  // Timer mekaniği
+  const timerRef = useRef(null);
   const handleTimeExpire = useCallback(() => {
     if (screen !== 'game') return;
     showFeedback('wrong', 'SÜRE BİTTİ - YENİ KELİME');
     Haptics.notification({ type: NotificationType.Warning }).catch(()=>{});
-    startTimer(30);
-  }, [screen, startTimer]);
+    if (timerRef.current) timerRef.current.startTimer(30);
+  }, [screen]);
 
-  const { timeLeft, startTimer, stopTimer } = useGameTimer(30, handleTimeExpire);
+  const timer = useGameTimer(30, handleTimeExpire);
+  useEffect(() => { timerRef.current = timer; }, [timer]);
+  const { timeLeft, startTimer, stopTimer } = timer;
 
   useEffect(() => {
     if (lives === 0 && screen === 'game') {
@@ -716,7 +718,7 @@ function App() {
         {/* Wheel Area */}
         <div className="flex-1 flex flex-col justify-center max-h-[400px]">
           <Wheel 
-            letters={levelData.characters} 
+            letters={levelData.wheelLetters} 
             onWordSubmit={handleWordSubmit} 
             onShuffle={handleShuffle}
             bonusLetter={goldLetter}
