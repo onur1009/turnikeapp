@@ -710,13 +710,13 @@ function App() {
       </div>
 
       {/* Grid Alanı */}
-      <main className="flex-grow flex flex-col relative w-full overflow-hidden mt-4">
-        <div className="flex-grow flex flex-col items-center justify-center px-2 pt-2 pb-[330px]">
+      <main className="flex-grow flex flex-col relative w-full overflow-hidden mt-4 pb-[85px]">
+        <div className="flex-grow flex flex-col items-center justify-center px-2 pt-2 pb-[310px]">
           <Grid words={levelData.words} foundWords={foundWords} hintedLetters={hintedLetters} />
         </div>
 
         {/* Wheel Area */}
-        <div className="flex-1 flex flex-col justify-center max-h-[400px]">
+        <div className="absolute bottom-[85px] left-0 w-full h-[310px] flex flex-col justify-center">
           <Wheel 
             letters={levelData.wheelLetters} 
             onWordSubmit={handleWordSubmit} 

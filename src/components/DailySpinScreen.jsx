@@ -116,23 +116,41 @@ const DailySpinScreen = ({ onComplete }) => {
             return (
               <div 
                 key={i}
-                className="absolute top-0 left-1/2 -translate-x-1/2 origin-bottom flex flex-col items-center pt-5"
-                style={{ height: '50%', transform: `rotate(${rot}deg)` }}
+                className="absolute top-0 left-1/2 origin-bottom"
+                style={{ 
+                  height: '50%', 
+                  width: '0px', 
+                  transform: `translateX(-50%) rotate(${rot}deg)` 
+                }}
               >
-                {/* Metro Hat Logosu */}
-                <div className="w-8 h-8 bg-black/30 rounded-full flex items-center justify-center mb-1.5 border border-white/20">
-                  <span className="material-symbols-outlined text-white text-[18px]" style={{ transform: 'rotate(-90deg)', fontVariationSettings: "'FILL' 1" }}>
-                    {p.icon}
+                {/* Tek bir yatay konteyner oluşturup onu 90 derece döndürüyoruz */}
+                <div 
+                  className="absolute flex items-center justify-start gap-1.5"
+                  style={{
+                    top: '100%', 
+                    left: '50%',
+                    transformOrigin: 'center center',
+                    // Wheel merkezinden (top: 100%, left: 50%) div'i ortalayıp, 90 derece çevirip dışarı itiyoruz
+                    transform: 'translate(-50%, -50%) rotate(-90deg) translateX(55px)',
+                    whiteSpace: 'nowrap'
+                  }}
+                >
+                  {/* Metro Hat Logosu */}
+                  <div className="w-7 h-7 bg-black/30 rounded-full flex items-center justify-center border border-white/20 shrink-0">
+                    <span className="material-symbols-outlined text-white text-[15px]" style={{ fontVariationSettings: "'FILL' 1" }}>
+                      {p.icon}
+                    </span>
+                  </div>
+                  
+                  {/* Etiket */}
+                  <span className="text-white font-black text-[20px] tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                    {p.label}
                   </span>
-                </div>
-                
-                <span className="text-white font-black text-[22px] tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]" style={{ transform: 'rotate(-90deg)', transformOrigin: 'center' }}>
-                  {p.label}
-                </span>
-                
-                {/* Hat Kodu */}
-                <div className="mt-1 px-2 py-0.5 bg-black/40 rounded text-white/80 text-[9px] font-bold tracking-widest border border-white/10" style={{ transform: 'rotate(-90deg)', transformOrigin: 'center' }}>
-                  {p.line}
+                  
+                  {/* Hat Kodu */}
+                  <div className="px-1.5 py-0.5 bg-black/40 rounded text-white/80 text-[8px] font-bold tracking-widest border border-white/10 shrink-0">
+                    {p.line}
+                  </div>
                 </div>
               </div>
             );
