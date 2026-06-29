@@ -655,6 +655,7 @@ function App() {
         <div className="flex-1 flex flex-col justify-center items-center px-4 -mt-10">
           <div className="w-32 h-32 rounded-full flex items-center justify-center mb-8 float-slow" style={{ background: 'linear-gradient(135deg, rgba(34,197,94,0.1), rgba(34,197,94,0.02))', border: '1px solid rgba(34,197,94,0.3)' }}>
             <span className="material-symbols-outlined text-[64px] text-green-500" style={{ fontVariationSettings: "'FILL' 1" }}>train</span>
+          </div>
           <div className="flex flex-col items-center justify-center mb-1">
             <h1 className="text-white text-[28px] font-black tracking-[6px] uppercase leading-tight drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]" style={{ fontFamily: "'Orbitron', monospace" }}>{t('title_word')}<br/>{t('title_journey')}</h1>
             <span className="bg-green-500/20 text-green-400 border border-green-500/30 px-2 py-0.5 rounded text-[10px] font-black tracking-widest mt-2">v1.1.2</span>
