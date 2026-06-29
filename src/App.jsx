@@ -656,11 +656,11 @@ function App() {
           <div className="w-32 h-32 rounded-full flex items-center justify-center mb-8 float-slow" style={{ background: 'linear-gradient(135deg, rgba(34,197,94,0.1), rgba(34,197,94,0.02))', border: '1px solid rgba(34,197,94,0.3)' }}>
             <span className="material-symbols-outlined text-[64px] text-green-500" style={{ fontVariationSettings: "'FILL' 1" }}>train</span>
           </div>
-          <div className="flex flex-col items-center justify-center mb-1">
-            <h1 className="text-white text-[28px] font-black tracking-[6px] uppercase leading-tight drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]" style={{ fontFamily: "'Orbitron', monospace" }}>{t('title_word')}<br/>{t('title_journey')}</h1>
-            <span className="bg-green-500/20 text-green-400 border border-green-500/30 px-2 py-0.5 rounded text-[10px] font-black tracking-widest mt-2">v1.1.2</span>
+          <div className="flex items-center justify-center gap-2 mb-1">
+            <h1 className="text-white text-3xl font-black tracking-tight">{t('welcome')}</h1>
+            <span className="bg-green-500/20 text-green-400 border border-green-500/30 px-2 py-0.5 rounded text-[10px] font-black tracking-widest mt-1">v1.2</span>
           </div>
-          <p className="text-white/35 text-[11px] mb-3 font-bold tracking-[3px] uppercase">{t('subtitle')}</p>
+          <p className="text-white/35 text-sm mb-3 font-medium">{t('subtitle')}</p>
 
           <div className="text-center mb-2">
             <div className="inline-block px-5 py-1.5 rounded-sm mb-3 neon-blink"
