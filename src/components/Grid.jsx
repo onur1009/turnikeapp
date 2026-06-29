@@ -45,18 +45,27 @@ const Grid = ({ words, foundWords, hintedLetters = [] }) => {
 
   if (!bounds) return null;
 
-  const CELL = 46;
+  const availableW = containerWidth - 32;
+  const defaultCellSize = 46;
   const GAP = 6;
+  const rawTotalW = bounds.cols * defaultCellSize + (bounds.cols - 1) * GAP;
+  
+  // Eğer sığmıyorsa, hücreleri küçült
+  const CELL = rawTotalW > availableW 
+    ? Math.floor((availableW - (bounds.cols - 1) * GAP) / bounds.cols) 
+    : defaultCellSize;
+    
   const totalW = bounds.cols * CELL + (bounds.cols - 1) * GAP;
   const totalH = bounds.rows * CELL + (bounds.rows - 1) * GAP;
-  const available = containerWidth - 32;
-  const scale = available < totalW ? available / totalW : 1;
 
   const cells = [];
+  let cellIndex = 0;
   gridMap.forEach((cellData, key) => {
     const [sx, sy] = key.split(',');
     const x = parseInt(sx) - bounds.minX;
     const y = parseInt(sy) - bounds.minY;
+    const delay = cellIndex * 0.05;
+    cellIndex++;
     cells.push(
       <div
         key={key}
@@ -70,7 +79,7 @@ const Grid = ({ words, foundWords, hintedLetters = [] }) => {
         }}
       >
         {cellData.isRevealed ? (
-          <div className="grid-cell-found w-full h-full flex items-center justify-center text-[22px]" style={{animationDelay: `${Math.random()*0.3}s`}}>
+          <div className="grid-cell-found w-full h-full flex items-center justify-center text-[22px]" style={{animationDelay: `${delay}s`}}>
             {cellData.char}
           </div>
         ) : (
@@ -86,9 +95,7 @@ const Grid = ({ words, foundWords, hintedLetters = [] }) => {
         className="relative"
         style={{
           width: totalW,
-          height: totalH,
-          transform: `scale(${scale})`,
-          transformOrigin: 'center center'
+          height: totalH
         }}
       >
         {cells}

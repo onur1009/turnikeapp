@@ -16,7 +16,7 @@ const DailySpinScreen = ({ onComplete }) => {
   const [rotation, setRotation] = useState(0);
   const [prize, setPrize] = useState(null);
   
-  const { addBalance, setLastSpinDate } = useGameStore();
+  const { addBalance, addLives, addHints, setLastSpinDate } = useGameStore();
 
   const handleSpin = () => {
     if (spinning) return;
@@ -52,6 +52,10 @@ const DailySpinScreen = ({ onComplete }) => {
       // Ödülü ver
       if (wonPrize.type === 'money') {
         addBalance(wonPrize.value);
+      } else if (wonPrize.type === 'life') {
+        addLives(wonPrize.value);
+      } else if (wonPrize.type === 'hint') {
+        addHints(wonPrize.value);
       }
       
       // Bugünün tarihini kaydet
@@ -125,30 +129,27 @@ const DailySpinScreen = ({ onComplete }) => {
               >
                 {/* Tek bir yatay konteyner oluşturup onu 90 derece döndürüyoruz */}
                 <div 
-                  className="absolute flex items-center justify-start gap-1.5"
+                  className="absolute flex items-center justify-start gap-2"
                   style={{
                     top: '100%', 
                     left: '50%',
                     transformOrigin: 'center center',
-                    // Wheel merkezinden (top: 100%, left: 50%) div'i ortalayıp, 90 derece çevirip dışarı itiyoruz
-                    transform: 'translate(-50%, -50%) rotate(-90deg) translateX(55px)',
+                    transform: 'translate(-50%, -50%) rotate(-90deg) translateX(70px)',
                     whiteSpace: 'nowrap'
                   }}
                 >
-                  {/* Metro Hat Logosu */}
-                  <div className="w-7 h-7 bg-black/30 rounded-full flex items-center justify-center border border-white/20 shrink-0">
-                    <span className="material-symbols-outlined text-white text-[15px]" style={{ fontVariationSettings: "'FILL' 1" }}>
-                      {p.icon}
-                    </span>
-                  </div>
-                  
-                  {/* Etiket */}
-                  <span className="text-white font-black text-[20px] tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                  {/* Etiket (Siyah stroke ile her renkte okunur) */}
+                  <span 
+                    className="text-white font-black text-[24px] tracking-wide"
+                    style={{ 
+                      textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 4px 8px rgba(0,0,0,0.8)' 
+                    }}
+                  >
                     {p.label}
                   </span>
                   
                   {/* Hat Kodu */}
-                  <div className="px-1.5 py-0.5 bg-black/40 rounded text-white/80 text-[8px] font-bold tracking-widest border border-white/10 shrink-0">
+                  <div className="px-2 py-1 bg-black/75 rounded-md text-white/90 text-[10px] font-black tracking-widest border border-white/20 shadow-lg">
                     {p.line}
                   </div>
                 </div>

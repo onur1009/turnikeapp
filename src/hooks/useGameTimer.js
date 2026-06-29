@@ -7,6 +7,11 @@ export function useGameTimer(initialSeconds, onExpire) {
   const requestRef = useRef();
   const startTimeRef = useRef();
   const initialTimeRef = useRef(initialSeconds * 1000);
+  
+  const onExpireRef = useRef(onExpire);
+  useEffect(() => {
+    onExpireRef.current = onExpire;
+  }, [onExpire]);
 
   const tick = useCallback((time) => {
     if (!startTimeRef.current) startTimeRef.current = time;
@@ -19,9 +24,9 @@ export function useGameTimer(initialSeconds, onExpire) {
       requestRef.current = requestAnimationFrame(tick);
     } else {
       setIsRunning(false);
-      if (onExpire) onExpire();
+      if (onExpireRef.current) onExpireRef.current();
     }
-  }, [onExpire]);
+  }, []);
 
   useEffect(() => {
     if (isRunning) {
@@ -35,7 +40,9 @@ export function useGameTimer(initialSeconds, onExpire) {
     setTimeLeft(seconds);
     startTimeRef.current = null;
     setIsRunning(true);
-  }, []);
+    if (requestRef.current) cancelAnimationFrame(requestRef.current);
+    requestRef.current = requestAnimationFrame(tick);
+  }, [tick]);
 
   const stopTimer = useCallback(() => {
     setIsRunning(false);

@@ -333,8 +333,17 @@ body.theme-retro .rounded-full, body.theme-retro .rounded-xl, body.theme-retro .
   to   { opacity: 1; transform: scale(1); }
 }
 
-.float-slow {
-  animation: floatSlow 5s ease-in-out infinite;
+.float-slow { animation: float 6s ease-in-out infinite; }
+
+@keyframes lifeLoss {
+  0% { transform: translateY(0) scale(0.5); opacity: 0; }
+  20% { transform: translateY(-20px) scale(1.2); opacity: 1; }
+  80% { transform: translateY(-80px) scale(1); opacity: 1; }
+  100% { transform: translateY(-100px) scale(0.8); opacity: 0; }
+}
+
+.animate-life-loss {
+  animation: lifeLoss 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 @keyframes floatSlow {
   0%, 100% { transform: translateY(0px); }

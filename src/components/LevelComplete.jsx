@@ -28,7 +28,7 @@ const CountUp = ({ end, duration = 1500, suffix = '', prefix = '' }) => {
   return <span>{prefix}{count}{suffix}</span>;
 };
 
-const LevelComplete = ({ level, wordsFoundCount, totalWords, timeSpent, accuracy, onNextLevel, onRetry }) => {
+const LevelComplete = ({ level, wordsFoundCount, totalWords, timeSpent, accuracy, onNextLevel, onRetry, onHome }) => {
   const stars = accuracy >= 95 ? 3 : accuracy >= 70 ? 2 : 1;
 
   const handleShare = async () => {
@@ -153,6 +153,15 @@ const LevelComplete = ({ level, wordsFoundCount, totalWords, timeSpent, accuracy
             Tekrar Oyna
           </button>
         </div>
+        
+        <button
+          onClick={onHome}
+          className="w-full py-4 rounded-full font-bold text-white/50 text-[13px] tracking-widest uppercase transition-all active:scale-95 flex items-center justify-center gap-2 mt-2"
+          style={{ border: '1px solid rgba(255,255,255,0.1)' }}
+        >
+          <span className="material-symbols-outlined text-[18px]">home</span>
+          ANA MENÜ
+        </button>
       </div>
     </main>
   );

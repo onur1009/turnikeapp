@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { generateLevel, VALID_WORDS, WORD_MEANINGS } from './utils/gameLogic';
+import { generateLevel, VALID_WORDS_TR, VALID_WORDS_EN, WORD_MEANINGS_TR, WORD_MEANINGS_EN, getTimeForLevel } from './utils/gameLogic';
+import { playCorrect, playWrong, playLevelComplete, playTurnike, playCombo, playBadgeUnlock, playBalanceUp, playTick, playTimeUp, playGameOver } from './utils/soundManager';
+import { useTranslation } from './utils/i18n';
 import Grid from './components/Grid';
 import Wheel from './components/Wheel';
 import MapScreen from './components/MapScreen';
@@ -12,6 +14,9 @@ import TutorialModal from './components/TutorialModal';
 import AnimatedBalance from './components/AnimatedBalance';
 import SettingsScreen from './components/SettingsScreen';
 import StatsScreen from './components/StatsScreen';
+import VaultScreen from './components/VaultScreen';
+import LeaderboardScreen from './components/LeaderboardScreen';
+import BonusLockers from './components/BonusLockers';
 import { useGameStore } from './store/gameStore';
 import { useGameTimer } from './hooks/useGameTimer';
 import { Haptics, ImpactStyle, NotificationType } from '@capacitor/haptics';
@@ -26,7 +31,12 @@ function App() {
   const [isAppReady, setIsAppReady] = useState(false);
 
   // Zustand Store
-  const { balance, levelIndex, lives, combo, streak, checkStreak, incrementCombo, resetCombo, addBalance, deductLife, resetGame, unlockBadge, unlockedBadges, lastSpinDate, incrementTotalGames, incrementTotalWords, theme } = useGameStore();
+  const { balance, hints, addHints, levelIndex, lives, combo, streak, checkStreak, incrementCombo, resetCombo, addBalance, deductLife, resetGame, unlockBadge, unlockedBadges, lastSpinDate, incrementTotalGames, incrementTotalWords, theme, soundEnabled, hapticEnabled, language, totalWordsFound } = useGameStore();
+  const { t } = useTranslation();
+
+  // Dil bazlı kelime seti
+  const VALID_WORDS = language === 'en' ? VALID_WORDS_EN : VALID_WORDS_TR;
+  const WORD_MEANINGS = language === 'en' ? WORD_MEANINGS_EN : WORD_MEANINGS_TR;
 
   const [showDailySpin, setShowDailySpin] = useState(false);
   const [showTutorial, setShowTutorial] = useState(false);
@@ -36,6 +46,17 @@ function App() {
   
   const [shake, setShake] = useState(false);
   const [flashBalance, setFlashBalance] = useState(false);
+  const [lifeLossAnims, setLifeLossAnims] = useState([]);
+  const [wrongWordTrigger, setWrongWordTrigger] = useState(0);
+  const [showBonus, setShowBonus] = useState(false);
+
+  const triggerLifeLossAnim = () => {
+    const id = Date.now();
+    setLifeLossAnims(prev => [...prev, id]);
+    setTimeout(() => {
+      setLifeLossAnims(prev => prev.filter(animId => animId !== id));
+    }, 1500);
+  };
 
   const prevBalance = useRef(balance);
   useEffect(() => {
@@ -75,18 +96,29 @@ function App() {
   const prevBadgesCount = useRef(unlockedBadges.length);
   useEffect(() => {
     if (streak >= 3) unlockBadge('streak_3');
+    if (streak >= 7) unlockBadge('streak_7');
     if (combo >= 5) unlockBadge('combo_5');
-    if (balance >= 5000) unlockBadge('rich'); // 50 TL
+    if (combo >= 10) unlockBadge('combo_10');
+    if (balance >= 5000) unlockBadge('rich');
+    if (balance >= 20000) unlockBadge('wealthy');
     if (maxUnlockedLevel >= 1) unlockBadge('first_ticket');
+    if (maxUnlockedLevel >= 5) unlockBadge('level_5');
+    if (maxUnlockedLevel >= 10) unlockBadge('level_10');
+    if (maxUnlockedLevel >= 20) unlockBadge('level_20');
+    if (maxUnlockedLevel >= 30) unlockBadge('level_30');
+    if (totalWordsFound >= 10) unlockBadge('words_10');
+    if (totalWordsFound >= 50) unlockBadge('words_50');
+    if (totalWordsFound >= 100) unlockBadge('words_100');
 
     if (unlockedBadges.length > prevBadgesCount.current) {
       setTimeout(() => {
-        showFeedback('correct', '🏆 YENİ ROZET!');
-        Haptics.notification({ type: NotificationType.Success }).catch(()=>{});
-      }, 1000); // Oyundaki diğer aksiyonlarla çakışmaması için ufak gecikme
+        showFeedback('correct', t('new_badge'));
+        if (soundEnabled) playBadgeUnlock();
+        if (hapticEnabled) Haptics.notification({ type: NotificationType.Success }).catch(()=>{});
+      }, 1000);
       prevBadgesCount.current = unlockedBadges.length;
     }
-  }, [streak, combo, balance, maxUnlockedLevel, unlockedBadges.length, unlockBadge]);
+  }, [streak, combo, balance, maxUnlockedLevel, unlockedBadges.length, unlockBadge, totalWordsFound]);
 
   const [levelData, setLevelData] = useState(null);
   const [foundWords, setFoundWords] = useState([]);
@@ -124,19 +156,42 @@ function App() {
 
     const backListener = CapacitorApp.addListener('backButton', ({ canGoBack }) => {
       if (screen === 'game') setScreen('home');
-      else if (screen === 'dictionary' || screen === 'levels' || screen === 'badges') setScreen('home');
+      else if (['dictionary', 'levels', 'badges', 'stats', 'settings', 'akbil'].includes(screen)) setScreen('home');
       else if (screen === 'home') CapacitorApp.exitApp();
     });
-    return () => { backListener.then(l => l.remove()).catch(()=>{}); };
+    
+    return () => { 
+      backListener.then(l => l.remove()).catch(()=>{}); 
+    };
   }, [screen]);
 
   const timerRef = useRef(null);
+  const levelDataRef = useRef(null); // Timer callback'i için güncel levelData referansı
   const handleTimeExpire = useCallback(() => {
     if (screen !== 'game') return;
-    showFeedback('wrong', 'SÜRE BİTTİ - YENİ KELİME');
-    Haptics.notification({ type: NotificationType.Warning }).catch(()=>{});
-    if (timerRef.current) timerRef.current.startTimer(30);
-  }, [screen]);
+    showFeedback('wrong', t('time_up'));
+    
+    useGameStore.getState().deductLife(); // deductLife zaten combo'yu sıfırlıyor
+    const remainingLives = useGameStore.getState().lives;
+    triggerLifeLossAnim();
+    
+    if (remainingLives > 0 && useGameStore.getState().soundEnabled) {
+      playTimeUp();
+    }
+    
+    setMistakeCount(c => c + 1);
+    setShake(true);
+    setTimeout(() => setShake(false), 400);
+    if (hapticEnabled) Haptics.notification({ type: NotificationType.Warning }).catch(()=>{});
+    
+    // Güncel levelData'dan doğru kelime sayısıyla süreyi sıfırla
+    if (timerRef.current) {
+      const { levelIndex } = useGameStore.getState();
+      const wordCount = levelDataRef.current?.words?.length || 4;
+      const timeToGive = getTimeForLevel(levelIndex, wordCount);
+      timerRef.current.startTimer(timeToGive);
+    }
+  }, [screen, t, hapticEnabled]);
 
   const timer = useGameTimer(30, handleTimeExpire);
   useEffect(() => { timerRef.current = timer; }, [timer]);
@@ -146,9 +201,20 @@ function App() {
     if (lives === 0 && screen === 'game') {
       stopTimer();
       setScreen('gameover');
-      Haptics.notification({ type: NotificationType.Error }).catch(()=>{});
+      if (useGameStore.getState().soundEnabled) playGameOver();
+      if (hapticEnabled) Haptics.notification({ type: NotificationType.Error }).catch(()=>{});
     }
-  }, [lives, screen, stopTimer]);
+  }, [lives, screen, stopTimer, hapticEnabled]);
+
+  // Tick Sesi
+  useEffect(() => {
+    if (screen === 'game' && levelData && timeLeft > 0) {
+      const totalTime = getTimeForLevel(useGameStore.getState().levelIndex, levelData.words.length);
+      if (timeLeft <= totalTime / 2 && useGameStore.getState().soundEnabled) {
+        playTick(timeLeft);
+      }
+    }
+  }, [timeLeft, screen, levelData]);
 
   useEffect(() => {
     if (screen === 'loading') {
@@ -163,8 +229,9 @@ function App() {
   }, [screen]);
 
   const loadLevel = useCallback((idx) => {
-    const data = generateLevel(idx);
+    const data = generateLevel(idx, language);
     setLevelData(data);
+    levelDataRef.current = data; // Timer callback için güncel referans
     setFoundWords([]);
     setHintedLetters([]);
     setMistakeCount(0);
@@ -176,10 +243,11 @@ function App() {
       setGoldLetter(null);
     }
 
-    // Zorluğa göre süre: Tek kelime=35sn, Çok kelime=30sn
-    const timeToGive = data.words.length <= 1 ? 35 : 30;
+    // Seviye bazlı süre (yüksek seviye = daha az süre)
+    const timeToGive = getTimeForLevel(idx, data.words.length);
+    setShowBonus(false);
     startTimer(timeToGive);
-  }, [startTimer]);
+  }, [startTimer, language]);
 
   useEffect(() => { if (screen === 'game') loadLevel(levelIndex); }, [levelIndex, screen, loadLevel]);
 
@@ -197,91 +265,186 @@ function App() {
     }
   }, [infoCard]);
 
+  // InfoCard Swipe States
+  const [touchStartX, setTouchStartX] = useState(null);
+  const [swipeOffsetX, setSwipeOffsetX] = useState(0);
+
+  const handleInfoCardTouchStart = (e) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+  const handleInfoCardTouchMove = (e) => {
+    if (touchStartX === null) return;
+    const currentX = e.touches[0].clientX;
+    setSwipeOffsetX(currentX - touchStartX);
+  };
+  const handleInfoCardTouchEnd = () => {
+    if (Math.abs(swipeOffsetX) > 100) {
+      setInfoCard(null); // Kapat
+    }
+    setTouchStartX(null);
+    setSwipeOffsetX(0);
+  };
+
   const showFeedback = (type, text) => setFeedback({ type, text, id: Date.now() });
 
   const formatBalance = (val) => `₺ ${(val / 100).toFixed(2)}`;
 
-  const handleWordSubmit = (word) => {
-    if (screen !== 'game') return;
+  const handleWordSubmit = async (word) => {
+    if (screen !== 'game') return false;
     const isGridWord = levelData.words.some(w => w.word === word);
-    if (foundWords.includes(word)) { showFeedback('exists', 'ZATEN BULUNDU'); return; }
+    if (foundWords.includes(word) || useGameStore.getState().vaultWords.includes(word)) { 
+      showFeedback('exists', t('already_found')); 
+      return false; 
+    }
     
     if (isGridWord) {
       const newFound = [...foundWords, word];
       setFoundWords(newFound);
+      incrementTotalWords();
+      
+      // Kelimeyi hemen sözlüğe ekle
+      setLearnedWords(prev => Array.from(new Set([...prev, word])));
       
       // Combo ve Hız bonusu
       const answerTime = (Date.now() - levelStartTime) / 1000;
-      let baseScore = 150; // 1.50 TL 
-      if (answerTime < 3) baseScore += 50; // Hızlı cevap bonusu
+      let baseScore = 150;
+      if (answerTime < 3) baseScore += 50;
 
       const multiplier = combo >= 4 ? 2.0 : (combo >= 2 ? 1.5 : 1);
       const scoreReward = Math.floor(baseScore * multiplier);
 
-      if (answerTime < 3) unlockBadge('speed_demon'); // Hızlı kelime
+      if (answerTime < 3) unlockBadge('speed_demon');
       incrementCombo();
       addBalance(scoreReward);
+      if (soundEnabled) playCorrect();
+      if (soundEnabled && combo >= 2) playCombo();
 
-      if (WORD_MEANINGS[word]) {
-        const newFound = [...foundWords, word];
-        setFoundWords(newFound);
-        
-        // Altın harf kontrolü
-        if (goldLetter && word.includes(goldLetter)) {
-          addBalance(25); // 0.25 TL bonus
-          setGoldLetter(null);
-          setTimeout(() => showFeedback('exists', 'ALTIN HARF! +₺0.25'), 400);
-        }
-
-        setInfoCard({ word, meaning: WORD_MEANINGS[word], id: Date.now() });
-        Haptics.notification({ type: NotificationType.Success }).catch(()=>{});
-      } else {
-        const newFound = [...foundWords, word];
-        setFoundWords(newFound);
-        // Turnike geçişi animasyon hissi (yeşil doğru)
-        showFeedback('correct', 'DOĞRU!');
-        Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
+      // Altın harf kontrolü
+      if (goldLetter && word.includes(goldLetter)) {
+        addBalance(25);
+        setGoldLetter(null);
+        setTimeout(() => showFeedback('exists', t('gold_letter')), 400);
+        if (soundEnabled) playBalanceUp();
       }
 
-      // Süreyi yenile
-      const timeToGive = levelData.words.length <= 1 ? 35 : 30;
+      if (WORD_MEANINGS[word]) {
+        setInfoCard({ word, meaning: WORD_MEANINGS[word], id: Date.now() });
+        if (hapticEnabled) Haptics.notification({ type: NotificationType.Success }).catch(()=>{});
+      } else {
+        showFeedback('correct', t('correct'));
+        if (hapticEnabled) Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
+      }
+
+      // Süreyi yenile (seviye bazlı)
+      const timeToGive = getTimeForLevel(levelIndex, levelData.words.length);
       startTimer(timeToGive);
 
+      // Seviye tamamlandı mı?
       if (newFound.length === levelData.words.length) {
-        incrementTotalWords();
         stopTimer();
+        if (soundEnabled) playLevelComplete();
         if (mistakeCount === 0) { 
-          setTimeout(() => showFeedback('correct', 'KUSURSUZ! +₺0.50'), 800); 
+          setTimeout(() => showFeedback('correct', t('perfect')), 800); 
           addBalance(50); 
           unlockBadge('flawless'); 
         }
-        setTimeout(() => { setLearnedWords(prev => Array.from(new Set([...prev, ...newFound]))); setScreen('levelComplete'); }, 3000);
+        const currentLevelsCompleted = (useGameStore.getState().levelsCompleted || 0) + 1;
+        useGameStore.getState().incrementLevelsCompleted();
+
+        setTimeout(() => { 
+          // Ya OYUNUN SEVİYESİ 10'un katı ise, ya da KULLANICININ BİTİRDİĞİ seviye 10'un katı ise
+          const isLevelMultipleOf10 = (levelIndex + 1) % 10 === 0;
+          const isCompletedMultipleOf10 = currentLevelsCompleted % 10 === 0;
+          
+          if (isLevelMultipleOf10 || isCompletedMultipleOf10) {
+            setShowBonus(true);
+          } else {
+            setScreen('levelComplete'); 
+          }
+        }, 3000);
       }
+      return true;
     } else {
       if (VALID_WORDS.has(word)) { 
         incrementCombo();
+        incrementTotalWords();
+        setLearnedWords(prev => Array.from(new Set([...prev, word])));
+        
+        const currentVaultCount = useGameStore.getState().vaultWords.length;
+        useGameStore.getState().addVaultWord(word);
+        const newVaultCount = useGameStore.getState().vaultWords.length;
+        
+        if (currentVaultCount === 9 && newVaultCount === 0) {
+          showFeedback('correct', 'KASA KIRILDI! +100₺');
+          if (soundEnabled) setTimeout(() => playBalanceUp(), 500);
+        } else if (newVaultCount > currentVaultCount) {
+          showFeedback('exists', `KASAYA EKLENDİ (${newVaultCount}/10)`);
+        } else {
+          showFeedback('exists', t('extra_word'));
+        }
+        
         if (WORD_MEANINGS[word]) {
           setInfoCard({ word, meaning: WORD_MEANINGS[word], id: Date.now() });
-        } else {
-          showFeedback('exists', 'EKSTRA! +₺0.20'); 
         }
-        addBalance(20); 
-        Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
+        
+        addBalance(5); // Kasa için küçük anında ödül
+        if (soundEnabled) playCorrect();
+        if (hapticEnabled) Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
+        return true;
       }
       else { 
+        // TDK SÖZLÜK KONTROLÜ
+        try {
+          const res = await fetch(`https://sozluk.gov.tr/gts?ara=${word.toLocaleLowerCase('tr-TR')}`);
+          const data = await res.json();
+          if (data && !data.error && data.length > 0) {
+            // TDK'da kelime var!
+            incrementCombo();
+            incrementTotalWords();
+            setLearnedWords(prev => Array.from(new Set([...prev, word])));
+            
+            const currentVaultCount = useGameStore.getState().vaultWords.length;
+            useGameStore.getState().addVaultWord(word);
+            const newVaultCount = useGameStore.getState().vaultWords.length;
+            
+            if (currentVaultCount === 9 && newVaultCount === 0) {
+              showFeedback('correct', 'KASA KIRILDI! +100₺');
+              if (soundEnabled) setTimeout(() => playBalanceUp(), 500);
+            } else if (newVaultCount > currentVaultCount) {
+              showFeedback('exists', `KASAYA EKLENDİ (${newVaultCount}/10)`);
+            }
+            
+            const meaning = data[0]?.anlamlarListe?.[0]?.anlam || "TDK onaylı kelime.";
+            setInfoCard({ word, meaning, id: Date.now() });
+            
+            addBalance(5); // Kasa ödülü
+            if (soundEnabled) playCorrect();
+            if (hapticEnabled) Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
+            return true;
+          }
+        } catch (err) {
+          console.error("TDK Check Failed", err);
+          // Ağ hatası durumunda da kelimeyi reddet (sessizce geçme)
+        }
+
+        // TDK'da da yoksa veya ağ hatası varsa hata ver
         setMistakeCount(c => c + 1); 
-        deductLife(); // Yanlış kelime can götürür
+        deductLife();
+        triggerLifeLossAnim();
         resetCombo();
         setShake(true);
         setTimeout(() => setShake(false), 400);
-        showFeedback('wrong', 'GEÇERSİZ'); 
-        Haptics.notification({ type: NotificationType.Error }).catch(()=>{});
+        showFeedback('wrong', t('wrong')); 
+        if (soundEnabled) playWrong();
+        setWrongWordTrigger(Date.now());
+        if (hapticEnabled) Haptics.notification({ type: NotificationType.Error }).catch(()=>{});
+        return false;
       }
     }
   };
 
   const handleLetterHint = () => {
-    if (balance >= 25) { // 0.25 TL
+    if (hints > 0 || balance >= 25) {
       const missingWords = levelData.words.filter(w => !foundWords.includes(w.word));
       if (missingWords.length > 0) {
         const candidates = [];
@@ -297,37 +460,51 @@ function App() {
         });
 
         if (candidates.length > 0) {
-          addBalance(-25);
+          if (hints > 0) {
+            addHints(-1);
+          } else {
+            addBalance(-25);
+          }
           const pick = candidates[Math.floor(Math.random() * candidates.length)];
           setHintedLetters(prev => [...prev, pick]);
-          Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
+          if (soundEnabled) playTurnike();
+          if (hapticEnabled) Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
         }
       }
     } else {
-      showFeedback('wrong', 'BAKİYE YETERSİZ');
-      Haptics.notification({ type: NotificationType.Warning }).catch(()=>{});
+      showFeedback('wrong', t('balance_low'));
+      if (hapticEnabled) Haptics.notification({ type: NotificationType.Warning }).catch(()=>{});
     }
   };
 
   const handleHint = () => {
-    if (balance >= 75) { // 0.75 TL
+    if (hints > 0 || balance >= 75) {
       const missing = levelData.words.filter(w => !foundWords.includes(w.word));
       if (missing.length > 0) {
-        addBalance(-75);
+        if (hints > 0) {
+          addHints(-1);
+        } else {
+          addBalance(-75);
+        }
         const pick = missing[Math.floor(Math.random() * missing.length)];
         const newFound = [...foundWords, pick.word];
         setFoundWords(newFound);
+        incrementTotalWords();
+        // Hint ile açılan kelimeyi hemen sözlüğe ekle
+        setLearnedWords(prev => Array.from(new Set([...prev, pick.word])));
         const meaning = WORD_MEANINGS[pick.word] ? `${pick.word}: ${WORD_MEANINGS[pick.word]}` : pick.word;
         showFeedback('exists', meaning);
-        Haptics.impact({ style: ImpactStyle.Medium }).catch(()=>{});
+        if (soundEnabled) playTurnike();
+        if (hapticEnabled) Haptics.impact({ style: ImpactStyle.Medium }).catch(()=>{});
         if (newFound.length === levelData.words.length) {
           stopTimer();
-          setTimeout(() => { setLearnedWords(prev => Array.from(new Set([...prev, ...newFound]))); setScreen('levelComplete'); }, 1500);
+          if (soundEnabled) playLevelComplete();
+          setTimeout(() => { setScreen('levelComplete'); }, 1500);
         }
       }
     } else { 
-      showFeedback('wrong', 'BAKİYE YETERSİZ'); 
-      Haptics.notification({ type: NotificationType.Warning }).catch(()=>{});
+      showFeedback('wrong', t('balance_low')); 
+      if (hapticEnabled) Haptics.notification({ type: NotificationType.Warning }).catch(()=>{});
     }
   };
 
@@ -350,9 +527,9 @@ function App() {
         </div>
 
         <h2 className="text-white text-2xl font-black tracking-[6px] mb-1" style={{ fontFamily: "'Orbitron', monospace" }}>
-          SÖZCÜK SEFERİ
+          {t('word_journey')}
         </h2>
-        <p className="text-white/30 text-[11px] tracking-[4px] mb-6 font-bold">TURNİKE</p>
+        <p className="text-white/30 text-[11px] tracking-[4px] mb-6 font-bold">TURNIKE</p>
 
         <div className="relative w-56">
           <div className="w-full h-2 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.1)' }}>
@@ -370,8 +547,8 @@ function App() {
     return (
       <div className="game-bg min-h-screen flex flex-col items-center justify-center relative z-10 fade-in px-6 text-center">
         <span className="material-symbols-outlined text-red-500 text-6xl mb-4" style={{ fontVariationSettings: "'FILL' 1" }}>directions_run</span>
-        <h1 className="text-white text-3xl font-black mb-2">Treni Kaçırdın!</h1>
-        <p className="text-white/60 mb-8">Devam etmek için aşağıdaki seçeneklerden birini kullanabilirsin.</p>
+        <h1 className="text-white text-3xl font-black mb-2">{t('game_over')}</h1>
+        <p className="text-white/60 mb-8">{t('game_over_desc')}</p>
         
         <div className="flex flex-col gap-3 w-full max-w-sm mb-6">
           <button
@@ -388,7 +565,7 @@ function App() {
             className={`w-full py-3.5 rounded-xl font-bold text-white text-sm tracking-wide bg-blue-600 hover:bg-blue-500 transition-colors flex items-center justify-center gap-2 ${isAdLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
             <span className="material-symbols-outlined text-[20px]">{isAdLoading ? 'hourglass_empty' : 'play_circle'}</span>
-            {isAdLoading ? 'Reklam İzleniyor...' : 'Reklam İzle (1 Can Al)'}
+            {isAdLoading ? t('watching_ad') : t('watch_ad')}
           </button>
           
           <button
@@ -404,7 +581,7 @@ function App() {
             className={`w-full py-3.5 rounded-xl font-bold text-white text-sm tracking-wide bg-green-600 hover:bg-green-500 transition-colors flex items-center justify-center gap-2 ${balance < 25 ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
             <span className="material-symbols-outlined text-[20px]">favorite</span>
-            25₺ Öde (1 Can Al)
+            {t('buy_life')}
           </button>
 
           <button
@@ -418,15 +595,20 @@ function App() {
             className={`w-full py-3.5 rounded-xl font-bold text-white text-sm tracking-wide bg-yellow-600 hover:bg-yellow-500 transition-colors flex items-center justify-center gap-2 ${balance < 50 ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
             <span className="material-symbols-outlined text-[20px]">fast_forward</span>
-            50₺ Öde (Seviyeyi Geç)
+            {t('skip_level')}
           </button>
         </div>
 
         <button
-          onClick={() => { resetGame(); setScreen('home'); }}
+          onClick={() => {
+            if (window.confirm(t('confirm_reset'))) {
+              useGameStore.setState({ lives: 5, gameStatus: 'idle', combo: 0 });
+              setScreen('home');
+            }
+          }}
           className="text-white/50 hover:text-white transition-colors text-sm font-bold underline"
         >
-          ANA MENÜYE DÖN
+          {t('main_menu')}
         </button>
       </div>
     );
@@ -454,7 +636,7 @@ function App() {
       <div className="game-bg min-h-screen flex flex-col relative z-10 fade-in">
         {showTutorial && <TutorialModal onClose={() => { localStorage.setItem('turnike_tutorial_seen', 'true'); setShowTutorial(false); }} />}
         {showDailySpin && !showTutorial && <DailySpinScreen onComplete={() => setShowDailySpin(false)} />}
-        <div className="w-full flex justify-between items-center px-4 pt-10 pb-4">
+        <div className="w-full flex justify-between items-center px-4 pt-10 pb-4 relative z-50">
           <button className={`capsule active:scale-95 transition-transform cursor-pointer ${flashBalance ? 'balance-flash' : ''}`} onClick={() => setScreen('akbil')}>
             <span className="material-symbols-outlined text-[16px]" style={{ color: '#fbbf24', fontVariationSettings: "'FILL' 1" }}>toll</span>
             <AnimatedBalance value={balance} />
@@ -475,8 +657,11 @@ function App() {
             <span className="material-symbols-outlined text-[64px] text-green-500" style={{ fontVariationSettings: "'FILL' 1" }}>train</span>
           </div>
 
-          <h1 className="text-white text-3xl font-black mb-1 tracking-tight">Hoş Geldin!</h1>
-          <p className="text-white/35 text-sm mb-3 font-medium">İstanbul'u dolaşarak kelime bul</p>
+          <div className="flex items-center justify-center gap-2 mb-1">
+            <h1 className="text-white text-3xl font-black tracking-tight">{t('welcome')}</h1>
+            <span className="bg-green-500/20 text-green-400 border border-green-500/30 px-2 py-0.5 rounded text-[10px] font-black tracking-widest mt-1">v1.1</span>
+          </div>
+          <p className="text-white/35 text-sm mb-3 font-medium">{t('subtitle')}</p>
 
           <div className="text-center mb-2">
             <div className="inline-block px-5 py-1.5 rounded-sm mb-3 neon-blink"
@@ -487,7 +672,7 @@ function App() {
               }}
             >
               <p className="text-[11px] font-black tracking-[5px] uppercase" style={{ fontFamily: "'Orbitron', monospace", color: '#4ade80', textShadow: '0 0 8px rgba(74,222,128,0.8)' }}>
-                SÖZCÜK SEFERİ
+                {t('word_journey')}
               </p>
             </div>
           </div>
@@ -495,7 +680,7 @@ function App() {
           {streak > 0 && (
             <div className="flex items-center gap-1.5 px-4 py-1.5 bg-orange-500/10 border border-orange-500/30 rounded-full mb-8">
               <span className="text-orange-500 text-sm">🔥</span>
-              <span className="text-orange-400 font-bold text-xs tracking-wider">{streak} GÜN SERİSİ</span>
+              <span className="text-orange-400 font-bold text-xs tracking-wider">{streak} {t('day_streak')}</span>
             </div>
           )}
 
@@ -504,7 +689,7 @@ function App() {
             className="play-btn mb-5 flex items-center gap-3"
           >
             <span className="material-symbols-outlined text-[22px]" style={{ fontVariationSettings: "'FILL' 1" }}>play_circle</span>
-            OYNA
+            {t('play')}
           </button>
 
           <div className="grid grid-cols-2 gap-3 w-full max-w-[280px]">
@@ -513,22 +698,46 @@ function App() {
               className="py-3 rounded-2xl font-bold text-white/80 text-[13px] tracking-widest uppercase transition-all active:scale-95 menu-btn flex items-center justify-center gap-2"
             >
               <span className="material-symbols-outlined text-[18px]">map</span>
-              Harita
+              {t('map')}
             </button>
             <button
-              onClick={() => setScreen('dictionary')}
+              onClick={() => {
+                if (maxUnlockedLevel >= 2) setScreen('dictionary');
+                else showFeedback('wrong', '3. Seviyede Açılır!');
+              }}
+              className={`py-3 rounded-2xl font-bold text-white/80 text-[13px] tracking-widest uppercase transition-all active:scale-95 menu-btn flex items-center justify-center gap-2 ${maxUnlockedLevel < 2 ? 'opacity-50' : ''}`}
+            >
+              <span className="material-symbols-outlined text-[18px]">
+                {maxUnlockedLevel < 2 ? 'lock' : 'menu_book'}
+              </span>
+              {t('dictionary')}
+            </button>
+            <button
+              onClick={() => setScreen('vault')}
               className="py-3 rounded-2xl font-bold text-white/80 text-[13px] tracking-widest uppercase transition-all active:scale-95 menu-btn flex items-center justify-center gap-2"
             >
-              <span className="material-symbols-outlined text-[18px]">menu_book</span>
-              Sözlük
+              <span className="material-symbols-outlined text-[18px] text-green-400">account_balance_wallet</span>
+              {t('vault')}
+            </button>
+            <button
+              onClick={() => setScreen('leaderboard')}
+              className="py-3 rounded-2xl font-bold text-white/80 text-[13px] tracking-widest uppercase transition-all active:scale-95 menu-btn flex items-center justify-center gap-2"
+            >
+              <span className="material-symbols-outlined text-[18px] text-yellow-400">trophy</span>
+              {t('leaderboard')}
             </button>
           </div>
           <button
-            onClick={() => setScreen('badges')}
-            className="mt-3 w-full max-w-[280px] py-3 rounded-2xl font-bold text-white/80 text-[13px] tracking-widest uppercase transition-all active:scale-95 menu-btn flex items-center justify-center gap-2"
+            onClick={() => {
+              if (maxUnlockedLevel >= 4) setScreen('badges');
+              else showFeedback('wrong', '5. Seviyede Açılır!');
+            }}
+            className={`mt-3 w-full max-w-[280px] py-3 rounded-2xl font-bold text-white/80 text-[13px] tracking-widest uppercase transition-all active:scale-95 menu-btn flex items-center justify-center gap-2 ${maxUnlockedLevel < 4 ? 'opacity-50' : ''}`}
           >
-            <span className="material-symbols-outlined text-[18px]" style={{ color: '#fbbf24', fontVariationSettings: "'FILL' 1" }}>emoji_events</span>
-            Rozetlerim
+            <span className="material-symbols-outlined text-[18px]" style={{ color: maxUnlockedLevel >= 4 ? '#fbbf24' : 'inherit', fontVariationSettings: maxUnlockedLevel >= 4 ? "'FILL' 1" : undefined }}>
+              {maxUnlockedLevel < 4 ? 'lock' : 'emoji_events'}
+            </span>
+            {t('badges')}
           </button>
         </div>
       </div>
@@ -543,6 +752,25 @@ function App() {
       </div>
     );
   }
+
+  /* ========== VAULT SCREEN ========== */
+  if (screen === 'vault') {
+    return (
+      <div className="game-bg h-screen flex flex-col relative z-10 fade-in overflow-hidden">
+        <VaultScreen onBack={() => setScreen('home')} />
+      </div>
+    );
+  }
+
+  /* ========== LEADERBOARD SCREEN ========== */
+  if (screen === 'leaderboard') {
+    return (
+      <div className="game-bg h-screen flex flex-col relative z-10 fade-in overflow-hidden">
+        <LeaderboardScreen onBack={() => setScreen('home')} />
+      </div>
+    );
+  }
+  /* Duplicate akbil block removed — already handled at line 718 */
 
   /* ========== SETTINGS SCREEN ========== */
   if (screen === 'settings') {
@@ -570,7 +798,7 @@ function App() {
           <button onClick={() => setScreen('home')} className="capsule">
             <span className="material-symbols-outlined text-[16px]">arrow_back</span>
           </button>
-          <div className="metro-board">İSTANBUL HATTI</div>
+          <div className="metro-board">{t('istanbul_line')}</div>
           <div className="w-10" />
         </header>
         <MapScreen currentLevel={maxUnlockedLevel + 1} onLevelSelect={(lvl) => { useGameStore.setState({ levelIndex: lvl - 1, lives: 3 }); setScreen('game'); }} />
@@ -586,7 +814,7 @@ function App() {
           <button onClick={() => setScreen('home')} className="capsule">
             <span className="material-symbols-outlined text-[16px]">arrow_back</span>
           </button>
-          <div className="metro-board">TERİM SÖZLÜĞÜ</div>
+          <div className="metro-board">{t('dictionary')}</div>
           <div className="w-10" />
         </header>
         <DictionaryScreen learnedWords={learnedWords} />
@@ -596,6 +824,11 @@ function App() {
 
   /* ========== LEVEL COMPLETE ========== */
   if (screen === 'levelComplete') {
+    if (!levelData) {
+      // Test butonundan gelinmişse levelData null olabilir, ana menüye dön
+      setTimeout(() => setScreen('home'), 0);
+      return null;
+    }
     const accuracy = Math.round((levelData.words.length / (levelData.words.length + mistakeCount)) * 100);
     const timeSpent = Math.round((Date.now() - levelStartTime) / 1000);
     return (
@@ -608,6 +841,7 @@ function App() {
           accuracy={accuracy}
           onNextLevel={advanceLevel}
           onRetry={() => { loadLevel(levelIndex); setScreen('game'); }}
+          onHome={() => setScreen('home')}
         />
       </div>
     );
@@ -628,6 +862,22 @@ function App() {
 
     return (
       <div className="game-bg h-screen w-screen overflow-hidden flex flex-col relative z-10 fade-in">
+        {showBonus && (
+          <div className="absolute inset-0 z-[100] flex flex-col fade-in" style={{ backgroundColor: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(8px)' }}>
+            <BonusLockers onComplete={() => { setShowBonus(false); setScreen('levelComplete'); }} />
+          </div>
+        )}
+        <style>{`
+          @keyframes lifeLossAnim {
+            0% { transform: translateY(0) scale(0.5); opacity: 0; }
+            20% { transform: translateY(-20px) scale(1.2); opacity: 1; }
+            80% { transform: translateY(-100px) scale(1); opacity: 1; }
+            100% { transform: translateY(-130px) scale(0.8); opacity: 0; }
+          }
+          .life-loss-float {
+            animation: lifeLossAnim 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+          }
+        `}</style>
         {/* Top Bar */}
       <header className="w-full z-50 flex justify-between items-center px-4 pt-8 pb-2 shrink-0">
         <button onClick={() => { stopTimer(); setScreen('home'); }} className="capsule">
@@ -651,7 +901,7 @@ function App() {
           </div>
           {combo > 1 && (
             <span className="text-orange-400 font-bold text-[9px] uppercase tracking-widest mt-0.5 animate-pulse">
-              {combo >= 4 ? '2.0x KOMBO' : '1.5x KOMBO'}
+              {combo >= 4 ? t('combo_20') : t('combo_15')}
             </span>
           )}
         </div>
@@ -672,19 +922,27 @@ function App() {
         <div 
           className="h-full transition-all duration-1000 ease-linear"
           style={{ 
-            width: `${(timeLeft / (levelData.words.length <= 1 ? 35 : 30)) * 100}%`,
-            background: timeLeft > 5 ? '#22c55e' : '#ef4444' 
+            width: `${(timeLeft / getTimeForLevel(levelIndex, levelData.words.length)) * 100}%`,
+            background: `hsl(${(timeLeft / getTimeForLevel(levelIndex, levelData.words.length)) * 120}, 84%, 55%)` 
           }}
         />
       </div>
+
+      {lifeLossAnims.map(animId => (
+        <div key={animId} className="absolute inset-0 flex items-center justify-center pointer-events-none z-[100] life-loss-float">
+          <div className="flex items-center gap-2 text-red-500 font-black text-5xl" style={{ textShadow: '0 0 20px rgba(239,68,68,1)' }}>
+            -1 <span className="material-symbols-outlined text-[48px]" style={{ fontVariationSettings: "'FILL' 1" }}>favorite</span>
+          </div>
+        </div>
+      ))}
       
       {/* İpucu butonları (sağda sabit) */}
       <div className="absolute right-4 z-40 flex flex-col gap-3" style={{ top: '50%', transform: 'translateY(-50%)' }}>
         <button
           onClick={handleHint}
-          className="flex items-center justify-center rounded-full active:scale-90 transition-transform"
+          className="flex flex-col items-center justify-center rounded-full active:scale-90 transition-transform relative"
           style={{
-            width: 44, height: 44,
+            width: 48, height: 48,
             background: 'rgba(251,191,36,0.12)',
             border: '1.5px solid rgba(251,191,36,0.35)',
             backdropFilter: 'blur(10px)',
@@ -692,13 +950,14 @@ function App() {
           }}
         >
           <span className="material-symbols-outlined text-yellow-400 text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>lightbulb</span>
+          <span className="text-yellow-400/70 text-[7px] font-bold mt-0.5">{hints > 0 ? `${hints}✦` : '75₺'}</span>
         </button>
 
         <button
           onClick={handleLetterHint}
-          className="flex items-center justify-center rounded-full active:scale-90 transition-transform"
+          className="flex flex-col items-center justify-center rounded-full active:scale-90 transition-transform relative"
           style={{
-            width: 40, height: 40,
+            width: 44, height: 44,
             background: 'rgba(59,130,246,0.12)',
             border: '1.5px solid rgba(59,130,246,0.35)',
             backdropFilter: 'blur(10px)',
@@ -706,6 +965,7 @@ function App() {
           }}
         >
           <span className="material-symbols-outlined text-blue-400 text-[18px]" style={{ fontVariationSettings: "'FILL' 1" }}>spellcheck</span>
+          <span className="text-blue-400/70 text-[7px] font-bold mt-0.5">{hints > 0 ? `${hints}✦` : '25₺'}</span>
         </button>
       </div>
 
@@ -717,12 +977,7 @@ function App() {
 
         {/* Wheel Area */}
         <div className="absolute bottom-[85px] left-0 w-full h-[310px] flex flex-col justify-center">
-          <Wheel 
-            letters={levelData.wheelLetters} 
-            onWordSubmit={handleWordSubmit} 
-            onShuffle={handleShuffle}
-            bonusLetter={goldLetter}
-          />
+          <Wheel letters={levelData.wheelLetters} onWordSubmit={handleWordSubmit} onShuffle={handleShuffle} bonusLetter={goldLetter} wrongWordTrigger={wrongWordTrigger} />
         </div>
       </main>
 
@@ -757,12 +1012,18 @@ function App() {
       {/* Teknik Bilgi Kartı Overlay */}
       {infoCard && (
         <div key={infoCard.id} className="absolute inset-0 z-50 pointer-events-none flex items-center justify-center fade-in px-6">
-          <div className="relative overflow-hidden rounded-2xl w-full max-w-md p-6 pointer-events-auto"
+          <div 
+            className="relative overflow-hidden rounded-2xl w-full max-w-md p-6 pointer-events-auto transition-transform"
+            onTouchStart={handleInfoCardTouchStart}
+            onTouchMove={handleInfoCardTouchMove}
+            onTouchEnd={handleInfoCardTouchEnd}
             style={{
               background: 'rgba(13, 31, 13, 0.95)',
               border: '1px solid rgba(34,197,94,0.4)',
               boxShadow: '0 20px 40px rgba(0,0,0,0.8), 0 0 20px rgba(34,197,94,0.2)',
-              backdropFilter: 'blur(16px)'
+              backdropFilter: 'blur(16px)',
+              transform: `translateX(${swipeOffsetX}px)`,
+              opacity: 1 - Math.abs(swipeOffsetX) / 300
             }}
           >
             <div className="absolute top-0 left-0 w-full h-1 bg-green-500/30">

@@ -1,13 +1,21 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
 
-const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter }) => {
+const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger }) => {
   const containerRef = useRef(null);
   const [selectedIndices, setSelectedIndices] = useState([]);
   const [isSwiping, setIsSwiping] = useState(false);
   const [currentMousePos, setCurrentMousePos] = useState(null);
   const [nodePositions, setNodePositions] = useState([]);
   const [isShuffling, setIsShuffling] = useState(false);
+  const [isWrongAnim, setIsWrongAnim] = useState(false);
+
+  useEffect(() => {
+    if (wrongWordTrigger > 0) {
+      setIsWrongAnim(true);
+      setTimeout(() => setIsWrongAnim(false), 400);
+    }
+  }, [wrongWordTrigger]);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -65,13 +73,20 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter }) => {
     checkNodeHit(pos);
   }, [isSwiping, nodePositions, selectedIndices]);
 
-  const handleEnd = useCallback(() => {
+  const handleEnd = useCallback(async () => {
     if (isSwiping) {
       if (selectedIndices.length > 1) {
-        onWordSubmit(selectedIndices.map(i => letters[i]).join(''));
+        const word = selectedIndices.map(i => letters[i]).join('');
+        const isCorrect = await onWordSubmit(word);
+        if (isCorrect) {
+          setSelectedIndices([]);
+        } else {
+          setTimeout(() => setSelectedIndices([]), 400);
+        }
+      } else {
+        setSelectedIndices([]);
       }
       setIsSwiping(false);
-      setSelectedIndices([]);
       setCurrentMousePos(null);
     }
   }, [isSwiping, selectedIndices, letters, onWordSubmit]);
@@ -86,7 +101,7 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter }) => {
   }, [handleEnd]);
 
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    const handleKeyDown = async (e) => {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
       if (e.key === 'Backspace') {
@@ -97,9 +112,16 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter }) => {
 
       if (e.key === 'Enter') {
         if (selectedIndices.length > 1) {
-          onWordSubmit(selectedIndices.map(i => letters[i]).join(''));
+          const word = selectedIndices.map(i => letters[i]).join('');
+          const isCorrect = await onWordSubmit(word);
+          if (isCorrect) {
+            setSelectedIndices([]);
+          } else {
+            setTimeout(() => setSelectedIndices([]), 400);
+          }
+        } else {
+          setSelectedIndices([]);
         }
-        setSelectedIndices([]);
         Haptics.impact({ style: ImpactStyle.Medium }).catch(()=>{});
         return;
       }
@@ -193,13 +215,13 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter }) => {
         <polyline
           points={polylinePoints}
           fill="none"
-          stroke="#fbbf24"
+          stroke={isWrongAnim ? '#ef4444' : '#fbbf24'}
           strokeWidth="7"
           strokeLinecap="round"
           strokeLinejoin="round"
-          style={{ filter: 'drop-shadow(0 3px 8px rgba(251,191,36,0.4))' }}
+          style={{ filter: `drop-shadow(0 3px 8px ${isWrongAnim ? 'rgba(239,68,68,0.4)' : 'rgba(251,191,36,0.4)'})`, transition: 'stroke 0.2s' }}
         />
-        {lineToCursor && (
+        {lineToCursor && !isWrongAnim && (
           <polyline
             points={lineToCursor}
             fill="none"
@@ -232,9 +254,9 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter }) => {
               transition: 'all 0.35s cubic-bezier(0.34,1.56,0.64,1)',
               transform: isShuffling ? 'scale(0) rotate(180deg)' : 'scale(1) rotate(0deg)',
               opacity: isShuffling ? 0 : 1,
-              border: isBonus && !isSelected ? '4px solid #fbbf24' : undefined,
-              boxShadow: isBonus && !isSelected ? '0 0 24px rgba(251,191,36,0.8), inset 0 0 10px rgba(251,191,36,0.4)' : undefined,
-              color: isBonus && !isSelected ? '#d97706' : undefined
+              border: isBonus && !isSelected ? '4px solid #fbbf24' : (isSelected && isWrongAnim ? '4px solid #ef4444' : undefined),
+              boxShadow: isBonus && !isSelected ? '0 0 24px rgba(251,191,36,0.8), inset 0 0 10px rgba(251,191,36,0.4)' : (isSelected && isWrongAnim ? '0 0 20px rgba(239,68,68,0.6)' : undefined),
+              color: isBonus && !isSelected ? '#d97706' : (isSelected && isWrongAnim ? '#ef4444' : undefined)
             }}
           >
             {letters[i]}
