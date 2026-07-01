@@ -62,6 +62,34 @@ const PUZZLE_SETS_TR = [
   { root: "TERSANE", subs: ["TERS", "SER", "NET", "SET"] },
   { root: "RÜZGÂR", subs: ["GÜR", "ZAR", "RUZ", "GÂR"] },
   { root: "BİLETLİK", subs: ["BİLET", "İLK", "TEK", "BİT", "KEL"] }
+,
+  // YENİ EKLENEN İÇERİKLER
+  { root: "KABİN", subs: ["KAN","BİN","BAK"] },
+  { root: "HATTAT", subs: ["HAT","TAHT","TAT"] },
+  { root: "GARAJ", subs: ["GAR","ARA","RAJ"] },
+  { root: "KÖPRÜ", subs: ["KÖR","PÜR","ÖPÜK"] },
+  { root: "MERKEZ", subs: ["KEM","KEZ","ERK"] },
+  { root: "METRO", subs: ["ROM","MOR","TER"] },
+  { root: "TÜNEL", subs: ["TEL","TÜL"] },
+  { root: "AKBİL", subs: ["BAL","İLK","BAK"] },
+  { root: "MİNİBÜS", subs: ["BİN","İSİM","SİN","MİNİ"] },
+  { root: "OTOGAR", subs: ["GAR","ROT","ORG"] },
+  { root: "TERMİNAL", subs: ["TER","MİL","NİL","ALEM","MİNE","İLAN"] },
+  { root: "VİYADÜK", subs: ["VİDA","YAD","KÜV","DÜK"] },
+  { root: "TAKSİ", subs: ["KAST","ASİ","AİT","TİK","KAS"] },
+  { root: "İSTİKLAL", subs: ["İLK","ASİL","LAL","ALİ","KAST","İTİ","SİL","KAT"] },
+  { root: "GALATA", subs: ["ATA","ALT","TAL","ALA"] },
+  { root: "KIZKULESİ", subs: ["KIZ","KUL","SES","ZİL","SİL","KİL","İLK"] },
+  { root: "BOĞAZİÇİ", subs: ["BOĞ","İÇİ","BAĞ","AĞA","BİZ"] },
+  { root: "BEYOĞLU", subs: ["BEY","OĞUL","YOL","BOL"] },
+  { root: "AYASOFYA", subs: ["SOY","FAY","AYI","YAS","SAF"] },
+  { root: "KAPALIÇARŞI", subs: ["ÇARŞI","KAPI","AÇI","AŞI","ALI","AÇIK","ŞARK"] },
+  { root: "HALİÇ", subs: ["HAL","ALİ","İLÇ","AHİ"] },
+  { root: "PİERRELOTİ", subs: ["LİR","TİP","POT","PİL","ROT","TOR","İLİ"] },
+  { root: "MÜZE", subs: ["ÜZÜM","MEZ","ÜZE"] },
+  { root: "SARAY", subs: ["YAR","AYAR","SAY","YAS","ARA"] },
+  { root: "ÇARŞI", subs: ["AÇI","AŞI","AÇIK","AŞÇI","ÇIĞ","ŞARK"] },
+  { root: "KULE", subs: ["KUL","KEL","ULU"] }
 ];
 
 const PUZZLE_SETS_EN = [
@@ -251,7 +279,35 @@ export const WORD_MEANINGS_TR = {
   "KABATAŞ": "İstanbul ulaşım ağında önemli bir durak/bölge.",
   "FINDIKLI": "İstanbul ulaşım ağında önemli bir durak/bölge.",
   "TOPHANE": "İstanbul ulaşım ağında önemli bir durak/bölge."
+,
+  // YENİ EKLENEN ANLAMLAR
+  "KABİN": "Sürücü veya yolcuların bulunduğu kapalı küçük oda.",
+  "HATTAT": "Geleneksel hat sanatıyla uğraşan ve yazıları güzelleştiren usta.",
+  "GARAJ": "Otobüs, tren veya diğer ulaşım araçlarının park ettiği kapalı alan.",
+  "KÖPRÜ": "Akarsu, vadi veya yolların üzerinden geçişi sağlayan yapı.",
+  "MERKEZ": "Ulaşım hatlarının birleştiği, şehrin en işlek ana noktası.",
+  "METRO": "Şehir içinde yeraltından giden hızlı toplu taşıma sistemi.",
+  "TÜNEL": "Dağ, tepe veya yeraltından açılan ulaşım geçidi.",
+  "AKBİL": "İstanbul'da bir zamanlar ulaşım için kullanılan elektronik bilet (Akıllı Bilet).",
+  "MİNİBÜS": "Kısa mesafeli şehir içi hatlarda çalışan küçük otobüs.",
+  "OTOGAR": "Şehirlerarası otobüslerin yolcu indirip bindirdiği kalkış noktası.",
+  "TERMİNAL": "Bir ulaşım hattının son bulduğu veya başladığı ana tesis.",
+  "VİYADÜK": "Vadi veya çukur yerleri aşmak için ayaklar üzerine kurulan yüksek köprü.",
+  "TAKSİ": "Ücret karşılığında yolcu taşıyan ticari otomobil.",
+  "İSTİKLAL": "Beyoğlu'nun dünyaca ünlü, tarihi tramvayın çalıştığı caddesi.",
+  "GALATA": "Karaköy'ün üstünde yer alan ve meşhur kulesiyle bilinen tarihi semt.",
+  "KIZKULESİ": "Üsküdar açıklarında, Boğaz'ın ortasında yer alan tarihi kule.",
+  "BOĞAZİÇİ": "İstanbul'un Asya ve Avrupa yakalarını ayıran doğal suyolu.",
+  "AYASOFYA": "Dünya mimarlık tarihinin en önemli yapılarından biri olan tarihi mabet.",
+  "KAPALIÇARŞI": "Dünyanın en büyük ve en eski kapalı çarşılarından biri.",
+  "HALİÇ": "İstanbul Boğazı'nın Marmara Denizi ile birleştiği yerdeki doğal liman.",
+  "PİERRELOTİ": "Eyüpsultan'da Haliç manzarasına hakim, teleferikle çıkılan tarihi tepe.",
+  "MÜZE": "Sanat ve bilim eserlerinin, tarihi kalıntıların sergilendiği yer.",
+  "SARAY": "Hükümdarların veya devlet başkanlarının oturduğu büyük yapı.",
+  "ÇARŞI": "Dükkanların bulunduğu, alışveriş yapılan yer.",
+  "KULE": "Çoğunlukla kare veya silindir biçimindeki yüksek yapı."
 };
+
 
 // Kelime anlamları — EN
 export const WORD_MEANINGS_EN = {
@@ -365,16 +421,53 @@ export const canFormWord = (word, availableLetters) => {
 
 const LEVEL_CAP = 10000;
 
-// Yalnızca geçerli kök kelimeleri barındıran havuz (örnek veri setinden dönüştürüldü)
+export const PROVIDER_MAP_TR = {
+  // Metro Istanbul
+  "RAY": "Metro Istanbul", "HAT": "Metro Istanbul", "BOJİ": "Metro Istanbul", "TREN": "Metro Istanbul",
+  "DEPO": "Metro Istanbul", "GİŞE": "Metro Istanbul", "KART": "Metro Istanbul", "FREN": "Metro Istanbul",
+  "PERON": "Metro Istanbul", "VAGON": "Metro Istanbul", "MAKAS": "Metro Istanbul", "MOTOR": "Metro Istanbul",
+  "TRAFO": "Metro Istanbul", "SİSTEM": "Metro Istanbul", "BALAST": "Metro Istanbul", "SİNYAL": "Metro Istanbul",
+  "DİNGİL": "Metro Istanbul", "TURNİKE": "Metro Istanbul", "KATENER": "Metro Istanbul", "İSTASYON": "Metro Istanbul",
+  "TRAMVAY": "Metro Istanbul", "MAKİNİST": "Metro Istanbul", "TRAVERS": "Metro Istanbul", "PANTOGRAF": "Metro Istanbul",
+  "MARMARAY": "Metro Istanbul", "LOKOMOTİF": "Metro Istanbul", "YOL": "Metro Istanbul",
+  // IETT
+  "DURAK": "IETT", "BİLET": "IETT", "SEFER": "IETT", "ULAŞIM": "IETT", "OTOBÜS": "IETT", "GÜZERGAH": "IETT",
+  "METROBÜS": "IETT", "AKTARMA": "IETT", "GARAJ": "IETT", "YOLCULUK": "IETT",
+  // Sehir Hatlari
+  "VAPUR": "Sehir Hatlari", "İSKELE": "Sehir Hatlari", "RIHTIM": "Sehir Hatlari", "HALAT": "Sehir Hatlari",
+  "PERVANE": "Sehir Hatlari", "KÜPEŞTE": "Sehir Hatlari", "TERSANE": "Sehir Hatlari",
+  // Busforus
+  "BUSFORUS": "Busforus", "REHBER": "Busforus", "PANORAMİK": "Busforus", "BİLETLEME": "Busforus", "TURROTASI": "Busforus"
+};
+
+export const PROVIDER_MAP_EN = {
+  // Metro
+  "RAIL": "Metro", "TUBE": "Metro", "TRAM": "Metro", "TRAIN": "Metro", "TRACK": "Metro", "LEVER": "Metro",
+  "CABIN": "Metro", "WHEEL": "Metro", "SIGNAL": "Metro", "TUNNEL": "Metro", "STATION": "Metro", "PLATFORM": "Metro",
+  "TERMINAL": "Metro", "OVERPASS": "Metro", "COMMUTER": "Metro", "CARRIAGE": "Metro", "ENGINEER": "Metro",
+  "UNDERGROUND": "Metro", "LOCOMOTIVE": "Metro", "TURNTABLE": "Metro",
+  // IETT
+  "BUS": "IETT", "CAB": "IETT", "CAR": "IETT", "VAN": "IETT", "TAXI": "IETT", "GATE": "IETT", "ROUTE": "IETT",
+  "BRAKE": "IETT", "MOTOR": "IETT", "DEPOT": "IETT", "TICKET": "IETT", "SWITCH": "IETT", "TRANSIT": "IETT",
+  "CONDUCTOR": "IETT", "CROSSROAD": "IETT", "ACCELERATE": "IETT", "HORSEPOWER": "IETT", "DEPARTURE": "IETT",
+  "TRANSPORT": "IETT", "CHECKPOINT": "IETT",
+  // City Lines
+  "DOCK": "City Lines", "FERRY": "City Lines", "BRIDGE": "City Lines", "HARBOR": "City Lines", "BOILER": "City Lines",
+  "TENDER": "City Lines", "SUSPENSION": "City Lines", "SUBMARINE": "City Lines",
+  // Busforus
+  "PISTON": "Busforus", "ENGINE": "Busforus"
+};
+
+// Yalnızca geçerli kök kelimeleri barındıran havuz
 const TECH_TR = Array.from(VALID_WORDS_TR).filter(w => w.length >= 3).map(root => ({
   root,
-  provider: ["Metro Istanbul", "IETT", "Sehir Hatlari", "Busforus"][Math.floor(Math.random() * 4)],
+  provider: PROVIDER_MAP_TR[root] || "Metro Istanbul",
   category: "Genel"
 }));
 
 const TECH_EN = Array.from(VALID_WORDS_EN).filter(w => w.length >= 3).map(root => ({
   root,
-  provider: ["Metro", "IETT", "City Lines", "Busforus"][Math.floor(Math.random() * 4)],
+  provider: PROVIDER_MAP_EN[root] || "Metro",
   category: "General"
 }));
 
@@ -484,7 +577,32 @@ const getPools = (language) => {
   return { techTerms: TECH_TR, validWords: VALID_WORDS_TR, formableCache: FORMABLE_TR };
 };
 
+const ONBOARDING_TR = [
+  "RAY", "HAT", "YOL", "DURAK", "PERON", // 1-5
+  "MAKAS", "FREN", "BOJİ", "SİNYAL", "KATENER", // 6-10
+  "OTOBÜS", "SEFER", "GÜZERGAH", "GARAJ", "METROBÜS", // 11-15
+  "VAPUR", "İSKELE", "RIHTIM", "HALAT", "PERVANE", // 16-20
+  "BUSFORUS", "REHBER", "PANORAMİK", "BİLETLEME", "TURROTASI", // 21-25
+  "AKTARMA", "SİSTEM", "KONTAK", "BAKIM", "ULAŞIM" // 26-30
+];
+
+const ONBOARDING_EN = [
+  "BUS", "CAB", "CAR", "VAN", "RAIL", // 1-5
+  "TRAIN", "FERRY", "ROUTE", "TRACK", "BRAKE", // 6-10
+  "MOTOR", "DEPOT", "LEVER", "CABIN", "WHEEL", // 11-15
+  "SIGNAL", "TUNNEL", "BRIDGE", "ENGINE", "TICKET", // 16-20
+  "HARBOR", "PISTON", "SWITCH", "BOILER", "TENDER", // 21-25
+  "TRANSIT", "PLATFORM", "TERMINAL", "OVERPASS", "COMMUTER" // 26-30
+];
+
 const chooseTechnicalRoot = (levelIndex, language) => {
+  // 1-30 Seviyeleri için özel onboarding akışı
+  if (levelIndex < 30) {
+    const rootName = language === "en" ? ONBOARDING_EN[levelIndex] : ONBOARDING_TR[levelIndex];
+    const provider = language === "en" ? (PROVIDER_MAP_EN[rootName] || "Metro") : (PROVIDER_MAP_TR[rootName] || "Metro Istanbul");
+    return { root: rootName, provider, category: "Genel" };
+  }
+
   const { techTerms, validWords, formableCache } = getPools(language);
   const difficulty = getDifficulty(levelIndex);
   const rand = seededRandom((levelIndex + 1) * (language === "en" ? 997 : 613));
@@ -527,7 +645,7 @@ const chooseTechnicalRoot = (levelIndex, language) => {
 
   // Güvenlik amaçlı fallback
   if (!best) {
-    best = { root: language === "en" ? "TRAIN" : "TREN", provider: "Metro Istanbul", category: "Genel" };
+    best = { root: language === "en" ? "TRAIN" : "TREN", provider: language === "en" ? "Metro" : "Metro Istanbul", category: "Genel" };
   }
   return best;
 };
@@ -551,6 +669,81 @@ export const getTimeForLevel = (levelIndex, wordCount) => {
   return Math.max(18, base - levelPressure - wordPressure - tierPressure);
 };
 
+const getMissionInfo = (provider, levelIndex, language) => {
+  const isTr = language !== "en";
+  
+  // Özel Seviye Tipleri
+  const isSpecialIntervention = (levelIndex + 1) % 5 === 0 && (levelIndex + 1) % 10 !== 0; // 5, 15, 25...
+  const isTransferMission = (levelIndex + 1) % 10 === 0; // 10, 20, 30... (Kayıp eşyadan hemen önce/sonra)
+
+  if (isSpecialIntervention) {
+    return {
+      type: isTr ? "Teknik Müdahale" : "Technical Intervention",
+      task: isTr ? "Enerji hatları ve makas kontrolü yapılıyor." : "Checking power lines and rail switch systems."
+    };
+  }
+  
+  if (isTransferMission) {
+    return {
+      type: isTr ? "Aktarma Görevi" : "Transfer Mission",
+      task: isTr ? "Hatlar arası yolcu akışı düzenleniyor." : "Regulating passenger transfer flow between lines."
+    };
+  }
+
+  const missions = {
+    "Metro Istanbul": [
+      "Peron yoğunluğu azaltılıyor...",
+      "Sinyalizasyon kontrolleri yapılıyor...",
+      "Katener hattı gerilimi ölçülüyor...",
+      "İstasyon havalandırma testi yapılıyor...",
+      "Yürüyen merdiven bakımı yapılıyor..."
+    ],
+    "Metro": [
+      "Reducing platform congestion...",
+      "Performing signaling checks...",
+      "Measuring catenary line voltage...",
+      "Testing station ventilation...",
+      "Maintaining escalators..."
+    ],
+    "IETT": [
+      "Sefer planlaması güncelleniyor...",
+      "Metrobüs şerit kontrolü yapılıyor...",
+      "Validatör yazılım güncellemesi...",
+      "Durak aydınlatmaları kontrol ediliyor...",
+      "Filo takip sistemi kalibrasyonu..."
+    ],
+    "Sehir Hatlari": [
+      "Vapur yanaşma hazırlığı yapılıyor...",
+      "İskele halat ve babaları kontrol ediliyor...",
+      "Rıhtım güvenlik taraması yapılıyor...",
+      "Pervane şaftı yağlama kontrolü...",
+      "Makine dairesi sıcaklık ölçümü..."
+    ],
+    "City Lines": [
+      "Preparing vessel docking...",
+      "Checking pier ropes and bollards...",
+      "Performing dock security sweep...",
+      "Inspecting propeller shaft lubrication...",
+      "Measuring engine room temperature..."
+    ],
+    "Busforus": [
+      "Tur rotası güncelleniyor...",
+      "Rehber ses sistemi test ediliyor...",
+      "Panoramik cam tavan temizliği...",
+      "Biletleme otomasyonu kontrol ediliyor...",
+      "Çift katlı otobüs fren testi..."
+    ]
+  };
+
+  const pool = missions[provider] || (isTr ? ["Hat kontrolü yapılıyor..."] : ["Checking transit line..."]);
+  const task = pool[levelIndex % pool.length];
+  
+  return {
+    type: isTr ? "Normal Sefer" : "Regular Transit",
+    task
+  };
+};
+
 export const generateLevel = (levelIndex, language = "tr") => {
   const safeLevel = ((levelIndex % LEVEL_CAP) + LEVEL_CAP) % LEVEL_CAP;
   const rand = seededRandom((safeLevel + 1) * (language === "en" ? 1879 : 1297));
@@ -564,12 +757,13 @@ export const generateLevel = (levelIndex, language = "tr") => {
   // sonsuz döngüden kaçınmak veya bulmacanın boş kalmasını engellemek için
   // yeni bir kelime seç.
   if (candidates.length === 0) {
-    term = { root: language === 'en' ? 'TRAIN' : 'TRAMVAY', provider: 'Metro', category: 'General' };
+    term = { root: language === 'en' ? 'TRAIN' : 'TRAMVAY', provider: language === 'en' ? 'Metro' : 'Metro Istanbul', category: 'General' };
     candidates = getCandidateWords(term.root, validWords, safeLevel, rand, formableCache);
   }
 
   const words = placePuzzleWords(term.root, candidates, difficulty.targetWords);
   const wheelLetters = shuffleWith(term.root.split(""), rand);
+  const missionInfo = getMissionInfo(term.provider, safeLevel, language);
 
   return {
     levelName: language === "en" ? `Level ${levelIndex + 1}` : `Seviye ${levelIndex + 1}`,
@@ -582,7 +776,9 @@ export const generateLevel = (levelIndex, language = "tr") => {
     provider: term.provider,
     category: term.category,
     difficulty: difficulty.label,
-    maxSupportedLevel: LEVEL_CAP
+    maxSupportedLevel: LEVEL_CAP,
+    missionType: missionInfo.type,
+    missionTask: missionInfo.task
   };
 };
 

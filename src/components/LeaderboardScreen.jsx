@@ -1,37 +1,77 @@
 import React, { useState, useEffect } from 'react';
 import { useGameStore } from '../store/gameStore';
+import { cloudService } from '../utils/supabaseClient';
 
-// Mock Data for Leaderboard
+// Baseline Mock Data
 const MOCK_LEADERBOARD = [
-  { id: '1', name: 'MetroUstası', score: 12500, avatar: 'train' },
-  { id: '2', name: 'SözcükAvcısı', score: 11200, avatar: 'sports_esports' },
-  { id: '3', name: 'Makinist_34', score: 9800, avatar: 'directions_subway' },
-  { id: '4', name: 'TurnikeKralı', score: 8500, avatar: 'stars' },
-  { id: '5', name: 'VapurYolcusu', score: 7600, avatar: 'directions_boat' },
-  { id: '6', name: 'AkbilPro', score: 6400, avatar: 'credit_card' },
-  { id: '7', name: 'Galata_1905', score: 5900, avatar: 'location_on' },
-  { id: '8', name: 'MarmarayBey', score: 4800, avatar: 'directions_transit' },
-  { id: '9', name: 'KadıköyBoga', score: 3200, avatar: 'pets' },
+  { id: '1', username: 'MetroUstası', score: 12500, avatar: 'train' },
+  { id: '2', username: 'SözcükAvcısı', score: 11200, avatar: 'sports_esports' },
+  { id: '3', username: 'Makinist_34', score: 9800, avatar: 'directions_subway' },
+  { id: '4', username: 'TurnikeKralı', score: 8500, avatar: 'stars' },
+  { id: '5', username: 'VapurYolcusu', score: 7600, avatar: 'directions_boat' },
 ];
 
 const LeaderboardScreen = ({ onBack }) => {
-  const { totalBalanceEarned } = useGameStore();
+  const balance = useGameStore(state => state.balance);
+  const username = useGameStore(state => state.username);
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
   
-  // Oyuncunun kendi skorunu listeye dahil edip sıralayalım
   useEffect(() => {
-    const myScore = {
-      id: 'me',
-      name: 'Sen (Misafir)',
-      score: totalBalanceEarned * 10, // Örnek puan hesabı (Kazanılan bakiye x 10)
-      avatar: 'person',
-      isMe: true
+    const fetchLeaderboard = async () => {
+      try {
+        setLoading(true);
+        // Gerçek verileri Supabase'den çek
+        const realPlayers = await cloudService.getTopPlayers();
+        
+        // Kendi anlık skorumuzu hazırlayalım
+        const myScore = {
+          id: 'me',
+          username: username || 'Sen (Misafir)',
+          score: Math.floor(balance), 
+          avatar: 'person',
+          isMe: true
+        };
+        
+        // Eğer Supabase'de hiç veri yoksa Mock'u kullan, varsa gerçekleri al
+        let combined = [];
+        if (realPlayers.length > 0) {
+          // Gerçek oyuncular + Benim anlık skorum (Eğer gerçek listede yoksam diye)
+          // Gerçek listede kendimiz varsak isMe bayrağı ekleyelim
+          const mappedRealPlayers = realPlayers.map((p, idx) => ({
+            id: `real_${idx}`,
+            username: p.username,
+            score: p.score,
+            avatar: 'person',
+            isMe: p.username === username
+          }));
+          
+          // Eğer kendimizi sunucudan çekemediysek ama lokal skorumuz varsa, listeye geçici ekleyelim
+          if (!mappedRealPlayers.some(p => p.username === username)) {
+             combined = [...mappedRealPlayers, myScore];
+          } else {
+             combined = mappedRealPlayers;
+          }
+        } else {
+          // Veritabanı boş veya ayarlanamamışsa mock veriler + ben
+          combined = [...MOCK_LEADERBOARD, myScore];
+        }
+
+        combined.sort((a, b) => b.score - a.score);
+        
+        // Aynı isimli mükerrer kayıtları engelle (upsert bazen eski mock vs karışırsa)
+        const uniqueData = combined.filter((v, i, a) => a.findIndex(t => (t.username === v.username)) === i);
+        
+        setData(uniqueData.slice(0, 10)); // Sadece ilk 10
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
     };
-    
-    const combined = [...MOCK_LEADERBOARD, myScore];
-    combined.sort((a, b) => b.score - a.score);
-    setData(combined.slice(0, 10)); // Sadece ilk 10
-  }, [totalBalanceEarned]);
+
+    fetchLeaderboard();
+  }, [balance, username]);
 
   return (
     <div className="flex-1 w-full flex flex-col items-center bg-[#0a110a] relative z-20 fade-in pt-8 pb-6 px-4">
@@ -60,7 +100,12 @@ const LeaderboardScreen = ({ onBack }) => {
       </div>
 
       {/* Liste */}
-      <div className="w-full max-w-sm flex-1 overflow-y-auto px-1 flex flex-col gap-3 pb-8">
+      <div className="w-full max-w-sm flex-1 overflow-y-auto px-1 flex flex-col gap-3 pb-8 relative">
+        {loading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-[#0a110a]/50 z-20 backdrop-blur-sm rounded-2xl">
+            <span className="material-symbols-outlined animate-spin text-green-400 text-3xl">sync</span>
+          </div>
+        )}
         {data.map((player, index) => {
           const isTop3 = index < 3;
           const rankColor = index === 0 ? '#fbbf24' : index === 1 ? '#94a3b8' : index === 2 ? '#b45309' : '#334155';
@@ -94,7 +139,7 @@ const LeaderboardScreen = ({ onBack }) => {
                     {player.avatar}
                   </span>
                   <h3 className={`font-bold text-[15px] truncate ${player.isMe ? 'text-green-400' : 'text-white'}`}>
-                    {player.name}
+                    {player.username}
                   </h3>
                 </div>
               </div>

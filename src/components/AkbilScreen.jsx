@@ -19,7 +19,10 @@ const BALANCE_PACKS = [
 ];
 
 const AkbilScreen = ({ onBack }) => {
-  const { balance, addBalance, cardColor, setSettings } = useGameStore();
+  const balance = useGameStore(state => state.balance);
+  const addBalance = useGameStore(state => state.addBalance);
+  const cardColor = useGameStore(state => state.cardColor);
+  const setSettings = useGameStore(state => state.setSettings);
   const { t, language } = useTranslation();
   const [isWatchingAd, setIsWatchingAd] = useState(false);
   const [showHistory, setShowHistory] = useState(false);

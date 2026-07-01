@@ -16,7 +16,10 @@ const DailySpinScreen = ({ onComplete }) => {
   const [rotation, setRotation] = useState(0);
   const [prize, setPrize] = useState(null);
   
-  const { addBalance, addLives, addHints, setLastSpinDate } = useGameStore();
+  const addBalance = useGameStore(state => state.addBalance);
+  const addLives = useGameStore(state => state.addLives);
+  const addHints = useGameStore(state => state.addHints);
+  const setLastSpinDate = useGameStore(state => state.setLastSpinDate);
 
   const handleSpin = () => {
     if (spinning) return;

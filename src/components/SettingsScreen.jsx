@@ -3,7 +3,11 @@ import { useGameStore } from '../store/gameStore';
 import { useTranslation } from '../utils/i18n';
 
 const SettingsScreen = ({ onBack }) => {
-  const { soundEnabled, hapticEnabled, theme, language, setSettings } = useGameStore();
+  const soundEnabled = useGameStore(state => state.soundEnabled);
+  const hapticEnabled = useGameStore(state => state.hapticEnabled);
+  const theme = useGameStore(state => state.theme);
+  const language = useGameStore(state => state.language);
+  const setSettings = useGameStore(state => state.setSettings);
   const { t } = useTranslation();
 
   return (

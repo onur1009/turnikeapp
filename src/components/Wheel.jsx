@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
 
-const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger }) => {
+const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger, isTutorial, tutorialWord }) => {
   const containerRef = useRef(null);
   const [selectedIndices, setSelectedIndices] = useState([]);
   const [isSwiping, setIsSwiping] = useState(false);
@@ -73,11 +73,28 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
     checkNodeHit(pos);
   }, [isSwiping, nodePositions, selectedIndices]);
 
+  const stateRef = useRef({
+    isSwiping: false,
+    selectedIndices: [],
+    letters: letters,
+    onWordSubmit: onWordSubmit
+  });
+
+  useEffect(() => {
+    stateRef.current = {
+      isSwiping,
+      selectedIndices,
+      letters,
+      onWordSubmit
+    };
+  }, [isSwiping, selectedIndices, letters, onWordSubmit]);
+
   const handleEnd = useCallback(async () => {
-    if (isSwiping) {
-      if (selectedIndices.length > 1) {
-        const word = selectedIndices.map(i => letters[i]).join('');
-        const isCorrect = await onWordSubmit(word);
+    const state = stateRef.current;
+    if (state.isSwiping) {
+      if (state.selectedIndices.length > 1) {
+        const word = state.selectedIndices.map(i => state.letters[i]).join('');
+        const isCorrect = await state.onWordSubmit(word);
         if (isCorrect) {
           setSelectedIndices([]);
         } else {
@@ -89,7 +106,7 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
       setIsSwiping(false);
       setCurrentMousePos(null);
     }
-  }, [isSwiping, selectedIndices, letters, onWordSubmit]);
+  }, []);
 
   useEffect(() => {
     window.addEventListener('mouseup', handleEnd);
@@ -104,6 +121,8 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
     const handleKeyDown = async (e) => {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
+      const state = stateRef.current;
+
       if (e.key === 'Backspace') {
         setSelectedIndices(prev => prev.slice(0, -1));
         Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
@@ -111,9 +130,9 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
       }
 
       if (e.key === 'Enter') {
-        if (selectedIndices.length > 1) {
-          const word = selectedIndices.map(i => letters[i]).join('');
-          const isCorrect = await onWordSubmit(word);
+        if (state.selectedIndices.length > 1) {
+          const word = state.selectedIndices.map(i => state.letters[i]).join('');
+          const isCorrect = await state.onWordSubmit(word);
           if (isCorrect) {
             setSelectedIndices([]);
           } else {
@@ -127,7 +146,7 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
       }
 
       const key = e.key.toLocaleUpperCase('tr-TR');
-      const matchingIndex = letters.findIndex((l, idx) => l === key && !selectedIndices.includes(idx));
+      const matchingIndex = state.letters.findIndex((l, idx) => l === key && !state.selectedIndices.includes(idx));
       if (matchingIndex !== -1) {
         setSelectedIndices(prev => [...prev, matchingIndex]);
         Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
@@ -136,7 +155,7 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [letters, selectedIndices, onWordSubmit]);
+  }, []);
 
   const polylinePoints = selectedIndices.map(i => `${nodePositions[i]?.x},${nodePositions[i]?.y}`).join(' ');
   const lineToCursor = (isSwiping && selectedIndices.length > 0 && currentMousePos)
@@ -202,16 +221,7 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
 
       {/* SVG lines */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ overflow: 'visible' }}>
-        {containerRef.current && (
-          <circle
-            cx={containerRef.current.clientWidth / 2}
-            cy={containerRef.current.clientHeight / 2}
-            r={containerRef.current.clientWidth * 0.34 + 36}
-            fill="rgba(255,255,255,0.12)"
-            stroke="rgba(255,255,255,0.25)"
-            strokeWidth="3"
-          />
-        )}
+        {/* Circle background removed, handled by GameContainer */}
         <polyline
           points={polylinePoints}
           fill="none"
@@ -230,6 +240,48 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
             strokeLinecap="round"
             style={{ filter: 'drop-shadow(0 3px 8px rgba(251,191,36,0.4))' }}
           />
+        )}
+        
+        {/* Tutorial animated path */}
+        {isTutorial && selectedIndices.length === 0 && nodePositions.length > 0 && tutorialWord && (
+          (() => {
+             const targetIndices = [];
+             const lettersCopy = [...letters];
+             for (let i = 0; i < tutorialWord.length; i++) {
+               const idx = lettersCopy.indexOf(tutorialWord[i]);
+               if (idx !== -1) {
+                 targetIndices.push(idx);
+                 lettersCopy[idx] = null;
+               }
+             }
+             if (targetIndices.length === tutorialWord.length && targetIndices.every(idx => nodePositions[idx])) {
+               const pathString = targetIndices.map((idx, i) => `${i===0?'M':'L'} ${nodePositions[idx].x},${nodePositions[idx].y}`).join(' ');
+               return (
+                 <g className="pointer-events-none opacity-60">
+                   <path
+                     d={pathString}
+                     fill="none"
+                     stroke="#ffffff"
+                     strokeWidth="8"
+                     strokeLinecap="round"
+                     strokeLinejoin="round"
+                     strokeDasharray="10, 15"
+                     className="animate-pulse"
+                   />
+                   <circle
+                     cx={nodePositions[targetIndices[0]].x}
+                     cy={nodePositions[targetIndices[0]].y}
+                     r="24"
+                     fill="none"
+                     stroke="#ffffff"
+                     strokeWidth="4"
+                     className="animate-ping"
+                   />
+                 </g>
+               );
+             }
+             return null;
+          })()
         )}
       </svg>
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { useGameStore } from '../store/gameStore';
 
 const VaultScreen = ({ onBack }) => {
-  const { vaultWords, balance } = useGameStore();
+  const vaultWords = useGameStore(state => state.vaultWords);
   const maxCapacity = 10;
   const currentCount = vaultWords.length;
   const progressPercent = (currentCount / maxCapacity) * 100;
