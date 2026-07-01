@@ -109,9 +109,10 @@ export default function GameContainer({
 
 
   const advanceLevel = () => {
-    const next = levelIndex + 1;
-    useGameStore.setState({ levelIndex: next });
-    if (next > maxUnlockedLevel) setMaxUnlockedLevel(next);
+    useGameStore.getState().nextLevel();
+    setFoundWords([]);
+    setHintedLetters([]);
+    setMistakeCount(0);
     setInternalState('playing');
   };
 
