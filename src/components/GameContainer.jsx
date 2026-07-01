@@ -846,6 +846,12 @@ export default function GameContainer({
         accuracy={accuracy}
         levelData={levelData} 
         onNextLevel={advanceLevel} 
+        onRetry={() => {
+          loadLevel(levelIndex);
+          setInternalState('playing');
+          const wordCount = levelDataRef.current?.words?.length || 4;
+          timerRef.current?.startTimer(getTimeForLevel(levelIndex, wordCount));
+        }}
         onHome={() => { stopTimer(); setScreen('home'); }}
       />
     );
