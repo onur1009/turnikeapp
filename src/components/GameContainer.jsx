@@ -832,6 +832,16 @@ export default function GameContainer({
   );
   }
 
+  /* ========== LEVEL COMPLETE SCREEN ========== */
+  if (internalState === 'levelComplete') {
+    return (
+      <LevelComplete 
+        levelData={levelData} 
+        onNextLevel={advanceLevel} 
+      />
+    );
+  }
+
   return null;
 }
 
