@@ -834,10 +834,19 @@ export default function GameContainer({
 
   /* ========== LEVEL COMPLETE SCREEN ========== */
   if (internalState === 'levelComplete') {
+    const accuracy = Math.round((levelData.words.length / (levelData.words.length + mistakeCount)) * 100) || 0;
+    const timeSpent = Math.round((Date.now() - levelStartTime) / 1000);
+
     return (
       <LevelComplete 
+        level={levelIndex + 1}
+        wordsFoundCount={foundWords.length}
+        totalWords={levelData.words.length}
+        timeSpent={timeSpent}
+        accuracy={accuracy}
         levelData={levelData} 
         onNextLevel={advanceLevel} 
+        onHome={() => { stopTimer(); setScreen('home'); }}
       />
     );
   }
