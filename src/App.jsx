@@ -20,8 +20,34 @@ function App() {
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [isAppReady, setIsAppReady] = useState(false);
 
-  // Zustand Store
-  const { balance, hints, addHints, levelIndex, lives, combo, streak, checkStreak, incrementCombo, resetCombo, addBalance, deductLife, resetGame, unlockBadge, unlockedBadges, lastSpinDate, incrementTotalGames, incrementTotalWords, theme, soundEnabled, hapticEnabled, language, totalWordsFound, username } = useGameStore();
+  // Zustand Store — Selector bazlı erişim
+  const balance = useGameStore(state => state.balance);
+  const hints = useGameStore(state => state.hints);
+  const levelIndex = useGameStore(state => state.levelIndex);
+  const lives = useGameStore(state => state.lives);
+  const combo = useGameStore(state => state.combo);
+  const streak = useGameStore(state => state.streak);
+  const unlockedBadges = useGameStore(state => state.unlockedBadges);
+  const lastSpinDate = useGameStore(state => state.lastSpinDate);
+  const theme = useGameStore(state => state.theme);
+  const soundEnabled = useGameStore(state => state.soundEnabled);
+  const hapticEnabled = useGameStore(state => state.hapticEnabled);
+  const language = useGameStore(state => state.language);
+  const totalWordsFound = useGameStore(state => state.totalWordsFound);
+  const username = useGameStore(state => state.username);
+  const maxUnlockedLevel = useGameStore(state => state.maxUnlockedLevel);
+
+  // Aksiyonlar
+  const addHints = useGameStore(state => state.addHints);
+  const addBalance = useGameStore(state => state.addBalance);
+  const incrementCombo = useGameStore(state => state.incrementCombo);
+  const resetCombo = useGameStore(state => state.resetCombo);
+  const deductLife = useGameStore(state => state.deductLife);
+  const resetGame = useGameStore(state => state.resetGame);
+  const unlockBadge = useGameStore(state => state.unlockBadge);
+  const checkStreak = useGameStore(state => state.checkStreak);
+  const incrementTotalGames = useGameStore(state => state.incrementTotalGames);
+  const incrementTotalWords = useGameStore(state => state.incrementTotalWords);
   const { t } = useTranslation();
 
   // Dil bazlı kelime seti
@@ -75,7 +101,7 @@ function App() {
     setTimeout(() => setIsAppReady(true), 1500); // Açılış (Skeleton/Splash) ekranı
   }, [checkStreak]);
 
-  const [maxUnlockedLevel, setMaxUnlockedLevel] = useState(() => parseInt(localStorage.getItem('turnike_maxLevel')) || 0);
+  // maxUnlockedLevel artık Zustand selector'dan geliyor (satır 36)
 
   // Rozet Kontrolleri ve Kutlama
   const prevBadgesCount = useRef(unlockedBadges.length);
@@ -119,8 +145,7 @@ function App() {
     return saved ? JSON.parse(saved) : [];
   });
 
-  useEffect(() => { localStorage.setItem('turnike_maxLevel', maxUnlockedLevel.toString()); }, [maxUnlockedLevel]);
-  useEffect(() => { localStorage.setItem('turnike_dictionary', JSON.stringify(learnedWords)); }, [learnedWords]);
+  // maxLevel ve learnedWords artık Zustand persist middleware tarafından otomatik kaydediliyor
 
 
   // NATIVE: Donanım Geri Tuşu & Durum Çubuğu

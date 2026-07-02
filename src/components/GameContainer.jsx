@@ -22,11 +22,34 @@ export default function GameContainer({
   const [internalState, setInternalState] = useState('playing'); // 'playing' or 'levelComplete'
 
 
-  // Zustand Store
+  // Zustand Store — Selector bazlı erişim (gereksiz re-render'ları önler)
+  // Render'da kullanılan state değerleri
+  const balance = useGameStore(state => state.balance);
+  const hints = useGameStore(state => state.hints);
+  const levelIndex = useGameStore(state => state.levelIndex);
+  const lives = useGameStore(state => state.lives);
+  const combo = useGameStore(state => state.combo);
+  const streak = useGameStore(state => state.streak);
   const maxUnlockedLevel = useGameStore(state => state.maxUnlockedLevel);
+  const unlockedBadges = useGameStore(state => state.unlockedBadges);
+  const soundEnabled = useGameStore(state => state.soundEnabled);
+  const hapticEnabled = useGameStore(state => state.hapticEnabled);
+  const language = useGameStore(state => state.language);
+  const totalWordsFound = useGameStore(state => state.totalWordsFound);
+
+  // Aksiyonlar (stable references — re-render tetiklemez)
+  const addHints = useGameStore(state => state.addHints);
+  const addBalance = useGameStore(state => state.addBalance);
+  const incrementCombo = useGameStore(state => state.incrementCombo);
+  const resetCombo = useGameStore(state => state.resetCombo);
+  const deductLife = useGameStore(state => state.deductLife);
+  const resetGame = useGameStore(state => state.resetGame);
+  const unlockBadge = useGameStore(state => state.unlockBadge);
+  const incrementTotalGames = useGameStore(state => state.incrementTotalGames);
+  const incrementTotalWords = useGameStore(state => state.incrementTotalWords);
   const setMaxUnlockedLevel = useGameStore(state => state.setMaxUnlockedLevel);
   const addLearnedWord = useGameStore(state => state.addLearnedWord);
-  const { balance, hints, addHints, levelIndex, lives, combo, streak, checkStreak, incrementCombo, resetCombo, addBalance, deductLife, resetGame, unlockBadge, unlockedBadges, lastSpinDate, incrementTotalGames, incrementTotalWords, theme, soundEnabled, hapticEnabled, language, totalWordsFound } = useGameStore();
+  const checkStreak = useGameStore(state => state.checkStreak);
   const { t } = useTranslation();
 
   // Dil bazlı kelime seti
@@ -142,24 +165,24 @@ export default function GameContainer({
       const timeToGive = getTimeForLevel(levelIndex, wordCount);
       timerRef.current.startTimer(timeToGive);
     }
-  }, [screen, t, hapticEnabled]);
+  }, [internalState, t, hapticEnabled]);
 
   const timer = useGameTimer(30, handleTimeExpire);
   useEffect(() => { timerRef.current = timer; }, [timer]);
   const { timeLeft, startTimer, stopTimer } = timer;
 
   useEffect(() => {
-    if (lives === 0 && screen === 'game') {
+    if (lives === 0 && internalState === 'playing') {
       stopTimer();
-      setScreen('gameover');
+      setInternalState('gameover');
       if (useGameStore.getState().soundEnabled) playGameOver();
       if (hapticEnabled) Haptics.notification({ type: NotificationType.Error }).catch(()=>{});
     }
-  }, [lives, screen, stopTimer, hapticEnabled]);
+  }, [lives, internalState, stopTimer, hapticEnabled]);
 
   // Tick Sesi
   useEffect(() => {
-    if (screen === 'game' && levelData && timeLeft > 0) {
+    if (internalState === 'playing' && levelData && timeLeft > 0) {
       const totalTime = getTimeForLevel(useGameStore.getState().levelIndex, levelData.words.length);
       if (timeLeft <= totalTime / 2 && useGameStore.getState().soundEnabled) {
         playTick(timeLeft);
@@ -229,7 +252,7 @@ export default function GameContainer({
   const formatBalance = (val) => `₺ ${(val / 100).toFixed(2)}`;
 
   const handleWordSubmit = async (word) => {
-    if (screen !== 'game') return false;
+    if (internalState !== 'playing') return false;
     const isGridWord = levelData.words.some(w => w.word === word);
     if (foundWords.includes(word) || useGameStore.getState().vaultWords.includes(word)) { 
       showFeedback('exists', t('already_found')); 
@@ -475,7 +498,7 @@ export default function GameContainer({
   };
 
   /* ========== LOADING SCREEN ========== */
-  if (screen === 'loading') {
+  if (!levelData) {
     return (
       <div className="game-bg h-screen flex flex-col items-center justify-center fade-in relative z-10">
         <div className="relative w-28 h-28 mb-8">
@@ -505,8 +528,7 @@ export default function GameContainer({
   }
 
   /* ========== GAME OVER SCREEN ========== */
-  /* ========== GAME OVER SCREEN ========== */
-  if (screen === 'gameover') {
+  if (internalState === 'gameover') {
     return (
       <div className="game-bg min-h-screen flex flex-col items-center justify-center relative z-10 fade-in px-6 text-center">
         <span className="material-symbols-outlined text-red-500 text-6xl mb-4" style={{ fontVariationSettings: "'FILL' 1" }}>directions_run</span>
@@ -521,7 +543,7 @@ export default function GameContainer({
               setTimeout(() => {
                 useGameStore.setState({ lives: 1, gameStatus: 'playing' });
                 setIsAdLoading(false);
-                setScreen('game');
+                setInternalState('playing');
                 startTimer(30);
               }, 3000);
             }}
@@ -537,7 +559,7 @@ export default function GameContainer({
               if (balance >= 25) {
                 addBalance(-25);
                 useGameStore.setState({ lives: 1, gameStatus: 'playing' });
-                setScreen('game');
+                setInternalState('playing');
                 startTimer(30);
               }
             }}
