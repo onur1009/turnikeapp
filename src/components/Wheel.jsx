@@ -15,9 +15,52 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
     isSwiping: false,
     selectedIndices: [],
     lastPos: null,
-    rewindTimeoutId: null,
+    rewindIntervalId: null,
     isAwaitingResult: false
   });
+
+  // Rewind interval'ı temizleyen yardımcı fonksiyon
+  const clearRewind = useCallback(() => {
+    if (gestureRef.current.rewindIntervalId) {
+      clearInterval(gestureRef.current.rewindIntervalId);
+      gestureRef.current.rewindIntervalId = null;
+    }
+    setIsWrongAnim(false);
+  }, []);
+
+  // Geri sarma animasyonu başlatan fonksiyon
+  const startRewind = useCallback(() => {
+    clearRewind();
+    setIsWrongAnim(true);
+    let currentLen = gestureRef.current.selectedIndices.length;
+    if (currentLen <= 0) {
+      gestureRef.current.selectedIndices = [];
+      setSelectedIndices([]);
+      setIsWrongAnim(false);
+      return;
+    }
+    gestureRef.current.rewindIntervalId = setInterval(() => {
+      if (gestureRef.current.isSwiping) {
+        // Kullanıcı yeni swipe başlattı, rewind'ı durdur
+        clearInterval(gestureRef.current.rewindIntervalId);
+        gestureRef.current.rewindIntervalId = null;
+        setIsWrongAnim(false);
+        return;
+      }
+      currentLen--;
+      if (currentLen > 0) {
+        const next = gestureRef.current.selectedIndices.slice(0, currentLen);
+        gestureRef.current.selectedIndices = next;
+        setSelectedIndices([...next]);
+      } else {
+        clearInterval(gestureRef.current.rewindIntervalId);
+        gestureRef.current.rewindIntervalId = null;
+        gestureRef.current.selectedIndices = [];
+        setSelectedIndices([]);
+        setIsWrongAnim(false);
+      }
+    }, 60);
+  }, [clearRewind]);
 
   useEffect(() => {
     if (wrongWordTrigger > 0) {
@@ -30,7 +73,6 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
     if (!containerRef.current) return;
     const { width, height } = containerRef.current.getBoundingClientRect();
     const n = letters.length;
-    // Dinamik yarıçap ve düğmüm boyutu — harf sayısına göre
     const radiusFactor = n <= 5 ? 0.32 : n === 6 ? 0.34 : n === 7 ? 0.36 : 0.38;
     const radius = Math.min(width, height) * radiusFactor;
     const centerX = width / 2;
@@ -55,7 +97,7 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
     if (!pos) return;
     for (let i = 0; i < nodePositions.length; i++) {
       const dist = Math.hypot(nodePositions[i].x - pos.x, nodePositions[i].y - pos.y);
-      if (dist < 42) { // 42px hit area: fluid selection, no accidental cross-snapping
+      if (dist < 42) {
         const prev = gestureRef.current.selectedIndices;
         let next = prev;
         const index = prev.indexOf(i);
@@ -79,11 +121,11 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
   const handleStart = (e) => {
     if (gestureRef.current.isAwaitingResult) return;
     e.preventDefault();
+    
+    // Önceki rewind interval'ını temizle (clearInterval kullan!)
+    clearRewind();
+    
     gestureRef.current.isSwiping = true;
-    if (gestureRef.current.rewindTimeoutId) {
-      clearTimeout(gestureRef.current.rewindTimeoutId);
-      gestureRef.current.rewindTimeoutId = null;
-    }
     gestureRef.current.selectedIndices = [];
     setIsSwiping(true);
     setSelectedIndices([]);
@@ -134,12 +176,15 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
       const word = currentIndices.map(i => callbacksRef.current.letters[i]).join('');
       setIsAwaiting(true);
       gestureRef.current.isAwaitingResult = true;
+      
       let isCorrect = false;
       try {
         isCorrect = await callbacksRef.current.onWordSubmit(word);
       } catch(e) {
         isCorrect = false;
       }
+      
+      // Her durumda kilidi aç
       setIsAwaiting(false);
       gestureRef.current.isAwaitingResult = false;
       
@@ -147,33 +192,15 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
         gestureRef.current.selectedIndices = [];
         setSelectedIndices([]);
       } else {
-        setIsWrongAnim(true);
-        let currentLen = gestureRef.current.selectedIndices.length;
-        gestureRef.current.rewindTimeoutId = setInterval(() => {
-          if (!gestureRef.current.isSwiping) {
-            currentLen--;
-            if (currentLen > 0) {
-              const next = gestureRef.current.selectedIndices.slice(0, currentLen);
-              gestureRef.current.selectedIndices = next;
-              setSelectedIndices([...next]); // force new array for re-render
-            } else {
-              clearInterval(gestureRef.current.rewindTimeoutId);
-              gestureRef.current.selectedIndices = [];
-              setSelectedIndices([]);
-              setIsWrongAnim(false);
-            }
-          } else {
-            clearInterval(gestureRef.current.rewindTimeoutId);
-            setIsWrongAnim(false);
-          }
-        }, 60);
+        // Geri sarma animasyonu başlat
+        startRewind();
       }
     } else {
       // Tek harf veya iptal: Anında sıfırla
       gestureRef.current.selectedIndices = [];
       setSelectedIndices([]);
     }
-  }, []);
+  }, [startRewind]);
 
   useEffect(() => {
     window.addEventListener('pointerup', handleEnd);
@@ -183,6 +210,13 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
       window.removeEventListener('pointercancel', handleEnd);
     };
   }, [handleEnd]);
+
+  // Unmount'ta interval'ı temizle
+  useEffect(() => {
+    return () => {
+      clearRewind();
+    };
+  }, [clearRewind]);
 
   useEffect(() => {
     const handleKeyDown = async (e) => {
@@ -203,19 +237,27 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
         const currentIndices = gestureRef.current.selectedIndices;
         if (currentIndices.length > 1) {
           const word = currentIndices.map(i => callbacksRef.current.letters[i]).join('');
-          const isCorrect = await callbacksRef.current.onWordSubmit(word);
+          setIsAwaiting(true);
+          gestureRef.current.isAwaitingResult = true;
+          let isCorrect = false;
+          try {
+            isCorrect = await callbacksRef.current.onWordSubmit(word);
+          } catch(err) {
+            isCorrect = false;
+          }
+          setIsAwaiting(false);
+          gestureRef.current.isAwaitingResult = false;
+          
           if (isCorrect) {
             gestureRef.current.selectedIndices = [];
             setSelectedIndices([]);
           } else {
-            setTimeout(() => {
-               if (!gestureRef.current.isSwiping) {
-                 startRewind();
-               }
-            }, 400);
+            startRewind();
           }
         } else {
-          startRewind();
+          // Tek harf varsa sıfırla
+          gestureRef.current.selectedIndices = [];
+          setSelectedIndices([]);
         }
         Haptics.impact({ style: ImpactStyle.Medium }).catch(()=>{});
         return;
@@ -233,7 +275,7 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [startRewind]);
 
   const polylinePoints = selectedIndices.map(i => `${nodePositions[i]?.x},${nodePositions[i]?.y}`).join(' ');
   const lineToCursor = (isSwiping && selectedIndices.length > 0 && currentMousePos)
@@ -367,7 +409,6 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
         const isBonus = letters[i] === bonusLetter;
         const isEliminated = eliminatedLetters?.includes(letters[i]);
         const n = letters.length;
-        // Dinamik boyut: harf sayısına göre küçül
         const nodeSize = n <= 5 ? 72 : n === 6 ? 62 : n === 7 ? 54 : 46;
         const fontSize = n <= 5 ? 22 : n === 6 ? 20 : n === 7 ? 18 : 16;
         const half = nodeSize / 2;

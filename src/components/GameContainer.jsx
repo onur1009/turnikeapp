@@ -207,30 +207,58 @@ export default function GameContainer({
       currentVolatilityClass: volatility
     });
     
+    totalTimeMsRef.current = timeToGive * 1000;
+    requestAnimationFrame(() => {
+      if (trainRef.current) {
+        trainRef.current.style.left = 'calc(100% - 30px)';
+      }
+      if (barRef.current) {
+        barRef.current.style.width = '100%';
+        barRef.current.style.background = 'hsl(120, 84%, 55%)';
+        barRef.current.style.boxShadow = '0 0 6px hsl(120, 84%, 55%)';
+      }
+    });
     timerRef.current.startTimer(timeToGive);
   }, [internalState, t, hapticEnabled]);
 
   const trainRef = useRef(null);
   const barRef = useRef(null);
+  const totalTimeMsRef = useRef(30000);
   
-  const timer = useGameTimer(30, handleTimeExpire, (remainingMs) => {
-    if (!trainRef.current || !barRef.current) return;
-    const totalTimeMs = getTimeForLevel(useGameStore.getState().levelIndex, levelDataRef.current?.words?.length || 4) * 1000;
-    const pct = Math.min(1, Math.max(0, remainingMs / totalTimeMs));
+  const updateTrainPosition = useCallback((remainingMs) => {
+    const totalMs = totalTimeMsRef.current;
+    const pct = totalMs > 0 ? Math.min(1, Math.max(0, remainingMs / totalMs)) : 1;
     const hue = Math.round(pct * 120);
     
-    trainRef.current.style.left = `calc(${pct * 100}% - 30px)`;
-    trainRef.current.style.filter = pct <= 0.25 
-      ? 'drop-shadow(0 0 4px rgba(239,68,68,0.9))' 
-      : `drop-shadow(0 0 3px hsl(${hue}, 84%, 55%))`;
-      
-    barRef.current.style.width = `${pct * 100}%`;
-    barRef.current.style.background = `hsl(${hue}, 84%, 55%)`;
-    barRef.current.style.boxShadow = `0 0 6px hsl(${hue}, 84%, 55%)`;
-  });
+    if (trainRef.current) {
+      trainRef.current.style.left = `calc(${pct * 100}% - 30px)`;
+      // SVG filter'ı parent div'den kontrol et
+      const svg = trainRef.current.querySelector('svg');
+      if (svg) {
+        svg.style.filter = pct <= 0.25 
+          ? 'drop-shadow(0 0 4px rgba(239,68,68,0.9))' 
+          : `drop-shadow(0 0 3px hsl(${hue}, 84%, 55%))`;
+      }
+    }
+    if (barRef.current) {
+      barRef.current.style.width = `${pct * 100}%`;
+      barRef.current.style.background = `hsl(${hue}, 84%, 55%)`;
+      barRef.current.style.boxShadow = `0 0 6px hsl(${hue}, 84%, 55%)`;
+    }
+  }, []);
+  
+  const timer = useGameTimer(30, handleTimeExpire, updateTrainPosition);
   
   useEffect(() => { timerRef.current = timer; }, [timer]);
-  const { timeLeft, startTimer, stopTimer } = timer;
+  const { timeLeft, startTimer: rawStartTimer, stopTimer } = timer;
+  
+  // startTimer'ı wrap et: totalTimeMsRef'i güncelle ve ilk pozisyonu ayarla
+  const startTimer = useCallback((seconds) => {
+    totalTimeMsRef.current = seconds * 1000;
+    // İlk pozisyonu hemen set et (tren beklemeden görünsün)
+    requestAnimationFrame(() => updateTrainPosition(seconds * 1000));
+    rawStartTimer(seconds);
+  }, [rawStartTimer, updateTrainPosition]);
 
   // Hat Arızası eventi kaldırıldı (kullanıcı talebi)
 
@@ -1015,7 +1043,7 @@ export default function GameContainer({
                 ref={trainRef}
                 className="absolute pointer-events-none"
                 style={{
-                  left: `calc(${pct * 100}% - 30px)`, // Ray ortalaması
+                  left: `calc(${pct * 100}% - 30px)`,
                   width: 60,
                   height: 16,
                   bottom: 0,
@@ -1031,10 +1059,7 @@ export default function GameContainer({
                   fill="none" 
                   xmlns="http://www.w3.org/2000/svg"
                   style={{
-                    transform: 'translateY(-5px)', // Ray üstüne dikey ortala
-                    filter: isCritical 
-                      ? 'drop-shadow(0 0 4px rgba(239,68,68,0.9))' 
-                      : `drop-shadow(0 0 3px hsl(${hue}, 84%, 55%))`
+                    transform: 'translateY(-5px)'
                   }}
                 >
                   {/* Vagon 1 (Ön Vagon - Mavi kabin, sola gidiyor) */}
