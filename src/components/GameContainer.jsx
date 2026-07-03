@@ -210,7 +210,25 @@ export default function GameContainer({
     timerRef.current.startTimer(timeToGive);
   }, [internalState, t, hapticEnabled]);
 
-  const timer = useGameTimer(30, handleTimeExpire);
+  const trainRef = useRef(null);
+  const barRef = useRef(null);
+  
+  const timer = useGameTimer(30, handleTimeExpire, (remainingMs) => {
+    if (!trainRef.current || !barRef.current) return;
+    const totalTimeMs = getTimeForLevel(useGameStore.getState().levelIndex, levelDataRef.current?.words?.length || 4) * 1000;
+    const pct = Math.min(1, Math.max(0, remainingMs / totalTimeMs));
+    const hue = Math.round(pct * 120);
+    
+    trainRef.current.style.left = `calc(${pct * 100}% - 30px)`;
+    trainRef.current.style.filter = pct <= 0.25 
+      ? 'drop-shadow(0 0 4px rgba(239,68,68,0.9))' 
+      : `drop-shadow(0 0 3px hsl(${hue}, 84%, 55%))`;
+      
+    barRef.current.style.width = `${pct * 100}%`;
+    barRef.current.style.background = `hsl(${hue}, 84%, 55%)`;
+    barRef.current.style.boxShadow = `0 0 6px hsl(${hue}, 84%, 55%)`;
+  });
+  
   useEffect(() => { timerRef.current = timer; }, [timer]);
   const { timeLeft, startTimer, stopTimer } = timer;
 
@@ -496,8 +514,11 @@ export default function GameContainer({
       else { 
         // TDK SÖZLÜK KONTROLÜ
         try {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 2000);
           const proxyUrl = `https://corsproxy.io/?url=${encodeURIComponent(`https://sozluk.gov.tr/gts?ara=${word.toLocaleLowerCase('tr-TR')}`)}`;
-          const res = await fetch(proxyUrl);
+          const res = await fetch(proxyUrl, { signal: controller.signal });
+          clearTimeout(timeoutId);
           const data = await res.json();
           if (data && !data.error && data.length > 0) {
             // TDK'da kelime var!
@@ -978,9 +999,9 @@ export default function GameContainer({
                   right: 0 
                 }}
               >
-                {/* İlerleme Doluluk Çizgisi */}
                 <div
-                  className="h-full transition-all duration-1000 ease-linear"
+                  ref={barRef}
+                  className="h-full"
                   style={{
                     width: `${pct * 100}%`,
                     background: `hsl(${hue}, 84%, 55%)`,
@@ -991,6 +1012,7 @@ export default function GameContainer({
 
               {/* Tren Konteyneri — Ray Üzerinde Akıcı Hareket Eder */}
               <div
+                ref={trainRef}
                 className="absolute pointer-events-none"
                 style={{
                   left: `calc(${pct * 100}% - 30px)`, // Ray ortalaması
@@ -998,8 +1020,7 @@ export default function GameContainer({
                   height: 16,
                   bottom: 0,
                   display: 'flex',
-                  alignItems: 'center',
-                  transition: pct === 1 ? 'none' : 'left 1000ms linear'
+                  alignItems: 'center'
                 }}
               >
                 {/* 4 Vagonlu Mavi/Gri Tren Tasarımı (v1.2 esintisi, daha büyük) */}

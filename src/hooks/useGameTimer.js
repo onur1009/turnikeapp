@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 
-export function useGameTimer(initialSeconds, onExpire) {
+export function useGameTimer(initialSeconds, onExpire, onTick) {
   const [timeLeft, setTimeLeft] = useState(initialSeconds);
   const [isRunning, setIsRunning] = useState(false);
   
@@ -13,12 +13,26 @@ export function useGameTimer(initialSeconds, onExpire) {
     onExpireRef.current = onExpire;
   }, [onExpire]);
 
+  const onTickRef = useRef(onTick);
+  useEffect(() => {
+    onTickRef.current = onTick;
+  }, [onTick]);
+
   const tick = useCallback((time) => {
     if (!startTimeRef.current) startTimeRef.current = time;
     const elapsed = time - startTimeRef.current;
     
     const remaining = Math.max(0, initialTimeRef.current - elapsed);
-    setTimeLeft(Math.ceil(remaining / 1000));
+    const newSeconds = Math.ceil(remaining / 1000);
+    
+    setTimeLeft((prev) => {
+      if (prev !== newSeconds) return newSeconds;
+      return prev;
+    });
+
+    if (onTickRef.current) {
+      onTickRef.current(remaining);
+    }
 
     if (remaining > 0) {
       requestRef.current = requestAnimationFrame(tick);
