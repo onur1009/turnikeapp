@@ -33,7 +33,17 @@ const LevelComplete = ({ level, wordsFoundCount, totalWords, timeSpent, accuracy
 
   const handleShare = async () => {
     Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
-    const shareText = `🚇 Turnike: Sözcük Seferi'nde ${level} durağını %${accuracy} isabet ve ${timeSpent} saniyede tamamladım!\nSende İstanbul'u dolaşarak kelimeleri bul:`;
+    
+    // Wordle tarzı emoji ızgarası
+    let emojiGrid = '';
+    const totalBoxes = 5;
+    const greenBoxes = Math.round((accuracy / 100) * totalBoxes);
+    const yellowBoxes = stars === 2 ? 1 : 0;
+    const redBoxes = totalBoxes - greenBoxes - yellowBoxes;
+    
+    emojiGrid = '🟩'.repeat(greenBoxes) + '🟨'.repeat(yellowBoxes) + '🟥'.repeat(redBoxes);
+
+    const shareText = `🚇 Turnike: Sözcük Seferi\n📍 Durak: ${level}\n⏱️ Süre: ${timeSpent}s\n🎯 İsabet: %${accuracy}\n\n${emojiGrid}\n\nSen de İstanbul'u keşfet!`;
     
     if (navigator.share) {
       try {

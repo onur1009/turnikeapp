@@ -29,11 +29,12 @@ export function useGameTimer(initialSeconds, onExpire) {
   }, []);
 
   useEffect(() => {
-    if (isRunning) {
-      requestRef.current = requestAnimationFrame(tick);
-    }
-    return () => cancelAnimationFrame(requestRef.current);
-  }, [isRunning, tick]);
+    return () => {
+      if (requestRef.current) {
+        cancelAnimationFrame(requestRef.current);
+      }
+    };
+  }, []);
 
   const startTimer = useCallback((seconds) => {
     initialTimeRef.current = seconds * 1000;

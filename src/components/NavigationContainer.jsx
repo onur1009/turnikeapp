@@ -7,6 +7,8 @@ import StatsScreen from './StatsScreen';
 import VaultScreen from './VaultScreen';
 import LeaderboardScreen from './LeaderboardScreen';
 import AkbilScreen from './AkbilScreen';
+import LostItemsScreen from './LostItemsScreen';
+import DuelsScreen from './DuelsScreen';
 import { useTranslation } from '../utils/i18n';
 import { useGameStore } from '../store/gameStore';
 
@@ -38,6 +40,22 @@ export default function NavigationContainer({
     return (
       <div className="game-bg h-screen flex flex-col relative z-10 fade-in overflow-hidden">
         <LeaderboardScreen onBack={() => setScreen('home')} />
+      </div>
+    );
+  }
+
+  if (screen === 'lostitems') {
+    return (
+      <div className="game-bg h-screen flex flex-col relative z-10 fade-in overflow-hidden">
+        <LostItemsScreen onBack={() => setScreen('home')} />
+      </div>
+    );
+  }
+
+  if (screen === 'duels') {
+    return (
+      <div className="game-bg h-screen flex flex-col relative z-10 fade-in overflow-hidden">
+        <DuelsScreen onBack={() => setScreen('home')} />
       </div>
     );
   }

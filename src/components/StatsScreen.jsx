@@ -3,11 +3,11 @@ import { useGameStore } from '../store/gameStore';
 import { useTranslation } from '../utils/i18n';
 
 const StatsScreen = ({ onBack }) => {
-  const totalGamesPlayed = useGameStore(state => state.totalGamesPlayed);
-  const totalWordsFound = useGameStore(state => state.totalWordsFound);
-  const totalBalanceEarned = useGameStore(state => state.totalBalanceEarned);
-  const maxCombo = useGameStore(state => state.maxCombo);
-  const streak = useGameStore(state => state.streak);
+  const totalGamesPlayed = useGameStore(state => state.totalGamesPlayed) || 0;
+  const totalWordsFound = useGameStore(state => state.totalWordsFound) || 0;
+  const totalBalanceEarned = useGameStore(state => state.totalBalanceEarned) || 0;
+  const maxCombo = useGameStore(state => state.maxCombo) || 0;
+  const streak = useGameStore(state => state.streak) || 0;
   const { t } = useTranslation();
 
   return (

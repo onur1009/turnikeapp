@@ -13,6 +13,9 @@ import { useGameTimer } from '../hooks/useGameTimer';
 import { Haptics, ImpactStyle, NotificationType } from '@capacitor/haptics';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { App as CapacitorApp } from '@capacitor/app';
+import { LOST_ITEMS_CATALOG, LOST_ITEMS_SETS, getRandomItem } from '../data/lostItems';
+import { calculateWordScore, calculateLevelCompletionBonus } from '../utils/scoring';
+import { computeRawSignal, updateEwmvAndZScore, getAlpha, detectVolatility } from '../utils/dda';
 import '../index.css';
 
 export default function GameContainer({ 
@@ -49,6 +52,12 @@ export default function GameContainer({
   const incrementTotalWords = useGameStore(state => state.incrementTotalWords);
   const setMaxUnlockedLevel = useGameStore(state => state.setMaxUnlockedLevel);
   const addLearnedWord = useGameStore(state => state.addLearnedWord);
+  
+  // Kayıp Eşya Seçicileri
+  const addLostItem = useGameStore(state => state.addLostItem);
+  const completedSets = useGameStore(state => state.completedSets);
+  const refreshDailyItem = useGameStore(state => state.refreshDailyItem);
+  const dailyItemTarget = useGameStore(state => state.dailyItemTarget);
   const checkStreak = useGameStore(state => state.checkStreak);
   const { t } = useTranslation();
 
@@ -126,18 +135,36 @@ export default function GameContainer({
   const [mistakeCount, setMistakeCount] = useState(0);
   const [levelStartTime, setLevelStartTime] = useState(0);
 
-  // Teknik Bilgi Kartı (Tooltip) State'i
-  const [infoCard, setInfoCard] = useState(null);
+  // Faz 2: Kayıp Vagon & Hat Arızası & Eleme Jokeri State'leri
+  const [eliminatedLetters, setEliminatedLetters] = useState([]);
+  const [hatArizasi, setHatArizasi] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [hiddenWord, setHiddenWord] = useState(null);
 
-
-
-  const advanceLevel = () => {
-    useGameStore.getState().nextLevel();
-    setFoundWords([]);
-    setHintedLetters([]);
-    setMistakeCount(0);
-    setInternalState('playing');
-  };
+  // LevelData değiştiğinde Faz 2 mekaniklerini sıfırla/hazırla
+  useEffect(() => {
+    if (levelData) {
+      setEliminatedLetters([]);
+      setHatArizasi(false);
+      // Şans eseri %30 ihtimalle Kayıp Vagon belirle (çarktaki harflerden oluşabilen rastgele ekstra kelime)
+      if (Math.random() < 0.3) {
+        // Geçerli kelimelerden çark harfleriyle yazılabilen ama grid'de olmayan birini bul
+        const availableChars = levelData.wheelLetters.join('');
+        const canForm = (word) => {
+          let temp = availableChars;
+          for (let char of word) {
+            if (temp.includes(char)) temp = temp.replace(char, '');
+            else return false;
+          }
+          return true;
+        };
+        const possible = Array.from(VALID_WORDS).filter(w => canForm(w) && w.length > 2 && !levelData.words.some(lw => lw.word === w));
+        if (possible.length > 0) setHiddenWord(possible[Math.floor(Math.random() * possible.length)]);
+      } else {
+        setHiddenWord(null);
+      }
+    }
+  }, [levelData, VALID_WORDS]);
 
   const timerRef = useRef(null);
   const levelDataRef = useRef(null); // Timer callback'i için güncel levelData referansı
@@ -158,18 +185,55 @@ export default function GameContainer({
     setTimeout(() => setShake(false), 400);
     if (hapticEnabled) Haptics.notification({ type: NotificationType.Warning }).catch(()=>{});
     
-    // Güncel levelData'dan doğru kelime sayısıyla süreyi sıfırla
-    if (timerRef.current) {
-      const { levelIndex } = useGameStore.getState();
-      const wordCount = levelDataRef.current?.words?.length || 4;
-      const timeToGive = getTimeForLevel(levelIndex, wordCount);
-      timerRef.current.startTimer(timeToGive);
-    }
+    const { levelIndex, performanceScore, currentVolatilityClass } = useGameStore.getState();
+    const wordCount = levelDataRef.current?.words?.length || 4;
+    const ddaTimeAdjust = levelDataRef.current?.ddaTimeAdjust || 0;
+    const attemptsForTimer = mistakeCount + 2; // Next attempt will be mistakeCount + 1 fails, so the attempt number is mistakeCount + 2
+    const timeToGive = getTimeForLevel(levelIndex, wordCount, attemptsForTimer, ddaTimeAdjust);
+    
+    // DDA: Record failure signal
+    const store = useGameStore.getState();
+    const attempts = mistakeCount + 1;
+    const signal = computeRawSignal({ success: false, timeSpent: timeToGive, timeLimit: timeToGive, attempts });
+    const alpha = getAlpha(store.totalGamesPlayed);
+    const { ema, ewmv, zScore } = updateEwmvAndZScore(signal, store.performanceScore, store.ewmv, alpha);
+    const recent = [...store.recentPerformance, signal].slice(-5);
+    const volatility = detectVolatility(recent, zScore);
+    
+    store.setDDAState({
+      performanceScore: ema,
+      ewmv,
+      recentPerformance: recent,
+      currentVolatilityClass: volatility
+    });
+    
+    timerRef.current.startTimer(timeToGive);
   }, [internalState, t, hapticEnabled]);
 
   const timer = useGameTimer(30, handleTimeExpire);
   useEffect(() => { timerRef.current = timer; }, [timer]);
   const { timeLeft, startTimer, stopTimer } = timer;
+
+  // Hat Arızası eventi kaldırıldı (kullanıcı talebi)
+
+
+  const handleInfoCard = (info) => {
+    setInfoCard(info);
+    if (hapticEnabled) Haptics.selectionStart().catch(()=>{});
+  };
+
+  // Teknik Bilgi Kartı (Tooltip) State'i
+  const [infoCard, setInfoCard] = useState(null);
+
+
+
+  const advanceLevel = () => {
+    useGameStore.getState().nextLevel();
+    setFoundWords([]);
+    setHintedLetters([]);
+    setMistakeCount(0);
+    setInternalState('playing');
+  };
 
   useEffect(() => {
     if (lives === 0 && internalState === 'playing') {
@@ -180,7 +244,12 @@ export default function GameContainer({
     }
   }, [lives, internalState, stopTimer, hapticEnabled]);
 
-  // Tick Sesi
+  // Component mount olduğunda günlük eşyayı belirle
+  useEffect(() => {
+    refreshDailyItem(getRandomItem());
+  }, [refreshDailyItem]);
+
+  // Seviye yükleme (Level Load)
   useEffect(() => {
     if (internalState === 'playing' && levelData && timeLeft > 0) {
       const totalTime = getTimeForLevel(useGameStore.getState().levelIndex, levelData.words.length);
@@ -191,13 +260,22 @@ export default function GameContainer({
   }, [timeLeft, levelData]);
 
   const loadLevel = useCallback((idx) => {
-    const data = generateLevel(idx, language);
+    const store = useGameStore.getState();
+    const data = generateLevel(idx, language, mistakeCount + 1, store.performanceScore, store.currentVolatilityClass);
     setLevelData(data);
     levelDataRef.current = data; // Timer callback için güncel referans
     setFoundWords([]);
     setHintedLetters([]);
     setMistakeCount(0);
     setLevelStartTime(Date.now());
+    store.setLevelSessionScore(0);
+    
+    // Check extra hint available from DDA pity system
+    if (data.extraHintAvailable && data.words.length > 0) {
+      // Free hint: Reveal first letter of the first missing word
+      const missing = data.words[0];
+      setHintedLetters([`${missing.word}-0`]);
+    }
     
     if (Math.random() < 0.25 && data.wheelLetters.length > 0) {
       setGoldLetter(data.wheelLetters[Math.floor(Math.random() * data.wheelLetters.length)]);
@@ -206,10 +284,10 @@ export default function GameContainer({
     }
 
     // Seviye bazlı süre (yüksek seviye = daha az süre)
-    const timeToGive = getTimeForLevel(idx, data.words.length);
+    const timeToGive = getTimeForLevel(idx, data.words.length, 1, data.ddaTimeAdjust);
     setShowBonus(false);
     startTimer(timeToGive);
-  }, [startTimer, language]);
+  }, [startTimer, language, mistakeCount]);
 
   useEffect(() => { loadLevel(levelIndex); }, [levelIndex, loadLevel]);
 
@@ -247,7 +325,9 @@ export default function GameContainer({
     setSwipeOffsetX(0);
   };
 
-  const showFeedback = (type, text) => setFeedback({ type, text, id: Date.now() });
+  const showFeedback = useCallback((type, text) => {
+    setFeedback({ type, text, id: Date.now() });
+  }, []);
 
   const formatBalance = (val) => `₺ ${(val / 100).toFixed(2)}`;
 
@@ -258,6 +338,32 @@ export default function GameContainer({
       showFeedback('exists', t('already_found')); 
       return false; 
     }
+
+    // Faz 2: Kayıp Vagon (Hidden Word) kontrolü
+    if (hiddenWord && word === hiddenWord) {
+      let earned = 50;
+      let msg = 'KAYIP VAGON BULUNDU! +50₺';
+      
+      // %30 şansla Kayıp Eşya düşür
+      if (Math.random() < 0.3) {
+        const itemId = getRandomItem();
+        addLostItem(itemId);
+        const item = LOST_ITEMS_CATALOG[itemId];
+        
+        if (itemId === dailyItemTarget) {
+          earned += 150; // Günün aranan eşyası ekstra ödülü
+          msg = `GÜNÜN EŞYASI BULUNDU! ${item.name} (+200₺)`;
+        } else {
+          msg = `EŞYA BULUNDU: ${item.name} (+50₺)`;
+        }
+      }
+      
+      addBalance(earned);
+      showFeedback('correct', msg);
+      if (soundEnabled) playCombo();
+      setHiddenWord(null); // Tek seferlik
+      return true;
+    }
     
     if (isGridWord) {
       const newFound = [...foundWords, word];
@@ -267,17 +373,19 @@ export default function GameContainer({
       // Kelimeyi hemen sözlüğe ekle
       addLearnedWord(word);
       
-      // Combo ve Hız bonusu
+      // Yeni Skor Sistemi (Scoring Engine)
       const answerTime = (Date.now() - levelStartTime) / 1000;
-      let baseScore = 150;
-      if (answerTime < 3) baseScore += 50;
-
-      const multiplier = combo >= 4 ? 2.0 : (combo >= 2 ? 1.5 : 1);
-      const scoreReward = Math.floor(baseScore * multiplier);
+      const ddaTimeAdjust = levelData.ddaTimeAdjust || 0;
+      const timeToGiveWord = getTimeForLevel(levelIndex, levelData.words.length, mistakeCount + 1, ddaTimeAdjust);
+      const remainingTime = Math.max(0, timeToGiveWord - answerTime);
+      
+      const { points, breakdown } = calculateWordScore(word, combo, remainingTime, timeToGiveWord);
 
       if (answerTime < 3) unlockBadge('speed_demon');
       incrementCombo();
-      addBalance(scoreReward);
+      addBalance(points);
+      useGameStore.getState().setLevelSessionScore(useGameStore.getState().levelSessionScore + points);
+      
       if (soundEnabled) playCorrect();
       if (soundEnabled && combo >= 2) playCombo();
 
@@ -298,8 +406,8 @@ export default function GameContainer({
       }
 
       // Süreyi yenile (seviye bazlı)
-      const timeToGive = getTimeForLevel(levelIndex, levelData.words.length);
-      startTimer(timeToGive);
+      const newTimeToGive = getTimeForLevel(levelIndex, levelData.words.length, mistakeCount + 1, ddaTimeAdjust);
+      startTimer(newTimeToGive);
 
       // Seviye tamamlandı mı?
       if (newFound.length === levelData.words.length) {
@@ -313,16 +421,41 @@ export default function GameContainer({
           addBalance(50); 
           unlockBadge('flawless'); 
         }
+        // Level Completion & Perfect Clear Bonus
+        const { total, perfectClearBonus } = calculateLevelCompletionBonus(
+          useGameStore.getState().levelSessionScore, 
+          mistakeCount === 0, 
+          timeLeft
+        );
+        addBalance(perfectClearBonus);
+        
+        // DDA: Record success signal
+        const store = useGameStore.getState();
+        const timeToGive2 = getTimeForLevel(levelIndex, levelData.words.length, mistakeCount + 1, ddaTimeAdjust);
+        const timeSpent = timeToGive2 - timeLeft;
+        const signal = computeRawSignal({ success: true, timeSpent, timeLimit: timeToGive2, attempts: mistakeCount + 1 });
+        const alpha = getAlpha(store.totalGamesPlayed);
+        const { ema, ewmv, zScore } = updateEwmvAndZScore(signal, store.performanceScore, store.ewmv, alpha);
+        const recent = [...store.recentPerformance, signal].slice(-5);
+        const volatility = detectVolatility(recent, zScore);
+        
+        store.setDDAState({
+          performanceScore: ema,
+          ewmv,
+          recentPerformance: recent,
+          currentVolatilityClass: volatility
+        });
+
         const currentLevelsCompleted = (useGameStore.getState().levelsCompleted || 0) + 1;
         useGameStore.getState().incrementLevelsCompleted();
         useGameStore.getState().syncCloud();
 
         setTimeout(() => { 
-          // Ya OYUNUN SEVİYESİ 10'un katı ise, ya da KULLANICININ BİTİRDİĞİ seviye 10'un katı ise
-          const isLevelMultipleOf10 = (levelIndex + 1) % 10 === 0;
-          const isCompletedMultipleOf10 = currentLevelsCompleted % 10 === 0;
+          // Variable-Ratio Reinforcement: %12.5 ihtimalle (ortalama 8 levelde bir) sürpriz ödül
+          const isProbabilisticBonus = Math.random() < 0.125;
+          const isLevelMultipleOf10 = (levelIndex + 1) % 10 === 0; // Keep deterministic anchor for major milestones just in case
           
-          if (isLevelMultipleOf10 || isCompletedMultipleOf10) {
+          if (isProbabilisticBonus || isLevelMultipleOf10) {
             setShowBonus(true);
           } else {
             setInternalState('levelComplete'); 
@@ -363,10 +496,9 @@ export default function GameContainer({
       else { 
         // TDK SÖZLÜK KONTROLÜ
         try {
-          const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://sozluk.gov.tr/gts?ara=${word.toLocaleLowerCase('tr-TR')}`)}`;
+          const proxyUrl = `https://corsproxy.io/?url=${encodeURIComponent(`https://sozluk.gov.tr/gts?ara=${word.toLocaleLowerCase('tr-TR')}`)}`;
           const res = await fetch(proxyUrl);
-          const proxyData = await res.json();
-          const data = proxyData.contents ? JSON.parse(proxyData.contents) : null;
+          const data = await res.json();
           if (data && !data.error && data.length > 0) {
             // TDK'da kelime var!
             incrementCombo();
@@ -395,7 +527,9 @@ export default function GameContainer({
           }
         } catch (err) {
           console.error("TDK Check Failed", err);
-          // Ağ hatası durumunda da kelimeyi reddet (sessizce geçme)
+          // Graceful fallback: If API is unreachable, don't penalize. Just inform and accept it as an extra word temporarily without meaning, or just give a small warning.
+          showFeedback('exists', 'Sözlük sunucusuna ulaşılamadı.');
+          return false;
         }
 
         // TDK'da da yoksa veya ağ hatası varsa hata ver
@@ -449,13 +583,16 @@ export default function GameContainer({
   };
 
   const handleHint = () => {
-    if (hints > 0 || balance >= 75) {
+    // Nostalji Seti Buff: İpuçları %20 indirimli
+    const hintCost = completedSets.includes('nostalji') ? 60 : 75;
+
+    if (hints > 0 || balance >= hintCost) {
       const missing = levelData.words.filter(w => !foundWords.includes(w.word));
       if (missing.length > 0) {
         if (hints > 0) {
           addHints(-1);
         } else {
-          addBalance(-75);
+          addBalance(-hintCost);
         }
         const pick = missing[Math.floor(Math.random() * missing.length)];
         const newFound = [...foundWords, pick.word];
@@ -493,6 +630,38 @@ export default function GameContainer({
     }
   };
 
+  // Faz 2: Kesişim noktası bulunduğunda (Aktarma İstasyonu Bonusu)
+  const handleIntersectionFound = useCallback((intersectionKey) => {
+    // Aynı kesişim için tekrar bonus vermemek adına bir Set kullanılabilir, 
+    // ama basitçe her çağrıldığında bakiye artışı ve UI geri bildirimi sağlayabiliriz.
+    addBalance(10);
+    showFeedback('correct', t('transfer_bonus') || 'Aktarma Bonusu! +10 ₺');
+    if (soundEnabled) playBalanceUp();
+  }, [addBalance, showFeedback, soundEnabled, t]);
+
+  const handleEliminateLetter = () => {
+    if (balance >= 50) {
+      // Izgarada henüz bulunmamış kelimelerin harflerini bul
+      const missingWords = levelData.words.filter(w => !foundWords.includes(w.word));
+      const neededChars = new Set(missingWords.map(w => w.word.split('')).flat());
+      
+      // Çarktaki harflerden gereksiz olanları bul (ve henüz elenmemiş olanları)
+      const uselessChars = levelData.wheelLetters.filter(c => !neededChars.has(c) && !eliminatedLetters.includes(c));
+      
+      if (uselessChars.length > 0) {
+        addBalance(-50);
+        const charToEliminate = uselessChars[Math.floor(Math.random() * uselessChars.length)];
+        setEliminatedLetters(prev => [...prev, charToEliminate]);
+        showFeedback('correct', `Harf Elendi: ${charToEliminate}`);
+        if (soundEnabled) playTurnike();
+      } else {
+        showFeedback('exists', 'Elenecek harf yok!');
+      }
+    } else {
+      showFeedback('wrong', t('balance_low'));
+    }
+  };
+
   const handleShuffle = () => {
     if (levelData) setLevelData({ ...levelData, wheelLetters: [...levelData.wheelLetters].sort(() => Math.random() - 0.5) });
   };
@@ -519,9 +688,9 @@ export default function GameContainer({
         <div className="relative w-56">
           <div className="w-full h-2 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.1)' }}>
             <div className="h-full rounded-full transition-all duration-150"
-              style={{ width: `${loadingProgress}%`, background: 'linear-gradient(90deg, #22c55e, #16a34a)', boxShadow: '0 0 10px rgba(34,197,94,0.5)' }} />
+              style={{ width: `${0}%`, background: 'linear-gradient(90deg, #22c55e, #16a34a)', boxShadow: '0 0 10px rgba(34,197,94,0.5)' }} />
           </div>
-          <p className="text-center text-white/40 text-[11px] font-bold mt-2 tracking-widest">{loadingProgress}%</p>
+          <p className="text-center text-white/40 text-[11px] font-bold mt-2 tracking-widest">{0}%</p>
         </div>
       </div>
     );
@@ -586,15 +755,46 @@ export default function GameContainer({
 
         <button
           onClick={() => {
-            if (window.confirm(t('confirm_reset'))) {
-              useGameStore.setState({ lives: 5, gameStatus: 'idle', combo: 0 });
-              setScreen('home');
-            }
+            setShowConfirmModal(true);
           }}
           className="text-white/50 hover:text-white transition-colors text-sm font-bold underline"
         >
           {t('main_menu')}
         </button>
+
+        {/* Confirm Menu Return Modal */}
+        {showConfirmModal && (
+          <div className="fixed inset-0 z-[200] bg-black/80 backdrop-blur-sm flex items-center justify-center p-6 fade-in">
+            <div className="bg-[#1a1b26] border border-white/10 rounded-2xl p-6 w-full max-w-sm shadow-2xl scale-up text-center relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-500 to-orange-500" />
+              <span className="material-symbols-outlined text-red-500 text-5xl mb-4 mt-2" style={{ fontVariationSettings: "'FILL' 1" }}>
+                warning
+              </span>
+              <h3 className="text-white text-xl font-bold mb-2">Ana Menüye Dön</h3>
+              <p className="text-white/60 text-sm mb-6 leading-relaxed">
+                {t('confirm_reset')}
+              </p>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setShowConfirmModal(false)}
+                  className="flex-1 py-3 rounded-xl font-bold text-white/70 bg-white/5 hover:bg-white/10 transition-colors"
+                >
+                  İPTAL
+                </button>
+                <button
+                  onClick={() => {
+                    setShowConfirmModal(false);
+                    useGameStore.setState({ lives: 5, gameStatus: 'idle', combo: 0 });
+                    setScreen('home');
+                  }}
+                  className="flex-1 py-3 rounded-xl font-bold text-white bg-red-600 hover:bg-red-500 transition-colors shadow-lg shadow-red-900/50"
+                >
+                  EVET, DÖN
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
@@ -679,11 +879,21 @@ export default function GameContainer({
       </header>
 
       {/* Görev Başlığı / Mission Banner */}
-      <div className="mx-4 mb-2 px-3 py-1.5 rounded-xl flex items-center justify-between gap-2 border border-white/5"
+      <div className="mx-4 mb-2 px-3 py-1.5 rounded-xl flex items-center justify-between gap-2 border border-white/5 cursor-pointer active:scale-95 transition-transform"
            style={{
              background: 'linear-gradient(135deg, rgba(34,197,94,0.08), rgba(59,130,246,0.02))',
              boxShadow: 'inset 0 0 12px rgba(255,255,255,0.02)'
-           }}>
+           }}
+           onClick={() => {
+              if (levelData.missionType === "AKTARMA GÖREVİ") {
+                setInfoCard({ word: "Aktarma Görevi", meaning: "Bu durakta kelimeler birbirine bağlı! Kesişim noktalarındaki ortak harfleri tamamlayarak ekstra bakiye kazanabilirsin.", id: Date.now() });
+              } else if (levelData.missionType === "KAYIP VAGON") {
+                setInfoCard({ word: "Kayıp Vagon", meaning: "Bu seferde listende görünmeyen ekstra bir kelime saklı. Çarktaki harfleri birleştirip kayıp vagonu bul, büyük ödülü kap!", id: Date.now() });
+              } else {
+                setInfoCard({ word: "Sefer Bilgisi", meaning: "Tüm kelimeleri bularak bir sonraki istasyona ilerle.", id: Date.now() });
+              }
+              if (hapticEnabled) Haptics.selectionStart().catch(()=>{});
+            }}>
         <div className="flex flex-col">
           <span className="text-[9px] font-black tracking-widest text-green-400 uppercase">
             {levelData.missionType || "NORMAL SEFER"}
@@ -708,15 +918,196 @@ export default function GameContainer({
         </div>
         <div className="text-white/50">{timeLeft}s</div>
       </div>
-      <div className="w-full h-1 bg-white/10">
-        <div 
-          className="h-full transition-all duration-1000 ease-linear"
-          style={{ 
-            width: `${(timeLeft / getTimeForLevel(levelIndex, levelData.words.length)) * 100}%`,
-            background: `hsl(${(timeLeft / getTimeForLevel(levelIndex, levelData.words.length)) * 120}, 84%, 55%)` 
-          }}
-        />
-      </div>
+      {/* Süre Çubuğu — Metro İstanbul Tasarımlı 4 Vagonlu Tren + Tünel Giriş/Çıkış İllüzyonu */}
+      {(() => {
+        const totalTime = getTimeForLevel(levelIndex, levelData.words.length);
+        const pct = (timeLeft / totalTime);
+        const hue = Math.round(pct * 120); // 120=yeşil, 0=kırmızı
+        const isCritical = pct <= 0.25;
+        return (
+          <div className="w-full relative flex items-center px-[22px]" style={{ height: 26, margin: '6px 0' }}>
+            {/* Tünel Karanlık Arka Planları (z-5) */}
+            <div 
+              style={{ 
+                position: 'absolute', 
+                left: 22, 
+                bottom: 0, 
+                width: 16, 
+                height: 18, 
+                background: '#030712', 
+                borderTopLeftRadius: '8px', 
+                borderTopRightRadius: '8px',
+                boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.9)',
+                zIndex: 5
+              }} 
+            />
+            <div 
+              style={{ 
+                position: 'absolute', 
+                right: 22, 
+                bottom: 0, 
+                width: 16, 
+                height: 18, 
+                background: '#030712', 
+                borderTopLeftRadius: '8px', 
+                borderTopRightRadius: '8px',
+                boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.9)',
+                zIndex: 5
+              }} 
+            />
+
+            {/* Ray & Tren Alanı (z-10, overflow-hidden sadece yatayda tünellere göre sınırlar, dikeyde ise trenin taşmasına izin verir) */}
+            <div 
+              className="absolute overflow-hidden" 
+              style={{ 
+                left: 22, 
+                right: 22, 
+                bottom: 0, 
+                height: 22, 
+                zIndex: 10 
+              }}
+            >
+              {/* Ray Çizgisi (Track) */}
+              <div 
+                className="w-full bg-white/10 rounded-[1px]" 
+                style={{ 
+                  height: 6, 
+                  position: 'absolute', 
+                  bottom: 5, 
+                  left: 0, 
+                  right: 0 
+                }}
+              >
+                {/* İlerleme Doluluk Çizgisi */}
+                <div
+                  className="h-full transition-all duration-1000 ease-linear"
+                  style={{
+                    width: `${pct * 100}%`,
+                    background: `hsl(${hue}, 84%, 55%)`,
+                    boxShadow: `0 0 6px hsl(${hue}, 84%, 55%)`
+                  }}
+                />
+              </div>
+
+              {/* Tren Konteyneri — Ray Üzerinde Akıcı Hareket Eder */}
+              <div
+                className="absolute pointer-events-none"
+                style={{
+                  left: `calc(${pct * 100}% - 30px)`, // Ray ortalaması
+                  width: 60,
+                  height: 16,
+                  bottom: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  transition: pct === 1 ? 'none' : 'left 1000ms linear'
+                }}
+              >
+                {/* 4 Vagonlu Mavi/Gri Tren Tasarımı (v1.2 esintisi, daha büyük) */}
+                <svg 
+                  width="60" 
+                  height="16" 
+                  viewBox="0 0 60 16" 
+                  fill="none" 
+                  xmlns="http://www.w3.org/2000/svg"
+                  style={{
+                    transform: 'translateY(-5px)', // Ray üstüne dikey ortala
+                    filter: isCritical 
+                      ? 'drop-shadow(0 0 4px rgba(239,68,68,0.9))' 
+                      : `drop-shadow(0 0 3px hsl(${hue}, 84%, 55%))`
+                  }}
+                >
+                  {/* Vagon 1 (Ön Vagon - Mavi kabin, sola gidiyor) */}
+                  <path 
+                    d="M2 3C2 2.45 2.45 2 3 2H18C18.55 2 19 2.45 19 3V11C19 11.55 18.55 12 18 12H3C2.45 12 2 11.55 2 11V3Z" 
+                    fill="#3b82f6" 
+                  />
+                  {/* Cam ve Siyah detay */}
+                  <path d="M2 3.5C2 2.67 2.67 2 3.5 2H8V12H3.5C2.67 12 2 11.33 2 10.5V3.5Z" fill="#1e293b" />
+                  <path d="M2.5 4H5.5V8H2.5V4Z" fill="#93c5fd" />
+                  <circle cx="3.5" cy="10.5" r="0.75" fill="#facc15" />
+                  <circle cx="6.5" cy="10.5" r="0.75" fill="#facc15" />
+                  <rect x="11" y="4.5" width="5" height="3" rx="0.5" fill="#93c5fd" />
+
+                  {/* Bağlantı 1 */}
+                  <rect x="19" y="6" width="2" height="2" fill="#475569" />
+
+                  {/* Vagon 2 (Gri) */}
+                  <rect x="21" y="2" width="11" height="10" rx="1.5" fill="#4b5563" />
+                  <rect x="21" y="5.5" width="11" height="1.5" fill="#3b82f6" />
+                  <rect x="23" y="3.5" width="3" height="3" rx="0.5" fill="#93c5fd" />
+                  <rect x="27" y="3.5" width="3" height="3" rx="0.5" fill="#93c5fd" />
+
+                  {/* Bağlantı 2 */}
+                  <rect x="32" y="6" width="2" height="2" fill="#475569" />
+
+                  {/* Vagon 3 (Gri) */}
+                  <rect x="34" y="2" width="11" height="10" rx="1.5" fill="#4b5563" />
+                  <rect x="34" y="5.5" width="11" height="1.5" fill="#3b82f6" />
+                  <rect x="36" y="3.5" width="3" height="3" rx="0.5" fill="#93c5fd" />
+                  <rect x="40" y="3.5" width="3" height="3" rx="0.5" fill="#93c5fd" />
+
+                  {/* Bağlantı 3 */}
+                  <rect x="45" y="6" width="2" height="2" fill="#475569" />
+
+                  {/* Vagon 4 (Gri) */}
+                  <rect x="47" y="2" width="11" height="10" rx="1.5" fill="#4b5563" />
+                  <rect x="47" y="5.5" width="11" height="1.5" fill="#3b82f6" />
+                  <rect x="49" y="3.5" width="3" height="3" rx="0.5" fill="#93c5fd" />
+                  <rect x="53" y="3.5" width="3" height="3" rx="0.5" fill="#93c5fd" />
+                </svg>
+              </div>
+            </div>
+
+            {/* Sol Beton Tünel Portal Çerçevesi (z-20, fiziksel kesimle rayın üstünü örter ama açıklığı boştur) */}
+            <svg 
+              className="absolute z-20 pointer-events-none" 
+              style={{ left: 0, bottom: 0 }}
+              width="40" 
+              height="24" 
+              viewBox="0 0 40 24" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              {/* Beton Portal Gövdesi */}
+              <path 
+                d="M 0,24 V 0 H 40 V 8 A 8,8 0 0,0 24,8 V 24 Z" 
+                fill="#374151" 
+                stroke="#4b5563"
+                strokeWidth="1.5"
+                strokeLinejoin="round"
+              />
+              {/* Derz / Taş Blok Sınırları */}
+              <line x1="0" y1="8" x2="24" y2="8" stroke="#1f2937" strokeWidth="1" />
+              <line x1="0" y1="16" x2="24" y2="16" stroke="#1f2937" strokeWidth="1" />
+              <line x1="24" y1="0" x2="24" y2="8" stroke="#1f2937" strokeWidth="1" />
+            </svg>
+
+            {/* Sağ Beton Tünel Portal Çerçevesi (z-20, fiziksel kesimle rayın üstünü örter ama açıklığı boştur) */}
+            <svg 
+              className="absolute z-20 pointer-events-none" 
+              style={{ right: 0, bottom: 0 }}
+              width="40" 
+              height="24" 
+              viewBox="0 0 40 24" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              {/* Beton Portal Gövdesi */}
+              <path 
+                d="M 40,24 V 0 H 0 V 8 A 8,8 0 0,1 16,8 V 24 Z" 
+                fill="#374151" 
+                stroke="#4b5563"
+                strokeWidth="1.5"
+                strokeLinejoin="round"
+              />
+              {/* Derz / Taş Blok Sınırları */}
+              <line x1="16" y1="8" x2="40" y2="8" stroke="#1f2937" strokeWidth="1" />
+              <line x1="16" y1="16" x2="40" y2="16" stroke="#1f2937" strokeWidth="1" />
+              <line x1="16" y1="0" x2="16" y2="8" stroke="#1f2937" strokeWidth="1" />
+            </svg>
+          </div>
+        );
+      })()}
 
       {lifeLossAnims.map(animId => (
         <div key={animId} className="absolute inset-0 flex items-center justify-center pointer-events-none z-[100] life-loss-float">
@@ -727,17 +1118,22 @@ export default function GameContainer({
       ))}
       
       {/* Grid ve Çark Alanı */}
-      <main className="flex-grow flex flex-col w-full overflow-hidden pb-[85px] relative z-10">
+      <main className="flex-grow flex flex-col w-full overflow-hidden pb-2 relative z-10">
         
         {/* Üst Alan: Grid */}
         <div className="flex-1 w-full flex items-center justify-center px-2 py-4 relative z-10">
-          <Grid words={levelData.words} foundWords={foundWords} hintedLetters={hintedLetters} />
+          <Grid 
+            words={levelData.words} 
+            foundWords={foundWords} 
+            hintedLetters={hintedLetters} 
+            onIntersectionFound={handleIntersectionFound}
+          />
         </div>
 
         {/* Alt Alan: Çark ve İpucu Butonları */}
         <div className="w-full relative z-20 flex flex-col items-center pb-6" style={{ height: '340px', flexShrink: 0 }}>
           
-          <div className="relative w-full max-w-md h-[300px] flex items-center justify-center">
+          <div className={`relative w-full max-w-md h-[300px] flex items-center justify-center ${hatArizasi ? 'animate-shake opacity-70 filter grayscale' : ''}`}>
             
             {/* Sol İpucu (Kontrol Sinyali) */}
             <div className="absolute left-4 top-1/2 -translate-y-1/2 z-40 flex flex-col items-center gap-1">
@@ -777,30 +1173,38 @@ export default function GameContainer({
                 onShuffle={handleShuffle} 
                 bonusLetter={goldLetter} 
                 wrongWordTrigger={wrongWordTrigger}
+                eliminatedLetters={eliminatedLetters}
                 isTutorial={levelIndex === 0 && localStorage.getItem('turnike_tutorial_seen') !== 'true'}
                 tutorialWord={levelData.rootWord}
               />
             </div>
 
-            {/* Sağ İpucu (Operasyon Desteği) */}
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 z-40 flex flex-col items-center gap-1">
-              <button
-                onClick={handleHint}
-                title={language === 'en' ? "Operation Support (Reveal Word)" : "Operasyon Desteği (Kelime İpucu)"}
-                className="flex items-center justify-center rounded-full active:scale-90 transition-transform cursor-pointer"
-                style={{
-                  width: 52, height: 52,
-                  background: 'rgba(255, 255, 255, 0.15)',
-                  border: '1.5px solid rgba(255, 255, 255, 0.3)',
-                  backdropFilter: 'blur(16px)',
-                  boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.2)',
-                }}
-              >
-                <span className="material-symbols-outlined text-[#fbbf24] text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>lightbulb</span>
-              </button>
-              <span className="px-3 py-1 rounded-full text-[10px] font-black text-[#fbbf24] bg-black/30 backdrop-blur-md border border-[#fbbf24]/30 shadow-sm">
-                {hints > 0 ? `${hints}✦` : '75₺'}
-              </span>
+            {/* Sağ İpucu (Kilit Açma) ve Yeni: Harf Eleme */}
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 z-40 flex flex-col items-center gap-4">
+              <div className="flex flex-col items-center gap-1">
+                <button
+                  onClick={handleHint}
+                  className="w-14 h-14 rounded-full bg-white/10 backdrop-blur-md border-2 border-white/20 flex flex-col items-center justify-center text-white active:scale-95 transition-all shadow-[0_4px_16px_rgba(0,0,0,0.3)] hover:bg-white/20 hover:border-yellow-400"
+                >
+                  <span className="material-symbols-outlined text-[26px]" style={{ color: '#fbbf24' }}>lightbulb</span>
+                </button>
+                <div className="bg-black/60 rounded-full px-2.5 py-0.5 text-[10px] font-black text-white border border-white/10 mt-1 drop-shadow-md tracking-wider">
+                  {hints > 0 ? `${hints} ✦` : '75 ₺'}
+                </div>
+              </div>
+
+              {/* Faz 2: Harf Eleme Jokeri */}
+              <div className="flex flex-col items-center gap-1">
+                <button
+                  onClick={handleEliminateLetter}
+                  className="w-12 h-12 rounded-full bg-red-500/20 backdrop-blur-md border-2 border-red-500/40 flex flex-col items-center justify-center text-red-400 active:scale-95 transition-all shadow-[0_4px_16px_rgba(0,0,0,0.3)] hover:bg-red-500/40 hover:border-red-400"
+                >
+                  <span className="material-symbols-outlined text-[22px]">disabled_visible</span>
+                </button>
+                <div className="bg-black/60 rounded-full px-2.5 py-0.5 text-[10px] font-black text-white border border-white/10 drop-shadow-md tracking-wider">
+                  50 ₺
+                </div>
+              </div>
             </div>
 
           </div>
@@ -863,10 +1267,10 @@ export default function GameContainer({
     return (
       <LevelComplete 
         level={levelIndex + 1}
-        wordsFoundCount={foundWords.length}
-        totalWords={levelData.words.length}
-        timeSpent={timeSpent}
-        accuracy={accuracy}
+        wordsFoundCount={foundWords?.length || 0}
+        totalWords={levelData?.words?.length || 0}
+        timeSpent={timeSpent || 0}
+        accuracy={accuracy || 0}
         levelData={levelData} 
         onNextLevel={advanceLevel} 
         onRetry={() => {

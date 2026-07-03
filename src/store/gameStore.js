@@ -33,6 +33,12 @@ export const useGameStore = create(
       // Kasa Sistemi (Vault)
       vaultWords: [], // Fazla kelimelerin biriktiği dizi
       
+      // Kayıp Eşya Sistemi
+      inventory: {}, // item_id -> count
+      completedSets: [],
+      dailyItemTarget: null,
+      dailyItemDate: null,
+      
       // Ayarlar ve Tema
       soundEnabled: true,
       hapticEnabled: true,
@@ -45,6 +51,13 @@ export const useGameStore = create(
       totalWordsFound: 0,
       totalBalanceEarned: 0,
       levelsCompleted: 0,
+
+      // DDA (Dynamic Difficulty Adjustment) State
+      levelSessionScore: 0,
+      performanceScore: 0.55,
+      ewmv: 0.02,
+      recentPerformance: [],
+      currentVolatilityClass: 'stable',
 
       // --- ACTIONS ---
       startGame: () => set({ gameStatus: 'playing', lives: 5, combo: 0 }),
@@ -77,7 +90,9 @@ export const useGameStore = create(
             level: state.maxUnlockedLevel,
             streak: state.streak,
             totalWordsFound: state.totalWordsFound,
-            totalBalanceEarned: state.totalBalanceEarned
+            totalBalanceEarned: state.totalBalanceEarned,
+            performanceScore: state.performanceScore,
+            totalGamesPlayed: state.totalGamesPlayed
           });
         }
       },
@@ -89,6 +104,10 @@ export const useGameStore = create(
       incrementTotalWords: () => set((state) => ({ totalWordsFound: state.totalWordsFound + 1 })),
       incrementTotalGames: () => set((state) => ({ totalGamesPlayed: state.totalGamesPlayed + 1 })),
       incrementLevelsCompleted: () => set((state) => ({ levelsCompleted: (state.levelsCompleted || 0) + 1 })),
+
+      // DDA Actions
+      setLevelSessionScore: (score) => set({ levelSessionScore: score }),
+      setDDAState: (ddaState) => set((state) => ({ ...state, ...ddaState })),
 
       // Rozet aksiyonu
       unlockBadge: (badgeId) => set((state) => {
@@ -183,6 +202,53 @@ export const useGameStore = create(
         // NOT: bakiye, rozetler, istatistikler KORUNUYOR
       }),
 
+      // Kayıp Eşya Sistemi Aksiyonları
+      addLostItem: (itemId) => set((state) => {
+        const currentCount = state.inventory[itemId] || 0;
+        const newInventory = { ...state.inventory, [itemId]: currentCount + 1 };
+        return { inventory: newInventory };
+      }),
+      sellItem: (itemId, price) => set((state) => {
+        const currentCount = state.inventory[itemId] || 0;
+        if (currentCount <= 1) return state; // Can only sell duplicates
+        const newInventory = { ...state.inventory, [itemId]: currentCount - 1 };
+        return { 
+          inventory: newInventory,
+          balance: state.balance + price,
+          totalBalanceEarned: state.totalBalanceEarned + price
+        };
+      }),
+      buyMysteryBox: (price, itemId) => set((state) => {
+        if (state.balance < price) return state;
+        const currentCount = state.inventory[itemId] || 0;
+        const newInventory = { ...state.inventory, [itemId]: currentCount + 1 };
+        return {
+          balance: state.balance - price,
+          inventory: newInventory
+        };
+      }),
+      checkCompletedSets: (setsData) => set((state) => {
+        const newlyCompleted = [];
+        setsData.forEach(setInfo => {
+          if (!state.completedSets.includes(setInfo.id)) {
+            const hasAll = setInfo.items.every(itemId => (state.inventory[itemId] || 0) > 0);
+            if (hasAll) newlyCompleted.push(setInfo.id);
+          }
+        });
+        if (newlyCompleted.length > 0) {
+          return { completedSets: [...state.completedSets, ...newlyCompleted] };
+        }
+        return state;
+      }),
+      refreshDailyItem: (itemId) => set((state) => {
+        const date = new Date();
+        const today = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+        if (state.dailyItemDate !== today) {
+          return { dailyItemDate: today, dailyItemTarget: itemId };
+        }
+        return state;
+      }),
+
       // Tamamen sıfırlama (ayarlar ekranından)
       fullReset: () => set({
         balance: 0.0,
@@ -195,11 +261,20 @@ export const useGameStore = create(
         streak: 0,
         lastLoginDate: null,
         lastSpinDate: null,
+        levelSessionScore: 0,
+        performanceScore: 0.55,
+        ewmv: 0.02,
+        recentPerformance: [],
+        currentVolatilityClass: 'stable',
         unlockedBadges: [],
         vaultWords: [],
         totalGamesPlayed: 0,
         totalWordsFound: 0,
         totalBalanceEarned: 0,
+        inventory: {},
+        completedSets: [],
+        dailyItemTarget: null,
+        dailyItemDate: null,
       }),
     }),
     {

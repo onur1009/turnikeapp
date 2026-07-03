@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
 
-const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger, isTutorial, tutorialWord }) => {
+const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger, isTutorial, tutorialWord, eliminatedLetters }) => {
   const containerRef = useRef(null);
   const [selectedIndices, setSelectedIndices] = useState([]);
   const [isSwiping, setIsSwiping] = useState(false);
@@ -9,6 +9,15 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
   const [nodePositions, setNodePositions] = useState([]);
   const [isShuffling, setIsShuffling] = useState(false);
   const [isWrongAnim, setIsWrongAnim] = useState(false);
+  const [isAwaiting, setIsAwaiting] = useState(false);
+
+  const gestureRef = useRef({
+    isSwiping: false,
+    selectedIndices: [],
+    lastPos: null,
+    rewindTimeoutId: null,
+    isAwaitingResult: false
+  });
 
   useEffect(() => {
     if (wrongWordTrigger > 0) {
@@ -20,7 +29,10 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
   useEffect(() => {
     if (!containerRef.current) return;
     const { width, height } = containerRef.current.getBoundingClientRect();
-    const radius = Math.min(width, height) * 0.34;
+    const n = letters.length;
+    // Dinamik yarıçap ve düğmüm boyutu — harf sayısına göre
+    const radiusFactor = n <= 5 ? 0.32 : n === 6 ? 0.34 : n === 7 ? 0.36 : 0.38;
+    const radius = Math.min(width, height) * radiusFactor;
     const centerX = width / 2;
     const centerY = height / 2;
     const positions = letters.map((_, i) => {
@@ -36,22 +48,28 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
   const getEventPos = (e) => {
     if (!containerRef.current) return null;
     const rect = containerRef.current.getBoundingClientRect();
-    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-    return { x: clientX - rect.left, y: clientY - rect.top };
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
   };
 
   const checkNodeHit = (pos) => {
     if (!pos) return;
     for (let i = 0; i < nodePositions.length; i++) {
       const dist = Math.hypot(nodePositions[i].x - pos.x, nodePositions[i].y - pos.y);
-      if (dist < 46) { // Increased hit area from 38 to 46
-        if (!selectedIndices.includes(i)) {
-          setSelectedIndices(prev => [...prev, i]);
+      if (dist < 42) { // 42px hit area: fluid selection, no accidental cross-snapping
+        const prev = gestureRef.current.selectedIndices;
+        let next = prev;
+        const index = prev.indexOf(i);
+        if (index === -1) {
           Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
-        } else if (selectedIndices.length > 1 && selectedIndices[selectedIndices.length - 2] === i) {
-          setSelectedIndices(prev => prev.slice(0, -1));
+          next = [...prev, i];
+        } else if (index < prev.length - 1) {
           Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
+          next = prev.slice(0, index + 1);
+        }
+        
+        if (next !== prev) {
+          gestureRef.current.selectedIndices = next;
+          setSelectedIndices(next);
         }
         break;
       }
@@ -59,61 +77,110 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
   };
 
   const handleStart = (e) => {
+    if (gestureRef.current.isAwaitingResult) return;
     e.preventDefault();
+    gestureRef.current.isSwiping = true;
+    if (gestureRef.current.rewindTimeoutId) {
+      clearTimeout(gestureRef.current.rewindTimeoutId);
+      gestureRef.current.rewindTimeoutId = null;
+    }
+    gestureRef.current.selectedIndices = [];
     setIsSwiping(true);
+    setSelectedIndices([]);
+    
     const pos = getEventPos(e);
+    gestureRef.current.lastPos = pos;
     setCurrentMousePos(pos);
     checkNodeHit(pos);
   };
 
   const handleMove = useCallback((e) => {
-    if (!isSwiping) return;
+    if (gestureRef.current.isAwaitingResult) return;
+    if (!gestureRef.current.isSwiping) return;
     const pos = getEventPos(e);
+    
+    const lastPos = gestureRef.current.lastPos;
+    if (lastPos) {
+      const steps = 3;
+      for (let s = 1; s <= steps; s++) {
+        checkNodeHit({
+          x: lastPos.x + (pos.x - lastPos.x) * (s / steps),
+          y: lastPos.y + (pos.y - lastPos.y) * (s / steps)
+        });
+      }
+    } else {
+      checkNodeHit(pos);
+    }
+    
+    gestureRef.current.lastPos = pos;
     setCurrentMousePos(pos);
-    checkNodeHit(pos);
-  }, [isSwiping, nodePositions, selectedIndices]);
+  }, [nodePositions]);
 
-  const stateRef = useRef({
-    isSwiping: false,
-    selectedIndices: [],
-    letters: letters,
-    onWordSubmit: onWordSubmit
-  });
-
+  const callbacksRef = useRef({ onWordSubmit, letters });
   useEffect(() => {
-    stateRef.current = {
-      isSwiping,
-      selectedIndices,
-      letters,
-      onWordSubmit
-    };
-  }, [isSwiping, selectedIndices, letters, onWordSubmit]);
+    callbacksRef.current = { onWordSubmit, letters };
+  }, [onWordSubmit, letters]);
 
   const handleEnd = useCallback(async () => {
-    const state = stateRef.current;
-    if (state.isSwiping) {
-      if (state.selectedIndices.length > 1) {
-        const word = state.selectedIndices.map(i => state.letters[i]).join('');
-        const isCorrect = await state.onWordSubmit(word);
-        if (isCorrect) {
-          setSelectedIndices([]);
-        } else {
-          setTimeout(() => setSelectedIndices([]), 400);
-        }
-      } else {
-        setSelectedIndices([]);
+    if (!gestureRef.current.isSwiping) return;
+    
+    gestureRef.current.isSwiping = false;
+    setIsSwiping(false);
+    setCurrentMousePos(null);
+    
+    const currentIndices = [...gestureRef.current.selectedIndices];
+    
+    if (currentIndices.length > 1) {
+      const word = currentIndices.map(i => callbacksRef.current.letters[i]).join('');
+      setIsAwaiting(true);
+      gestureRef.current.isAwaitingResult = true;
+      let isCorrect = false;
+      try {
+        isCorrect = await callbacksRef.current.onWordSubmit(word);
+      } catch(e) {
+        isCorrect = false;
       }
-      setIsSwiping(false);
-      setCurrentMousePos(null);
+      setIsAwaiting(false);
+      gestureRef.current.isAwaitingResult = false;
+      
+      if (isCorrect) {
+        gestureRef.current.selectedIndices = [];
+        setSelectedIndices([]);
+      } else {
+        setIsWrongAnim(true);
+        let currentLen = gestureRef.current.selectedIndices.length;
+        gestureRef.current.rewindTimeoutId = setInterval(() => {
+          if (!gestureRef.current.isSwiping) {
+            currentLen--;
+            if (currentLen > 0) {
+              const next = gestureRef.current.selectedIndices.slice(0, currentLen);
+              gestureRef.current.selectedIndices = next;
+              setSelectedIndices([...next]); // force new array for re-render
+            } else {
+              clearInterval(gestureRef.current.rewindTimeoutId);
+              gestureRef.current.selectedIndices = [];
+              setSelectedIndices([]);
+              setIsWrongAnim(false);
+            }
+          } else {
+            clearInterval(gestureRef.current.rewindTimeoutId);
+            setIsWrongAnim(false);
+          }
+        }, 60);
+      }
+    } else {
+      // Tek harf veya iptal: Anında sıfırla
+      gestureRef.current.selectedIndices = [];
+      setSelectedIndices([]);
     }
   }, []);
 
   useEffect(() => {
-    window.addEventListener('mouseup', handleEnd);
-    window.addEventListener('touchend', handleEnd);
+    window.addEventListener('pointerup', handleEnd);
+    window.addEventListener('pointercancel', handleEnd);
     return () => {
-      window.removeEventListener('mouseup', handleEnd);
-      window.removeEventListener('touchend', handleEnd);
+      window.removeEventListener('pointerup', handleEnd);
+      window.removeEventListener('pointercancel', handleEnd);
     };
   }, [handleEnd]);
 
@@ -121,34 +188,45 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
     const handleKeyDown = async (e) => {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
-      const state = stateRef.current;
-
       if (e.key === 'Backspace') {
-        setSelectedIndices(prev => prev.slice(0, -1));
-        Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
+        const prev = gestureRef.current.selectedIndices;
+        if (prev.length > 0) {
+          const next = prev.slice(0, -1);
+          gestureRef.current.selectedIndices = next;
+          setSelectedIndices(next);
+          Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
+        }
         return;
       }
 
       if (e.key === 'Enter') {
-        if (state.selectedIndices.length > 1) {
-          const word = state.selectedIndices.map(i => state.letters[i]).join('');
-          const isCorrect = await state.onWordSubmit(word);
+        const currentIndices = gestureRef.current.selectedIndices;
+        if (currentIndices.length > 1) {
+          const word = currentIndices.map(i => callbacksRef.current.letters[i]).join('');
+          const isCorrect = await callbacksRef.current.onWordSubmit(word);
           if (isCorrect) {
+            gestureRef.current.selectedIndices = [];
             setSelectedIndices([]);
           } else {
-            setTimeout(() => setSelectedIndices([]), 400);
+            setTimeout(() => {
+               if (!gestureRef.current.isSwiping) {
+                 startRewind();
+               }
+            }, 400);
           }
         } else {
-          setSelectedIndices([]);
+          startRewind();
         }
         Haptics.impact({ style: ImpactStyle.Medium }).catch(()=>{});
         return;
       }
 
       const key = e.key.toLocaleUpperCase('tr-TR');
-      const matchingIndex = state.letters.findIndex((l, idx) => l === key && !state.selectedIndices.includes(idx));
+      const matchingIndex = callbacksRef.current.letters.findIndex((l, idx) => l === key && !gestureRef.current.selectedIndices.includes(idx));
       if (matchingIndex !== -1) {
-        setSelectedIndices(prev => [...prev, matchingIndex]);
+        const next = [...gestureRef.current.selectedIndices, matchingIndex];
+        gestureRef.current.selectedIndices = next;
+        setSelectedIndices(next);
         Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
       }
     };
@@ -167,10 +245,8 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
     <div
       className="relative w-full aspect-square max-w-[340px] mx-auto z-20 touch-none select-none"
       ref={containerRef}
-      onMouseDown={handleStart}
-      onTouchStart={handleStart}
-      onMouseMove={handleMove}
-      onTouchMove={handleMove}
+      onPointerDown={handleStart}
+      onPointerMove={handleMove}
     >
       {/* Shuffle button */}
       <button
@@ -197,20 +273,20 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
       {/* Word preview */}
       {currentWord.length > 0 && (
         <div
-          className="absolute -top-14 left-1/2 -translate-x-1/2 z-50 pointer-events-none"
+          className={`absolute -top-14 left-1/2 -translate-x-1/2 z-50 pointer-events-none transition-all duration-300 ${isAwaiting ? 'animate-pulse' : ''}`}
           style={{
-            background: 'rgba(255,255,255,0.92)',
+            background: isAwaiting ? 'rgba(239, 108, 0, 0.95)' : 'rgba(255,255,255,0.92)',
             backdropFilter: 'blur(12px)',
             borderRadius: 50,
             padding: '8px 24px',
-            boxShadow: '0 6px 24px rgba(0,0,0,0.15)',
-            border: '1px solid rgba(255,255,255,0.8)',
+            boxShadow: isAwaiting ? '0 0 20px rgba(239, 108, 0, 0.6)' : '0 6px 24px rgba(0,0,0,0.15)',
+            border: isAwaiting ? '1.5px solid #ff8c00' : '1px solid rgba(255,255,255,0.8)',
             minWidth: 100,
             textAlign: 'center'
           }}
         >
           <span style={{
-            color: '#1e293b',
+            color: isAwaiting ? '#ffffff' : '#1e293b',
             fontWeight: 800,
             fontSize: 22,
             letterSpacing: 6,
@@ -289,23 +365,32 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
       {nodePositions.map((pos, i) => {
         const isSelected = selectedIndices.includes(i);
         const isBonus = letters[i] === bonusLetter;
+        const isEliminated = eliminatedLetters?.includes(letters[i]);
+        const n = letters.length;
+        // Dinamik boyut: harf sayısına göre küçül
+        const nodeSize = n <= 5 ? 72 : n === 6 ? 62 : n === 7 ? 54 : 46;
+        const fontSize = n <= 5 ? 22 : n === 6 ? 20 : n === 7 ? 18 : 16;
+        const half = nodeSize / 2;
         return (
           <div
             key={i}
             className={isSelected ? 'wheel-letter-active' : 'wheel-letter'}
             style={{
               position: 'absolute',
-              left: pos.x - 36,
-              top: pos.y - 36,
-              width: 72,
-              height: 72,
+              left: pos.x - half,
+              top: pos.y - half,
+              width: nodeSize,
+              height: nodeSize,
+              fontSize: fontSize,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               userSelect: 'none',
               transition: 'all 0.35s cubic-bezier(0.34,1.56,0.64,1)',
               transform: isShuffling ? 'scale(0) rotate(180deg)' : 'scale(1) rotate(0deg)',
-              opacity: isShuffling ? 0 : 1,
+              opacity: isShuffling ? 0 : (isEliminated ? 0.3 : 1),
+              pointerEvents: isEliminated ? 'none' : 'auto',
+              filter: isEliminated ? 'grayscale(100%)' : 'none',
               border: isBonus && !isSelected ? '4px solid #fbbf24' : (isSelected && isWrongAnim ? '4px solid #ef4444' : undefined),
               boxShadow: isBonus && !isSelected ? '0 0 24px rgba(251,191,36,0.8), inset 0 0 10px rgba(251,191,36,0.4)' : (isSelected && isWrongAnim ? '0 0 20px rgba(239,68,68,0.6)' : undefined),
               color: isBonus && !isSelected ? '#d97706' : (isSelected && isWrongAnim ? '#ef4444' : undefined)

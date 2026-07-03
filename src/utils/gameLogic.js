@@ -2,6 +2,8 @@
 // Kök kelime daima teknik bir terimdir. Çark (wheel) harfleri SADECE kök kelimenin harflerinden oluşur.
 // Alt kelimeler tamamen bu kök kelimenin harflerinden türetilebilen anlamlı kelimelerdir.
 
+import { applyDDA } from './dda';
+
 const PUZZLE_SETS_TR = [
   // SEVİYE 1-10: SADECE TEK KELİME (Çark = Kök Kelime)
   { root: "RAY", subs: [] },
@@ -155,22 +157,79 @@ const PUZZLE_SETS_EN = [
 ];
 
 export const VALID_WORDS_TR = new Set([
-  // Kökler
+  // ===== METRO & ULAŞIM TERİMLERİ (Kökler) =====
   "RAY", "HAT", "YOL", "TEL", "BOJİ", "TREN", "DEPO", "GİŞE", "KART", "FREN",
   "PERON", "VAGON", "DURAK", "BİLET", "VAPUR", "MAKAS", "MOTOR", "TRAFO", "SEFER", "PANEL",
   "SİSTEM", "RULMAN", "BALAST", "KONTAK", "ULAŞIM", "SENSÖR", "İSKELE", "SİNYAL", "DİNGİL", "BAKIM",
   "TURNİKE", "KATENER", "İSTASYON", "TRAMVAY", "KÜPEŞTE", "GÜZERGAH", "MAKİNİST", "OTOBÜS", "TRAVERS", "PANTOGRAF",
   "MARMARAY", "LOKOMOTİF", "METROBÜS", "FÜNİKÜLER", "DEMİRYOLU", "AKTARMA", "TELEFERİK", "TERSANE", "RÜZGÂR", "KOMPARTİMAN",
-  // Alt Kelimeler
-  "OVA", "KUR", "VAR", "KAS", "ROT", "FAR", "SER", "ALP", "SES", "SİM", "NUR", "NAM", "BAL", "AST", "KOT", "KAN",
-  "ŞAL", "AŞI", "SEN", "İLK", "KES", "ASİL", "SAL", "DİL", "DİN", "AKIM", "BAK", "RENK", "TEK", "KENT",
-  "TANK", "NET", "SON", "SOY", "TAS", "YAN", "AYAR", "TAY", "YAR", "KÜP", "PEŞ", "TEPE", "KEP",
-  "GÜR", "ZAR", "GAR", "HER", "İSİM", "MİT", "BOT", "SÜT", "ÜST", "TOS", "SERT", "TERS", "VER", "SET",
-  "POT", "NOT", "NAR", "MAR", "ARA", "MOL", "KOL", "FİL", "KİM", "METRO", "BET", "FÜL", "KÜR", "NİL",
-  "DEMİR", "MİR", "DOR", "AKT", "TAR", "FER", "KEL", "ELİ", "RUZ", "GÂR",
-  "KOT", "KOL", "ROL", "KOR", "NOT", "GÜVEN", "İLK", "NİL", "KİL", "LİG",
-  "YOL", "KUL", "ULU", "YOK", "NET", "YEM", "YEN", "MEY", "İTİ", "BİLET", "TEK", "BİT",
-  "KARAKÖY", "EMİNÖNÜ", "KADIKÖY", "BEŞİKTAŞ", "ÜSKÜDAR", "BOSTANCI", "KARTAL", "PENDİK", "TUZLA", "GEBZE", "TAKSİM", "LEVENT", "ŞİŞLİ", "MECİDİYEKÖY", "MASLAK", "SARIYER", "BEYKOZ", "BEYOĞLU", "FATİH", "ZEYTİNBURNU", "BAKIRKÖY", "ŞİRİNEVLER", "YENİBOSNA", "SEFAKÖY", "AVCILAR", "BEYLİKDÜZÜ", "ESENYURT", "BÜYÜKÇEKMECE", "SİLİVRİ", "ÇATALCA", "AKSU", "LALELİ", "BEYAZIT", "SİRKECİ", "GÜLHANE", "SULTANAHMET", "ÇEMBERLİTAŞ", "KABATAŞ", "FINDIKLI", "TOPHANE"
+  // Ek metro terimleri
+  "KABLON", "MAKARA", "KALDIRAÇ", "PISTON", "KONTROL", "KAPTAN", "SÜRÜCÜ", "MAKİNE", "TÜNEL", "VİYADÜK",
+
+  // ===== ORTAK TÜRKÇE ALT KELİMELER (3 harf) =====
+  "AL", "AR", "AT", "AZ", "BAL", "BAŞ", "BEL", "BOY", "BUZ", "DAL", "DAR", "DEL",
+  "DİL", "DİŞ", "DİZ", "DİN", "EL", "EM", "ER", "ET", "EV", "GAZ", "GEL",
+  "GÖL", "GÖZ", "GÜL", "GÜN", "GÜÇ", "HAK", "HAL", "HAM", "HAN", "HAS", "HOP", "HUY",
+  "İŞ", "KAL", "KAN", "KAP", "KAŞ", "KAY", "KAZ", "KEL", "KEM", "KES", "KIL", "KIR", "KIŞ",
+  "KOL", "KOR", "KOT", "KOY", "KUL", "KUR", "KUŞ", "LAL", "MAL", "MAR", "MAT", "MOR",
+  "NAR", "NUR", "NAM", "NET", "NİL", "NOT", "OT", "OVA", "POT", "ROL", "ROT", "RUH",
+  "SAÇ", "SAL", "SAR", "SAT", "SAY", "SEL", "SEN", "SER", "SET", "SES", "SİL", "SİM",
+  "SOL", "SON", "SOY", "SÖK", "SÖZ", "SUÇ", "SUR", "SÜT", "ŞAH", "ŞAL", "ŞAN",
+  "TAK", "TAL", "TAN", "TAR", "TAŞ", "TAY", "TEK", "TER", "TOK", "TON", "TOP", "TOR", "TOZ",
+  "TÜL", "UÇ", "ÜST", "VAR", "VER", "YAK", "YAL", "YAN", "YAP", "YAR", "YAŞ",
+  "YAT", "YAY", "YEL", "YEM", "YEN", "YER", "YOK", "ZAR", "ZİL",
+  // Var olan alt kelimeler
+  "ALP", "AST", "AŞI", "AKIM", "ASİL", "AKT", "ARA", "BAK", "BET", "BOT", "FAR", "FER",
+  "FİL", "FÜL", "GAR", "GÂR", "GÜR", "HER", "İLK", "İTİ", "İSİM", "KEP", "KÜP", "KÜR",
+  "KİL", "KİM", "LİG", "MEY", "MİR", "MİT", "MOL", "PEŞ", "RUZ", "TAS", "TOS", "TERS",
+  "SERT", "TANK", "TEPE", "GÜVEN", "RENK", "KENT", "ULU", "BİT", "DOR", "ELİ",
+  "AYAR", "AKIM", "BAK", "BİLET", "METRO", "DEMİR",
+
+  // ===== 4 HARFLİ TÜRKÇE SÖZCÜKLER =====
+  "ALAN", "ALIM", "ALTI", "ARPA", "ASIL", "ATIK", "AYAK", "AYNA",
+  "BALE", "BANT", "BERK", "BOYA", "ÇARK", "ÇATI",
+  "FARE", "FARK", "GECE", "GEMİ", "GEZİ",
+  "KABA", "KAFA", "KALE", "KAMA", "KAMP", "KAPI", "KARA", "KAYA", "KEDI",
+  "KOCA", "KOKU", "KOLA", "KRAL", "LAPA", "LEKE", "LİRA", "LOTO",
+  "MANA", "MAVİ", "MAYA", "MEZE", "MODA", "NANE", "NOTA",
+  "OCAK", "OĞUL", "OKUL", "OLGU", "ONUR", "ORAL", "ORDU", "ORTA", "OVAL", "OYUN",
+  "ÖDEV", "ÖFKE", "ÖLÇÜ", "ÖNCE", "ÖRTÜ", "ÖZEL",
+  "PANO", "PARA", "PARK", "PAŞA", "PERİ", "POLO", "PURO",
+  "ROTA", "RÜYA", "SAKA", "SALA", "SANA", "SARI", "SARP",
+  "SOBA", "SOMA", "SOPA", "SORU",
+  "TANE", "TANI", "TARA", "TAVA", "TAZE", "TIRE", "TOKA", "TUNA", "TURA",
+  "VADI", "VALI", "VANA",
+  "YAKA", "YAMA", "YARA", "YASA", "YAYA", "YEDI", "YELE", "YURT", "ZEKA", "ZEVK",
+  "İNEK", "DUYU", "KRAL", "KÖŞK", "ZIRH",
+
+  // ===== 5 HARFLİ TÜRKÇE SÖZCÜKLER (İyi Kök Adayları) =====
+  "BAHAR", "BALIK", "BANKA", "ÇELIK", "DALGA", "DENİZ", "ERDEM",
+  "FENER", "HASAT", "HAYAT", "HIZLI",
+  "KANAT", "KAPAK", "KARIN", "KARMA", "KAYAK", "KAŞIK", "KEMAN", "KEMER", "KENAR",
+  "KÖPEK", "KONAK", "KUŞAK", "KURAL", "KUMUL",
+  "LIMAN", "MANAV", "MEYVA", "NADIR", "NEHIR",
+  "OKUMA", "ORMAN", "ÖNDER", "PAMUK",
+  "PAKET", "PALTO", "PLAKA", "RADAR", "REKOR", "RITIM",
+  "SANAT", "SALON", "SATIR", "ŞARKI", "ŞEKER", "ŞEHİR",
+  "TARIM", "TARLA", "TATIL", "TAVAN", "TEKNE",
+  "TÜFEK", "TÜREV", "UMMAN", "UYGAR",
+  "VATAN", "YAKIN", "YARIN", "YASAK", "YAŞAM", "YAZAR", "YOLCU", "YUMAK",
+  "ZAFER", "ZAMAN",
+
+  // ===== 6 HARFLİ TÜRKÇE SÖZCÜKLER =====
+  "KAVŞAK", "KAMYON", "KAPALI", "KARTAL", "SULTAN", "KAVRAM", "KUMSAL",
+  "KAFKAS", "KÖRFEZ", "KENTLI", "MARKIZ", "MANTAR", "MARKET", "MESLEK",
+  "MEYDAN", "PATRON", "REHBER", "SANDIK", "ŞELALE", "TEMBEL", "TERAZI",
+  "TEZGAH", "TRAFIK", "TOMRUK", "UÇURUM", "ULUSAL", "YALNIZ", "YAPRAK",
+  "YOĞURT", "YÜKSEK", "ZANAAT", "ZINDAN", "ZENCIR",
+
+  // ===== İSTANBUL DURAK VE SEMTLER =====
+  "KARAKÖY", "EMİNÖNÜ", "KADIKÖY", "BEŞİKTAŞ", "ÜSKÜDAR", "BOSTANCI", "KARTAL", "PENDİK",
+  "TUZLA", "GEBZE", "TAKSİM", "LEVENT", "ŞİŞLİ", "MECİDİYEKÖY", "MASLAK", "SARIYER",
+  "BEYKOZ", "BEYOĞLU", "FATİH", "ZEYTİNBURNU", "BAKIRKÖY", "ŞİRİNEVLER", "YENİBOSNA",
+  "SEFAKÖY", "AVCILAR", "BEYLİKDÜZÜ", "ESENYURT", "BÜYÜKÇEKMECE", "SİLİVRİ", "ÇATALCA",
+  "AKSU", "LALELİ", "BEYAZIT", "SİRKECİ", "GÜLHANE", "SULTANAHMET", "ÇEMBERLİTAŞ",
+  "KABATAŞ", "FINDIKLI", "TOPHANE"
 ]);
 
 export const VALID_WORDS_EN = new Set([
@@ -491,8 +550,12 @@ const getCandidateWords = (root, validWords, levelIndex, rand, formableCache) =>
   const baseCandidates = formableCache.get(root) || [...validWords].filter((word) => word !== root && word.length < rootLen && canFormNormalizedWord(word, root));
   const candidates = baseCandidates.filter((word) => word.length >= minLen);
 
+  // Soft sort using sigmoid
+  const pLongFirst = 1 / (1 + Math.exp(-(levelIndex - 400) / 100));
+  
   return shuffleWith(candidates, rand).sort((a, b) => {
-    const lengthBias = levelIndex > 400 ? b.length - a.length : a.length - b.length;
+    const longFirst = rand() < pLongFirst;
+    const lengthBias = longFirst ? b.length - a.length : a.length - b.length;
     return lengthBias || a.localeCompare(b);
   });
 };
@@ -595,6 +658,9 @@ const ONBOARDING_EN = [
   "TRANSIT", "PLATFORM", "TERMINAL", "OVERPASS", "COMMUTER" // 26-30
 ];
 
+// Son 100 seviyede kullanılan kökleri takip eder (tekrarı önler)
+const usedRootsHistory = new Set();
+
 const chooseTechnicalRoot = (levelIndex, language) => {
   // 1-30 Seviyeleri için özel onboarding akışı
   if (levelIndex < 30) {
@@ -605,52 +671,71 @@ const chooseTechnicalRoot = (levelIndex, language) => {
 
   const { techTerms, validWords, formableCache } = getPools(language);
   const difficulty = getDifficulty(levelIndex);
-  const rand = seededRandom((levelIndex + 1) * (language === "en" ? 997 : 613));
+
+  // Murmur-style daha iyi seed (her seviye tamamen farklı bir kombinasyon verir)
+  let seed = (levelIndex + 1) * (language === "en" ? 1879 : 1297);
+  seed ^= seed >>> 16;
+  seed = Math.imul(seed | 0, 0x45d9f3b | 0);
+  seed ^= seed >>> 16;
+  const rand = seededRandom(Math.abs(seed));
   
+  // Uzunluk kriteri ile filtrele — provider kısıtlaması KALDIRILDI (temanın görsel rozete dönmesi)
+  const eligible = techTerms.filter((term) => {
+    const len = term.root.length;
+    return len >= difficulty.minRoot && len <= difficulty.maxRoot;
+  });
+  const pool = eligible.length > 5 ? eligible : techTerms;
+  const shuffledPool = shuffleWith(pool, rand);
+
+  // Tema tercihi (provider) artık "bonus puan" olarak, hard-filter değil
   const providerCycle = language === "en"
     ? ["Metro", "IETT", "City Lines", "Busforus"]
     : ["Metro Istanbul", "IETT", "Sehir Hatlari", "Busforus"];
   const desiredProvider = providerCycle[levelIndex % providerCycle.length];
-  const providerTerms = techTerms.filter((term) => term.provider === desiredProvider);
-  const scopedTerms = providerTerms.length > 0 ? providerTerms : techTerms;
 
-  const preferred = scopedTerms.filter((term) => {
-    const len = term.root.length;
-    return len >= difficulty.minRoot && len <= difficulty.maxRoot;
-  });
-
-  const pool = preferred.length > 0 ? preferred : scopedTerms;
-  
-  // Havuzu karıştırıp ilk uygun olanı alalım (Sürekli aynı kelimenin gelmesini engeller)
-  const shuffledPool = shuffleWith(pool, rand);
-  
-  let best = shuffledPool[0];
+  let best = null;
   let bestScore = -1;
+  const minLen = levelIndex < 50 ? 3 : 4;
 
+  // 1. Geçiş: Tarihe geçmeyen (taze) köklerden en iyi skoru bul
   for (const term of shuffledPool) {
-    const count = (formableCache.get(term.root) || [...validWords].filter(w => canFormNormalizedWord(w, term.root))).filter((word) => word.length >= (levelIndex < 50 ? 3 : 4)).length;
-    const score = Math.min(count, difficulty.targetWords - 1) * 10 + term.root.length;
-    
-    if (score > bestScore) {
-      best = term;
-      bestScore = score;
-    }
-    
-    // Yeterli sayıda kelime çıkıyorsa direkt bunu kullan (çeşitliliği sağlar)
-    if (count >= difficulty.targetWords - 1) {
-      best = term;
-      break;
+    if (usedRootsHistory.has(term.root)) continue;
+    const count = (formableCache.get(term.root) || [...validWords].filter(w => canFormNormalizedWord(w, term.root)))
+      .filter(w => w.length >= minLen && w !== term.root).length;
+    if (count < 1) continue;
+    const providerBonus = term.provider === desiredProvider ? 3 : 0;
+    const score = Math.min(count, difficulty.targetWords + 2) * 10 + term.root.length + providerBonus;
+    if (score > bestScore) { best = term; bestScore = score; }
+    if (count >= difficulty.targetWords) break;
+  }
+
+  // 2. Geçiş: Tüm geçmiş tüketilmişse (nadiren olur) tarihi yoksay
+  if (!best) {
+    bestScore = -1;
+    for (const term of shuffledPool) {
+      const count = (formableCache.get(term.root) || [...validWords].filter(w => canFormNormalizedWord(w, term.root)))
+        .filter(w => w.length >= minLen && w !== term.root).length;
+      const score = Math.min(count, difficulty.targetWords + 2) * 10 + term.root.length;
+      if (score > bestScore) { best = term; bestScore = score; }
     }
   }
 
   // Güvenlik amaçlı fallback
   if (!best) {
-    best = { root: language === "en" ? "TRAIN" : "TREN", provider: language === "en" ? "Metro" : "Metro Istanbul", category: "Genel" };
+    best = { root: language === "en" ? "TRAIN" : "TRAMVAY", provider: language === "en" ? "Metro" : "Metro Istanbul", category: "Genel" };
   }
+
+  // Kullanılan kökü geçmişe ekle (max 100 kayıt tut)
+  usedRootsHistory.add(best.root);
+  if (usedRootsHistory.size > 100) {
+    const [oldest] = usedRootsHistory;
+    usedRootsHistory.delete(oldest);
+  }
+
   return best;
 };
 
-export const getTimeForLevel = (levelIndex, wordCount) => {
+export const getTimeForLevel = (levelIndex, wordCount, attempts = 1, ddaTimeAdjust = 0) => {
   const difficulty = getDifficulty(levelIndex);
   const base = wordCount <= 1 ? 45 : 42;
   const levelPressure = Math.floor(levelIndex / 250) * 2;
@@ -666,7 +751,16 @@ export const getTimeForLevel = (levelIndex, wordCount) => {
     efsane: 14
   }[difficulty.label] || 4;
 
-  return Math.max(18, base - levelPressure - wordPressure - tierPressure);
+  let time = Math.max(18, base - levelPressure - wordPressure - tierPressure);
+  
+  // Pity system instead of punishment
+  if (attempts === 3) time += 5;
+  if (attempts >= 4) time += 10;
+  
+  // DDA adjustment
+  time += ddaTimeAdjust;
+
+  return Math.max(18, time);
 };
 
 const getMissionInfo = (provider, levelIndex, language) => {
@@ -744,13 +838,23 @@ const getMissionInfo = (provider, levelIndex, language) => {
   };
 };
 
-export const generateLevel = (levelIndex, language = "tr") => {
+export const generateLevel = (levelIndex, language = "tr", attempts = 1, performanceScore = 0.55, volatility = "stable") => {
   const safeLevel = ((levelIndex % LEVEL_CAP) + LEVEL_CAP) % LEVEL_CAP;
-  const rand = seededRandom((safeLevel + 1) * (language === "en" ? 1879 : 1297));
+  
+  // Murmur-style RNG seed — her seviye + deneme kombinasyonu tamamen farklı
+  let baseSeed = (safeLevel + 1) * (language === "en" ? 1879 : 1297);
+  baseSeed ^= baseSeed >>> 16;
+  baseSeed = Math.imul(baseSeed | 0, 0x45d9f3b | 0);
+  baseSeed ^= baseSeed >>> 16;
+  const seedHash = Math.abs((baseSeed ^ Math.imul(attempts | 0, 0x9e3779b9 | 0)));
+  const rand = seededRandom(seedHash);
+  
   const { validWords, formableCache } = getPools(language);
-  const difficulty = getDifficulty(safeLevel);
+  const baseDifficulty = getDifficulty(safeLevel);
+  const difficulty = applyDDA(baseDifficulty, performanceScore, volatility);
   
   let term = chooseTechnicalRoot(safeLevel, language);
+  // Pass DDA adjusted minRoot/maxRoot if necessary, but chooseTechnicalRoot is static right now.
   let candidates = getCandidateWords(term.root, validWords, safeLevel, rand, formableCache);
   
   // Eğer hiç candidate yoksa (örn: "YOL" gibi çok kısa bir kelime geldiyse),
@@ -778,7 +882,9 @@ export const generateLevel = (levelIndex, language = "tr") => {
     difficulty: difficulty.label,
     maxSupportedLevel: LEVEL_CAP,
     missionType: missionInfo.type,
-    missionTask: missionInfo.task
+    missionTask: missionInfo.task,
+    ddaTimeAdjust: difficulty.timeAdjustSeconds || 0,
+    extraHintAvailable: difficulty.extraHintAvailable || false
   };
 };
 
