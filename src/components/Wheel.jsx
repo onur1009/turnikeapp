@@ -184,23 +184,17 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
         isCorrect = false;
       }
       
-      // Her durumda kilidi aç
       setIsAwaiting(false);
       gestureRef.current.isAwaitingResult = false;
       
-      if (isCorrect) {
-        gestureRef.current.selectedIndices = [];
-        setSelectedIndices([]);
-      } else {
-        // Geri sarma animasyonu başlat
-        startRewind();
-      }
+      // Doğru veya yanlış — harfleri anında sıfırla
+      gestureRef.current.selectedIndices = [];
+      setSelectedIndices([]);
     } else {
-      // Tek harf veya iptal: Anında sıfırla
       gestureRef.current.selectedIndices = [];
       setSelectedIndices([]);
     }
-  }, [startRewind]);
+  }, []);
 
   useEffect(() => {
     window.addEventListener('pointerup', handleEnd);
@@ -239,26 +233,15 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
           const word = currentIndices.map(i => callbacksRef.current.letters[i]).join('');
           setIsAwaiting(true);
           gestureRef.current.isAwaitingResult = true;
-          let isCorrect = false;
           try {
-            isCorrect = await callbacksRef.current.onWordSubmit(word);
-          } catch(err) {
-            isCorrect = false;
-          }
+            await callbacksRef.current.onWordSubmit(word);
+          } catch(err) {}
           setIsAwaiting(false);
           gestureRef.current.isAwaitingResult = false;
-          
-          if (isCorrect) {
-            gestureRef.current.selectedIndices = [];
-            setSelectedIndices([]);
-          } else {
-            startRewind();
-          }
-        } else {
-          // Tek harf varsa sıfırla
-          gestureRef.current.selectedIndices = [];
-          setSelectedIndices([]);
         }
+        // Her durumda anında sıfırla
+        gestureRef.current.selectedIndices = [];
+        setSelectedIndices([]);
         Haptics.impact({ style: ImpactStyle.Medium }).catch(()=>{});
         return;
       }
