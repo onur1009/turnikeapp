@@ -14,6 +14,7 @@ import { useGameStore, getMaxLives } from '../store/gameStore';
 import UsernameModal from './UsernameModal';
 import ScreenHeader from './ScreenHeader';
 import { getStationForLevel } from '../utils/transitNetwork';
+import { isCloudConfigured } from '../utils/supabaseClient';
 
 export default function NavigationContainer({ 
   screen, setScreen, 
@@ -45,7 +46,7 @@ export default function NavigationContainer({
       <div className="game-bg h-full flex flex-col relative z-10 fade-in overflow-hidden">
         <LeaderboardScreen onBack={() => setScreen('home')} />
         {/* Kullanıcı adı ilk açılışta değil, liderlik tablosuna girerken sorulur */}
-        {!username && <UsernameModal onCancel={() => setScreen('home')} />}
+        {!username && isCloudConfigured && <UsernameModal onCancel={() => setScreen('home')} />}
       </div>
     );
   }

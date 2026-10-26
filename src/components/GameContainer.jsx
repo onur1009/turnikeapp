@@ -515,9 +515,11 @@ export default function GameContainer({
         // TDK SÖZLÜK KONTROLÜ
         try {
           const controller = new AbortController();
-          const timeoutId = setTimeout(() => controller.abort(), 2000);
-          const proxyUrl = `https://corsproxy.io/?url=${encodeURIComponent(`https://sozluk.gov.tr/gts?ara=${word.toLocaleLowerCase('tr-TR')}`)}`;
-          const res = await fetch(proxyUrl, { signal: controller.signal });
+          const timeoutId = setTimeout(() => controller.abort(), 4000);
+          // TDK API'si CORS'a izin veriyor (Access-Control-Allow-Origin: *); üçüncü taraf proxy'ye
+          // (corsproxy.io) gerek yok. Web'de ve Android WebView'da doğrudan çağrılır.
+          const tdkUrl = `https://sozluk.gov.tr/gts?ara=${encodeURIComponent(word.toLocaleLowerCase('tr-TR'))}`;
+          const res = await fetch(tdkUrl, { signal: controller.signal });
           clearTimeout(timeoutId);
           const data = await res.json();
           if (data && !data.error && data.length > 0) {

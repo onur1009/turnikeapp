@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useGameStore } from '../store/gameStore';
-import { cloudService } from '../utils/supabaseClient';
+import { cloudService, isCloudConfigured } from '../utils/supabaseClient';
 import ScreenHeader from './ScreenHeader';
 
 const FETCH_TIMEOUT_MS = 8000;
@@ -18,6 +18,10 @@ const LeaderboardScreen = ({ onBack }) => {
   const [status, setStatus] = useState('loading'); // 'loading' | 'ready' | 'offline'
 
   const fetchLeaderboard = useCallback(async () => {
+    if (!isCloudConfigured) {
+      setStatus('disabled');
+      return;
+    }
     setStatus('loading');
     const realPlayers = await withTimeout(cloudService.getTopPlayers());
     if (realPlayers === null) {
@@ -56,6 +60,14 @@ const LeaderboardScreen = ({ onBack }) => {
         {status === 'loading' && (
           <div className="flex-1 flex items-center justify-center py-16">
             <span aria-hidden="true" className="material-symbols-outlined animate-spin text-green-400 text-3xl">sync</span>
+          </div>
+        )}
+
+        {status === 'disabled' && (
+          <div className="card-panel p-6 flex flex-col items-center text-center gap-3">
+            <span aria-hidden="true" className="material-symbols-outlined text-[40px] text-white/40">construction</span>
+            <p className="text-white font-bold text-[15px]">Liderlik tablosu yakında</p>
+            <p className="text-white/55 text-[13px]">Çevrim içi sıralama henüz etkin değil. İlerlemen cihazında kayıtlı.</p>
           </div>
         )}
 
