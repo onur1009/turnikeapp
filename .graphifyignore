@@ -4,8 +4,10 @@ dev-dist/
 dist/
 android/app/src/main/assets/
 android/app/build/
-# Eski, kullanılmayan yedek
+# Eski, kullanılmayan yedek ve kaynak kodun toplu kopyaları (grafikte yinelenen düğüm üretiyordu)
 src/App_backup.jsx
+TURNIKE_Tum_Kaynak_Kodlar.md
+turnike_manus_ai_ready.md
 # Üçüncü taraf skill içerikleri ve grafiğin kendisi
 .claude/skills/
 graphify-out/

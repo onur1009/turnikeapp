@@ -90,10 +90,10 @@
     "semantic_hash": "3aa4b57d7f08181d86bde52a4dcb7f22"
   },
   "package.json": {
-    "mtime": 1793013545.9519663,
-    "seen": 1793022710.6167996,
-    "ast_hash": "e21af8ba485eef4f79955c866fce4198",
-    "semantic_hash": "e21af8ba485eef4f79955c866fce4198"
+    "mtime": 1793023071.1314533,
+    "seen": 1793023123.2418876,
+    "ast_hash": "86c54b185bd9065f720121b5330b45d1",
+    "semantic_hash": ""
   },
   "postcss.config.js": {
     "mtime": 1782113902.513255,
@@ -108,10 +108,10 @@
     "semantic_hash": "3f3828e21f821b32887998b7acefb58d"
   },
   "scripts/gradle-build-outside.gradle": {
-    "mtime": 1793013391.070768,
-    "seen": 1793022710.6167996,
-    "ast_hash": "bac49013004023935a30a061c287d4f1",
-    "semantic_hash": "bac49013004023935a30a061c287d4f1"
+    "mtime": 1793023071.1314533,
+    "seen": 1793023123.2418876,
+    "ast_hash": "c74991a752ba6c412e9d1a12533a1405",
+    "semantic_hash": ""
   },
   "skills-lock.json": {
     "mtime": 1793002994.6058784,
@@ -120,14 +120,14 @@
     "semantic_hash": "89f4fb5a8d8cae2dfb6f2ffc76de64e3"
   },
   "src/App.jsx": {
-    "mtime": 1793003394.7361498,
-    "seen": 1793022710.6167996,
-    "ast_hash": "70fb4489c7c4f35ab89b9ed4fee7ce52",
-    "semantic_hash": "70fb4489c7c4f35ab89b9ed4fee7ce52"
+    "mtime": 1793023071.1314533,
+    "seen": 1793023123.2418876,
+    "ast_hash": "e7b2c7d95e819cfb832b9ebcf08630cb",
+    "semantic_hash": ""
   },
   "src/components/AkbilScreen.jsx": {
-    "mtime": 1793003366.7337263,
-    "seen": 1793022710.6167996,
+    "mtime": 1793023071.1463206,
+    "seen": 1793023123.2418876,
     "ast_hash": "29664287ea28fb48c001209681c202ea",
     "semantic_hash": "29664287ea28fb48c001209681c202ea"
   },
@@ -138,40 +138,40 @@
     "semantic_hash": "8baad1740b8e57751f04a3b47a05cfc3"
   },
   "src/components/BadgesScreen.jsx": {
-    "mtime": 1793003366.735436,
-    "seen": 1793022710.6167996,
+    "mtime": 1793023071.148586,
+    "seen": 1793023123.2418876,
     "ast_hash": "033f331b260df64483331889ecf9b081",
     "semantic_hash": "033f331b260df64483331889ecf9b081"
   },
   "src/components/BonusLockers.jsx": {
-    "mtime": 1793003366.7374494,
-    "seen": 1793022710.6167996,
+    "mtime": 1793023071.148586,
+    "seen": 1793023123.2418876,
     "ast_hash": "68db743461108394a2fe36e3126fa331",
     "semantic_hash": "68db743461108394a2fe36e3126fa331"
   },
   "src/components/DailySpinScreen.jsx": {
-    "mtime": 1793003366.73848,
-    "seen": 1793022710.6167996,
-    "ast_hash": "8eb6aeccf95eacd54e777b61958b4c03",
-    "semantic_hash": "8eb6aeccf95eacd54e777b61958b4c03"
+    "mtime": 1793023071.148586,
+    "seen": 1793023123.2418876,
+    "ast_hash": "843c413bb712d19d2fa8788423788379",
+    "semantic_hash": ""
   },
   "src/components/DictionaryScreen.jsx": {
-    "mtime": 1793003366.7397747,
-    "seen": 1793022710.6167996,
-    "ast_hash": "9ba29dc36caee787fbe8f40c1eb3aaaf",
-    "semantic_hash": "9ba29dc36caee787fbe8f40c1eb3aaaf"
+    "mtime": 1793023071.148586,
+    "seen": 1793023123.2418876,
+    "ast_hash": "2436ad766060743e40345ea24e687b75",
+    "semantic_hash": ""
   },
   "src/components/DuelsScreen.jsx": {
-    "mtime": 1793003366.7397747,
-    "seen": 1793022710.6167996,
-    "ast_hash": "87823b2df200e811a7e578747dae58f3",
-    "semantic_hash": "87823b2df200e811a7e578747dae58f3"
+    "mtime": 1793023071.148586,
+    "seen": 1793023123.2418876,
+    "ast_hash": "c507404d9d8d7cdfce14f96fa4295474",
+    "semantic_hash": ""
   },
   "src/components/GameContainer.jsx": {
-    "mtime": 1793012777.7588887,
-    "seen": 1793022710.6167996,
-    "ast_hash": "3606d7f7b3a0a73a66a02c642c660a96",
-    "semantic_hash": "3606d7f7b3a0a73a66a02c642c660a96"
+    "mtime": 1793023071.148586,
+    "seen": 1793023123.2418876,
+    "ast_hash": "e03166cae12c572cd7c1206afeffe251",
+    "semantic_hash": ""
   },
   "src/components/Grid.jsx": {
     "mtime": 1792999894.8026545,
@@ -180,74 +180,74 @@
     "semantic_hash": "77bad896a562e0310bb4797b02b75bda"
   },
   "src/components/HomeScreen.jsx": {
-    "mtime": 1793003366.7397747,
-    "seen": 1793022710.6167996,
-    "ast_hash": "03035cec67c273f9d53aa38183e575d8",
-    "semantic_hash": "03035cec67c273f9d53aa38183e575d8"
+    "mtime": 1793023071.148586,
+    "seen": 1793023123.2418876,
+    "ast_hash": "1abe26a4cd19c6298ab492c6faccf4eb",
+    "semantic_hash": ""
   },
   "src/components/LeaderboardScreen.jsx": {
-    "mtime": 1793013072.091819,
-    "seen": 1793022710.6167996,
+    "mtime": 1793023071.1648881,
+    "seen": 1793023123.2418876,
     "ast_hash": "242a947fdbe2a55385a3fd0a3689c7df",
     "semantic_hash": "242a947fdbe2a55385a3fd0a3689c7df"
   },
   "src/components/LevelComplete.jsx": {
-    "mtime": 1793003375.8557491,
-    "seen": 1793022710.6167996,
-    "ast_hash": "180201d9c4327718af48f026e7e14ea5",
-    "semantic_hash": "180201d9c4327718af48f026e7e14ea5"
+    "mtime": 1793023071.1648881,
+    "seen": 1793023123.2418876,
+    "ast_hash": "23a9d276768f31d36831841d196c57e9",
+    "semantic_hash": ""
   },
   "src/components/LostItemsScreen.jsx": {
-    "mtime": 1793003366.7397747,
-    "seen": 1793022710.6167996,
-    "ast_hash": "669c22d42e69d81f7f3b038029205e43",
-    "semantic_hash": "669c22d42e69d81f7f3b038029205e43"
+    "mtime": 1793023071.1648881,
+    "seen": 1793023123.2418876,
+    "ast_hash": "922aa79ebecc078d23853467178a6572",
+    "semantic_hash": ""
   },
   "src/components/MapScreen.jsx": {
-    "mtime": 1793003366.7397747,
-    "seen": 1793022710.6167996,
-    "ast_hash": "199b93b77b23b72cec5e8cf8dae16b8f",
-    "semantic_hash": "199b93b77b23b72cec5e8cf8dae16b8f"
+    "mtime": 1793023071.1648881,
+    "seen": 1793023123.2418876,
+    "ast_hash": "a15a821762cb617f7ec2ddb70d209592",
+    "semantic_hash": ""
   },
   "src/components/NavigationContainer.jsx": {
-    "mtime": 1793013079.3460894,
-    "seen": 1793022710.6167996,
-    "ast_hash": "dae32ac227994912149fbd778d796349",
-    "semantic_hash": "dae32ac227994912149fbd778d796349"
+    "mtime": 1793023071.173339,
+    "seen": 1793023123.2418876,
+    "ast_hash": "a45235b4e48e7c4b480b75be960747b0",
+    "semantic_hash": ""
   },
   "src/components/ScreenHeader.jsx": {
-    "mtime": 1793003366.7397747,
-    "seen": 1793022710.6167996,
+    "mtime": 1793023071.173339,
+    "seen": 1793023123.2418876,
     "ast_hash": "f6f7551aac03e99add801fbf954801e8",
     "semantic_hash": "f6f7551aac03e99add801fbf954801e8"
   },
   "src/components/SettingsScreen.jsx": {
-    "mtime": 1793003366.7492971,
-    "seen": 1793022710.6167996,
+    "mtime": 1793023071.173339,
+    "seen": 1793023123.2418876,
     "ast_hash": "68b3124314b2b757f8aa028d4376727b",
     "semantic_hash": "68b3124314b2b757f8aa028d4376727b"
   },
   "src/components/StatsScreen.jsx": {
-    "mtime": 1793003366.7515666,
-    "seen": 1793022710.6167996,
+    "mtime": 1793023071.1806877,
+    "seen": 1793023123.2418876,
     "ast_hash": "6a016e95953bb65863b89779ad5199bd",
     "semantic_hash": "6a016e95953bb65863b89779ad5199bd"
   },
   "src/components/UsernameModal.jsx": {
-    "mtime": 1793003366.7524827,
-    "seen": 1793022710.6167996,
+    "mtime": 1793023071.182024,
+    "seen": 1793023123.2418876,
     "ast_hash": "24fd8ec07f2c857d5e631d74f8be2716",
     "semantic_hash": "24fd8ec07f2c857d5e631d74f8be2716"
   },
   "src/components/VaultScreen.jsx": {
-    "mtime": 1793003366.7524827,
-    "seen": 1793022710.6167996,
+    "mtime": 1793023071.182024,
+    "seen": 1793023123.2418876,
     "ast_hash": "114c11b6c3e85cebfa7a4253b031bdad",
     "semantic_hash": "114c11b6c3e85cebfa7a4253b031bdad"
   },
   "src/components/Wheel.jsx": {
-    "mtime": 1793003395.0343425,
-    "seen": 1793022710.6167996,
+    "mtime": 1793023071.182024,
+    "seen": 1793023123.2418876,
     "ast_hash": "aa2c8b6783d4d2651c494cd11e122fb6",
     "semantic_hash": "aa2c8b6783d4d2651c494cd11e122fb6"
   },
@@ -270,14 +270,14 @@
     "semantic_hash": "8b682daf983de35a27bd76bbc7a2995a"
   },
   "src/main.jsx": {
-    "mtime": 1793003422.1994717,
-    "seen": 1793022710.6167996,
-    "ast_hash": "af232a03af48cceeebfe43ca314437d6",
-    "semantic_hash": "af232a03af48cceeebfe43ca314437d6"
+    "mtime": 1793023071.1910982,
+    "seen": 1793023123.2418876,
+    "ast_hash": "693174d0ae6e25df4249745d8a98f94a",
+    "semantic_hash": ""
   },
   "src/store/gameStore.js": {
-    "mtime": 1793003421.999451,
-    "seen": 1793022710.6167996,
+    "mtime": 1793023071.1910982,
+    "seen": 1793023123.2418876,
     "ast_hash": "169451a485e1dcedc685b72ff10e4f19",
     "semantic_hash": "169451a485e1dcedc685b72ff10e4f19"
   },
@@ -312,10 +312,10 @@
     "semantic_hash": "0779d758f7166837ae6c108c6c634218"
   },
   "src/utils/persistStorage.js": {
-    "mtime": 1793003413.048761,
-    "seen": 1793022710.6167996,
-    "ast_hash": "33ffbb9e5599b017253c2f269a88f937",
-    "semantic_hash": "33ffbb9e5599b017253c2f269a88f937"
+    "mtime": 1793023071.1910982,
+    "seen": 1793023123.2418876,
+    "ast_hash": "38c1f898fb45707998795b8284642bf5",
+    "semantic_hash": ""
   },
   "src/utils/scoring.js": {
     "mtime": 1782996329.7095728,
@@ -330,10 +330,10 @@
     "semantic_hash": "ab574ce65ce1d436e299afbf64c6bcaa"
   },
   "src/utils/supabaseClient.js": {
-    "mtime": 1793012876.185676,
-    "seen": 1793022710.6167996,
-    "ast_hash": "a81d1ff992dd972cd0b8e04292b1ec55",
-    "semantic_hash": "a81d1ff992dd972cd0b8e04292b1ec55"
+    "mtime": 1793023071.19737,
+    "seen": 1793023123.2418876,
+    "ast_hash": "db001d1d3f6e35ada44c5fa0a60fa206",
+    "semantic_hash": ""
   },
   "src/utils/transitNetwork.js": {
     "mtime": 1792999894.835317,
@@ -360,22 +360,22 @@
     "semantic_hash": "ce27b1599c4dc42354a181512c2958a2"
   },
   "tests/artemis/run.cjs": {
-    "mtime": 1793013390.9160397,
-    "seen": 1793022710.6167996,
-    "ast_hash": "6a6f08e19798c586850714bf0dd57522",
-    "semantic_hash": "6a6f08e19798c586850714bf0dd57522"
+    "mtime": 1793023071.203476,
+    "seen": 1793023123.2519693,
+    "ast_hash": "c18164d10dae08ebf736077641c1e3bc",
+    "semantic_hash": ""
   },
   "tests/artemis/run_artemis.py": {
-    "mtime": 1793013546.0840087,
-    "seen": 1793022710.6167996,
-    "ast_hash": "7d70b257d33603f0804e1c7eef1306f0",
-    "semantic_hash": "7d70b257d33603f0804e1c7eef1306f0"
+    "mtime": 1793023071.203476,
+    "seen": 1793023123.2519693,
+    "ast_hash": "9ae75323dc4198f6b549bfc5d1788fb6",
+    "semantic_hash": ""
   },
   "tests/artemis/scenarios.py": {
-    "mtime": 1793013317.9377222,
-    "seen": 1793022710.6167996,
-    "ast_hash": "0195a87e652c1112ae31abe024e078e4",
-    "semantic_hash": "0195a87e652c1112ae31abe024e078e4"
+    "mtime": 1793023071.2069924,
+    "seen": 1793023123.2519693,
+    "ast_hash": "2520760a42a98baf248a88ac458b0e86",
+    "semantic_hash": ""
   },
   "vercel.json": {
     "mtime": 1782285574.6190512,
@@ -392,12 +392,12 @@
   "supabase/migrations/0001_players_rls.sql": {
     "mtime": 1793012876.2990968,
     "seen": 1793022883.8656387,
-    "ast_hash": "af1e59e4e5181e11c0a956d5fe1007bc",
+    "ast_hash": "",
     "semantic_hash": ""
   },
   "CLAUDE.md": {
-    "mtime": 1793022824.6848824,
-    "seen": 1793022883.8656387,
+    "mtime": 1793023071.124894,
+    "seen": 1793023123.2519693,
     "ast_hash": "8a6643a420fdad6bfb583523bc6cef16",
     "semantic_hash": ""
   },
@@ -407,28 +407,16 @@
     "ast_hash": "a28dc4cb878325f3e9e5649f3e1469ac",
     "semantic_hash": ""
   },
-  "TURNIKE_Tum_Kaynak_Kodlar.md": {
-    "mtime": 1782904010.6783998,
-    "seen": 1793022883.8656387,
-    "ast_hash": "db82c5cd0c4c004f82713ef0b6a26815",
-    "semantic_hash": ""
-  },
   "index.html": {
-    "mtime": 1793003345.6094592,
-    "seen": 1793022883.8656387,
-    "ast_hash": "b6ba1eb4bba9b5215bc32ffacacb90bb",
+    "mtime": 1793023071.1314533,
+    "seen": 1793023123.2540052,
+    "ast_hash": "27010276035563fa930b454ca02d0207",
     "semantic_hash": ""
   },
   "tests/artemis/README.md": {
-    "mtime": 1793013390.747969,
-    "seen": 1793022883.8656387,
-    "ast_hash": "f5ab9feea5082b5bb3e1e6a57f7289e6",
-    "semantic_hash": ""
-  },
-  "turnike_manus_ai_ready.md": {
-    "mtime": 1782798652.8402326,
-    "seen": 1793022883.8656387,
-    "ast_hash": "003127d99f79199ee9c7ec5d5ae29f23",
+    "mtime": 1793023071.2006743,
+    "seen": 1793023123.2540052,
+    "ast_hash": "f0f0d81d6aea5eee452416a3d5be1353",
     "semantic_hash": ""
   },
   "android/app/src/main/res/drawable-land-hdpi/splash.png": {

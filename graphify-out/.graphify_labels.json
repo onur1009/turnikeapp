@@ -11,9 +11,10 @@
   "9": "transitNetwork.js",
   "10": "main.jsx",
   "11": "CLAUDE.md",
-  "12": "dda.js",
+  "14": "scripts",
   "15": "vercel.json",
   "16": "gradlew",
+  "17": "eslint.config.js",
   "19": "MainActivity.java",
   "20": "tailwind.config.js",
   "21": "app/build.gradle",
@@ -23,5 +24,9 @@
   "25": "settings.gradle",
   "26": "variables.gradle",
   "27": "postcss.config.js",
-  "28": "gradle-build-outside.gradle"
+  "28": "gradle-build-outside.gradle",
+  "29": "Turnike mobil testleri (Artemis)",
+  "30": "React + Vite",
+  "31": "puppeteer",
+  "32": "vite.config.js"
 }
