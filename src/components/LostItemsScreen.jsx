@@ -39,7 +39,7 @@ const LostItemsScreen = ({ onBack }) => {
   };
 
   return (
-    <div className="flex-1 w-full flex flex-col items-center relative z-20 fade-in pb-6 px-4 min-h-screen">
+    <div className="flex-1 w-full flex flex-col items-center relative z-20 fade-in pb-6 px-4 min-h-full">
       <ScreenHeader title="Kayıp Eşya Ofisi" onBack={onBack} className="px-0 pt-6 mb-3 max-w-sm"
         right={<span className="balance-pill">{formatKurus(balance)}</span>} />
 

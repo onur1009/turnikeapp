@@ -64,7 +64,7 @@ const LevelComplete = ({ level, station, summary, mistakes, meanings, onNextLeve
   };
 
   return (
-    <main className="game-bg h-screen flex flex-col relative z-10 fade-in overflow-y-auto">
+    <main className="game-bg h-full flex flex-col relative z-10 fade-in overflow-y-auto">
       <div className="flex-1 flex flex-col items-center px-5 pt-6 pb-5 w-full max-w-md mx-auto">
         {/* Durak tabelası */}
         <div className="w-full rounded-2xl overflow-hidden mb-4" style={{ border: `1.5px solid ${station.color}`, boxShadow: `0 0 30px ${station.color}33` }}>

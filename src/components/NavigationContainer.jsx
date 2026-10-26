@@ -26,7 +26,7 @@ export default function NavigationContainer({
 
   if (screen === 'akbil') {
     return (
-      <div className="game-bg h-screen flex flex-col relative z-10 fade-in">
+      <div className="game-bg h-full flex flex-col relative z-10 fade-in">
         <AkbilScreen onBack={() => setScreen('home')} />
       </div>
     );
@@ -34,7 +34,7 @@ export default function NavigationContainer({
 
   if (screen === 'vault') {
     return (
-      <div className="game-bg h-screen flex flex-col relative z-10 fade-in overflow-hidden">
+      <div className="game-bg h-full flex flex-col relative z-10 fade-in overflow-hidden">
         <VaultScreen onBack={() => setScreen('home')} />
       </div>
     );
@@ -42,7 +42,7 @@ export default function NavigationContainer({
 
   if (screen === 'leaderboard') {
     return (
-      <div className="game-bg h-screen flex flex-col relative z-10 fade-in overflow-hidden">
+      <div className="game-bg h-full flex flex-col relative z-10 fade-in overflow-hidden">
         <LeaderboardScreen onBack={() => setScreen('home')} />
         {/* Kullanıcı adı ilk açılışta değil, liderlik tablosuna girerken sorulur */}
         {!username && <UsernameModal onCancel={() => setScreen('home')} />}
@@ -52,7 +52,7 @@ export default function NavigationContainer({
 
   if (screen === 'lostitems') {
     return (
-      <div className="game-bg h-screen flex flex-col relative z-10 fade-in overflow-hidden">
+      <div className="game-bg h-full flex flex-col relative z-10 fade-in overflow-hidden">
         <LostItemsScreen onBack={() => setScreen('home')} />
       </div>
     );
@@ -60,7 +60,7 @@ export default function NavigationContainer({
 
   if (screen === 'duels') {
     return (
-      <div className="game-bg h-screen flex flex-col relative z-10 fade-in overflow-hidden">
+      <div className="game-bg h-full flex flex-col relative z-10 fade-in overflow-hidden">
         <DuelsScreen onBack={() => setScreen('home')} />
       </div>
     );
@@ -68,7 +68,7 @@ export default function NavigationContainer({
 
   if (screen === 'settings') {
     return (
-      <div className="game-bg h-screen flex flex-col relative z-10 fade-in">
+      <div className="game-bg h-full flex flex-col relative z-10 fade-in">
         <SettingsScreen onBack={() => setScreen('home')} />
       </div>
     );
@@ -76,7 +76,7 @@ export default function NavigationContainer({
 
   if (screen === 'stats') {
     return (
-      <div className="game-bg h-screen flex flex-col relative z-10 fade-in">
+      <div className="game-bg h-full flex flex-col relative z-10 fade-in">
         <StatsScreen onBack={() => setScreen('home')} />
       </div>
     );
@@ -89,7 +89,7 @@ export default function NavigationContainer({
     };
     const station = getStationForLevel(maxUnlockedLevel);
     return (
-      <div className="game-bg h-screen flex flex-col relative z-10 fade-in">
+      <div className="game-bg h-full flex flex-col relative z-10 fade-in">
         <ScreenHeader title={t('map')} onBack={() => setScreen('home')} />
         <div className="flex-1 min-h-0 flex flex-col">
           <MapScreen currentLevel={maxUnlockedLevel + 1} onLevelSelect={playLevel} />
@@ -114,7 +114,7 @@ export default function NavigationContainer({
 
   if (screen === 'dictionary') {
     return (
-      <div className="game-bg h-screen flex flex-col relative z-10 fade-in">
+      <div className="game-bg h-full flex flex-col relative z-10 fade-in">
         <ScreenHeader title={t('dictionary')} onBack={() => setScreen('home')} />
         <DictionaryScreen learnedWords={learnedWords} />
       </div>
@@ -123,7 +123,7 @@ export default function NavigationContainer({
 
   if (screen === 'badges') {
     return (
-      <div className="game-bg h-screen flex flex-col relative z-10 fade-in">
+      <div className="game-bg h-full flex flex-col relative z-10 fade-in">
         <BadgesScreen onBack={() => setScreen('home')} />
       </div>
     );

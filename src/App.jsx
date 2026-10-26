@@ -183,7 +183,7 @@ function App() {
   /* ========== LOADING SCREEN ========== */
   if (screen === 'loading') {
     return (
-      <div className="game-bg h-screen flex flex-col items-center justify-center fade-in relative z-10">
+      <div className="game-bg h-full flex flex-col items-center justify-center fade-in relative z-10">
         <div className="relative w-28 h-28 mb-8">
           <div className="absolute inset-0 rounded-full loading-ring"
             style={{ border: '3px solid transparent', borderTopColor: '#22c55e', borderRightColor: '#22c55e' }} />
@@ -213,7 +213,7 @@ function App() {
 
   if (!isAppReady) {
     return (
-      <div className="game-bg min-h-screen flex flex-col items-center justify-center relative z-10 fade-in">
+      <div className="game-bg min-h-full flex flex-col items-center justify-center relative z-10 fade-in">
         <div className="w-24 h-24 rounded-full flex items-center justify-center pulse-soft mb-6" style={{ background: 'linear-gradient(135deg, #1a3a1a, #0d2010)', border: '2px solid rgba(34,197,94,0.6)' }}>
           <span className="material-symbols-outlined text-[52px]" style={{ color: '#4ade80' }}>train</span>
         </div>

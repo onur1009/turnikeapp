@@ -675,7 +675,7 @@ export default function GameContainer({
   /* ========== LOADING SCREEN ========== */
   if (!levelData) {
     return (
-      <div className="game-bg h-screen flex flex-col items-center justify-center fade-in relative z-10">
+      <div className="game-bg h-full flex flex-col items-center justify-center fade-in relative z-10">
         <div className="relative w-28 h-28 mb-8">
           <div className="absolute inset-0 rounded-full loading-ring"
             style={{ border: '3px solid transparent', borderTopColor: '#22c55e', borderRightColor: '#22c55e' }} />
@@ -705,7 +705,7 @@ export default function GameContainer({
   /* ========== GAME OVER SCREEN ========== */
   if (internalState === 'gameover') {
     return (
-      <div className="game-bg min-h-screen flex flex-col items-center justify-center relative z-10 fade-in px-6 text-center">
+      <div className="game-bg min-h-full flex flex-col items-center justify-center relative z-10 fade-in px-6 text-center">
         <span className="material-symbols-outlined text-red-500 text-6xl mb-4" style={{ fontVariationSettings: "'FILL' 1" }}>directions_run</span>
         <h1 className="text-white text-3xl font-black mb-2">{t('game_over')}</h1>
         <p className="text-white/60 mb-8">{t('game_over_desc')}</p>
@@ -822,7 +822,7 @@ export default function GameContainer({
     };
 
     return (
-      <div className={`game-bg h-screen w-screen overflow-hidden flex flex-col relative z-10 fade-in ${shake ? 'animate-shake' : ''}`}>
+      <div className={`game-bg h-full w-screen overflow-hidden flex flex-col relative z-10 fade-in ${shake ? 'animate-shake' : ''}`}>
         {showBonus && (
           <div className="absolute inset-0 z-[100] flex flex-col fade-in" style={{ backgroundColor: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(8px)' }}>
             <BonusLockers onComplete={() => { setShowBonus(false); setInternalState('levelComplete'); }} />

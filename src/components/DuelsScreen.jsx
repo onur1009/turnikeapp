@@ -6,7 +6,7 @@ const DuelsScreen = ({ onBack }) => {
   const username = useGameStore(state => state.username);
 
   return (
-    <div className="flex-1 w-full flex flex-col items-center bg-[#0f172a] relative z-20 fade-in pt-8 pb-6 px-4 min-h-screen">
+    <div className="flex-1 w-full flex flex-col items-center bg-[#0f172a] relative z-20 fade-in pt-8 pb-6 px-4 min-h-full">
       {/* Üst Kısım */}
       <div className="w-full flex items-center justify-between mb-6 max-w-sm px-2">
         <button onClick={onBack} className="p-3 bg-white/5 rounded-full border border-white/10 active:scale-95 transition-all text-white">

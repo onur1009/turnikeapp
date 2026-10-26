@@ -49,7 +49,8 @@
     radial-gradient(ellipse 80% 40% at 80% 80%,  rgba(59,130,246,0.06) 0%, transparent 60%),
     radial-gradient(ellipse 60% 30% at 10% 90%,  rgba(234,179,8,0.05)  0%, transparent 60%),
     linear-gradient(180deg, #050a18 0%, #0b1428 40%, #0d1f35 70%, #091520 100%);
-  min-height: 100vh;
+  /* #root zaten 100dvh; 100vh mobil tarayıcıda adres çubuğu payı kadar taşıp alt menüyü kesiyordu */
+  min-height: 100%;
   background-attachment: fixed;
 }
 
@@ -667,7 +668,7 @@ body.theme-retro .rounded-full, body.theme-retro .rounded-xl, body.theme-retro .
 /* Ana menü alt sekme çubuğu */
 .tab-bar {
   display: grid; grid-template-columns: repeat(5, 1fr);
-  padding: 8px 8px calc(8px + env(safe-area-inset-bottom));
+  padding: 8px; /* alt güvenli alan #root padding-bottom ile veriliyor */
   background: rgba(5, 10, 24, 0.92);
   border-top: 1px solid var(--border);
   backdrop-filter: blur(16px);

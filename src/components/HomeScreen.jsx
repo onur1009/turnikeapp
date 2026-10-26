@@ -33,7 +33,7 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
   };
 
   return (
-    <div className="game-bg h-screen flex flex-col relative z-10 fade-in overflow-hidden">
+    <div className="game-bg h-full flex flex-col relative z-10 fade-in overflow-hidden">
       <style>{`
         @keyframes ybsMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         @keyframes ybsLedBlink { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
