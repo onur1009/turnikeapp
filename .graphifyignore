@@ -1,0 +1,11 @@
+# Graphify bilgi grafiğine girmeyecekler (.gitignore'a ek olarak)
+# Derleme çıktıları
+dev-dist/
+dist/
+android/app/src/main/assets/
+android/app/build/
+# Eski, kullanılmayan yedek
+src/App_backup.jsx
+# Üçüncü taraf skill içerikleri ve grafiğin kendisi
+.claude/skills/
+graphify-out/

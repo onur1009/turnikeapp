@@ -29,3 +29,6 @@ dist-ssr
 # Artemis test raporları
 tests/artemis/reports/
 __pycache__/
+
+# Graphify önbelleği (yerelde yeniden üretilir)
+graphify-out/cache/
