@@ -3,6 +3,10 @@
 // Alt kelimeler tamamen bu kök kelimenin harflerinden türetilebilen anlamlı kelimelerdir.
 
 import { applyDDA } from './dda';
+import {
+  TRANSIT_MEANINGS_TR, TRANSIT_MEANINGS_EN, TRANSIT_PROVIDERS_TR, TRANSIT_PROVIDERS_EN,
+  COMMON_WORDS_TR, COMMON_WORDS_EN
+} from '../data/transitTerms';
 
 const PUZZLE_SETS_TR = [
   // SEVİYE 1-10: SADECE TEK KELİME (Çark = Kök Kelime)
@@ -298,46 +302,45 @@ export const WORD_MEANINGS_TR = {
   "AKTARMA": "Bir ulaşım aracından diğerine ek ücret ödemeden geçiş yapma hakkı.",
   "TERSANE": "Gemilerin yapıldığı, onarıldığı ve bakımının yapıldığı kıyı tesisi.",
   "KOMPARTİMAN": "Tren vagonlarının bölümlere ayrılmış kapalı yolcu kabinlerinden her biri.",
-  "KARAKÖY": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "EMİNÖNÜ": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "KADIKÖY": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "BEŞİKTAŞ": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "ÜSKÜDAR": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "BOSTANCI": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "KARTAL": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "PENDİK": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "TUZLA": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "GEBZE": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "TAKSİM": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "LEVENT": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "ŞİŞLİ": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "MECİDİYEKÖY": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "MASLAK": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "SARIYER": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "BEYKOZ": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "BEYOĞLU": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "FATİH": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "ZEYTİNBURNU": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "BAKIRKÖY": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "ŞİRİNEVLER": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "YENİBOSNA": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "SEFAKÖY": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "AVCILAR": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "BEYLİKDÜZÜ": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "ESENYURT": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "BÜYÜKÇEKMECE": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "SİLİVRİ": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "ÇATALCA": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "AKSU": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "LALELİ": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "BEYAZIT": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "SİRKECİ": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "GÜLHANE": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "SULTANAHMET": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "ÇEMBERLİTAŞ": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "KABATAŞ": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "FINDIKLI": "İstanbul ulaşım ağında önemli bir durak/bölge.",
-  "TOPHANE": "İstanbul ulaşım ağında önemli bir durak/bölge."
+  "KARAKÖY": "Galata Köprüsü'nün Beyoğlu ucunda, vapur iskelesi ve tramvay durağı olan semt.",
+  "EMİNÖNÜ": "Mısır Çarşısı'nın bulunduğu, vapur iskeleleri ve tramvay durağıyla tarihi yarımadanın kıyı merkezi.",
+  "KADIKÖY": "Anadolu yakasının vapur, M4 metro ve otobüs merkezi.",
+  "BEŞİKTAŞ": "Boğaz kıyısında vapur iskelesi ve büyük otobüs aktarma noktası olan ilçe.",
+  "ÜSKÜDAR": "Marmaray ile M5 metronun buluştuğu, vapur iskelesi olan Anadolu yakası ilçesi.",
+  "BOSTANCI": "Deniz otobüsü iskelesi ve Marmaray istasyonu olan Kadıköy semti.",
+  "KARTAL": "M4 metro ve Marmaray hattının geçtiği Anadolu yakası ilçesi.",
+  "PENDİK": "Marmaray, M4 metro ve yüksek hızlı trenin durduğu ilçe.",
+  "TUZLA": "Tersaneleriyle bilinen, Marmaray hattı üzerindeki ilçe.",
+  "GEBZE": "Marmaray hattının doğu ucu; Kocaeli'ye bağlı ilçe.",
+  "TAKSİM": "M2 metro ile F1 füniküler hattının buluştuğu, İstiklal Caddesi'nin başındaki meydan.",
+  "LEVENT": "M2 ile M6 metro hatlarının buluştuğu iş merkezi semti.",
+  "ŞİŞLİ": "M2 metro hattı üzerindeki merkezi ilçe.",
+  "MECİDİYEKÖY": "M2, M7 metro ve metrobüsün buluştuğu yoğun aktarma noktası.",
+  "MASLAK": "Gökdelenleriyle bilinen, M2 metro hattına yakın iş merkezi.",
+  "SARIYER": "Boğaz'ın Karadeniz'e açıldığı yerdeki, vapur iskelesi olan ilçe.",
+  "BEYKOZ": "Boğaz'ın Anadolu yakasında, korularıyla bilinen ilçe.",
+  "BEYOĞLU": "İstiklal Caddesi, Galata ve Taksim'i kapsayan ilçe.",
+  "FATİH": "Tarihi yarımadayı kapsayan, T1 tramvay hattının geçtiği ilçe.",
+  "ZEYTİNBURNU": "T1 tramvay, M1 metro ve metrobüsün buluştuğu aktarma merkezi.",
+  "BAKIRKÖY": "Marmaray, M1 metro ve deniz otobüsü iskelesi olan sahil ilçesi.",
+  "ŞİRİNEVLER": "Metrobüs ile M1 metronun buluştuğu Bahçelievler semti.",
+  "YENİBOSNA": "Metrobüs ve M1 metro hattının geçtiği semt.",
+  "SEFAKÖY": "Küçükçekmece'de metrobüs hattı üzerindeki semt.",
+  "AVCILAR": "İstanbul Üniversitesi kampüsüyle bilinen, metrobüs hattı üzerindeki ilçe.",
+  "BEYLİKDÜZÜ": "Metrobüs hattının batı ucundaki ilçe.",
+  "ESENYURT": "Avrupa yakasının batısındaki kalabalık ilçe.",
+  "BÜYÜKÇEKMECE": "Aynı adlı gölü ve tarihi köprüsüyle bilinen batı ilçesi.",
+  "SİLİVRİ": "Marmara kıyısında, İstanbul'un en batıdaki ilçelerinden biri.",
+  "ÇATALCA": "İstanbul'un batısındaki geniş, kırsal ilçe.",
+  "LALELİ": "Otelleri ve tekstil dükkanlarıyla bilinen, T1 tramvay durağı olan semt.",
+  "BEYAZIT": "İstanbul Üniversitesi ve Kapalıçarşı'ya yakın T1 tramvay durağı.",
+  "SİRKECİ": "Tarihi garı ve Marmaray istasyonuyla bilinen semt; Orient Express'in son durağıydı.",
+  "GÜLHANE": "Gülhane Parkı'nın girişindeki T1 tramvay durağı.",
+  "SULTANAHMET": "Ayasofya ve Sultanahmet Camii'nin bulunduğu meydan ve T1 durağı.",
+  "ÇEMBERLİTAŞ": "Adını Roma döneminden kalma sütundan alan T1 tramvay durağı.",
+  "KABATAŞ": "T1 tramvayın son durağı; vapur iskelesi ve F1 füniküler buradan kalkar.",
+  "FINDIKLI": "Kabataş ile Tophane arasındaki T1 tramvay durağı.",
+  "TOPHANE": "Adını tarihi top dökümhanesinden alan, Karaköy ile Fındıklı arasındaki T1 durağı."
 ,
   // YENİ EKLENEN ANLAMLAR
   "KABİN": "Sürücü veya yolcuların bulunduğu kapalı küçük oda.",
@@ -404,46 +407,46 @@ export const WORD_MEANINGS_EN = {
   "DEPARTURE": "The act of leaving a place, especially the start of a journey.",
   "CHECKPOINT": "A barrier or manned entrance where travelers are inspected.",
   "SUBMARINE": "A watercraft capable of operating underwater.",
-  "BROOKLYN": "A well-known transit location or area.",
-  "MANHATTAN": "A well-known transit location or area.",
-  "QUEENS": "A well-known transit location or area.",
-  "BRONX": "A well-known transit location or area.",
-  "STATEN": "A well-known transit location or area.",
-  "HARLEM": "A well-known transit location or area.",
-  "CHELSEA": "A well-known transit location or area.",
-  "SOHO": "A well-known transit location or area.",
-  "TRIBECA": "A well-known transit location or area.",
-  "GREENWICH": "A well-known transit location or area.",
-  "TIMES": "A well-known transit location or area.",
-  "SQUARE": "A well-known transit location or area.",
-  "PENN": "A well-known transit location or area.",
-  "GRAND": "A well-known transit location or area.",
-  "CENTRAL": "A well-known transit location or area.",
-  "MADISON": "A well-known transit location or area.",
-  "LEXINGTON": "A well-known transit location or area.",
-  "BROADWAY": "A well-known transit location or area.",
-  "WALL": "A well-known transit location or area.",
-  "STREET": "A well-known transit location or area.",
-  "WATERLOO": "A well-known transit location or area.",
-  "VICTORIA": "A well-known transit location or area.",
-  "PADDINGTON": "A well-known transit location or area.",
-  "EUSTON": "A well-known transit location or area.",
-  "KINGS": "A well-known transit location or area.",
-  "CROSS": "A well-known transit location or area.",
-  "PANCRAS": "A well-known transit location or area.",
-  "LIVERPOOL": "A well-known transit location or area.",
-  "LONDON": "A well-known transit location or area.",
-  "BRIDGE": "A well-known transit location or area.",
-  "BAKER": "A well-known transit location or area.",
-  "BOND": "A well-known transit location or area.",
-  "OXFORD": "A well-known transit location or area.",
-  "PICCADILLY": "A well-known transit location or area.",
-  "CIRCUS": "A well-known transit location or area.",
-  "CHARING": "A well-known transit location or area.",
-  "LEICESTER": "A well-known transit location or area.",
-  "COVENT": "A well-known transit location or area.",
-  "GARDEN": "A well-known transit location or area.",
-  "HOLBORN": "A well-known transit location or area."
+  "BROOKLYN": "A New York borough across the East River from Manhattan.",
+  "MANHATTAN": "New York's central island borough, crossed by many subway lines.",
+  "QUEENS": "New York's largest borough by area, home to two airports.",
+  "BRONX": "New York's northernmost borough, home to Yankee Stadium.",
+  "STATEN": "Staten Island, reached from Manhattan by the free Staten Island Ferry.",
+  "HARLEM": "A neighbourhood in northern Manhattan.",
+  "CHELSEA": "A neighbourhood found in both Manhattan and west London.",
+  "SOHO": "A district name used in both London and New York.",
+  "TRIBECA": "A Lower Manhattan neighbourhood; the name means Triangle Below Canal.",
+  "GREENWICH": "Greenwich Village in Manhattan; also Greenwich in London.",
+  "TIMES": "Times Square, a major Manhattan subway hub.",
+  "SQUARE": "An open public place, like Times Square or Leicester Square.",
+  "PENN": "Penn Station, New York's busiest railway station.",
+  "GRAND": "Grand Central Terminal, the famous station in Manhattan.",
+  "CENTRAL": "Grand Central in New York; also London's Central line.",
+  "MADISON": "Madison Avenue and Madison Square in Manhattan.",
+  "LEXINGTON": "Lexington Avenue, served by a busy Manhattan subway line.",
+  "BROADWAY": "A long Manhattan avenue famous for its theatres.",
+  "WALL": "Wall Street, New York's financial district.",
+  "STREET": "A public road in a city.",
+  "WATERLOO": "London's busiest railway station.",
+  "VICTORIA": "A London railway station and Underground line.",
+  "PADDINGTON": "A London station where the Heathrow Express departs.",
+  "EUSTON": "A London railway station for trains to the north-west.",
+  "KINGS": "King's Cross, a major London railway station.",
+  "CROSS": "King's Cross or Charing Cross, both London stations.",
+  "PANCRAS": "St Pancras, London's terminal for Eurostar trains.",
+  "LIVERPOOL": "Liverpool Street, a busy London station.",
+  "LONDON": "The UK capital, home to the world's oldest underground railway.",
+  "BRIDGE": "A structure that carries a road or railway over water or a valley.",
+  "BAKER": "Baker Street, one of the first London Underground stations.",
+  "BOND": "Bond Street, a London shopping street and Tube station.",
+  "OXFORD": "Oxford Circus, a busy London Tube interchange.",
+  "PICCADILLY": "Piccadilly Circus and the Piccadilly line in London.",
+  "CIRCUS": "A round junction of streets, like Oxford Circus or Piccadilly Circus.",
+  "CHARING": "Charing Cross, a London station near Trafalgar Square.",
+  "LEICESTER": "Leicester Square, a London Tube station in the theatre district.",
+  "COVENT": "Covent Garden, a London market area and Tube station.",
+  "GARDEN": "Covent Garden in London; also Madison Square Garden in New York.",
+  "HOLBORN": "A central London Tube interchange."
 };
 
 const normalizeTerm = (term) => term.toLocaleUpperCase('tr-TR');
@@ -517,12 +520,26 @@ export const PROVIDER_MAP_EN = {
   "PISTON": "Busforus", "ENGINE": "Busforus"
 };
 
+// Sözlük genişletmesi (src/data/transitTerms.js). Mevcut anlam ve işletmeciler önceliklidir.
+// Yanlış yazılmış (İ yerine I) eski kayıtlar çıkarılır; doğru yazımları COMMON_WORDS_TR'de.
+const MISSPELLED_TR = ["KEDI", "VADI", "YEDI", "LIMAN", "NADIR", "NEHIR", "RITIM", "TATIL", "TRAFIK",
+  "TERAZI", "KENTLI", "MARKIZ", "ZENCIR", "ÇELIK", "VALI", "MEYVA"];
+MISSPELLED_TR.forEach(w => VALID_WORDS_TR.delete(w));
+const mergeTerms = (validWords, meanings, providers, newMeanings, newProviders, commonWords) => {
+  [...Object.keys(newMeanings), ...commonWords].forEach(w => validWords.add(w));
+  Object.entries(newMeanings).forEach(([w, m]) => { if (!meanings[w]) meanings[w] = m; });
+  Object.entries(newProviders).forEach(([w, p]) => { if (!providers[w]) providers[w] = p; });
+};
+mergeTerms(VALID_WORDS_TR, WORD_MEANINGS_TR, PROVIDER_MAP_TR, TRANSIT_MEANINGS_TR, TRANSIT_PROVIDERS_TR, COMMON_WORDS_TR);
+mergeTerms(VALID_WORDS_EN, WORD_MEANINGS_EN, PROVIDER_MAP_EN, TRANSIT_MEANINGS_EN, TRANSIT_PROVIDERS_EN, COMMON_WORDS_EN);
+
 // Izgarada sorulmayan nadir kelimeler: sözlükte geçerli kalır (oyuncu bulursa kasaya girer)
 // ama bulmacanın zorunlu kelimesi olarak oyuncuyu şaşırtır (1. seviyede "AKT" gibi).
 const RARE_WORDS_TR = new Set([
   "AKT", "AST", "FER", "SER", "ELİ", "MEY", "NAM", "KEM", "KÜR", "MİT", "NİL", "BET", "KAMA", "SAKA",
   "VALI", "İTİ", "YAL", "TAL", "DOR", "MAR", "TOS", "ALP", "LAL", "TOR", "ROT", "KAY", "RAJ", "ERK",
-  "AHİ", "İLÇ", "GÂR", "RUZ", "KÜV", "DÜK", "ÖPÜK", "MEZ", "ORG", "ÜZE", "TAY", "AKSU"
+  "AHİ", "İLÇ", "GÂR", "RUZ", "KÜV", "DÜK", "ÖPÜK", "MEZ", "ORG", "ÜZE", "TAY", "AKSU",
+  "MİR", "SOMA", "HOP", "DEL"
 ]);
 const RARE_WORDS_EN = new Set(["HEW", "IRE", "RUE", "ION", "RIG", "ORB", "COD", "TOR"]);
 
@@ -725,6 +742,13 @@ const chooseTechnicalRoot = (levelIndex, language) => {
   // Havuz küçük olduğundan bu banttaki tüm kökler kullanıldıysa geçmişi sıfırla ve baştan dön
   // (eskiden 2. geçiş geçmişi yok sayıp hep aynı "en iyi" kökü seçiyordu)
   let best = pickFresh();
+  if (!best) {
+    // Son 15 kökü koru ki yeni turun ilk seviyeleri az önce oynanan kökleri tekrar etmesin
+    const recent = [...usedRootsHistory].slice(-15);
+    usedRootsHistory.clear();
+    recent.forEach(r => usedRootsHistory.add(r));
+    best = pickFresh();
+  }
   if (!best) {
     usedRootsHistory.clear();
     best = pickFresh();
