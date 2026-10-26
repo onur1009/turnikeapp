@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "android:apk": "vite build && npx cap sync android && cd android && gradlew assembleDebug -I ../scripts/gradle-build-outside.gradle",
+    "test:mobile": "node tests/artemis/run.cjs"
   },
   "dependencies": {
     "@capacitor/android": "^8.4.1",
