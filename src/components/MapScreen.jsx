@@ -125,12 +125,12 @@ const MapScreen = ({ onLevelSelect, currentLevel }) => {
           disabled={isFirstLine}
           className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${isFirstLine ? 'opacity-30' : 'bg-white/10 hover:bg-white/20 active:scale-90'}`}
         >
-          <span className="material-symbols-outlined text-white">chevron_left</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-white">chevron_left</span>
         </button>
         
         <div className="text-center flex-1 mx-2">
           <div className="flex items-center justify-center gap-1.5 mb-0.5">
-            <span className="material-symbols-outlined text-[14px]" style={{ color: activeLineObj.color }}>{activeLineObj.icon}</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[14px]" style={{ color: activeLineObj.color }}>{activeLineObj.icon}</span>
             <p className="text-xs font-bold tracking-[2px] uppercase" style={{ color: activeLineObj.color }}>
               {activeLineObj.id} Hattı {viewLoop > 0 && `(Tur ${viewLoop + 1})`}
             </p>
@@ -143,7 +143,7 @@ const MapScreen = ({ onLevelSelect, currentLevel }) => {
           disabled={isNextLocked}
           className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${isNextLocked ? 'opacity-30' : 'bg-white/10 hover:bg-white/20 active:scale-90'}`}
         >
-          <span className="material-symbols-outlined text-white">chevron_right</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-white">chevron_right</span>
         </button>
       </div>
 
@@ -258,9 +258,9 @@ const MapScreen = ({ onLevelSelect, currentLevel }) => {
                       border: `6px solid ${isLocked ? 'rgba(255,255,255,0.2)' : activeLineObj.color}`,
                     } : {}}
                   >
-                    {isCompleted && <span className="material-symbols-outlined text-[18px]" style={{ color: activeLineObj.color, fontVariationSettings: "'FILL' 1" }}>check</span>}
-                    {isLocked && <span className="material-symbols-outlined text-[16px] text-gray-400">lock</span>}
-                    {isCurrentStation && <span className="material-symbols-outlined text-[18px] animate-bounce" style={{ color: activeLineObj.color, fontVariationSettings: "'FILL' 1" }}>train</span>}
+                    {isCompleted && <span aria-hidden="true" className="material-symbols-outlined text-[18px]" style={{ color: activeLineObj.color, fontVariationSettings: "'FILL' 1" }}>check</span>}
+                    {isLocked && <span aria-hidden="true" className="material-symbols-outlined text-[16px] text-gray-400">lock</span>}
+                    {isCurrentStation && <span aria-hidden="true" className="material-symbols-outlined text-[18px] animate-bounce" style={{ color: activeLineObj.color, fontVariationSettings: "'FILL' 1" }}>train</span>}
                   </div>
 
                   {/* İlerleme Çubuğu (Eğer mevcut istasyonsa) */}

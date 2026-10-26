@@ -35,7 +35,7 @@ const UsernameModal = ({ onCancel }) => {
         className="w-full max-w-[320px] rounded-3xl p-6 relative flex flex-col items-center shadow-2xl card-panel"
       >
         <div className="w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center mb-4 border border-green-500/30">
-          <span className="material-symbols-outlined text-4xl text-green-400">person_add</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-4xl text-green-400">person_add</span>
         </div>
         
         <h2 className="text-xl font-black text-white text-center mb-2 tracking-wide font-orbitron">

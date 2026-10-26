@@ -40,31 +40,31 @@ const StatsScreen = ({ onBack }) => {
 
         <div className="grid grid-cols-2 gap-4">
           <div className="bg-white/5 rounded-2xl p-4 border border-white/10 flex flex-col items-center justify-center text-center">
-            <span className="material-symbols-outlined text-blue-400 text-3xl mb-2">sports_esports</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-blue-400 text-3xl mb-2">sports_esports</span>
             <span className="text-3xl font-black text-white">{totalGamesPlayed}</span>
             <span className="text-white/50 text-xs uppercase font-bold tracking-wider mt-1">{t('games_played')}</span>
           </div>
           
           <div className="bg-white/5 rounded-2xl p-4 border border-white/10 flex flex-col items-center justify-center text-center">
-            <span className="material-symbols-outlined text-green-400 text-3xl mb-2">spellcheck</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-green-400 text-3xl mb-2">spellcheck</span>
             <span className="text-3xl font-black text-white">{totalWordsFound}</span>
             <span className="text-white/50 text-xs uppercase font-bold tracking-wider mt-1">{t('words_found')}</span>
           </div>
 
           <div className="bg-white/5 rounded-2xl p-4 border border-white/10 flex flex-col items-center justify-center text-center">
-            <span className="material-symbols-outlined text-yellow-400 text-3xl mb-2">bolt</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-yellow-400 text-3xl mb-2">bolt</span>
             <span className="text-3xl font-black text-white">{maxCombo}</span>
             <span className="text-white/50 text-xs uppercase font-bold tracking-wider mt-1">{t('max_combo')}</span>
           </div>
 
           <div className="bg-white/5 rounded-2xl p-4 border border-white/10 flex flex-col items-center justify-center text-center">
-            <span className="material-symbols-outlined text-red-400 text-3xl mb-2">local_fire_department</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-red-400 text-3xl mb-2">local_fire_department</span>
             <span className="text-3xl font-black text-white">{streak}</span>
             <span className="text-white/50 text-xs uppercase font-bold tracking-wider mt-1">{t('daily_streak')}</span>
           </div>
 
           <div className="col-span-2 bg-white/5 rounded-2xl p-4 border border-white/10 flex flex-col items-center justify-center text-center">
-            <span className="material-symbols-outlined text-purple-400 text-3xl mb-2">account_balance_wallet</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-purple-400 text-3xl mb-2">account_balance_wallet</span>
             <span className="text-4xl font-black text-white">{formatKurus(totalBalanceEarned)}</span>
             <span className="text-white/50 text-xs uppercase font-bold tracking-wider mt-1">{t('total_earned')}</span>
           </div>

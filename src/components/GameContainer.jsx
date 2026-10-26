@@ -26,7 +26,7 @@ const SHOW_AD_REWARDS = false;
 // Çarkın altındaki güç düğmesi: ikon + etiket + fiyat; bakiye yetmiyorsa soluk
 const ToolButton = ({ icon, label, price, affordable, onClick, accent = '#ffffff' }) => (
   <button onClick={onClick} className={`tool-btn ${affordable ? '' : 'opacity-45'}`}>
-    <span className="material-symbols-outlined text-[22px]" style={{ color: accent, fontVariationSettings: "'FILL' 1" }}>{icon}</span>
+    <span aria-hidden="true" className="material-symbols-outlined text-[22px]" style={{ color: accent, fontVariationSettings: "'FILL' 1" }}>{icon}</span>
     <span className="text-[12px] font-bold text-white/90 leading-none">{label}</span>
     <span className="text-[11px] font-bold text-white/55 leading-none tabular-nums">{price}</span>
   </button>
@@ -682,7 +682,7 @@ export default function GameContainer({
           <div className="absolute inset-3 rounded-full loading-ring"
             style={{ border: '2px solid transparent', borderBottomColor: '#3b82f6', animationDirection: 'reverse', animationDuration: '0.7s' }} />
           <div className="absolute inset-0 flex items-center justify-center flex-col">
-            <span className="material-symbols-outlined text-white text-[28px]" style={{ fontVariationSettings: "'FILL' 1" }}>train</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-white text-[28px]" style={{ fontVariationSettings: "'FILL' 1" }}>train</span>
           </div>
         </div>
 
@@ -706,7 +706,7 @@ export default function GameContainer({
   if (internalState === 'gameover') {
     return (
       <div className="game-bg min-h-full flex flex-col items-center justify-center relative z-10 fade-in px-6 text-center">
-        <span className="material-symbols-outlined text-red-500 text-6xl mb-4" style={{ fontVariationSettings: "'FILL' 1" }}>directions_run</span>
+        <span aria-hidden="true" className="material-symbols-outlined text-red-500 text-6xl mb-4" style={{ fontVariationSettings: "'FILL' 1" }}>directions_run</span>
         <h1 className="text-white text-3xl font-black mb-2">{t('game_over')}</h1>
         <p className="text-white/60 mb-8">{t('game_over_desc')}</p>
         
@@ -725,7 +725,7 @@ export default function GameContainer({
               }}
               className={`w-full py-3.5 rounded-xl font-bold text-white text-sm tracking-wide bg-blue-600 hover:bg-blue-500 transition-colors flex items-center justify-center gap-2 ${isAdLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
-              <span className="material-symbols-outlined text-[20px]">{isAdLoading ? 'hourglass_empty' : 'play_circle'}</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[20px]">{isAdLoading ? 'hourglass_empty' : 'play_circle'}</span>
               {isAdLoading ? t('watching_ad') : t('watch_ad')}
             </button>
           )}
@@ -743,7 +743,7 @@ export default function GameContainer({
             }}
             className={`w-full py-3.5 rounded-xl font-bold text-white text-sm tracking-wide bg-green-600 hover:bg-green-500 transition-colors flex items-center justify-center gap-2 ${balance < 25 ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
-            <span className="material-symbols-outlined text-[20px]">favorite</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[20px]">favorite</span>
             {t('buy_life')}
           </button>
 
@@ -757,7 +757,7 @@ export default function GameContainer({
             }}
             className={`w-full py-3.5 rounded-xl font-bold text-white text-sm tracking-wide bg-yellow-600 hover:bg-yellow-500 transition-colors flex items-center justify-center gap-2 ${balance < 50 ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
-            <span className="material-symbols-outlined text-[20px]">fast_forward</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[20px]">fast_forward</span>
             {t('skip_level')}
           </button>
         </div>
@@ -776,7 +776,7 @@ export default function GameContainer({
           <div className="fixed inset-0 z-[200] bg-black/80 backdrop-blur-sm flex items-center justify-center p-6 fade-in">
             <div className="bg-[#1a1b26] border border-white/10 rounded-2xl p-6 w-full max-w-sm shadow-2xl scale-up text-center relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-500 to-orange-500" />
-              <span className="material-symbols-outlined text-red-500 text-5xl mb-4 mt-2" style={{ fontVariationSettings: "'FILL' 1" }}>
+              <span aria-hidden="true" className="material-symbols-outlined text-red-500 text-5xl mb-4 mt-2" style={{ fontVariationSettings: "'FILL' 1" }}>
                 warning
               </span>
               <h3 className="text-white text-xl font-bold mb-2">Ana Menüye Dön</h3>
@@ -832,7 +832,7 @@ export default function GameContainer({
           <div className="absolute inset-0 z-[110] flex flex-col items-center justify-center bg-black/75 backdrop-blur-sm fade-in">
             <div className="scale-in flex flex-col items-center p-6 rounded-3xl border border-green-500/30 text-center"
                  style={{ background: 'linear-gradient(135deg, #0f2d1a, #07170d)', boxShadow: '0 0 40px rgba(34,197,94,0.4)' }}>
-              <span className="material-symbols-outlined text-green-400 text-6xl animate-bounce" style={{ fontVariationSettings: "'FILL' 1" }}>lock_open</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-green-400 text-6xl animate-bounce" style={{ fontVariationSettings: "'FILL' 1" }}>lock_open</span>
               <h2 className="text-white text-2xl font-black tracking-widest mt-4">KASA PATLATILDI!</h2>
               <p className="text-green-400/80 font-bold text-lg mt-2">+{formatKurus(VAULT_REWARD)} İstanbulkart Bakiyesi</p>
               <span className="text-white/40 text-xs mt-4 tracking-widest uppercase">Güvenli Seferler Dileriz</span>
@@ -852,7 +852,7 @@ export default function GameContainer({
         {/* Başlık: geri | hat + durak | bakiye */}
         <header className="w-full z-50 flex items-center gap-2 px-4 pt-4 pb-2 shrink-0">
           <button onClick={() => { stopTimer(); setScreen('home'); }} className="icon-btn" aria-label={t('back')}>
-            <span className="material-symbols-outlined text-[20px]">arrow_back</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[20px]">arrow_back</span>
           </button>
           <button onClick={showStationInfo} className="flex-1 min-w-0 flex items-center gap-2.5 text-left active:opacity-70 transition-opacity">
             <span className="line-badge" style={{ background: station.color }}>{station.id}</span>
@@ -865,16 +865,16 @@ export default function GameContainer({
             </span>
           </button>
           <div className={`balance-pill ${flashBalance ? 'balance-flash' : ''}`}>
-            <span className="material-symbols-outlined text-[16px]" style={{ color: 'var(--coin)', fontVariationSettings: "'FILL' 1" }}>toll</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[16px]" style={{ color: 'var(--coin)', fontVariationSettings: "'FILL' 1" }}>toll</span>
             <AnimatedBalance value={balance} />
           </div>
         </header>
 
         {/* Durum satırı: can | kelime ilerlemesi | kasa */}
         <div className="flex items-center justify-between px-4 pb-2 shrink-0">
-          <div className="flex gap-0.5" aria-label={`${lives}/${maxLives}`}>
+          <div className="flex gap-0.5" role="img" aria-label={`${lives}/${maxLives} can`}>
             {Array.from({ length: maxLives }, (_, i) => (
-              <span key={i} className={`material-symbols-outlined text-[18px] transition-all ${i < lives ? 'text-red-500' : 'text-white/15'}`} style={{ fontVariationSettings: "'FILL' 1" }}>favorite</span>
+              <span key={i} aria-hidden="true" className={`material-symbols-outlined text-[18px] transition-all ${i < lives ? 'text-red-500' : 'text-white/15'}`} style={{ fontVariationSettings: "'FILL' 1" }}>favorite</span>
             ))}
           </div>
           <div className="flex items-center gap-1.5">
@@ -885,7 +885,7 @@ export default function GameContainer({
             {combo > 1 && <span className="ml-1 text-[12px] font-black text-orange-400">🔥x{combo}</span>}
           </div>
           <div className="status-chip" title={t('vault')}>
-            <span className="material-symbols-outlined text-[15px] text-green-400" style={{ fontVariationSettings: "'FILL' 1" }}>savings</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[15px] text-green-400" style={{ fontVariationSettings: "'FILL' 1" }}>savings</span>
             <span className="tabular-nums">{vaultCount}/{VAULT_SIZE}</span>
           </div>
         </div>
@@ -935,7 +935,7 @@ export default function GameContainer({
         {lifeLossAnims.map(animId => (
           <div key={animId} className="absolute inset-0 flex items-center justify-center pointer-events-none z-[100] life-loss-float">
             <div className="flex items-center gap-2 text-red-500 font-black text-5xl" style={{ textShadow: '0 0 20px rgba(239,68,68,1)' }}>
-              -1 <span className="material-symbols-outlined text-[48px]" style={{ fontVariationSettings: "'FILL' 1" }}>favorite</span>
+              -1 <span aria-hidden="true" className="material-symbols-outlined text-[48px]" style={{ fontVariationSettings: "'FILL' 1" }}>favorite</span>
             </div>
           </div>
         ))}
@@ -954,7 +954,7 @@ export default function GameContainer({
         <div className="w-full shrink-0 flex flex-col items-center pb-5 relative z-20">
           {isTutorial && (
             <p className="tutorial-hint mb-2">
-              <span className="material-symbols-outlined text-[16px]">swipe</span>{t('tutorial_hint')}
+              <span aria-hidden="true" className="material-symbols-outlined text-[16px]">swipe</span>{t('tutorial_hint')}
             </p>
           )}
           <div className={`relative ${hatArizasi ? 'animate-shake opacity-70 filter grayscale' : ''}`}
@@ -1004,7 +1004,7 @@ export default function GameContainer({
               </div>
               <div className="flex items-start gap-3">
                 <div className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style={{ background: `${station.color}22`, border: `1px solid ${station.color}55` }}>
-                  <span className="material-symbols-outlined text-[22px]" style={{ color: station.color }}>menu_book</span>
+                  <span aria-hidden="true" className="material-symbols-outlined text-[22px]" style={{ color: station.color }}>menu_book</span>
                 </div>
                 <div className="min-w-0">
                   <h3 className="font-black text-[17px] tracking-wide mb-1 text-white">{infoCard.word}</h3>
@@ -1015,9 +1015,10 @@ export default function GameContainer({
           </div>
         )}
 
-        {/* Toast */}
+        {/* Toast. Ekran okuyucu için kalıcı canlı bölge; görsel toast her seferinde yeniden oluştuğundan okunmuyordu */}
+        <div className="sr-only" role="status" aria-live="polite">{feedback?.text || ''}</div>
         {feedback && (
-          <div key={feedback.id} className="toast-container z-50">
+          <div key={feedback.id} className="toast-container z-50" aria-hidden="true">
             <div className={`toast ${feedback.type === 'correct' ? 'correct' : feedback.type === 'wrong' ? 'wrong' : 'exists'}`}>
               {feedback.text}
             </div>

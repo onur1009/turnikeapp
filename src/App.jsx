@@ -190,7 +190,7 @@ function App() {
           <div className="absolute inset-3 rounded-full loading-ring"
             style={{ border: '2px solid transparent', borderBottomColor: '#3b82f6', animationDirection: 'reverse', animationDuration: '0.7s' }} />
           <div className="absolute inset-0 flex items-center justify-center flex-col">
-            <span className="material-symbols-outlined text-white text-[28px]" style={{ fontVariationSettings: "'FILL' 1" }}>train</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-white text-[28px]" style={{ fontVariationSettings: "'FILL' 1" }}>train</span>
           </div>
         </div>
 
@@ -215,7 +215,7 @@ function App() {
     return (
       <div className="game-bg min-h-full flex flex-col items-center justify-center relative z-10 fade-in">
         <div className="w-24 h-24 rounded-full flex items-center justify-center pulse-soft mb-6" style={{ background: 'linear-gradient(135deg, #1a3a1a, #0d2010)', border: '2px solid rgba(34,197,94,0.6)' }}>
-          <span className="material-symbols-outlined text-[52px]" style={{ color: '#4ade80' }}>train</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-[52px]" style={{ color: '#4ade80' }}>train</span>
         </div>
         <h1 className="text-white text-2xl font-black tracking-widest uppercase mb-4" style={{ fontFamily: "'Orbitron', monospace" }}>Turnike</h1>
         <div className="flex gap-2">
@@ -238,8 +238,10 @@ function App() {
           flashBalance={flashBalance}
           onPlay={() => { incrementTotalGames(); useGameStore.setState({ levelIndex: maxUnlockedLevel, lives: getMaxLives(useGameStore.getState().completedSets) }); setScreen('game'); }}
         />
+        {/* Ekran okuyucu için kalıcı canlı bölge: görsel toast her seferinde yeniden oluştuğundan okunmuyordu */}
+        <div className="sr-only" role="status" aria-live="polite">{feedback?.text || ''}</div>
         {feedback && (
-          <div key={feedback.id} className="toast-container z-50">
+          <div key={feedback.id} className="toast-container z-50" aria-hidden="true">
             <div className={`toast ${feedback.type === 'correct' ? 'correct' : feedback.type === 'wrong' ? 'wrong' : 'exists'}`}>
               {feedback.text}
             </div>

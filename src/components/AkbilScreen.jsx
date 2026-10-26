@@ -61,9 +61,9 @@ const AkbilScreen = ({ onBack }) => {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-white/[0.03]" />
           
           <div className="flex justify-between items-start relative z-10">
-            <span className="material-symbols-outlined text-white/80 text-[32px]">subway</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-white/80 text-[32px]">subway</span>
             <div className="flex gap-2 items-center">
-              <span className="material-symbols-outlined text-white/40 text-[16px]">palette</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-white/40 text-[16px]">palette</span>
               <div className="px-2 py-1 bg-white/10 rounded font-black text-white/50 text-[10px] tracking-widest">
                 {language === 'en' ? 'TRANSIT' : 'İBB'}
               </div>
@@ -118,7 +118,7 @@ const AkbilScreen = ({ onBack }) => {
               }, 3000);
             }}
             className={`w-full py-4 rounded-xl font-bold text-white text-sm tracking-wide bg-blue-600 hover:bg-blue-500 transition-colors flex items-center justify-center gap-2 ${isWatchingAd ? 'opacity-50 cursor-not-allowed' : ''}`}>
-            <span className="material-symbols-outlined text-[20px]">
+            <span aria-hidden="true" className="material-symbols-outlined text-[20px]">
               {isWatchingAd ? 'hourglass_empty' : 'play_circle'}
             </span>
             {isWatchingAd ? t('watching_ad') : t('watch_ad_balance')}
@@ -128,7 +128,7 @@ const AkbilScreen = ({ onBack }) => {
           <button 
             onClick={() => setShowPacks(!showPacks)}
             className="w-full py-4 rounded-xl font-bold text-white text-sm tracking-wide bg-green-600 hover:bg-green-500 transition-colors flex items-center justify-center gap-2">
-            <span className="material-symbols-outlined text-[20px]">add_circle</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[20px]">add_circle</span>
             {t('load_balance')}
           </button>
 
@@ -141,7 +141,7 @@ const AkbilScreen = ({ onBack }) => {
                   className="py-3 rounded-xl font-bold text-white text-sm transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-1"
                   style={{ background: `${pack.color}20`, border: `1px solid ${pack.color}40` }}
                 >
-                  <span className="material-symbols-outlined text-[16px]" style={{ color: pack.color }}>add</span>
+                  <span aria-hidden="true" className="material-symbols-outlined text-[16px]" style={{ color: pack.color }}>add</span>
                   {pack.label}
                 </button>
               ))}
@@ -152,7 +152,7 @@ const AkbilScreen = ({ onBack }) => {
           <button 
             onClick={() => setShowHistory(true)}
             className="w-full py-4 rounded-xl font-bold text-white/80 text-sm tracking-wide bg-white/5 hover:bg-white/10 transition-colors flex items-center justify-center gap-2">
-            <span className="material-symbols-outlined text-[20px]">history</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[20px]">history</span>
             {t('history')}
           </button>
         </div>
@@ -165,10 +165,10 @@ const AkbilScreen = ({ onBack }) => {
               <button 
                 onClick={() => setShowHistory(false)}
                 className="absolute top-4 right-4 text-white/50 hover:text-white transition-colors">
-                <span className="material-symbols-outlined">close</span>
+                <span aria-hidden="true" className="material-symbols-outlined">close</span>
               </button>
               <h3 className="text-white font-bold text-lg mb-4 flex items-center gap-2">
-                <span className="material-symbols-outlined text-blue-400">history</span>
+                <span aria-hidden="true" className="material-symbols-outlined text-blue-400">history</span>
                 {t('recent_ops')}
               </h3>
               <div className="flex flex-col gap-3 max-h-[300px] overflow-y-auto pr-2">

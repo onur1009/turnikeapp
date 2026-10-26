@@ -75,7 +75,7 @@ const LevelComplete = ({ level, station, summary, mistakes, meanings, onNextLeve
           <div className="px-4 py-3 text-center" style={{ background: 'var(--surface-strong)' }}>
             <div className="flex justify-center gap-1.5 mb-2">
               {[1, 2, 3].map(s => (
-                <span key={s} className="material-symbols-outlined scale-in" style={{
+                <span key={s} aria-hidden="true" className="material-symbols-outlined scale-in" style={{
                   fontSize: 32,
                   color: s <= stars ? '#fbbf24' : 'rgba(255,255,255,0.12)',
                   fontVariationSettings: s <= stars ? "'FILL' 1" : "'FILL' 0",
@@ -120,7 +120,7 @@ const LevelComplete = ({ level, station, summary, mistakes, meanings, onNextLeve
 
         {/* Sıradaki durak */}
         <div className="w-full flex items-center gap-3 rounded-2xl px-4 py-3 mb-4" style={{ background: 'var(--surface)', border: '1px solid var(--border)' }}>
-          <span className="material-symbols-outlined text-[22px]" style={{ color: station.isLineChange && station.isLastLeg ? station.next.color : station.color }}>
+          <span aria-hidden="true" className="material-symbols-outlined text-[22px]" style={{ color: station.isLineChange && station.isLastLeg ? station.next.color : station.color }}>
             {station.isLastLeg ? 'east' : 'more_horiz'}
           </span>
           <div className="min-w-0">
@@ -135,18 +135,18 @@ const LevelComplete = ({ level, station, summary, mistakes, meanings, onNextLeve
 
         <div className="flex flex-col gap-3 w-full mt-auto">
           <button onClick={onNextLevel} className="play-btn w-full flex items-center justify-center gap-2 whitespace-nowrap" style={{ fontSize: 16, letterSpacing: 2, padding: '15px 20px' }}>
-            <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>directions_railway</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>directions_railway</span>
             {t('next_station').toLocaleUpperCase('tr-TR')}
           </button>
           <div className="flex gap-3">
             <button onClick={onHome} className="flex-1 py-3.5 rounded-full font-bold text-white/70 text-[13px] tracking-wider uppercase active:scale-95 transition-transform flex items-center justify-center gap-1.5" style={{ border: '1px solid var(--border)' }}>
-              <span className="material-symbols-outlined text-[18px]">home</span>{t('main_menu')}
+              <span aria-hidden="true" className="material-symbols-outlined text-[18px]">home</span>{t('main_menu')}
             </button>
             <button onClick={onRetry} className="w-14 rounded-full text-white/70 active:scale-95 transition-transform flex items-center justify-center" style={{ border: '1px solid var(--border)' }} aria-label="Tekrar oyna">
-              <span className="material-symbols-outlined text-[20px]">replay</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[20px]">replay</span>
             </button>
             <button onClick={handleShare} className="w-14 rounded-full text-blue-400 active:scale-95 transition-transform flex items-center justify-center" style={{ border: '1px solid rgba(59,130,246,0.35)' }} aria-label="Paylaş">
-              <span className="material-symbols-outlined text-[20px]">{copied ? 'check' : 'share'}</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[20px]">{copied ? 'check' : 'share'}</span>
             </button>
           </div>
         </div>

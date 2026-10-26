@@ -91,7 +91,7 @@ const BonusLockers = ({ onComplete }) => {
       {/* Title */}
       <div className="text-center mb-6">
         <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-3" style={{ background: 'rgba(245, 158, 11, 0.15)', border: '2px solid rgba(245, 158, 11, 0.4)' }}>
-          <span className="material-symbols-outlined text-[32px] text-amber-500">luggage</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-[32px] text-amber-500">luggage</span>
         </div>
         <h1 className="text-white text-2xl font-black mb-1 uppercase tracking-widest" style={{ fontFamily: "'Orbitron', monospace" }}>Kayıp Eşya Bürosu</h1>
         <p className="text-white/60 text-sm font-semibold max-w-xs mx-auto">İETT ve Metro'da unutulan eşyalar arasında şansını dene!</p>
@@ -104,7 +104,7 @@ const BonusLockers = ({ onComplete }) => {
           border: `1px solid ${picksLeft > 0 ? 'rgba(34,197,94,0.4)' : 'rgba(239,68,68,0.4)'}`
         }}
       >
-        <span className="material-symbols-outlined text-[18px]" style={{ color: picksLeft > 0 ? '#4ade80' : '#f87171' }}>key</span>
+        <span aria-hidden="true" className="material-symbols-outlined text-[18px]" style={{ color: picksLeft > 0 ? '#4ade80' : '#f87171' }}>key</span>
         <span className="font-bold text-sm" style={{ color: picksLeft > 0 ? '#4ade80' : '#f87171' }}>{picksLeft} HAKKIN KALDI</span>
       </div>
 
@@ -138,7 +138,7 @@ const BonusLockers = ({ onComplete }) => {
                   }}
                 >
                   <div className="w-8 h-1 bg-white/10 rounded-full mb-3"></div>
-                  <span className="material-symbols-outlined text-white/20 text-[28px] mb-1 group-hover:text-amber-500/50 transition-colors">lock</span>
+                  <span aria-hidden="true" className="material-symbols-outlined text-white/20 text-[28px] mb-1 group-hover:text-amber-500/50 transition-colors">lock</span>
                   <span className="text-white/20 text-xs font-black tracking-widest">{i + 1}</span>
                 </div>
 
@@ -154,7 +154,7 @@ const BonusLockers = ({ onComplete }) => {
                     opacity: isRevealed ? 0.6 : 1,
                   }}
                 >
-                  <span className="material-symbols-outlined text-[36px] mb-1" style={{ color: reward.color, fontVariationSettings: "'FILL' 1" }}>
+                  <span aria-hidden="true" className="material-symbols-outlined text-[36px] mb-1" style={{ color: reward.color, fontVariationSettings: "'FILL' 1" }}>
                     {reward.icon}
                   </span>
                   <span className="font-bold text-[10px] leading-tight text-center px-1 whitespace-pre-line" style={{ color: reward.color }}>

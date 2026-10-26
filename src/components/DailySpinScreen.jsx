@@ -81,7 +81,7 @@ const DailySpinScreen = ({ onComplete }) => {
       />
 
       <div className="relative z-10 flex flex-col items-center text-center mb-10">
-        <span className="material-symbols-outlined text-[48px] text-green-400 mb-2 drop-shadow-[0_0_15px_rgba(74,222,128,0.8)]" style={{ fontVariationSettings: "'FILL' 1" }}>change_circle</span>
+        <span aria-hidden="true" className="material-symbols-outlined text-[48px] text-green-400 mb-2 drop-shadow-[0_0_15px_rgba(74,222,128,0.8)]" style={{ fontVariationSettings: "'FILL' 1" }}>change_circle</span>
         <h1 className="text-white text-4xl font-black tracking-[8px] uppercase mb-1" style={{ fontFamily: "'Orbitron', monospace", textShadow: '0 0 20px rgba(255,255,255,0.5)' }}>
           TURNİKE ÇARKI
         </h1>
@@ -162,7 +162,7 @@ const DailySpinScreen = ({ onComplete }) => {
           
           {/* Çark Merkez Göbeği */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-[#0f172a] rounded-full z-20 border-[4px] border-[#1e293b] flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.8)]">
-            <span className="material-symbols-outlined text-white/50 text-[28px] animate-spin-slow">toll</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-white/50 text-[28px] animate-spin-slow">toll</span>
           </div>
         </div>
       </div>

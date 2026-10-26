@@ -26,7 +26,7 @@ const VaultScreen = ({ onBack }) => {
             boxShadow: 'inset 0 0 40px rgba(0,0,0,0.8), 0 0 30px rgba(34,197,94,0.3)',
           }}
         >
-          <span className="material-symbols-outlined text-[80px] mb-2" style={{ color: '#4ade80', fontVariationSettings: "'FILL' 1" }}>
+          <span aria-hidden="true" className="material-symbols-outlined text-[80px] mb-2" style={{ color: '#4ade80', fontVariationSettings: "'FILL' 1" }}>
             account_balance_wallet
           </span>
           <div className="text-2xl font-black text-white" style={{ fontFamily: "'Orbitron', monospace" }}>
@@ -58,7 +58,7 @@ const VaultScreen = ({ onBack }) => {
         
         {currentCount === 0 ? (
           <div className="flex flex-col items-center justify-center h-32 opacity-50">
-            <span className="material-symbols-outlined text-4xl mb-2 text-white/40">search_off</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-4xl mb-2 text-white/40">search_off</span>
             <p className="text-white/60 text-sm font-bold text-center">Henüz ekstra kelime bulmadın.</p>
           </div>
         ) : (
@@ -83,7 +83,7 @@ const VaultScreen = ({ onBack }) => {
 
       {/* Kural Uyarısı */}
       <div className="w-full max-w-sm mt-6 p-4 rounded-2xl bg-white/5 border border-white/5 flex items-start gap-3">
-        <span className="material-symbols-outlined text-yellow-500 text-[20px]">info</span>
+        <span aria-hidden="true" className="material-symbols-outlined text-yellow-500 text-[20px]">info</span>
         <p className="text-white/60 text-[12px] leading-relaxed font-bold">
           Bulmacada yer almayan ama sözlükte bulunan (geçerli) her kelime Kasaya eklenir. Kasa dolduğunda anında <span className="text-green-400">{formatKurus(VAULT_REWARD)} bakiye</span> kazanırsınız!
         </p>

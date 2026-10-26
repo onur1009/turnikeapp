@@ -1,7 +1,9 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { cloudService } from '../utils/supabaseClient';
-// Senkron localStorage kullanılarak state sıfırlanma sorunu giderildi
+import { backedUpStorage } from '../utils/persistStorage';
+// Senkron localStorage kullanılarak state sıfırlanma sorunu giderildi (native'de Preferences'a yedeklenir)
+export const GAME_STORAGE_KEY = 'turnike-game-storage';
 
 // Oyunun tek can ve kasa ödülü kaynağı; ekranlar bu sabitleri kullanır
 export const MAX_LIVES = 3;
@@ -291,8 +293,8 @@ export const useGameStore = create(
       }),
     }),
     {
-      name: 'turnike-game-storage',
-      storage: createJSONStorage(() => localStorage),
+      name: GAME_STORAGE_KEY,
+      storage: createJSONStorage(() => backedUpStorage),
     }
   )
 );

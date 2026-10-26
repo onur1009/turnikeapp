@@ -46,7 +46,7 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
       {/* Üst çubuk */}
       <header className="flex items-center justify-between gap-2 px-4 pt-6 pb-3 shrink-0">
         <button className={`balance-pill active:scale-95 transition-transform ${flashBalance ? 'balance-flash' : ''}`} onClick={() => setScreen('akbil')}>
-          <span className="material-symbols-outlined text-[16px]" style={{ color: 'var(--coin)', fontVariationSettings: "'FILL' 1" }}>toll</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-[16px]" style={{ color: 'var(--coin)', fontVariationSettings: "'FILL' 1" }}>toll</span>
           <AnimatedBalance value={balance} />
         </button>
         <div className="flex items-center gap-2">
@@ -54,10 +54,10 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
             <span className="status-chip" title="Seri">🔥 {streak}</span>
           )}
           <button className="icon-btn" onClick={() => setScreen('stats')} aria-label={t('stats')}>
-            <span className="material-symbols-outlined text-[18px]">bar_chart</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[18px]">bar_chart</span>
           </button>
           <button className="icon-btn" onClick={() => setScreen('settings')} aria-label={t('settings')}>
-            <span className="material-symbols-outlined text-[18px]">settings</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[18px]">settings</span>
           </button>
         </div>
       </header>
@@ -102,11 +102,11 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
       <div className="flex-1 flex flex-col items-center justify-center px-6 min-h-0">
         <div className="relative w-24 h-24 mb-5 rounded-full flex items-center justify-center"
           style={{ animation: 'homeFloat 3s ease-in-out infinite', background: `radial-gradient(circle, ${station.color}26, transparent 70%)`, border: `1px solid ${station.color}55` }}>
-          <span className="material-symbols-outlined text-[52px]" style={{ color: station.color, fontVariationSettings: "'FILL' 1", filter: `drop-shadow(0 0 12px ${station.color}88)` }}>{station.icon}</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-[52px]" style={{ color: station.color, fontVariationSettings: "'FILL' 1", filter: `drop-shadow(0 0 12px ${station.color}88)` }}>{station.icon}</span>
         </div>
         <p className="text-white/60 text-[14px] font-semibold mb-5 text-center">{t('subtitle')}</p>
         <button onClick={onPlay} className="play-btn flex items-center gap-3">
-          <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>play_circle</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>play_circle</span>
           <span className="flex flex-col items-start leading-tight">
             <span>{maxUnlockedLevel === 0 ? t('play') : t('continue_journey')}</span>
             <span className="text-[11px] font-bold opacity-80 tracking-wider">{t('level_short')} {maxUnlockedLevel + 1}</span>
@@ -120,7 +120,7 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
           const locked = maxUnlockedLevel < tab.unlockAt;
           return (
             <button key={tab.id} onClick={() => openTab(tab)} className={`tab-item ${locked ? 'locked' : ''}`}>
-              <span className="material-symbols-outlined text-[22px]">{locked ? 'lock' : tab.icon}</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[22px]">{locked ? 'lock' : tab.icon}</span>
               <span className="truncate max-w-full px-1">{t(tab.labelKey)}</span>
             </button>
           );
@@ -133,20 +133,20 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
           <div className="w-full rounded-t-3xl p-5 pb-8 flex flex-col gap-3" style={{ background: '#0b1428', borderTop: '1px solid var(--border)' }} onClick={e => e.stopPropagation()}>
             <div className="w-10 h-1 rounded-full bg-white/20 mx-auto mb-2" />
             <button onClick={() => setScreen('vault')} className="card-panel flex items-center gap-3 p-4 text-left active:scale-[0.98] transition-transform">
-              <span className="material-symbols-outlined text-[28px] text-green-400" style={{ fontVariationSettings: "'FILL' 1" }}>savings</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[28px] text-green-400" style={{ fontVariationSettings: "'FILL' 1" }}>savings</span>
               <span className="flex-1">
                 <span className="block text-white font-extrabold text-[15px]">{t('vault')}</span>
                 <span className="block text-white/55 text-[12px]">{vaultCount}/{VAULT_SIZE}</span>
               </span>
-              <span className="material-symbols-outlined text-white/40">chevron_right</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-white/40">chevron_right</span>
             </button>
             <button onClick={() => setScreen('lostitems')} className="card-panel flex items-center gap-3 p-4 text-left active:scale-[0.98] transition-transform">
-              <span className="material-symbols-outlined text-[28px] text-blue-400">search</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[28px] text-blue-400">search</span>
               <span className="flex-1">
                 <span className="block text-white font-extrabold text-[15px]">Kayıp Eşya Ofisi</span>
                 <span className="block text-white/55 text-[12px]">Setleri tamamla, kalıcı bonus kazan</span>
               </span>
-              <span className="material-symbols-outlined text-white/40">chevron_right</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-white/40">chevron_right</span>
             </button>
           </div>
         </div>

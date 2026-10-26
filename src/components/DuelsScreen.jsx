@@ -10,7 +10,7 @@ const DuelsScreen = ({ onBack }) => {
       {/* Üst Kısım */}
       <div className="w-full flex items-center justify-between mb-6 max-w-sm px-2">
         <button onClick={onBack} className="p-3 bg-white/5 rounded-full border border-white/10 active:scale-95 transition-all text-white">
-          <span className="material-symbols-outlined">arrow_back</span>
+          <span aria-hidden="true" className="material-symbols-outlined">arrow_back</span>
         </button>
         <h2 className="text-xl font-black text-white tracking-widest font-orbitron text-center flex-1">
           DÜELLOLAR
@@ -22,7 +22,7 @@ const DuelsScreen = ({ onBack }) => {
       <div className="w-full max-w-sm mb-6 p-4 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 rounded-full bg-green-500/20 border border-green-400 flex items-center justify-center">
-            <span className="material-symbols-outlined text-green-400">person</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-green-400">person</span>
           </div>
           <div>
             <div className="text-white font-bold">{username || 'Oyuncu'}</div>
@@ -60,7 +60,7 @@ const DuelsScreen = ({ onBack }) => {
                 <h3 className="text-white font-bold">Ahmet (Sıra Bekleniyor)</h3>
                 <p className="text-white/50 text-[11px] mt-1">Son hamle: 2 saat önce</p>
               </div>
-              <span className="material-symbols-outlined text-white/30 text-3xl">hourglass_empty</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-white/30 text-3xl">hourglass_empty</span>
             </div>
 
             <div className="p-4 rounded-2xl bg-green-900/20 border border-green-500/30 flex items-center justify-between animate-pulse-soft relative overflow-hidden">
@@ -76,11 +76,11 @@ const DuelsScreen = ({ onBack }) => {
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center text-center h-48 opacity-70">
-            <span className="material-symbols-outlined text-5xl text-white/30 mb-4">search</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-5xl text-white/30 mb-4">search</span>
             <p className="text-white font-bold mb-2">Rastgele Rakip Bul</p>
             <p className="text-white/50 text-xs mb-4">Seviyene uygun bir oyuncu aranacak.</p>
             <button className="px-6 py-3 bg-green-600 rounded-full font-bold text-white shadow-[0_0_15px_rgba(22,163,74,0.4)] active:scale-95 flex items-center gap-2 mb-4">
-              <span className="material-symbols-outlined">rocket_launch</span>
+              <span aria-hidden="true" className="material-symbols-outlined">rocket_launch</span>
               HEMEN EŞLEŞ
             </button>
             <button className="px-6 py-3 bg-white/5 border border-white/10 rounded-full font-bold text-sm text-white/70 active:scale-95 transition-all hover:bg-white/10">

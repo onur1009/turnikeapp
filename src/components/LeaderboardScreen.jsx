@@ -48,20 +48,20 @@ const LeaderboardScreen = ({ onBack }) => {
       <ScreenHeader title="Liderlik" onBack={onBack} className="px-0 pt-6 mb-4 max-w-sm" />
 
       <div className="flex flex-col items-center mb-5">
-        <span className="material-symbols-outlined text-[56px] text-yellow-400" style={{ fontVariationSettings: "'FILL' 1" }}>trophy</span>
+        <span aria-hidden="true" className="material-symbols-outlined text-[56px] text-yellow-400" style={{ fontVariationSettings: "'FILL' 1" }}>trophy</span>
         <p className="text-white/55 text-[12px] font-bold tracking-[3px] uppercase mt-1">En çok bakiye biriktirenler</p>
       </div>
 
       <div className="w-full max-w-sm flex-1 overflow-y-auto flex flex-col gap-2.5 pb-8">
         {status === 'loading' && (
           <div className="flex-1 flex items-center justify-center py-16">
-            <span className="material-symbols-outlined animate-spin text-green-400 text-3xl">sync</span>
+            <span aria-hidden="true" className="material-symbols-outlined animate-spin text-green-400 text-3xl">sync</span>
           </div>
         )}
 
         {status === 'offline' && (
           <div className="card-panel p-6 flex flex-col items-center text-center gap-3">
-            <span className="material-symbols-outlined text-[40px] text-white/40">wifi_off</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-[40px] text-white/40">wifi_off</span>
             <p className="text-white font-bold text-[15px]">Bağlantı kurulamadı</p>
             <p className="text-white/55 text-[13px]">Sıralamayı görmek için internet bağlantını kontrol et.</p>
             <button onClick={fetchLeaderboard} className="mt-1 px-5 py-2.5 rounded-full bg-green-600 text-white font-bold text-[13px] active:scale-95 transition-transform">

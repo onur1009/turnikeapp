@@ -277,6 +277,7 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
     >
       {/* Shuffle button */}
       <button
+        aria-label="Harfleri karıştır"
         onClick={(e) => {
           e.stopPropagation();
           if (isShuffling) return;
@@ -294,7 +295,7 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
             : 'translate(-50%,-50%) rotate(0deg) scale(1)'
         }}
       >
-        <span className="material-symbols-outlined text-white text-[26px]">sync</span>
+        <span aria-hidden="true" className="material-symbols-outlined text-white text-[26px]">sync</span>
       </button>
 
       {/* Word preview */}

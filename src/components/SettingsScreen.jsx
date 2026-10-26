@@ -20,7 +20,7 @@ const SettingsScreen = ({ onBack }) => {
           <div className="bg-white/5 rounded-2xl p-4 border border-white/10">
             <div className="flex justify-between items-center mb-4">
               <span className="text-white font-bold flex items-center gap-2">
-                <span className="material-symbols-outlined text-blue-400">volume_up</span>
+                <span aria-hidden="true" className="material-symbols-outlined text-blue-400">volume_up</span>
                 {t('sound')}
               </span>
               <button 
@@ -33,7 +33,7 @@ const SettingsScreen = ({ onBack }) => {
             
             <div className="flex justify-between items-center">
               <span className="text-white font-bold flex items-center gap-2">
-                <span className="material-symbols-outlined text-orange-400">vibration</span>
+                <span aria-hidden="true" className="material-symbols-outlined text-orange-400">vibration</span>
                 {t('haptic')}
               </span>
               <button 
@@ -55,7 +55,7 @@ const SettingsScreen = ({ onBack }) => {
                   className={`w-full py-3 rounded-xl font-bold text-sm tracking-wide transition-colors flex items-center justify-between px-4 ${theme === themeOption ? 'bg-blue-600 text-white' : 'bg-white/5 text-white/70 hover:bg-white/10'}`}
                 >
                   {t(`${themeOption}_theme`)}
-                  {theme === themeOption && <span className="material-symbols-outlined">check_circle</span>}
+                  {theme === themeOption && <span aria-hidden="true" className="material-symbols-outlined">check_circle</span>}
                 </button>
               ))}
             </div>

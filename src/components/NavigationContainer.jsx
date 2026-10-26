@@ -103,7 +103,7 @@ export default function NavigationContainer({
               <p className="text-white/55 text-[12px] font-semibold">{t('leg')} {station.leg}/{station.legsPerStation} · {t('level_short')} {maxUnlockedLevel + 1}</p>
             </div>
             <button onClick={() => playLevel(maxUnlockedLevel + 1)} className="px-5 py-3 rounded-full bg-green-600 text-white font-black text-[13px] tracking-wider active:scale-95 transition-transform flex items-center gap-1.5">
-              <span className="material-symbols-outlined text-[18px]" style={{ fontVariationSettings: "'FILL' 1" }}>play_arrow</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[18px]" style={{ fontVariationSettings: "'FILL' 1" }}>play_arrow</span>
               {t('continue_journey')}
             </button>
           </div>

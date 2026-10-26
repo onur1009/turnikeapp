@@ -56,7 +56,7 @@ const DictionaryScreen = ({ learnedWords = [] }) => {
             backdropFilter: 'blur(12px)'
           }}
         >
-          <span className="material-symbols-outlined text-white/50 pl-4 pr-2 text-[20px]">search</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-white/50 pl-4 pr-2 text-[20px]">search</span>
           <input
             className="w-full bg-transparent border-none py-3 pr-4 text-white placeholder-white/40 outline-none text-sm font-semibold"
             placeholder={t('search_word')}
@@ -83,7 +83,7 @@ const DictionaryScreen = ({ learnedWords = [] }) => {
                 boxShadow: isActive ? '0 4px 12px rgba(34,197,94,0.25)' : 'none'
               }}
             >
-              <span className="material-symbols-outlined text-[15px]">{tab.icon}</span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[15px]">{tab.icon}</span>
               {tab.label}
             </button>
           );
@@ -100,7 +100,7 @@ const DictionaryScreen = ({ learnedWords = [] }) => {
       <div className="max-w-lg mx-auto flex flex-col gap-3">
         {displayedWords.length === 0 ? (
           <div className="text-center py-16">
-            <span className="material-symbols-outlined text-white/20 text-[56px] mb-3 block">menu_book</span>
+            <span aria-hidden="true" className="material-symbols-outlined text-white/20 text-[56px] mb-3 block">menu_book</span>
             <p className="text-white/40 text-sm font-semibold">
               {learnedWords.length === 0 ? t('no_words_yet') : t('no_search_result')}
             </p>
@@ -137,7 +137,7 @@ const DictionaryScreen = ({ learnedWords = [] }) => {
 
                 {/* Footer Rarity */}
                 <div className="flex items-center gap-1 mt-3 pt-2.5 border-t border-white/5">
-                  <span className="material-symbols-outlined text-[12px] text-green-400" style={{ fontVariationSettings: "'FILL' 1" }}>
+                  <span aria-hidden="true" className="material-symbols-outlined text-[12px] text-green-400" style={{ fontVariationSettings: "'FILL' 1" }}>
                     shield
                   </span>
                   <span className="text-white/30 text-[9px] font-black tracking-widest uppercase">

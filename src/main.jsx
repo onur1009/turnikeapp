@@ -2,6 +2,8 @@ import React, { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
+import { useGameStore, GAME_STORAGE_KEY } from './store/gameStore'
+import { restoreFromBackup } from './utils/persistStorage'
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -23,10 +25,16 @@ class ErrorBoundary extends React.Component {
   }
 }
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <ErrorBoundary>
-      <App />
-    </ErrorBoundary>
-  </StrictMode>,
-)
+// Native'de WebView verisi silindiyse kaydı Preferences yedeğinden geri yükle, sonra store'u yeniden oku
+const start = async () => {
+  await restoreFromBackup([GAME_STORAGE_KEY]);
+  await useGameStore.persist.rehydrate();
+  createRoot(document.getElementById('root')).render(
+    <StrictMode>
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
+    </StrictMode>,
+  )
+};
+start();

@@ -63,7 +63,7 @@ const BadgesScreen = ({ onBack }) => {
                   boxShadow: isAnimating ? `0 0 20px ${badge.color}80` : 'none'
                 } : { background: 'rgba(255,255,255,0.1)' }}
               >
-                <span 
+                <span aria-hidden="true" 
                   className={`material-symbols-outlined text-[32px] transition-transform ${isAnimating ? 'animate-bounce' : ''}`}
                   style={{ color: isUnlocked ? badge.color : 'white', fontVariationSettings: "'FILL' 1" }}
                 >
@@ -110,7 +110,7 @@ const BadgesScreen = ({ onBack }) => {
                 boxShadow: `0 0 30px ${selectedBadge.color}40`
               }}
             >
-              <span 
+              <span aria-hidden="true" 
                 className="material-symbols-outlined text-[52px]"
                 style={{ color: selectedBadge.color, fontVariationSettings: "'FILL' 1" }}
               >

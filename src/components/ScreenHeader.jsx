@@ -7,7 +7,7 @@ export default function ScreenHeader({ title, onBack, right = null, className = 
   return (
     <header className={`w-full flex items-center gap-3 pb-3 shrink-0 relative z-30 ${className}`}>
       <button onClick={onBack} className="icon-btn" aria-label={t('back')}>
-        <span className="material-symbols-outlined text-[20px]">arrow_back</span>
+        <span aria-hidden="true" className="material-symbols-outlined text-[20px]">arrow_back</span>
       </button>
       <h2 className="flex-1 min-w-0 truncate text-white text-[18px] font-black tracking-wide">{title}</h2>
       {right}
