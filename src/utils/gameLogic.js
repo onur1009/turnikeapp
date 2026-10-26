@@ -517,18 +517,25 @@ export const PROVIDER_MAP_EN = {
   "PISTON": "Busforus", "ENGINE": "Busforus"
 };
 
-// Yalnızca geçerli kök kelimeleri barındıran havuz
-const TECH_TR = Array.from(VALID_WORDS_TR).filter(w => w.length >= 3).map(root => ({
-  root,
-  provider: PROVIDER_MAP_TR[root] || "Metro Istanbul",
-  category: "Genel"
-}));
+// Izgarada sorulmayan nadir kelimeler: sözlükte geçerli kalır (oyuncu bulursa kasaya girer)
+// ama bulmacanın zorunlu kelimesi olarak oyuncuyu şaşırtır (1. seviyede "AKT" gibi).
+const RARE_WORDS_TR = new Set([
+  "AKT", "AST", "FER", "SER", "ELİ", "MEY", "NAM", "KEM", "KÜR", "MİT", "NİL", "BET", "KAMA", "SAKA",
+  "VALI", "İTİ", "YAL", "TAL", "DOR", "MAR", "TOS", "ALP", "LAL", "TOR", "ROT", "KAY", "RAJ", "ERK",
+  "AHİ", "İLÇ", "GÂR", "RUZ", "KÜV", "DÜK", "ÖPÜK", "MEZ", "ORG", "ÜZE", "TAY", "AKSU"
+]);
+const RARE_WORDS_EN = new Set(["HEW", "IRE", "RUE", "ION", "RIG", "ORB", "COD", "TOR"]);
 
-const TECH_EN = Array.from(VALID_WORDS_EN).filter(w => w.length >= 3).map(root => ({
-  root,
-  provider: PROVIDER_MAP_EN[root] || "Metro",
-  category: "General"
-}));
+// Kök havuzu: yalnızca anlamı yazılmış ulaşım/İstanbul terimleri ("Terim" ipucu her kökte çalışsın)
+// ve en az bir yaygın alt kelime üretebilenler.
+const buildTechPool = (meanings, validWords, rareWords, providerMap, defaultProvider) =>
+  Object.keys(meanings)
+    .filter(root => validWords.has(root) && root.length >= 4)
+    .filter(root => [...validWords].some(w => w !== root && w.length >= 3 && w.length < root.length && !rareWords.has(w) && canFormNormalizedWord(w, root)))
+    .map(root => ({ root, provider: providerMap[root] || defaultProvider, category: "Genel" }));
+
+const TECH_TR = buildTechPool(WORD_MEANINGS_TR, VALID_WORDS_TR, RARE_WORDS_TR, PROVIDER_MAP_TR, "Metro Istanbul");
+const TECH_EN = buildTechPool(WORD_MEANINGS_EN, VALID_WORDS_EN, RARE_WORDS_EN, PROVIDER_MAP_EN, "Metro");
 
 const FORMABLE_TR = new Map();
 const FORMABLE_EN = new Map();
@@ -544,11 +551,11 @@ const getDifficulty = (levelIndex) => {
   return { targetWords: 6, minRoot: 7, maxRoot: 8, label: "efsane" };
 };
 
-const getCandidateWords = (root, validWords, levelIndex, rand, formableCache) => {
+const getCandidateWords = (root, validWords, levelIndex, rand, formableCache, rareWords = new Set()) => {
   const rootLen = root.length;
-  const minLen = levelIndex < 50 ? 3 : 4;
+  const minLen = levelIndex < 150 ? 3 : 4;
   const baseCandidates = formableCache.get(root) || [...validWords].filter((word) => word !== root && word.length < rootLen && canFormNormalizedWord(word, root));
-  const candidates = baseCandidates.filter((word) => word.length >= minLen);
+  const candidates = baseCandidates.filter((word) => word.length >= minLen && !rareWords.has(word));
 
   // Soft sort using sigmoid
   const pLongFirst = 1 / (1 + Math.exp(-(levelIndex - 400) / 100));
@@ -635,30 +642,30 @@ const placePuzzleWords = (root, candidates, targetWords) => {
 
 const getPools = (language) => {
   if (language === "en") {
-    return { techTerms: TECH_EN, validWords: VALID_WORDS_EN, formableCache: FORMABLE_EN };
+    return { techTerms: TECH_EN, validWords: VALID_WORDS_EN, formableCache: FORMABLE_EN, rareWords: RARE_WORDS_EN };
   }
-  return { techTerms: TECH_TR, validWords: VALID_WORDS_TR, formableCache: FORMABLE_TR };
+  return { techTerms: TECH_TR, validWords: VALID_WORDS_TR, formableCache: FORMABLE_TR, rareWords: RARE_WORDS_TR };
 };
 
-// Her kök VALID_WORDS içinden en az bir alt kelime üretebilmeli; aksi halde generateLevel
-// TRAMVAY fallback'ine düşer (eski listedeki RAY/HAT/YOL 1. seviyeyi 7 harfli yapıyordu).
-// Değiştirirken: her kök için alt kelime sayısını kontrol et.
+// Her kökün WORD_MEANINGS'te anlamı olmalı ve RARE_WORDS dışında en az bir alt kelime üretebilmeli;
+// aksi halde generateLevel TRAMVAY fallback'ine düşer (eski RAY/HAT/YOL 1. seviyeyi 7 harfli yapıyordu).
+// Değiştirirken: seviye doğrulama scriptiyle her kökün kelime sayısını kontrol et.
 const ONBOARDING_TR = [
-  "KART", "TREN", "ROTA", "FREN", "YOLCU", // 1-5: 4-5 harf, 1 alt kelime
-  "DURAK", "VAPUR", "METRO", "TÜNEL", "BİLET", // 6-10
-  "MOTOR", "SEFER", "TRAFO", "MAKAS", "TEKNE", // 11-15: 2 alt kelime
-  "LEVENT", "KAPTAN", "KAMYON", "İSKELE", "SİNYAL", // 16-20
-  "BALAST", "KONTAK", "OTOBÜS", "DİNGİL", "ULAŞIM", // 21-25
-  "SİSTEM", "TRAVERS", "TERSANE", "TURNİKE", "TRAMVAY" // 26-30: 7 harf
+  "KART", "TREN", "VAPUR", "VAGON", "DURAK", // 1-5: 4-5 harf, 1 alt kelime
+  "MOTOR", "METRO", "BİLET", "TÜNEL", "TRAFO", // 6-10
+  "SİSTEM", "RULMAN", "BALAST", "KONTAK", "ULAŞIM", // 11-15: 6 harf, 2 alt kelime
+  "SENSÖR", "İSKELE", "SİNYAL", "DİNGİL", "OTOBÜS", // 16-20
+  "TURNİKE", "KATENER", "TRAMVAY", "KÜPEŞTE", "TRAVERS", // 21-25: 7 harf
+  "AKTARMA", "TERSANE", "KARAKÖY", "TOPHANE", "İSTASYON" // 26-30
 ];
 
 const ONBOARDING_EN = [
-  "RAIL", "TRAM", "TUBE", "DOCK", "GATE", // 1-5
-  "TRAIN", "TRACK", "ROUTE", "BRAKE", "CABIN", // 6-10
-  "DEPOT", "MOTOR", "LEVER", "FERRY", "WHEEL", // 11-15
-  "TICKET", "TUNNEL", "SIGNAL", "SWITCH", "ENGINE", // 16-20
-  "BRIDGE", "HARBOR", "TENDER", "PISTON", "BOILER", // 21-25
-  "STATION", "TRANSIT", "PLATFORM", "TERMINAL", "COMMUTER" // 26-30
+  "TRAM", "RAIL", "TUBE", "TRAIN", "TRACK", // 1-5
+  "BRAKE", "CABIN", "BAKER", "TIMES", "FERRY", // 6-10
+  "SIGNAL", "TUNNEL", "PISTON", "HARBOR", "SWITCH", // 11-15
+  "ENGINE", "TICKET", "EUSTON", "GARDEN", "STATEN", // 16-20
+  "STATION", "TRANSIT", "CENTRAL", "CHARING", "PLATFORM", // 21-25
+  "TERMINAL", "COMMUTER", "CARRIAGE", "WATERLOO", "VICTORIA" // 26-30
 ];
 
 // Son 100 seviyede kullanılan kökleri takip eder (tekrarı önler)
@@ -672,7 +679,7 @@ const chooseTechnicalRoot = (levelIndex, language) => {
     return { root: rootName, provider, category: "Genel" };
   }
 
-  const { techTerms, validWords, formableCache } = getPools(language);
+  const { techTerms, validWords, formableCache, rareWords } = getPools(language);
   const difficulty = getDifficulty(levelIndex);
 
   // Murmur-style daha iyi seed (her seviye tamamen farklı bir kombinasyon verir)
@@ -696,31 +703,31 @@ const chooseTechnicalRoot = (levelIndex, language) => {
     : ["Metro Istanbul", "IETT", "Sehir Hatlari", "Busforus"];
   const desiredProvider = providerCycle[levelIndex % providerCycle.length];
 
-  let best = null;
-  let bestScore = -1;
-  const minLen = levelIndex < 50 ? 3 : 4;
+  const minLen = levelIndex < 150 ? 3 : 4;
 
-  // 1. Geçiş: Tarihe geçmeyen (taze) köklerden en iyi skoru bul
-  for (const term of shuffledPool) {
-    if (usedRootsHistory.has(term.root)) continue;
-    const count = (formableCache.get(term.root) || [...validWords].filter(w => canFormNormalizedWord(w, term.root)))
-      .filter(w => w.length >= minLen && w !== term.root).length;
-    if (count < 1) continue;
-    const providerBonus = term.provider === desiredProvider ? 3 : 0;
-    const score = Math.min(count, difficulty.targetWords + 2) * 10 + term.root.length + providerBonus;
-    if (score > bestScore) { best = term; bestScore = score; }
-    if (count >= difficulty.targetWords) break;
-  }
-
-  // 2. Geçiş: Tüm geçmiş tüketilmişse (nadiren olur) tarihi yoksay
-  if (!best) {
-    bestScore = -1;
+  // Tarihe geçmeyen (taze) köklerden en iyi skoru bul
+  const pickFresh = () => {
+    let pick = null;
+    let bestScore = -1;
     for (const term of shuffledPool) {
+      if (usedRootsHistory.has(term.root)) continue;
       const count = (formableCache.get(term.root) || [...validWords].filter(w => canFormNormalizedWord(w, term.root)))
-        .filter(w => w.length >= minLen && w !== term.root).length;
-      const score = Math.min(count, difficulty.targetWords + 2) * 10 + term.root.length;
-      if (score > bestScore) { best = term; bestScore = score; }
+        .filter(w => w.length >= minLen && w !== term.root && !rareWords.has(w)).length;
+      if (count < 1) continue;
+      const providerBonus = term.provider === desiredProvider ? 3 : 0;
+      const score = Math.min(count, difficulty.targetWords + 2) * 10 + term.root.length + providerBonus;
+      if (score > bestScore) { pick = term; bestScore = score; }
+      if (count >= difficulty.targetWords) break;
     }
+    return pick;
+  };
+
+  // Havuz küçük olduğundan bu banttaki tüm kökler kullanıldıysa geçmişi sıfırla ve baştan dön
+  // (eskiden 2. geçiş geçmişi yok sayıp hep aynı "en iyi" kökü seçiyordu)
+  let best = pickFresh();
+  if (!best) {
+    usedRootsHistory.clear();
+    best = pickFresh();
   }
 
   // Güvenlik amaçlı fallback
@@ -852,20 +859,20 @@ export const generateLevel = (levelIndex, language = "tr", attempts = 1, perform
   const seedHash = Math.abs((baseSeed ^ Math.imul(attempts | 0, 0x9e3779b9 | 0)));
   const rand = seededRandom(seedHash);
   
-  const { validWords, formableCache } = getPools(language);
+  const { validWords, formableCache, rareWords } = getPools(language);
   const baseDifficulty = getDifficulty(safeLevel);
   const difficulty = applyDDA(baseDifficulty, performanceScore, volatility);
   
   let term = chooseTechnicalRoot(safeLevel, language);
   // Pass DDA adjusted minRoot/maxRoot if necessary, but chooseTechnicalRoot is static right now.
-  let candidates = getCandidateWords(term.root, validWords, safeLevel, rand, formableCache);
+  let candidates = getCandidateWords(term.root, validWords, safeLevel, rand, formableCache, rareWords);
   
   // Eğer hiç candidate yoksa (örn: "YOL" gibi çok kısa bir kelime geldiyse),
   // sonsuz döngüden kaçınmak veya bulmacanın boş kalmasını engellemek için
   // yeni bir kelime seç.
   if (candidates.length === 0) {
     term = { root: language === 'en' ? 'TRAIN' : 'TRAMVAY', provider: language === 'en' ? 'Metro' : 'Metro Istanbul', category: 'General' };
-    candidates = getCandidateWords(term.root, validWords, safeLevel, rand, formableCache);
+    candidates = getCandidateWords(term.root, validWords, safeLevel, rand, formableCache, rareWords);
   }
 
   const words = placePuzzleWords(term.root, candidates, difficulty.targetWords);

@@ -12,7 +12,8 @@ export const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Basit bir wrapper servisi oluşturuyoruz.
 export const cloudService = {
-  // Liderlik tablosundaki en iyi 50 oyuncuyu çek
+  // Liderlik tablosundaki en iyi 50 oyuncuyu çek. Hata durumunda null döner
+  // (boş tablo [] ile bağlantı hatası ayırt edilebilsin).
   getTopPlayers: async () => {
     try {
       const { data, error } = await supabase
@@ -25,7 +26,7 @@ export const cloudService = {
       return data || [];
     } catch (err) {
       console.error('Supabase fetch error:', err);
-      return []; // Hata durumunda boş liste dön (oyun çökmesin)
+      return null;
     }
   },
 

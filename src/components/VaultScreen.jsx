@@ -1,6 +1,7 @@
 import React from 'react';
 import { useGameStore, VAULT_REWARD } from '../store/gameStore';
 import { formatKurus } from '../utils/format';
+import ScreenHeader from './ScreenHeader';
 
 const VaultScreen = ({ onBack }) => {
   const vaultWords = useGameStore(state => state.vaultWords);
@@ -9,17 +10,8 @@ const VaultScreen = ({ onBack }) => {
   const progressPercent = (currentCount / maxCapacity) * 100;
 
   return (
-    <div className="flex-1 w-full flex flex-col items-center bg-[#0a110a] relative z-20 fade-in pt-8 pb-6 px-4">
-      {/* Üst Kısım */}
-      <div className="w-full flex items-center justify-between mb-8 max-w-sm px-2">
-        <button onClick={onBack} className="p-3 bg-white/5 rounded-full border border-white/10 active:scale-95 transition-all text-white">
-          <span className="material-symbols-outlined">arrow_back</span>
-        </button>
-        <h2 className="text-xl font-black text-white tracking-widest font-orbitron text-center flex-1">
-          KASA
-        </h2>
-        <div className="w-[50px]"></div>
-      </div>
+    <div className="flex-1 w-full flex flex-col items-center relative z-20 fade-in pb-6 px-4">
+      <ScreenHeader title="Kasa" onBack={onBack} className="px-0 pt-6 mb-6 max-w-sm" />
 
       {/* Kasa Görseli */}
       <div className="relative mb-8 mt-4">

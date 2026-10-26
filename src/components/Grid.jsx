@@ -85,8 +85,10 @@ const Grid = ({ words, foundWords, hintedLetters = [], onIntersectionFound }) =>
     };
   }, [words, foundWords, hintedLetters]);
 
-  // Kesişim bulunduğunda parent'a bildir
+  // Kesişim bulunduğunda parent'a bildir. Yeni seviyede sıfırlanır; aksi halde aynı koordinattaki
+  // kesişimler (ör. "0,0") sonraki seviyelerde hiç ödül vermiyordu.
   const rewardedIntersectionsRef = React.useRef(new Set());
+  useEffect(() => { rewardedIntersectionsRef.current = new Set(); }, [words]);
   useEffect(() => {
     if (!onIntersectionFound || !intersections) return;
     intersections.forEach(key => {

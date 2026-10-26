@@ -2,6 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useGameStore } from '../store/gameStore';
 import { LOST_ITEMS_CATALOG, LOST_ITEMS_SETS, getRandomItem } from '../data/lostItems';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
+import ScreenHeader from './ScreenHeader';
+import { formatKurus } from '../utils/format';
+
+// Sürpriz kutu fiyatı kuruş cinsinden (eskiden 200 kuruş = ₺2 çekiyordu; eşyalar ₺15-300'e
+// satılabildiği için sınırsız para kazandırıyordu)
+const MYSTERY_BOX_PRICE = 20000;
 
 const LostItemsScreen = ({ onBack }) => {
   const [activeTab, setActiveTab] = useState('raflar'); // 'raflar', 'kutu', 'pazar'
@@ -18,14 +24,14 @@ const LostItemsScreen = ({ onBack }) => {
   const itemsList = Object.values(LOST_ITEMS_CATALOG);
 
   const handleOpenBox = () => {
-    if (balance < 200 || isOpeningBox) return;
+    if (balance < MYSTERY_BOX_PRICE || isOpeningBox) return;
     setIsOpeningBox(true);
     setBoxResult(null);
     if (useGameStore.getState().hapticEnabled) Haptics.impact({ style: ImpactStyle.Heavy }).catch(()=>{});
     
     setTimeout(() => {
       const newItemId = getRandomItem();
-      buyMysteryBox(200, newItemId);
+      buyMysteryBox(MYSTERY_BOX_PRICE, newItemId);
       setBoxResult(LOST_ITEMS_CATALOG[newItemId]);
       setIsOpeningBox(false);
       if (useGameStore.getState().hapticEnabled) Haptics.notification({ type: 'SUCCESS' }).catch(()=>{});
@@ -33,18 +39,9 @@ const LostItemsScreen = ({ onBack }) => {
   };
 
   return (
-    <div className="flex-1 w-full flex flex-col items-center bg-[#0a0f0d] relative z-20 fade-in pt-8 pb-6 px-4 min-h-screen">
-      {/* Header */}
-      <div className="w-full flex items-center justify-between mb-2 max-w-sm px-2">
-        <button onClick={onBack} className="p-3 bg-white/5 rounded-full border border-white/10 active:scale-95 transition-all text-white">
-          <span className="material-symbols-outlined">arrow_back</span>
-        </button>
-        <div className="text-green-400 font-bold text-xl tracking-widest font-orbitron">₺ {(balance / 100).toFixed(2)}</div>
-      </div>
-
-      <div className="px-6 mt-4 mb-6 text-center">
-        <h2 className="text-3xl font-black text-green-400 font-orbitron tracking-wider mb-2" style={{ textShadow: '0 0 10px rgba(74,222,128,0.5)' }}>KAYIP EŞYA OFİSİ</h2>
-      </div>
+    <div className="flex-1 w-full flex flex-col items-center relative z-20 fade-in pb-6 px-4 min-h-screen">
+      <ScreenHeader title="Kayıp Eşya Ofisi" onBack={onBack} className="px-0 pt-6 mb-3 max-w-sm"
+        right={<span className="balance-pill">{formatKurus(balance)}</span>} />
 
       {/* Tabs */}
       <div className="flex w-full max-w-sm bg-white/5 p-1 rounded-full mb-6">
@@ -112,13 +109,13 @@ const LostItemsScreen = ({ onBack }) => {
           ) : (
             <div className="mb-8">
               <h3 className="text-xl font-bold text-white mb-2">Sürpriz Kutu</h3>
-              <p className="text-white/50 text-sm">200₺ karşılığında rastgele bir kayıp eşya bulma şansı yakala!</p>
+              <p className="text-white/50 text-sm">{formatKurus(MYSTERY_BOX_PRICE)} karşılığında rastgele bir kayıp eşya bulma şansı yakala!</p>
             </div>
           )}
 
-          <button onClick={handleOpenBox} disabled={isOpeningBox || balance < 200}
-            className={`px-8 py-4 rounded-full font-black text-lg shadow-[0_0_20px_rgba(74,222,128,0.4)] transition-all ${isOpeningBox || balance < 200 ? 'bg-white/10 text-white/30' : 'bg-green-600 text-white active:scale-95'}`}>
-            {isOpeningBox ? 'KUTU AÇILIYOR...' : 'KUTU AÇ (200 ₺)'}
+          <button onClick={handleOpenBox} disabled={isOpeningBox || balance < MYSTERY_BOX_PRICE}
+            className={`px-8 py-4 rounded-full font-black text-lg shadow-[0_0_20px_rgba(74,222,128,0.4)] transition-all ${isOpeningBox || balance < MYSTERY_BOX_PRICE ? 'bg-white/10 text-white/30' : 'bg-green-600 text-white active:scale-95'}`}>
+            {isOpeningBox ? 'KUTU AÇILIYOR...' : `KUTU AÇ (${formatKurus(MYSTERY_BOX_PRICE)})`}
           </button>
         </div>
       )}
@@ -159,7 +156,7 @@ const LostItemsScreen = ({ onBack }) => {
                     sellItem(item.id, item.value * 100);
                     if (useGameStore.getState().hapticEnabled) Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
                   }} className="bg-green-600/20 text-green-400 border border-green-500/30 px-3 py-1.5 rounded-lg text-xs font-bold active:scale-95 transition-all">
-                    SAT (+{item.value}₺)
+                    SAT (+{formatKurus(item.value * 100)})
                   </button>
                 </div>
               );
@@ -187,7 +184,7 @@ const LostItemsScreen = ({ onBack }) => {
               <span className="material-symbols-outlined absolute -bottom-4 -right-2 text-6xl text-white/5 opacity-50">format_quote</span>
               <p className="text-white/80 text-sm italic relative z-10 leading-relaxed">"{selectedItem.lore}"</p>
             </div>
-            <p className="text-center text-xs text-white/40">Eşya Değeri: {selectedItem.value} ₺</p>
+            <p className="text-center text-xs text-white/40">Eşya Değeri: {formatKurus(selectedItem.value * 100)}</p>
           </div>
         </div>
       )}

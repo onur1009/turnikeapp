@@ -7,7 +7,7 @@ import AnimatedBalance from './components/AnimatedBalance';
 import NavigationContainer from './components/NavigationContainer';
 import GameContainer from './components/GameContainer';
 import HomeScreen from './components/HomeScreen';
-import { useGameStore, MAX_LIVES } from './store/gameStore';
+import { useGameStore, getMaxLives } from './store/gameStore';
 import { useGameTimer } from './hooks/useGameTimer';
 import { Haptics, ImpactStyle, NotificationType } from '@capacitor/haptics';
 import { StatusBar, Style } from '@capacitor/status-bar';
@@ -236,7 +236,7 @@ function App() {
           setScreen={setScreen}
           showFeedback={showFeedback}
           flashBalance={flashBalance}
-          onPlay={() => { incrementTotalGames(); useGameStore.setState({ levelIndex: maxUnlockedLevel, lives: MAX_LIVES }); setScreen('game'); }}
+          onPlay={() => { incrementTotalGames(); useGameStore.setState({ levelIndex: maxUnlockedLevel, lives: getMaxLives(useGameStore.getState().completedSets) }); setScreen('game'); }}
         />
         {feedback && (
           <div key={feedback.id} className="toast-container z-50">

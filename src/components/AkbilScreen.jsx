@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useGameStore } from '../store/gameStore';
 import { useTranslation } from '../utils/i18n';
+import ScreenHeader from './ScreenHeader';
+import { formatKurus } from '../utils/format';
 
 const SHOW_STORE_FEATURES = false;
 
@@ -32,7 +34,6 @@ const AkbilScreen = ({ onBack }) => {
   const [showPacks, setShowPacks] = useState(false);
   const [purchaseFeedback, setPurchaseFeedback] = useState(null);
 
-  const formattedBalance = (balance / 100).toFixed(2);
 
   const handlePurchase = (amount, label) => {
     addBalance(amount);
@@ -43,15 +44,7 @@ const AkbilScreen = ({ onBack }) => {
   return (
     <main className="flex-1 w-full flex flex-col p-6 pb-20 relative z-10 fade-in items-center overflow-y-auto">
       <div className="w-full max-w-sm">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <button onClick={onBack} className="capsule">
-            <span className="material-symbols-outlined text-[18px]">arrow_back</span>
-          </button>
-          <h2 className="text-white text-lg font-black tracking-widest uppercase mr-10" style={{ fontFamily: "'Orbitron', monospace" }}>
-            {t('akbil')}
-          </h2>
-        </div>
+        <ScreenHeader title={t('akbil')} onBack={onBack} className="px-0 pt-0 mb-6" />
 
         {/* Akbil Card */}
         <div 
@@ -80,7 +73,7 @@ const AkbilScreen = ({ onBack }) => {
           <div className="relative z-10">
             <p className="text-white/60 text-xs font-bold uppercase tracking-wider mb-1">{t('available_balance')}</p>
             <div className="flex items-end gap-2">
-              <span className="text-white text-5xl font-black tracking-tighter">₺{formattedBalance}</span>
+              <span className="text-white text-5xl font-black tracking-tighter">{formatKurus(balance)}</span>
             </div>
           </div>
         </div>

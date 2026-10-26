@@ -8,6 +8,14 @@ export const MAX_LIVES = 3;
 export const VAULT_SIZE = 10;
 export const VAULT_REWARD = 1500; // kuruş (₺15)
 
+// Kayıp Eşya set ödülleri (src/data/lostItems.js): tek yerden hesaplanır
+export const getMaxLives = (completedSets = []) => MAX_LIVES + (completedSets.includes('unutkan') ? 1 : 0);
+export const getHintCosts = (completedSets = []) => {
+  const factor = completedSets.includes('nostalji') ? 0.8 : 1; // Nostalji: tüm ipuçları %20 indirimli
+  return { letter: Math.round(25 * factor), word: Math.round(75 * factor), term: Math.round(50 * factor) };
+};
+export const getEarningsMultiplier = (completedSets = []) => (completedSets.includes('gizli') ? 1.5 : 1);
+
 export const useGameStore = create(
   persist(
     (set, get) => ({
@@ -80,7 +88,7 @@ export const useGameStore = create(
       }),
       
       addLives: (amount) => set((state) => ({ 
-        lives: Math.min(MAX_LIVES, state.lives + amount) 
+        lives: Math.min(getMaxLives(state.completedSets), state.lives + amount) 
       })),
 
       addHints: (amount) => set((state) => ({ 

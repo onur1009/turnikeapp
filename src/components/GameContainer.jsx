@@ -17,7 +17,7 @@ import { LOST_ITEMS_CATALOG, LOST_ITEMS_SETS, getRandomItem } from '../data/lost
 import { calculateWordScore, calculateLevelCompletionBonus } from '../utils/scoring';
 import { computeRawSignal, updateEwmvAndZScore, getAlpha, detectVolatility } from '../utils/dda';
 import { getStationForLevel } from '../utils/transitNetwork';
-import { MAX_LIVES, VAULT_SIZE, VAULT_REWARD } from '../store/gameStore';
+import { VAULT_SIZE, VAULT_REWARD, getMaxLives, getHintCosts, getEarningsMultiplier } from '../store/gameStore';
 import { formatKurus } from '../utils/format';
 import '../index.css';
 
@@ -155,7 +155,8 @@ export default function GameContainer({
   const [levelStartTime, setLevelStartTime] = useState(0);
 
   // Faz 2: Kayıp Vagon & Hat Arızası & Eleme Jokeri State'leri
-  const [eliminatedLetters, setEliminatedLetters] = useState([]);
+  // "Terim" ipucu bu seviyede açıldı mı (ikinci basış ücretsiz)
+  const [termRevealed, setTermRevealed] = useState(false);
   const [hatArizasi, setHatArizasi] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [hiddenWord, setHiddenWord] = useState(null);
@@ -163,7 +164,7 @@ export default function GameContainer({
   // LevelData değiştiğinde Faz 2 mekaniklerini sıfırla/hazırla
   useEffect(() => {
     if (levelData) {
-      setEliminatedLetters([]);
+      setTermRevealed(false);
       setHatArizasi(false);
       // Şans eseri %30 ihtimalle Kayıp Vagon belirle (çarktaki harflerden oluşabilen rastgele ekstra kelime)
       if (Math.random() < 0.3) {
@@ -362,7 +363,10 @@ export default function GameContainer({
     const { perfectClearBonus: expressBonus } = calculateLevelCompletionBonus(
       store.levelSessionScore, expressRemaining > 0, expressRemaining
     );
-    addBalance(perfectBonus + expressBonus);
+    // Gizemli Paket seti: seviye kazancının tamamı 1,5x (kelime puanı zaten eklendi, farkı burada verilir)
+    const multiplier = getEarningsMultiplier(completedSets);
+    const setBonus = Math.round((store.levelSessionScore + perfectBonus + expressBonus) * (multiplier - 1));
+    addBalance(perfectBonus + expressBonus + setBonus);
 
     // DDA: başarı sinyali (bitirme süresi / ekspres süresi)
     const timeLimit = totalTimeMsRef.current / 1000;
@@ -382,6 +386,7 @@ export default function GameContainer({
       wordPoints: store.levelSessionScore,
       expressBonus,
       perfectBonus,
+      setBonus,
       words: wordsFound,
       timeSpent: Math.round((Date.now() - levelStartTime) / 1000)
     });
@@ -564,8 +569,11 @@ export default function GameContainer({
     }
   };
 
+  const hintCosts = getHintCosts(completedSets);
+  const maxLives = getMaxLives(completedSets);
+
   const handleLetterHint = () => {
-    if (hints > 0 || balance >= 25) {
+    if (hints > 0 || balance >= hintCosts.letter) {
       const missingWords = levelData.words.filter(w => !foundWords.includes(w.word));
       if (missingWords.length > 0) {
         const candidates = [];
@@ -584,7 +592,7 @@ export default function GameContainer({
           if (hints > 0) {
             addHints(-1);
           } else {
-            addBalance(-25);
+            addBalance(-hintCosts.letter);
           }
           const pick = candidates[Math.floor(Math.random() * candidates.length)];
           setHintedLetters(prev => [...prev, pick]);
@@ -599,8 +607,7 @@ export default function GameContainer({
   };
 
   const handleHint = () => {
-    // Nostalji Seti Buff: İpuçları %20 indirimli
-    const hintCost = completedSets.includes('nostalji') ? 60 : 75;
+    const hintCost = hintCosts.word;
 
     if (hints > 0 || balance >= hintCost) {
       const missing = levelData.words.filter(w => !foundWords.includes(w.word));
@@ -637,27 +644,28 @@ export default function GameContainer({
     if (soundEnabled) playBalanceUp();
   }, [addBalance, showFeedback, soundEnabled, t]);
 
-  const handleEliminateLetter = () => {
-    if (balance >= 50) {
-      // Izgarada henüz bulunmamış kelimelerin harflerini bul
-      const missingWords = levelData.words.filter(w => !foundWords.includes(w.word));
-      const neededChars = new Set(missingWords.map(w => w.word.split('')).flat());
-      
-      // Çarktaki harflerden gereksiz olanları bul (ve henüz elenmemiş olanları)
-      const uselessChars = levelData.wheelLetters.filter(c => !neededChars.has(c) && !eliminatedLetters.includes(c));
-      
-      if (uselessChars.length > 0) {
-        addBalance(-50);
-        const charToEliminate = uselessChars[Math.floor(Math.random() * uselessChars.length)];
-        setEliminatedLetters(prev => [...prev, charToEliminate]);
-        showFeedback('correct', `Harf Elendi: ${charToEliminate}`);
-        if (soundEnabled) playTurnike();
-      } else {
-        showFeedback('exists', 'Elenecek harf yok!');
-      }
-    } else {
-      showFeedback('wrong', t('balance_low'));
+  // "Terim" ipucu: kök ulaşım teriminin anlamını gösterir, kelimenin kendisini maskeler.
+  // ("Ele" aracının yerini aldı: çarktaki tüm harfler kökten geldiği için elenecek harf olmuyordu.)
+  const handleTermHint = () => {
+    const term = levelData.technicalTerm;
+    const meaning = WORD_MEANINGS[term];
+    if (!meaning) {
+      showFeedback('exists', t('term_unavailable'));
+      return;
     }
+    if (!termRevealed) {
+      if (balance < hintCosts.term) {
+        showFeedback('wrong', t('balance_low'));
+        if (hapticEnabled) Haptics.notification({ type: NotificationType.Warning }).catch(()=>{});
+        return;
+      }
+      addBalance(-hintCosts.term);
+      setTermRevealed(true);
+      if (soundEnabled) playTurnike();
+    }
+    const masked = meaning.split(term).join('●'.repeat(term.length));
+    setInfoCard({ word: `${t('tool_term')}: ${'●'.repeat(term.length)} (${term.length})`, meaning: masked, id: Date.now() });
+    if (hapticEnabled) Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
   };
 
   const handleShuffle = () => {
@@ -785,7 +793,7 @@ export default function GameContainer({
                 <button
                   onClick={() => {
                     setShowConfirmModal(false);
-                    useGameStore.setState({ lives: MAX_LIVES, gameStatus: 'idle', combo: 0 });
+                    useGameStore.setState({ lives: maxLives, gameStatus: 'idle', combo: 0 });
                     setScreen('home');
                   }}
                   className="flex-1 py-3 rounded-xl font-bold text-white bg-red-600 hover:bg-red-500 transition-colors shadow-lg shadow-red-900/50"
@@ -807,7 +815,6 @@ export default function GameContainer({
     if (!levelData) return null;
 
     const station = getStationForLevel(levelIndex);
-    const hintCost = completedSets.includes('nostalji') ? 60 : 75;
     const isTutorial = levelIndex === 0 && foundWords.length === 0 && localStorage.getItem('turnike_tutorial_seen') !== 'true';
     const showStationInfo = () => {
       setInfoCard({ word: station.displayName, meaning: `${station.stationInfo} ${levelData.missionTask || ''}`.trim(), id: Date.now() });
@@ -852,7 +859,8 @@ export default function GameContainer({
             <span className="min-w-0">
               <span className="block text-[16px] font-extrabold text-white truncate leading-tight">{station.displayName}</span>
               <span className="block text-[11px] font-semibold text-white/55 truncate">
-                {t('leg')} {station.leg}/{station.legsPerStation} · {levelData.technicalTerm}
+                {/* Kök kelime burada gösterilmez: bulmacanın cevabıdır */}
+                {t('leg')} {station.leg}/{station.legsPerStation} · {levelData.provider}
               </span>
             </span>
           </button>
@@ -864,8 +872,8 @@ export default function GameContainer({
 
         {/* Durum satırı: can | kelime ilerlemesi | kasa */}
         <div className="flex items-center justify-between px-4 pb-2 shrink-0">
-          <div className="flex gap-0.5" aria-label={`${lives}/${MAX_LIVES}`}>
-            {Array.from({ length: MAX_LIVES }, (_, i) => (
+          <div className="flex gap-0.5" aria-label={`${lives}/${maxLives}`}>
+            {Array.from({ length: maxLives }, (_, i) => (
               <span key={i} className={`material-symbols-outlined text-[18px] transition-all ${i < lives ? 'text-red-500' : 'text-white/15'}`} style={{ fontVariationSettings: "'FILL' 1" }}>favorite</span>
             ))}
           </div>
@@ -959,19 +967,18 @@ export default function GameContainer({
                 onShuffle={handleShuffle}
                 bonusLetter={goldLetter}
                 wrongWordTrigger={wrongWordTrigger}
-                eliminatedLetters={eliminatedLetters}
                 isTutorial={isTutorial}
                 tutorialWord={levelData.technicalTerm}
               />
             </div>
           </div>
           <div className="flex gap-3 mt-4">
-            <ToolButton icon="spellcheck" label={t('tool_letter')} price={hints > 0 ? `${hints} ✦` : formatKurus(25)}
-              affordable={hints > 0 || balance >= 25} onClick={handleLetterHint} />
-            <ToolButton icon="lightbulb" label={t('tool_word')} price={hints > 0 ? `${hints} ✦` : formatKurus(hintCost)}
-              affordable={hints > 0 || balance >= hintCost} onClick={handleHint} accent="#fbbf24" />
-            <ToolButton icon="disabled_visible" label={t('tool_eliminate')} price={formatKurus(50)}
-              affordable={balance >= 50} onClick={handleEliminateLetter} accent="#f87171" />
+            <ToolButton icon="spellcheck" label={t('tool_letter')} price={hints > 0 ? `${hints} ✦` : formatKurus(hintCosts.letter)}
+              affordable={hints > 0 || balance >= hintCosts.letter} onClick={handleLetterHint} />
+            <ToolButton icon="lightbulb" label={t('tool_word')} price={hints > 0 ? `${hints} ✦` : formatKurus(hintCosts.word)}
+              affordable={hints > 0 || balance >= hintCosts.word} onClick={handleHint} accent="#fbbf24" />
+            <ToolButton icon="menu_book" label={t('tool_term')} price={termRevealed ? '✓' : formatKurus(hintCosts.term)}
+              affordable={termRevealed || balance >= hintCosts.term} onClick={handleTermHint} accent="#60a5fa" />
           </div>
         </div>
 

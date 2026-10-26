@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { formatKurus } from '../utils/format';
 import { useGameStore } from '../store/gameStore';
 import { useTranslation } from '../utils/i18n';
 import { Haptics, ImpactStyle, NotificationType } from '@capacitor/haptics';
 import { playCorrect, playWrong, playBalanceUp, playBadgeUnlock } from '../utils/soundManager';
 
 const REWARD_TYPES = [
-  { type: 'cash_small', id: 'istanbulkart', value: 10.00, label: 'Unutulmuş\nİstanbulkart\n(+₺10)', icon: 'credit_card', color: '#22c55e', chance: 35 },
-  { type: 'cash_big', id: 'cuzdan', value: 50.00, label: 'Dolu Cüzdan\n(+₺50)', icon: 'account_balance_wallet', color: '#fbbf24', chance: 15 },
+  { type: 'cash_small', id: 'istanbulkart', value: 1000 /* kuruş */, label: 'Unutulmuş\nİstanbulkart\n(+₺10)', icon: 'credit_card', color: '#22c55e', chance: 35 },
+  { type: 'cash_big', id: 'cuzdan', value: 5000 /* kuruş */, label: 'Dolu Cüzdan\n(+₺50)', icon: 'account_balance_wallet', color: '#fbbf24', chance: 15 },
   { type: 'hints', id: 'gozluk', value: 2, label: 'Gözlük\n(+2 İpucu)', icon: 'eyeglasses', color: '#3b82f6', chance: 20 },
   { type: 'life', id: 'semsiye', value: 1, label: 'Şemsiye\n(+1 Can)', icon: 'umbrella', color: '#ec4899', chance: 15 },
   { type: 'empty', id: 'takmadis', value: 0, label: 'Takma Diş\n(Boş)', icon: 'dentistry', color: '#94a3b8', chance: 10 },
@@ -171,7 +172,7 @@ const BonusLockers = ({ onComplete }) => {
         <div className="bg-slate-800/80 backdrop-blur border border-slate-700/50 rounded-2xl p-4 shadow-2xl flex flex-col items-center">
           <p className="text-white font-black text-sm uppercase tracking-widest mb-3 text-center">TOPLAM KAZANÇ</p>
           <div className="flex flex-wrap justify-center gap-2">
-            {totalWon.cash > 0 && <span className="text-green-400 font-bold bg-green-500/10 px-3 py-1.5 rounded-lg border border-green-500/30">+{totalWon.cash.toFixed(2)}₺</span>}
+            {totalWon.cash > 0 && <span className="text-green-400 font-bold bg-green-500/10 px-3 py-1.5 rounded-lg border border-green-500/30">+{formatKurus(totalWon.cash)}</span>}
             {totalWon.hints > 0 && <span className="text-blue-400 font-bold bg-blue-500/10 px-3 py-1.5 rounded-lg border border-blue-500/30">+{totalWon.hints} İpucu</span>}
             {totalWon.lives > 0 && <span className="text-pink-400 font-bold bg-pink-500/10 px-3 py-1.5 rounded-lg border border-pink-500/30">+{totalWon.lives} Can</span>}
             {totalWon.cash === 0 && totalWon.hints === 0 && totalWon.lives === 0 && <span className="text-slate-400 font-bold bg-slate-500/10 px-3 py-1.5 rounded-lg border border-slate-500/30">Maalesef boş çektin...</span>}

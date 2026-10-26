@@ -2,9 +2,18 @@ import React, { useState } from 'react';
 import { useGameStore } from '../store/gameStore';
 import { BADGES } from '../utils/badges';
 import { useTranslation } from '../utils/i18n';
+import ScreenHeader from './ScreenHeader';
 
 const BadgesScreen = ({ onBack }) => {
-  const { unlockedBadges } = useGameStore();
+  const { unlockedBadges, maxUnlockedLevel, totalWordsFound, streak, maxCombo, balance } = useGameStore();
+  // Kilitli rozetlerde "ne kadar kaldı" göstermek için [şu an, hedef]
+  const progressFor = (id) => ({
+    first_ticket: [maxUnlockedLevel, 1], level_5: [maxUnlockedLevel, 5], level_10: [maxUnlockedLevel, 10],
+    level_20: [maxUnlockedLevel, 20], level_30: [maxUnlockedLevel, 30],
+    words_10: [totalWordsFound, 10], words_50: [totalWordsFound, 50], words_100: [totalWordsFound, 100],
+    streak_3: [streak, 3], streak_7: [streak, 7], combo_5: [maxCombo, 5], combo_10: [maxCombo, 10],
+    rich: [balance, 5000], wealthy: [balance, 20000],
+  })[id];
   const { t, language } = useTranslation();
   const [selectedBadge, setSelectedBadge] = useState(null);
   const [animatingBadge, setAnimatingBadge] = useState(null);
@@ -17,16 +26,8 @@ const BadgesScreen = ({ onBack }) => {
   };
 
   return (
-    <main className="flex-1 w-full flex flex-col p-4 relative z-10 fade-in overflow-y-auto">
-      {/* Header */}
-      <div className="flex items-center mb-6 pt-4">
-        <button onClick={onBack} className="capsule">
-          <span className="material-symbols-outlined text-[18px]">arrow_back</span>
-        </button>
-        <h2 className="flex-1 text-center text-white text-xl font-black tracking-widest uppercase mr-12">
-          {t('badges')}
-        </h2>
-      </div>
+    <main className="flex-1 w-full flex flex-col px-4 pb-4 relative z-10 fade-in overflow-y-auto">
+      <ScreenHeader title={t('badges')} onBack={onBack} className="px-0 pt-6 mb-3" />
 
       <div className="text-center mb-6">
         <p className="text-white/40 text-sm font-medium mb-1">{t('earned_badges')}</p>
@@ -69,12 +70,22 @@ const BadgesScreen = ({ onBack }) => {
                   {isUnlocked ? badge.icon : 'lock'}
                 </span>
               </div>
-              <h3 className={`text-[13px] font-black uppercase tracking-wider mb-1 ${isUnlocked ? 'text-white' : 'text-white/30'}`}>
+              <h3 className={`text-[13px] font-black uppercase tracking-wider mb-1 ${isUnlocked ? 'text-white' : 'text-white/60'}`}>
                 {title}
               </h3>
-              <p className={`text-[10px] leading-tight ${isUnlocked ? 'text-white/60' : 'text-white/20'}`}>
+              <p className={`text-[12px] leading-snug ${isUnlocked ? 'text-white/65' : 'text-white/50'}`}>
                 {desc}
               </p>
+              {!isUnlocked && progressFor(badge.id) && (() => {
+                const [cur, target] = progressFor(badge.id);
+                return (
+                  <div className="w-full mt-2.5">
+                    <div className="h-1.5 w-full rounded-full bg-white/10 overflow-hidden">
+                      <div className="h-full rounded-full" style={{ width: `${Math.min(100, (cur / target) * 100)}%`, background: badge.color }} />
+                    </div>
+                  </div>
+                );
+              })()}
             </button>
           );
         })}

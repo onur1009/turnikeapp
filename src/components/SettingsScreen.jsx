@@ -1,6 +1,7 @@
 import React from 'react';
 import { useGameStore } from '../store/gameStore';
 import { useTranslation } from '../utils/i18n';
+import ScreenHeader from './ScreenHeader';
 
 const SettingsScreen = ({ onBack }) => {
   const soundEnabled = useGameStore(state => state.soundEnabled);
@@ -13,14 +14,7 @@ const SettingsScreen = ({ onBack }) => {
   return (
     <main className="flex-1 w-full flex flex-col p-6 pb-20 relative z-10 fade-in items-center">
       <div className="w-full max-w-sm">
-        <div className="flex items-center mb-8">
-          <button onClick={onBack} className="capsule mr-4">
-            <span className="material-symbols-outlined text-[18px]">arrow_back</span>
-          </button>
-          <h2 className="text-white text-xl font-black tracking-widest uppercase">
-            {t('settings')}
-          </h2>
-        </div>
+        <ScreenHeader title={t('settings')} onBack={onBack} className="px-0 pt-0 mb-5" />
 
         <div className="flex flex-col gap-6">
           <div className="bg-white/5 rounded-2xl p-4 border border-white/10">
