@@ -56,6 +56,18 @@ function App() {
 
   const [showDailySpin, setShowDailySpin] = useState(false);
   const [flashBalance, setFlashBalance] = useState(false);
+  const [feedback, setFeedback] = useState(null);
+
+  const showFeedback = useCallback((type, text) => {
+    setFeedback({ type, text, id: Date.now() });
+  }, []);
+
+  useEffect(() => {
+    if (feedback) {
+      const timer = setTimeout(() => setFeedback(null), 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [feedback]);
 
   const prevBalance = useRef(balance);
   useEffect(() => {
@@ -105,18 +117,20 @@ function App() {
     if (totalWordsFound >= 100) unlockBadge('words_100');
 
     if (unlockedBadges.length > prevBadgesCount.current) {
-      setTimeout(() => {
-        showFeedback('correct', t('new_badge'));
-        if (soundEnabled) playBadgeUnlock();
-        if (hapticEnabled) Haptics.notification({ type: NotificationType.Success }).catch(()=>{});
-      }, 1000);
+      // Oyun ekranında kutlamayı GameContainer yapıyor; burada da yapılırsa ses iki kez çalar
+      if (screen !== 'game') {
+        setTimeout(() => {
+          showFeedback('correct', t('new_badge'));
+          if (soundEnabled) playBadgeUnlock();
+          if (hapticEnabled) Haptics.notification({ type: NotificationType.Success }).catch(()=>{});
+        }, 1000);
+      }
       prevBadgesCount.current = unlockedBadges.length;
     }
-  }, [streak, combo, balance, maxUnlockedLevel, unlockedBadges.length, unlockBadge, totalWordsFound]);
+  }, [streak, combo, balance, maxUnlockedLevel, unlockedBadges.length, unlockBadge, totalWordsFound, screen]);
 
   const [levelData, setLevelData] = useState(null);
   const [foundWords, setFoundWords] = useState([]);
-  const [feedback, setFeedback] = useState(null);
   const [mistakeCount, setMistakeCount] = useState(0);
   const [levelStartTime, setLevelStartTime] = useState(0);
 
@@ -353,6 +367,14 @@ function App() {
             </div>
           </div>
         </div>
+
+        {feedback && (
+          <div key={feedback.id} className="toast-container z-50">
+            <div className={`toast ${feedback.type === 'correct' ? 'correct' : feedback.type === 'wrong' ? 'wrong' : 'exists'}`}>
+              {feedback.text}
+            </div>
+          </div>
+        )}
       </div>
     );
   }

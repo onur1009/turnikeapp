@@ -77,6 +77,11 @@ export default function GameContainer({
   const [wrongWordTrigger, setWrongWordTrigger] = useState(0);
   const [showBonus, setShowBonus] = useState(false);
   const [showVaultAnimation, setShowVaultAnimation] = useState(false);
+  const [feedback, setFeedback] = useState(null);
+
+  const showFeedback = useCallback((type, text) => {
+    setFeedback({ type, text, id: Date.now() });
+  }, []);
 
   const triggerLifeLossAnim = () => {
     const id = Date.now();
@@ -131,9 +136,11 @@ export default function GameContainer({
 
   const [levelData, setLevelData] = useState(null);
   const [foundWords, setFoundWords] = useState([]);
-  const [feedback, setFeedback] = useState(null);
   const [mistakeCount, setMistakeCount] = useState(0);
   const [levelStartTime, setLevelStartTime] = useState(0);
+  // Timer callback'i memoize edildiği için güncel hata sayısını ref üzerinden okur
+  const mistakeCountRef = useRef(0);
+  useEffect(() => { mistakeCountRef.current = mistakeCount; }, [mistakeCount]);
 
   // Faz 2: Kayıp Vagon & Hat Arızası & Eleme Jokeri State'leri
   const [eliminatedLetters, setEliminatedLetters] = useState([]);
@@ -188,12 +195,13 @@ export default function GameContainer({
     const { levelIndex, performanceScore, currentVolatilityClass } = useGameStore.getState();
     const wordCount = levelDataRef.current?.words?.length || 4;
     const ddaTimeAdjust = levelDataRef.current?.ddaTimeAdjust || 0;
-    const attemptsForTimer = mistakeCount + 2; // Next attempt will be mistakeCount + 1 fails, so the attempt number is mistakeCount + 2
+    const currentMistakes = mistakeCountRef.current;
+    const attemptsForTimer = currentMistakes + 2; // Next attempt will be mistakeCount + 1 fails, so the attempt number is mistakeCount + 2
     const timeToGive = getTimeForLevel(levelIndex, wordCount, attemptsForTimer, ddaTimeAdjust);
-    
+
     // DDA: Record failure signal
     const store = useGameStore.getState();
-    const attempts = mistakeCount + 1;
+    const attempts = currentMistakes + 1;
     const signal = computeRawSignal({ success: false, timeSpent: timeToGive, timeLimit: timeToGive, attempts });
     const alpha = getAlpha(store.totalGamesPlayed);
     const { ema, ewmv, zScore } = updateEwmvAndZScore(signal, store.performanceScore, store.ewmv, alpha);
@@ -305,9 +313,10 @@ export default function GameContainer({
     }
   }, [timeLeft, levelData]);
 
+  // NOT: mistakeCount'a bağımlı olmamalı; aksi halde her hatada effect yeniden çalışıp seviyeyi baştan üretir
   const loadLevel = useCallback((idx) => {
     const store = useGameStore.getState();
-    const data = generateLevel(idx, language, mistakeCount + 1, store.performanceScore, store.currentVolatilityClass);
+    const data = generateLevel(idx, language, 1, store.performanceScore, store.currentVolatilityClass);
     setLevelData(data);
     levelDataRef.current = data; // Timer callback için güncel referans
     setFoundWords([]);
@@ -333,7 +342,7 @@ export default function GameContainer({
     const timeToGive = getTimeForLevel(idx, data.words.length, 1, data.ddaTimeAdjust);
     setShowBonus(false);
     startTimer(timeToGive);
-  }, [startTimer, language, mistakeCount]);
+  }, [startTimer, language]);
 
   useEffect(() => { loadLevel(levelIndex); }, [levelIndex, loadLevel]);
 
@@ -370,10 +379,6 @@ export default function GameContainer({
     setTouchStartX(null);
     setSwipeOffsetX(0);
   };
-
-  const showFeedback = useCallback((type, text) => {
-    setFeedback({ type, text, id: Date.now() });
-  }, []);
 
   const formatBalance = (val) => `₺ ${(val / 100).toFixed(2)}`;
 
