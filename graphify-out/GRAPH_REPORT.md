@@ -1,38 +1,36 @@
 # Graph Report - TurnikeApp  (2026-10-26)
 
 ## Corpus Check
-- cluster-only mode — file stats not available
+- 71 files · ~130,661 words
+- Verdict: corpus is large enough that graph structure adds value.
+- Unclassified: 23 file(s) not represented in the graph (top: .xml 10, (none) 5, .properties 2)
 
 ## Summary
-- 339 nodes · 761 edges · 29 communities (16 shown, 13 thin omitted)
+- 341 nodes · 762 edges · 25 communities (12 shown, 13 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 3 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `a273439d`
+- Built from commit: `cd323807`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
-- Community 0
-- Community 1
-- Community 2
-- Community 3
-- Community 4
-- Community 5
-- Community 6
-- Community 7
-- Community 8
-- Community 9
-- Community 10
-- Community 11
-- Community 12
-- Community 13
-- Community 14
-- Community 15
-- Community 17
-- Community 18
-- Community 19
+- NavigationContainer.jsx
+- GameContainer.jsx
+- gameLogic.js
+- run.cjs
+- run_artemis.py
+- package.json
+- devDependencies
+- dependencies
+- ExampleInstrumentedTest.java
+- transitNetwork.js
+- main.jsx
+- CLAUDE.md
+- dda.js
+- vercel.json
+- MainActivity.java
 
 ## God Nodes (most connected - your core abstractions)
 1. `GameContainer()` - 35 edges
@@ -47,105 +45,89 @@
 10. `App()` - 11 edges
 
 ## Surprising Connections (you probably didn't know these)
+- `App()` --calls--> `DailySpinScreen()`  [EXTRACTED]
+  src/App.jsx → src/components/DailySpinScreen.jsx
 - `App()` --calls--> `GameContainer()`  [EXTRACTED]
   src/App.jsx → src/components/GameContainer.jsx
-- `App()` --calls--> `playBadgeUnlock()`  [EXTRACTED]
-  src/App.jsx → src/utils/soundManager.js
-- `start()` --calls--> `App()`  [EXTRACTED]
-  src/main.jsx → src/App.jsx
-- `GameContainer()` --calls--> `AnimatedBalance()`  [EXTRACTED]
-  src/components/GameContainer.jsx → src/components/AnimatedBalance.jsx
-- `GameContainer()` --calls--> `LevelComplete()`  [EXTRACTED]
-  src/components/GameContainer.jsx → src/components/LevelComplete.jsx
+- `App()` --calls--> `HomeScreen()`  [EXTRACTED]
+  src/App.jsx → src/components/HomeScreen.jsx
+- `App()` --calls--> `NavigationContainer()`  [EXTRACTED]
+  src/App.jsx → src/components/NavigationContainer.jsx
+- `App()` --calls--> `getMaxLives()`  [EXTRACTED]
+  src/App.jsx → src/store/gameStore.js
 
 ## Import Cycles
 - None detected.
 
-## Communities (29 total, 13 thin omitted)
+## Communities (25 total, 13 thin omitted)
 
-### Community 0 - "Community 0"
-Cohesion: 0.11
-Nodes (41): react, @supabase/supabase-js, App(), AkbilScreen(), BALANCE_PACKS, CARD_COLORS, AnimatedBalance(), BadgesScreen() (+33 more)
+### Community 0 - "NavigationContainer.jsx"
+Cohesion: 0.14
+Nodes (35): react, @supabase/supabase-js, AkbilScreen(), BALANCE_PACKS, CARD_COLORS, AnimatedBalance(), BadgesScreen(), DictionaryScreen() (+27 more)
 
-### Community 1 - "Community 1"
-Cohesion: 0.11
-Nodes (41): @capacitor/app, @capacitor/haptics, @capacitor/status-bar, BonusLockers(), generateLockerContents(), REWARD_TYPES, GameContainer(), ToolButton() (+33 more)
+### Community 1 - "GameContainer.jsx"
+Cohesion: 0.10
+Nodes (46): @capacitor/app, @capacitor/haptics, @capacitor/status-bar, BonusLockers(), generateLockerContents(), REWARD_TYPES, DailySpinScreen(), PRIZES (+38 more)
 
-### Community 2 - "Community 2"
+### Community 2 - "gameLogic.js"
 Cohesion: 0.07
 Nodes (40): PROVIDER_THEMES, COMMON_WORDS_EN, COMMON_WORDS_TR, PROVIDERS_EN, PROVIDERS_TR, TERMS_EN, TERMS_TR, TRANSIT_MEANINGS_EN (+32 more)
 
-### Community 3 - "Community 3"
+### Community 3 - "run.cjs"
 Cohesion: 0.08
 Nodes (18): content, fs, filesToInclude, fs, outputFile, path, filesToInclude, fs (+10 more)
 
-### Community 4 - "Community 4"
+### Community 4 - "run_artemis.py"
 Cohesion: 0.13
 Nodes (5): adb(), find_adb(), main(), parse_verdict(), Scenario
 
-### Community 5 - "Community 5"
-Cohesion: 0.13
-Nodes (14): name, private, type, version, autoprefixer, @capacitor/android, @capacitor/cli, @capacitor/ios (+6 more)
+### Community 5 - "package.json"
+Cohesion: 0.07
+Nodes (31): name, private, scripts, android:apk, build, dev, lint, preview (+23 more)
 
-### Community 6 - "Community 6"
+### Community 6 - "devDependencies"
 Cohesion: 0.13
 Nodes (15): devDependencies, autoprefixer, eslint, @eslint/js, eslint-plugin-react-hooks, eslint-plugin-react-refresh, globals, postcss (+7 more)
 
-### Community 7 - "Community 7"
+### Community 7 - "dependencies"
 Cohesion: 0.14
 Nodes (14): dependencies, @capacitor/android, @capacitor/app, @capacitor/cli, @capacitor/core, @capacitor/haptics, @capacitor/ios, @capacitor/preferences (+6 more)
 
-### Community 9 - "Community 9"
+### Community 9 - "transitNetwork.js"
 Cohesion: 0.31
 Nodes (9): MapScreen(), BASE_STATION_LIST, getStationData(), getStationXPosition(), LEVELS_PER_STATION, LINES, STATION_INFO, STATION_NAMES (+1 more)
 
-### Community 10 - "Community 10"
-Cohesion: 0.31
-Nodes (5): react-dom, ErrorBoundary, start(), GAME_STORAGE_KEY, restoreFromBackup()
+### Community 10 - "main.jsx"
+Cohesion: 0.18
+Nodes (10): @capacitor/core, @capacitor/preferences, react-dom, App(), ErrorBoundary, start(), GAME_STORAGE_KEY, backedUpStorage (+2 more)
 
-### Community 11 - "Community 11"
-Cohesion: 0.29
-Nodes (7): scripts, android:apk, build, dev, lint, preview, test:mobile
-
-### Community 12 - "Community 12"
+### Community 12 - "dda.js"
 Cohesion: 0.52
 Nodes (6): applyDDA(), detectVolatility(), mean(), runsTestZ(), trendSlope(), variance()
 
-### Community 13 - "Community 13"
-Cohesion: 0.33
-Nodes (5): eslint, @eslint/js, eslint-plugin-react-hooks, eslint-plugin-react-refresh, globals
-
-### Community 14 - "Community 14"
-Cohesion: 0.40
-Nodes (4): @capacitor/core, @capacitor/preferences, backedUpStorage, isNative
-
-### Community 15 - "Community 15"
+### Community 15 - "vercel.json"
 Cohesion: 0.40
 Nodes (4): buildCommand, framework, outputDirectory, rewrites
 
-### Community 18 - "Community 18"
-Cohesion: 0.50
-Nodes (3): vite, vite-plugin-pwa, @vitejs/plugin-react
-
 ## Knowledge Gaps
-- **103 isolated node(s):** `Scenario`, `BALANCE_PACKS`, `CARD_COLORS`, `PRIZES`, `TABS` (+98 more)
-  These have ≤1 connection - possible missing edges. (Counts symbols only; 132 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **104 isolated node(s):** `graphify`, `Scenario`, `BALANCE_PACKS`, `CARD_COLORS`, `PRIZES` (+99 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 134 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **13 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `react` connect `Community 0` to `Community 1`, `Community 2`, `Community 5`, `Community 9`, `Community 10`?**
-  _High betweenness centrality (0.119) - this node is a cross-community bridge._
-- **What connects `Scenario`, `BALANCE_PACKS`, `CARD_COLORS` to the rest of the system?**
-  _103 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `Community 0` be split into smaller, more focused modules?**
-  _Cohesion score 0.11418330773169483 - nodes in this community are weakly interconnected._
-- **Why does `devDependencies` connect `Community 6` to `Community 5`?**
-  _High betweenness centrality (0.061) - this node is a cross-community bridge._
-- **Should `Community 1` be split into smaller, more focused modules?**
-  _Cohesion score 0.11372549019607843 - nodes in this community are weakly interconnected._
-- **Why does `dependencies` connect `Community 7` to `Community 5`?**
-  _High betweenness centrality (0.057) - this node is a cross-community bridge._
-- **Should `Community 2` be split into smaller, more focused modules?**
+- **Why does `react` connect `NavigationContainer.jsx` to `GameContainer.jsx`, `gameLogic.js`, `package.json`, `transitNetwork.js`, `main.jsx`?**
+  _High betweenness centrality (0.118) - this node is a cross-community bridge._
+- **What connects `graphify`, `Scenario`, `BALANCE_PACKS` to the rest of the system?**
+  _104 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `NavigationContainer.jsx` be split into smaller, more focused modules?**
+  _Cohesion score 0.1367003367003367 - nodes in this community are weakly interconnected._
+- **Why does `devDependencies` connect `devDependencies` to `package.json`?**
+  _High betweenness centrality (0.060) - this node is a cross-community bridge._
+- **Should `GameContainer.jsx` be split into smaller, more focused modules?**
+  _Cohesion score 0.09679370840895342 - nodes in this community are weakly interconnected._
+- **Why does `dependencies` connect `dependencies` to `package.json`?**
+  _High betweenness centrality (0.056) - this node is a cross-community bridge._
+- **Should `gameLogic.js` be split into smaller, more focused modules?**
   _Cohesion score 0.0707070707070707 - nodes in this community are weakly interconnected._
