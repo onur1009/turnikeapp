@@ -581,3 +581,109 @@ body.theme-retro .rounded-full, body.theme-retro .rounded-xl, body.theme-retro .
   0%, 100% { opacity: 1; }
   50% { opacity: 0.3; }
 }
+
+/* ================================================
+   v1.4 YENİDEN TASARIM — ortak tokenlar ve bileşenler
+   Gece metrosu: koyu lacivert yüzeyler, LED turuncu,
+   hat renkleri vurgu olarak.
+   ================================================ */
+:root {
+  --surface: rgba(15, 23, 42, 0.6);
+  --surface-strong: rgba(15, 23, 42, 0.85);
+  --border: rgba(255, 255, 255, 0.12);
+  --led: #ff8c00;
+  --coin: #fbbf24;
+  --go: #22c55e;
+}
+
+.icon-btn {
+  width: 40px; height: 40px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 9999px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: white;
+  transition: transform 0.15s;
+}
+.icon-btn:active { transform: scale(0.92); }
+
+.line-badge {
+  flex-shrink: 0;
+  min-width: 38px; height: 26px; padding: 0 8px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 7px;
+  color: white; font-weight: 900; font-size: 12px; letter-spacing: 0.5px;
+  box-shadow: inset 0 -2px 0 rgba(0,0,0,0.25);
+}
+
+.balance-pill {
+  flex-shrink: 0;
+  display: flex; align-items: center; gap: 5px;
+  height: 36px; padding: 0 12px;
+  border-radius: 9999px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: white; font-weight: 800; font-size: 14px;
+}
+
+.status-chip {
+  display: flex; align-items: center; gap: 4px;
+  height: 26px; padding: 0 10px;
+  border-radius: 9999px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: rgba(255,255,255,0.8); font-weight: 700; font-size: 12px;
+}
+
+.tool-btn {
+  width: 84px; padding: 10px 0 9px;
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+  border-radius: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform 0.15s, background 0.15s;
+}
+.tool-btn:active { transform: scale(0.94); background: var(--surface-strong); }
+
+.wheel-plate {
+  background: radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.12) 100%);
+  border: 2px solid rgba(255,255,255,0.12);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3), inset 0 4px 10px rgba(255,255,255,0.08);
+}
+
+.tutorial-hint {
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: rgba(255, 140, 0, 0.14);
+  border: 1px solid rgba(255, 140, 0, 0.45);
+  color: #ffb45c; font-weight: 700; font-size: 13px;
+  animation: pulse-hint 1.6s ease-in-out infinite;
+}
+@keyframes pulse-hint { 0%,100% { opacity: 1; } 50% { opacity: 0.6; } }
+
+/* Ana menü alt sekme çubuğu */
+.tab-bar {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  padding: 8px 8px calc(8px + env(safe-area-inset-bottom));
+  background: rgba(5, 10, 24, 0.92);
+  border-top: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+.tab-item {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  padding: 6px 0; border-radius: 12px;
+  color: rgba(255,255,255,0.7); font-weight: 700; font-size: 11px;
+  transition: background 0.15s;
+}
+.tab-item:active { background: rgba(255,255,255,0.06); }
+.tab-item.locked { color: rgba(255,255,255,0.3); }
+
+body.theme-light .icon-btn, body.theme-light .balance-pill, body.theme-light .status-chip, body.theme-light .tool-btn {
+  background: rgba(255,255,255,0.85); border-color: rgba(0,0,0,0.1); color: #0f172a;
+}
+body.theme-light .tab-bar { background: rgba(255,255,255,0.92); border-color: rgba(0,0,0,0.1); }
+body.theme-light .tab-item { color: rgba(15,23,42,0.75); }

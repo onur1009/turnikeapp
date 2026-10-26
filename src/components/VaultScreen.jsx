@@ -1,5 +1,6 @@
 import React from 'react';
-import { useGameStore } from '../store/gameStore';
+import { useGameStore, VAULT_REWARD } from '../store/gameStore';
+import { formatKurus } from '../utils/format';
 
 const VaultScreen = ({ onBack }) => {
   const vaultWords = useGameStore(state => state.vaultWords);
@@ -92,7 +93,7 @@ const VaultScreen = ({ onBack }) => {
       <div className="w-full max-w-sm mt-6 p-4 rounded-2xl bg-white/5 border border-white/5 flex items-start gap-3">
         <span className="material-symbols-outlined text-yellow-500 text-[20px]">info</span>
         <p className="text-white/60 text-[12px] leading-relaxed font-bold">
-          Bulmacada yer almayan ama sözlükte bulunan (geçerli) her kelime Kasaya eklenir. Kasa dolduğunda anında <span className="text-green-400">100₺ bakiye</span> kazanırsınız!
+          Bulmacada yer almayan ama sözlükte bulunan (geçerli) her kelime Kasaya eklenir. Kasa dolduğunda anında <span className="text-green-400">{formatKurus(VAULT_REWARD)} bakiye</span> kazanırsınız!
         </p>
       </div>
 

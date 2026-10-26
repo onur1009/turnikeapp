@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const formatValue = (val) => `₺ ${(val / 100).toFixed(2)}`;
+import { formatKurus as formatValue } from '../utils/format';
 
 const AnimatedBalance = ({ value }) => {
   const [displayValue, setDisplayValue] = useState(value);

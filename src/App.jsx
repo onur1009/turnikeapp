@@ -6,8 +6,8 @@ import DailySpinScreen from './components/DailySpinScreen';
 import AnimatedBalance from './components/AnimatedBalance';
 import NavigationContainer from './components/NavigationContainer';
 import GameContainer from './components/GameContainer';
-import UsernameModal from './components/UsernameModal';
-import { useGameStore } from './store/gameStore';
+import HomeScreen from './components/HomeScreen';
+import { useGameStore, MAX_LIVES } from './store/gameStore';
 import { useGameTimer } from './hooks/useGameTimer';
 import { Haptics, ImpactStyle, NotificationType } from '@capacitor/haptics';
 import { StatusBar, Style } from '@capacitor/status-bar';
@@ -79,13 +79,14 @@ function App() {
   }, [balance]);
 
   useEffect(() => {
-    if (isAppReady && screen === 'home') {
+    // Yeni oyuncu önce oynasın: günlük çark ilk seviye bitince devreye girer
+    if (isAppReady && screen === 'home' && maxUnlockedLevel >= 1) {
       const today = new Date().toLocaleDateString();
       if (lastSpinDate !== today) {
         setShowDailySpin(true);
       }
     }
-  }, [isAppReady, screen, lastSpinDate]);
+  }, [isAppReady, screen, lastSpinDate, maxUnlockedLevel]);
 
   useEffect(() => {
     document.body.className = `theme-${theme}`;
@@ -157,7 +158,7 @@ function App() {
 
     const backListener = CapacitorApp.addListener('backButton', ({ canGoBack }) => {
       if (screen === 'game') setScreen('home');
-      else if (['dictionary', 'levels', 'badges', 'stats', 'settings', 'akbil'].includes(screen)) setScreen('home');
+      else if (['dictionary', 'levels', 'badges', 'stats', 'settings', 'akbil', 'vault', 'leaderboard', 'lostitems', 'duels'].includes(screen)) setScreen('home');
       else if (screen === 'home') CapacitorApp.exitApp();
     });
     
@@ -228,146 +229,15 @@ function App() {
 
   /* ========== HOME SCREEN ========== */
   if (screen === 'home') {
-    const currentStationName = language === 'en' ? `LEVEL ${maxUnlockedLevel + 1}` : `SEVİYE ${maxUnlockedLevel + 1}`;
-    const nextStationHint = language === 'en' ? 'SÖZCÜK SEFERI' : 'SÖZCÜK SEFERİ';
     return (
-      <div className="game-bg min-h-screen flex flex-col relative z-10 fade-in overflow-hidden">
-        <style>{`
-          @keyframes ybsMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-          @keyframes ybsLedBlink { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
-          @keyframes homeFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-          @keyframes homeGlow { 0%,100% { box-shadow: 0 0 30px rgba(34,197,94,0.15); } 50% { box-shadow: 0 0 60px rgba(34,197,94,0.4); } }
-          @keyframes homeScaleIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
-          @keyframes homeFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-          @keyframes homeRing { to { transform: rotate(360deg); } }
-          @keyframes trainShake { 0%,100% { transform: translateY(-50%) translateX(0); } 25% { transform: translateY(-50%) translateX(-2px); } 75% { transform: translateY(-50%) translateX(2px); } }
-          .ybs-display { background: #0a0a0a; border: 1.5px solid #ff8c00; border-radius: 8px; font-family: 'Orbitron', monospace; color: #ff8c00; overflow: hidden; }
-          .ybs-led { text-shadow: 0 0 8px #ff8c00, 0 0 16px #ff6600; }
-          .ybs-marquee-track { overflow: hidden; white-space: nowrap; }
-          .ybs-marquee-inner { display: inline-block; white-space: nowrap; animation: ybsMarquee 15s linear infinite; }
-        `}</style>
-
+      <>
         {showDailySpin && <DailySpinScreen onComplete={() => setShowDailySpin(false)} />}
-        {!username && <UsernameModal />}
-
-        {/* YBS — Yolcu Bilgilendirme Sistemi */}
-        <div className="w-full px-4 pt-10 pb-2 relative z-50">
-          <div className="flex justify-between items-center mb-3">
-            <button className={`capsule active:scale-95 transition-transform cursor-pointer ${flashBalance ? 'balance-flash' : ''}`} onClick={() => setScreen('akbil')}>
-              <span className="material-symbols-outlined text-[16px]" style={{ color: '#fbbf24', fontVariationSettings: "'FILL' 1" }}>toll</span>
-              <AnimatedBalance value={balance} />
-            </button>
-            <div className="flex gap-2">
-              <button className="capsule active:scale-95 transition-transform cursor-pointer" onClick={() => setScreen('stats')}>
-                <span className="material-symbols-outlined text-[16px]">bar_chart</span>
-              </button>
-              <button className="capsule active:scale-95 transition-transform cursor-pointer" onClick={() => setScreen('settings')}>
-                <span className="material-symbols-outlined text-[16px]">settings</span>
-              </button>
-            </div>
-          </div>
-
-          {/* YBS Pano */}
-          <div className="ybs-display p-0 w-full">
-            {/* Üst hat — Hat + Platform */}
-            <div className="flex items-center justify-between px-3 pt-2 pb-1 border-b border-orange-800/40">
-              <div className="flex items-center gap-2">
-                <span className="ybs-led text-[10px] font-black tracking-[3px]">🚇 M1</span>
-                <span style={{ color: '#ff8c00', opacity: 0.5, fontSize: 10 }}>|</span>
-                <span className="ybs-led text-[10px] font-black tracking-[2px]">SÖZCÜK SEFERİ</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                <span className="ybs-led text-[9px]" style={{ animation: 'ybsLedBlink 1.2s ease-in-out infinite' }}>●</span>
-                <span style={{ color: '#ff8c00', fontSize: 9, fontFamily: 'Orbitron', fontWeight: 700 }}>CANLI</span>
-              </div>
-            </div>
-
-            {/* Orta — Mevcut Durak (Kayan Yazı) */}
-            <div className="px-3 py-2 overflow-hidden">
-              <div className="text-[8px] tracking-[4px] mb-1" style={{ color: 'rgba(255,140,0,0.5)', fontFamily: 'Orbitron' }}>MEVCUT DURAK</div>
-              <div className="ybs-marquee-track">
-                <div className="ybs-marquee-inner w-max">
-                  <span className="ybs-led font-black tracking-[6px] pr-8" style={{ fontSize: 18 }}>
-                    ►  {currentStationName}  ■  {nextStationHint}  ■  TURNIKE  ■  SÖZCÜK SEFERİ  ■ 
-                  </span>
-                  <span className="ybs-led font-black tracking-[6px] pr-8" style={{ fontSize: 18 }}>
-                    ►  {currentStationName}  ■  {nextStationHint}  ■  TURNIKE  ■  SÖZCÜK SEFERİ  ■ 
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Alt bilgi şeridi */}
-            <div className="flex items-center justify-between px-3 py-1.5 bg-orange-950/30">
-              {streak > 0 ? (
-                <span style={{ color: '#fbbf24', fontSize: 9, fontFamily: 'Orbitron', fontWeight: 700 }}>🔥 {streak} GÜN SERİSİ</span>
-              ) : (
-                <span style={{ color: 'rgba(255,140,0,0.4)', fontSize: 9, fontFamily: 'Orbitron' }}>MET.-İSTB. 2025</span>
-              )}
-              <span style={{ color: 'rgba(255,140,0,0.5)', fontSize: 9, fontFamily: 'Orbitron' }}>v1.3 ■ {new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })}</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="flex-1 flex flex-col justify-center items-center px-4 -mt-4 relative">
-          {/* Logo */}
-          <div className="relative w-28 h-28 mb-6" style={{ animation: 'homeFloat 3s ease-in-out infinite, homeGlow 3s ease-in-out infinite' }}>
-            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="46" fill="none" stroke="rgba(34,197,94,0.25)" strokeWidth="1" strokeDasharray="12 8" strokeLinecap="round" style={{ animation: 'homeRing 6s linear infinite' }} />
-            </svg>
-            <div className="absolute inset-0 rounded-full flex items-center justify-center"
-              style={{ background: 'linear-gradient(135deg, rgba(34,197,94,0.1), rgba(34,197,94,0.02))', border: '1px solid rgba(34,197,94,0.3)' }}>
-              <span className="material-symbols-outlined text-[58px] text-green-500" style={{ fontVariationSettings: "'FILL' 1", filter: 'drop-shadow(0 0 12px rgba(34,197,94,0.5))' }}>train</span>
-            </div>
-          </div>
-
-          <div style={{ animation: 'homeFadeIn 0.6s ease-out forwards', animationDelay: '0.25s', opacity: 0 }}>
-            <p className="text-white/35 text-sm mb-5 font-medium text-center">{t('subtitle')}</p>
-          </div>
-
-          <div style={{ animation: 'homeScaleIn 0.5s ease-out forwards', animationDelay: '0.4s', opacity: 0 }}>
-            <button
-              onClick={() => { incrementTotalGames(); useGameStore.setState({ levelIndex: maxUnlockedLevel, lives: 3 }); setScreen('game'); }}
-              className="play-btn mb-5 flex items-center gap-3"
-            >
-              <span className="material-symbols-outlined text-[22px]" style={{ fontVariationSettings: "'FILL' 1" }}>play_circle</span>
-              {t('play')}
-            </button>
-          </div>
-
-          <div style={{ animation: 'homeFadeIn 0.6s ease-out forwards', animationDelay: '0.55s', opacity: 0 }}>
-            <div className="grid grid-cols-2 gap-3 w-full max-w-[280px]">
-              <button onClick={() => setScreen('levels')} className="py-3 rounded-2xl font-bold text-white/80 text-[13px] tracking-widest uppercase transition-all active:scale-95 menu-btn flex items-center justify-center gap-2">
-                <span className="material-symbols-outlined text-[18px]">map</span>{t('map')}
-              </button>
-              <button onClick={() => { if (maxUnlockedLevel >= 2) setScreen('dictionary'); else showFeedback('wrong', '3. Seviyede Açılır!'); }}
-                className={`py-3 rounded-2xl font-bold text-white/80 text-[13px] tracking-widest uppercase transition-all active:scale-95 menu-btn flex items-center justify-center gap-2 ${maxUnlockedLevel < 2 ? 'opacity-50' : ''}`}>
-                <span className="material-symbols-outlined text-[18px]">{maxUnlockedLevel < 2 ? 'lock' : 'menu_book'}</span>{t('dictionary')}
-              </button>
-              <button onClick={() => setScreen('vault')} className="py-3 rounded-2xl font-bold text-white/80 text-[13px] tracking-widest uppercase transition-all active:scale-95 menu-btn flex items-center justify-center gap-2">
-                <span className="material-symbols-outlined text-[18px] text-green-400">account_balance_wallet</span>{t('vault')}
-              </button>
-              <button onClick={() => setScreen('leaderboard')} className="py-3 rounded-2xl font-bold text-white/80 text-[13px] tracking-widest uppercase transition-all active:scale-95 menu-btn flex items-center justify-center gap-2">
-                <span className="material-symbols-outlined text-[18px] text-yellow-400">trophy</span>{t('leaderboard')}
-              </button>
-            </div>
-            <button onClick={() => { if (maxUnlockedLevel >= 4) setScreen('badges'); else showFeedback('wrong', '5. Seviyede Açılır!'); }}
-              className={`mt-3 w-full max-w-[280px] py-3 rounded-2xl font-bold text-white/80 text-[13px] tracking-widest uppercase transition-all active:scale-95 menu-btn flex items-center justify-center gap-2 ${maxUnlockedLevel < 4 ? 'opacity-50' : ''}`}>
-              <span className="material-symbols-outlined text-[18px]" style={{ color: maxUnlockedLevel >= 4 ? '#fbbf24' : 'inherit', fontVariationSettings: maxUnlockedLevel >= 4 ? "'FILL' 1" : undefined }}>
-                {maxUnlockedLevel < 4 ? 'lock' : 'emoji_events'}
-              </span>{t('badges')}
-            </button>
-            <div className="flex gap-2 mt-3 w-full max-w-[280px]">
-              <button onClick={() => setScreen('lostitems')} className="flex-1 py-3 rounded-2xl font-bold text-white/80 text-[11px] tracking-widest uppercase transition-all active:scale-95 menu-btn flex items-center justify-center gap-1 bg-blue-900/40 border border-blue-500/30">
-                <span className="material-symbols-outlined text-[16px] text-blue-400">search</span>KAYIP EŞYA
-              </button>
-              <button onClick={() => setScreen('duels')} className="flex-1 py-3 rounded-2xl font-bold text-white/80 text-[11px] tracking-widest uppercase transition-all active:scale-95 menu-btn flex items-center justify-center gap-1 bg-red-900/40 border border-red-500/30">
-                <span className="material-symbols-outlined text-[16px] text-red-400">swords</span>DÜELLO
-              </button>
-            </div>
-          </div>
-        </div>
-
+        <HomeScreen
+          setScreen={setScreen}
+          showFeedback={showFeedback}
+          flashBalance={flashBalance}
+          onPlay={() => { incrementTotalGames(); useGameStore.setState({ levelIndex: maxUnlockedLevel, lives: MAX_LIVES }); setScreen('game'); }}
+        />
         {feedback && (
           <div key={feedback.id} className="toast-container z-50">
             <div className={`toast ${feedback.type === 'correct' ? 'correct' : feedback.type === 'wrong' ? 'wrong' : 'exists'}`}>
@@ -375,7 +245,7 @@ function App() {
             </div>
           </div>
         )}
-      </div>
+      </>
     );
   }
 

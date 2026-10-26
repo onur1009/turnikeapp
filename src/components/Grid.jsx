@@ -1,13 +1,19 @@
 import React, { useMemo, useEffect, useState } from 'react';
 
 const Grid = ({ words, foundWords, hintedLetters = [], onIntersectionFound }) => {
-  const [containerWidth, setContainerWidth] = useState(window.innerWidth);
+  // Izgara hem genişliğe hem yüksekliğe sığmalı (küçük ekranlarda çark ile çakışmasın)
+  const containerRef = React.useRef(null);
+  const [containerSize, setContainerSize] = useState({ w: window.innerWidth, h: 320 });
   const [confettiCells, setConfettiCells] = useState([]);
 
   useEffect(() => {
-    const handleResize = () => setContainerWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    const el = containerRef.current;
+    if (!el) return;
+    const measure = () => setContainerSize({ w: el.clientWidth, h: el.clientHeight });
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
   }, []);
 
   // Konfeti efekti: yeni bulunan kelime olduğunda tetikle
@@ -96,16 +102,14 @@ const Grid = ({ words, foundWords, hintedLetters = [], onIntersectionFound }) =>
     });
   }, [foundWords, intersections, gridMap, onIntersectionFound]);
 
-  if (!bounds) return null;
-
-  const availableW = containerWidth - 32;
-  const defaultCellSize = 46;
   const GAP = 6;
-  const rawTotalW = bounds.cols * defaultCellSize + (bounds.cols - 1) * GAP;
+  const MAX_CELL = 52;
+  const fitW = bounds ? Math.floor((containerSize.w - 16 - (bounds.cols - 1) * GAP) / bounds.cols) : MAX_CELL;
+  const fitH = bounds ? Math.floor((containerSize.h - 8 - (bounds.rows - 1) * GAP) / bounds.rows) : MAX_CELL;
+  const CELL = Math.max(24, Math.min(MAX_CELL, fitW, fitH));
+  const fontSize = Math.round(CELL * 0.46);
 
-  const CELL = rawTotalW > availableW
-    ? Math.floor((availableW - (bounds.cols - 1) * GAP) / bounds.cols)
-    : defaultCellSize;
+  if (!bounds) return <div ref={containerRef} className="w-full h-full" />;
 
   const totalW = bounds.cols * CELL + (bounds.cols - 1) * GAP;
   const totalH = bounds.rows * CELL + (bounds.rows - 1) * GAP;
@@ -135,8 +139,9 @@ const Grid = ({ words, foundWords, hintedLetters = [], onIntersectionFound }) =>
       >
         {cellData.isRevealed ? (
           <div
-            className={`grid-cell-found w-full h-full flex items-center justify-center text-[22px] ${hasConfetti ? 'cell-confetti' : ''}`}
+            className={`grid-cell-found w-full h-full flex items-center justify-center ${hasConfetti ? 'cell-confetti' : ''}`}
             style={{
+              fontSize,
               animationDelay: `${delay}s`,
               ...(isIntersection ? {
                 border: '2px solid rgba(59,130,246,0.6)',
@@ -166,7 +171,7 @@ const Grid = ({ words, foundWords, hintedLetters = [], onIntersectionFound }) =>
   });
 
   return (
-    <div className="flex-1 w-full flex items-center justify-center px-4">
+    <div ref={containerRef} className="w-full h-full flex items-center justify-center">
       <div
         className="relative"
         style={{

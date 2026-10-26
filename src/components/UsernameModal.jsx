@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useGameStore } from '../store/gameStore';
 
-const UsernameModal = () => {
+const UsernameModal = ({ onCancel }) => {
   const { setUsername } = useGameStore();
   const [inputName, setInputName] = useState('');
   const [error, setError] = useState('');
@@ -18,7 +18,7 @@ const UsernameModal = () => {
       return;
     }
     // Basit bir regex (sadece harf, rakam ve alt tire)
-    if (!/^[a-zA-Z0-9_]+$/.test(cleanName)) {
+    if (!/^[a-zA-Z0-9_çğıöşüÇĞİÖŞÜ]+$/.test(cleanName)) {
       setError('Sadece harf, rakam ve alt tire (_) kullanın');
       return;
     }
@@ -62,6 +62,11 @@ const UsernameModal = () => {
           >
             BAŞLA
           </button>
+          {onCancel && (
+            <button type="button" onClick={onCancel} className="w-full py-3 mt-1 rounded-xl font-bold text-white/55 text-sm">
+              Vazgeç
+            </button>
+          )}
         </form>
       </div>
     </div>

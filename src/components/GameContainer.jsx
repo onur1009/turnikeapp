@@ -16,9 +16,23 @@ import { App as CapacitorApp } from '@capacitor/app';
 import { LOST_ITEMS_CATALOG, LOST_ITEMS_SETS, getRandomItem } from '../data/lostItems';
 import { calculateWordScore, calculateLevelCompletionBonus } from '../utils/scoring';
 import { computeRawSignal, updateEwmvAndZScore, getAlpha, detectVolatility } from '../utils/dda';
+import { getStationForLevel } from '../utils/transitNetwork';
+import { MAX_LIVES, VAULT_SIZE, VAULT_REWARD } from '../store/gameStore';
+import { formatKurus } from '../utils/format';
 import '../index.css';
 
-export default function GameContainer({ 
+const SHOW_AD_REWARDS = false;
+
+// Çarkın altındaki güç düğmesi: ikon + etiket + fiyat; bakiye yetmiyorsa soluk
+const ToolButton = ({ icon, label, price, affordable, onClick, accent = '#ffffff' }) => (
+  <button onClick={onClick} className={`tool-btn ${affordable ? '' : 'opacity-45'}`}>
+    <span className="material-symbols-outlined text-[22px]" style={{ color: accent, fontVariationSettings: "'FILL' 1" }}>{icon}</span>
+    <span className="text-[12px] font-bold text-white/90 leading-none">{label}</span>
+    <span className="text-[11px] font-bold text-white/55 leading-none tabular-nums">{price}</span>
+  </button>
+);
+
+export default function GameContainer({
   setScreen,
   setPreviousScreen,
 }) {
@@ -56,6 +70,7 @@ export default function GameContainer({
   // Kayıp Eşya Seçicileri
   const addLostItem = useGameStore(state => state.addLostItem);
   const completedSets = useGameStore(state => state.completedSets);
+  const vaultCount = useGameStore(state => state.vaultWords.length);
   const refreshDailyItem = useGameStore(state => state.refreshDailyItem);
   const dailyItemTarget = useGameStore(state => state.dailyItemTarget);
   const checkStreak = useGameStore(state => state.checkStreak);
@@ -138,9 +153,6 @@ export default function GameContainer({
   const [foundWords, setFoundWords] = useState([]);
   const [mistakeCount, setMistakeCount] = useState(0);
   const [levelStartTime, setLevelStartTime] = useState(0);
-  // Timer callback'i memoize edildiği için güncel hata sayısını ref üzerinden okur
-  const mistakeCountRef = useRef(0);
-  useEffect(() => { mistakeCountRef.current = mistakeCount; }, [mistakeCount]);
 
   // Faz 2: Kayıp Vagon & Hat Arızası & Eleme Jokeri State'leri
   const [eliminatedLetters, setEliminatedLetters] = useState([]);
@@ -175,59 +187,11 @@ export default function GameContainer({
 
   const timerRef = useRef(null);
   const levelDataRef = useRef(null); // Timer callback'i için güncel levelData referansı
+  // Rahat mod: süre dolunca ceza yok. Sadece ekspres penceresi kapanır, bonus kaçar.
+  const [isExpressOver, setIsExpressOver] = useState(false);
   const handleTimeExpire = useCallback(() => {
-    if (internalState !== 'playing') return;
-    showFeedback('wrong', t('time_up'));
-    
-    useGameStore.getState().deductLife(); // deductLife zaten combo'yu sıfırlıyor
-    const remainingLives = useGameStore.getState().lives;
-    triggerLifeLossAnim();
-    
-    if (remainingLives > 0 && useGameStore.getState().soundEnabled) {
-      playTimeUp();
-    }
-    
-    setMistakeCount(c => c + 1);
-    setShake(true);
-    setTimeout(() => setShake(false), 400);
-    if (hapticEnabled) Haptics.notification({ type: NotificationType.Warning }).catch(()=>{});
-    
-    const { levelIndex, performanceScore, currentVolatilityClass } = useGameStore.getState();
-    const wordCount = levelDataRef.current?.words?.length || 4;
-    const ddaTimeAdjust = levelDataRef.current?.ddaTimeAdjust || 0;
-    const currentMistakes = mistakeCountRef.current;
-    const attemptsForTimer = currentMistakes + 2; // Next attempt will be mistakeCount + 1 fails, so the attempt number is mistakeCount + 2
-    const timeToGive = getTimeForLevel(levelIndex, wordCount, attemptsForTimer, ddaTimeAdjust);
-
-    // DDA: Record failure signal
-    const store = useGameStore.getState();
-    const attempts = currentMistakes + 1;
-    const signal = computeRawSignal({ success: false, timeSpent: timeToGive, timeLimit: timeToGive, attempts });
-    const alpha = getAlpha(store.totalGamesPlayed);
-    const { ema, ewmv, zScore } = updateEwmvAndZScore(signal, store.performanceScore, store.ewmv, alpha);
-    const recent = [...store.recentPerformance, signal].slice(-5);
-    const volatility = detectVolatility(recent, zScore);
-    
-    store.setDDAState({
-      performanceScore: ema,
-      ewmv,
-      recentPerformance: recent,
-      currentVolatilityClass: volatility
-    });
-    
-    totalTimeMsRef.current = timeToGive * 1000;
-    requestAnimationFrame(() => {
-      if (trainRef.current) {
-        trainRef.current.style.left = 'calc(100% - 30px)';
-      }
-      if (barRef.current) {
-        barRef.current.style.width = '100%';
-        barRef.current.style.background = 'hsl(120, 84%, 55%)';
-        barRef.current.style.boxShadow = '0 0 6px hsl(120, 84%, 55%)';
-      }
-    });
-    timerRef.current.startTimer(timeToGive);
-  }, [internalState, t, hapticEnabled]);
+    setIsExpressOver(true);
+  }, []);
 
   const trainRef = useRef(null);
   const barRef = useRef(null);
@@ -303,15 +267,15 @@ export default function GameContainer({
     refreshDailyItem(getRandomItem());
   }, [refreshDailyItem]);
 
-  // Seviye yükleme (Level Load)
+  // Ekspres penceresinin son saniyeleri: hafif tik sesi (ceza yok, sadece bonus hatırlatması)
   useEffect(() => {
-    if (internalState === 'playing' && levelData && timeLeft > 0) {
-      const totalTime = getTimeForLevel(useGameStore.getState().levelIndex, levelData.words.length);
-      if (timeLeft <= totalTime / 2 && useGameStore.getState().soundEnabled) {
-        playTick(timeLeft);
-      }
+    if (internalState === 'playing' && levelData && timeLeft > 0 && timeLeft <= 5) {
+      if (useGameStore.getState().soundEnabled) playTick(timeLeft);
     }
-  }, [timeLeft, levelData]);
+  }, [timeLeft, levelData, internalState]);
+
+  // Seviye sonu ekranı için kazanç dökümü
+  const [levelSummary, setLevelSummary] = useState(null);
 
   // NOT: mistakeCount'a bağımlı olmamalı; aksi halde her hatada effect yeniden çalışıp seviyeyi baştan üretir
   const loadLevel = useCallback((idx) => {
@@ -323,13 +287,14 @@ export default function GameContainer({
     setHintedLetters([]);
     setMistakeCount(0);
     setLevelStartTime(Date.now());
+    setIsExpressOver(false);
+    setLevelSummary(null);
     store.setLevelSessionScore(0);
-    
-    // Check extra hint available from DDA pity system
+
+    // DDA pity: zorlanan oyuncuya ilk kelimenin ilk harfi bedava açılır (Grid {x,y} bekler)
     if (data.extraHintAvailable && data.words.length > 0) {
-      // Free hint: Reveal first letter of the first missing word
-      const missing = data.words[0];
-      setHintedLetters([`${missing.word}-0`]);
+      const first = data.words[0];
+      setHintedLetters([{ x: first.startX, y: first.startY, char: first.word[0] }]);
     }
     
     if (Math.random() < 0.25 && data.wheelLetters.length > 0) {
@@ -380,7 +345,59 @@ export default function GameContainer({
     setSwipeOffsetX(0);
   };
 
-  const formatBalance = (val) => `₺ ${(val / 100).toFixed(2)}`;
+  // Kelimeyle ya da ipucuyla son kelime açıldığında tek ortak bitiş akışı
+  const completeLevel = (wordsFound) => {
+    if (levelIndex === 0) localStorage.setItem('turnike_tutorial_seen', 'true');
+    const expressRemaining = isExpressOver ? 0 : timeLeft;
+    stopTimer();
+    if (soundEnabled) playLevelComplete();
+
+    const isFlawless = mistakeCount === 0;
+    const perfectBonus = isFlawless ? 50 : 0;
+    if (isFlawless) {
+      setTimeout(() => showFeedback('correct', t('perfect')), 800);
+      unlockBadge('flawless');
+    }
+    const store = useGameStore.getState();
+    const { perfectClearBonus: expressBonus } = calculateLevelCompletionBonus(
+      store.levelSessionScore, expressRemaining > 0, expressRemaining
+    );
+    addBalance(perfectBonus + expressBonus);
+
+    // DDA: başarı sinyali (bitirme süresi / ekspres süresi)
+    const timeLimit = totalTimeMsRef.current / 1000;
+    const timeSpent = Math.min(timeLimit, (Date.now() - levelStartTime) / 1000);
+    const signal = computeRawSignal({ success: true, timeSpent, timeLimit, attempts: mistakeCount + 1 });
+    const alpha = getAlpha(store.totalGamesPlayed);
+    const { ema, ewmv, zScore } = updateEwmvAndZScore(signal, store.performanceScore, store.ewmv, alpha);
+    const recent = [...store.recentPerformance, signal].slice(-5);
+    store.setDDAState({
+      performanceScore: ema,
+      ewmv,
+      recentPerformance: recent,
+      currentVolatilityClass: detectVolatility(recent, zScore)
+    });
+
+    setLevelSummary({
+      wordPoints: store.levelSessionScore,
+      expressBonus,
+      perfectBonus,
+      words: wordsFound,
+      timeSpent: Math.round((Date.now() - levelStartTime) / 1000)
+    });
+    store.incrementLevelsCompleted();
+    // İlerleme bitiş anında kaydedilir; oyuncu "Ana menü"ye dönse de sonraki seviye açık kalır
+    store.setMaxUnlockedLevel(levelIndex + 1);
+    store.syncCloud();
+
+    setTimeout(() => {
+      // Variable-Ratio Reinforcement: %12.5 ihtimalle sürpriz dolap; her 10. seviyede kesin
+      const isProbabilisticBonus = levelIndex >= 3 && Math.random() < 0.125; // ilk seviyelerde akışı bölmesin
+      const isLevelMultipleOf10 = (levelIndex + 1) % 10 === 0;
+      if (isProbabilisticBonus || isLevelMultipleOf10) setShowBonus(true);
+      else setInternalState('levelComplete');
+    }, 1800);
+  };
 
   const handleWordSubmit = async (word) => {
     if (internalState !== 'playing') return false;
@@ -456,63 +473,8 @@ export default function GameContainer({
         if (hapticEnabled) Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
       }
 
-      // Süreyi yenile (seviye bazlı)
-      const newTimeToGive = getTimeForLevel(levelIndex, levelData.words.length, mistakeCount + 1, ddaTimeAdjust);
-      startTimer(newTimeToGive);
-
-      // Seviye tamamlandı mı?
-      if (newFound.length === levelData.words.length) {
-        if (levelIndex === 0) {
-          localStorage.setItem('turnike_tutorial_seen', 'true');
-        }
-        stopTimer();
-        if (soundEnabled) playLevelComplete();
-        if (mistakeCount === 0) { 
-          setTimeout(() => showFeedback('correct', t('perfect')), 800); 
-          addBalance(50); 
-          unlockBadge('flawless'); 
-        }
-        // Level Completion & Perfect Clear Bonus
-        const { total, perfectClearBonus } = calculateLevelCompletionBonus(
-          useGameStore.getState().levelSessionScore, 
-          mistakeCount === 0, 
-          timeLeft
-        );
-        addBalance(perfectClearBonus);
-        
-        // DDA: Record success signal
-        const store = useGameStore.getState();
-        const timeToGive2 = getTimeForLevel(levelIndex, levelData.words.length, mistakeCount + 1, ddaTimeAdjust);
-        const timeSpent = timeToGive2 - timeLeft;
-        const signal = computeRawSignal({ success: true, timeSpent, timeLimit: timeToGive2, attempts: mistakeCount + 1 });
-        const alpha = getAlpha(store.totalGamesPlayed);
-        const { ema, ewmv, zScore } = updateEwmvAndZScore(signal, store.performanceScore, store.ewmv, alpha);
-        const recent = [...store.recentPerformance, signal].slice(-5);
-        const volatility = detectVolatility(recent, zScore);
-        
-        store.setDDAState({
-          performanceScore: ema,
-          ewmv,
-          recentPerformance: recent,
-          currentVolatilityClass: volatility
-        });
-
-        const currentLevelsCompleted = (useGameStore.getState().levelsCompleted || 0) + 1;
-        useGameStore.getState().incrementLevelsCompleted();
-        useGameStore.getState().syncCloud();
-
-        setTimeout(() => { 
-          // Variable-Ratio Reinforcement: %12.5 ihtimalle (ortalama 8 levelde bir) sürpriz ödül
-          const isProbabilisticBonus = Math.random() < 0.125;
-          const isLevelMultipleOf10 = (levelIndex + 1) % 10 === 0; // Keep deterministic anchor for major milestones just in case
-          
-          if (isProbabilisticBonus || isLevelMultipleOf10) {
-            setShowBonus(true);
-          } else {
-            setInternalState('levelComplete'); 
-          }
-        }, 3000);
-      }
+      // Rahat mod: ekspres süresi kelime bulununca sıfırlanmaz
+      if (newFound.length === levelData.words.length) completeLevel(newFound);
       return true;
     } else {
       if (VALID_WORDS.has(word)) { 
@@ -658,25 +620,7 @@ export default function GameContainer({
         showFeedback('exists', meaning);
         if (soundEnabled) playTurnike();
         if (hapticEnabled) Haptics.impact({ style: ImpactStyle.Medium }).catch(()=>{});
-        if (newFound.length === levelData.words.length) {
-          stopTimer();
-          if (soundEnabled) playLevelComplete();
-          
-          // Bonus kontrol (handleWordSubmit ile aynı mantık)
-          const currentLevelsCompleted = (useGameStore.getState().levelsCompleted || 0) + 1;
-          useGameStore.getState().incrementLevelsCompleted();
-          
-          setTimeout(() => {
-            const isLevelMultipleOf10 = (levelIndex + 1) % 10 === 0;
-            const isCompletedMultipleOf10 = currentLevelsCompleted % 10 === 0;
-            
-            if (isLevelMultipleOf10 || isCompletedMultipleOf10) {
-              setShowBonus(true);
-            } else {
-              setInternalState('levelComplete');
-            }
-          }, 1500);
-        }
+        if (newFound.length === levelData.words.length) completeLevel(newFound);
       }
     } else { 
       showFeedback('wrong', t('balance_low')); 
@@ -759,31 +703,34 @@ export default function GameContainer({
         <p className="text-white/60 mb-8">{t('game_over_desc')}</p>
         
         <div className="flex flex-col gap-3 w-full max-w-sm mb-6">
-          <button
-            disabled={isAdLoading}
-            onClick={() => {
-              setIsAdLoading(true);
-              setTimeout(() => {
-                useGameStore.setState({ lives: 1, gameStatus: 'playing' });
-                setIsAdLoading(false);
-                setInternalState('playing');
-                startTimer(30);
-              }, 3000);
-            }}
-            className={`w-full py-3.5 rounded-xl font-bold text-white text-sm tracking-wide bg-blue-600 hover:bg-blue-500 transition-colors flex items-center justify-center gap-2 ${isAdLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
-          >
-            <span className="material-symbols-outlined text-[20px]">{isAdLoading ? 'hourglass_empty' : 'play_circle'}</span>
-            {isAdLoading ? t('watching_ad') : t('watch_ad')}
-          </button>
-          
+          {/* Reklam SDK'sı bağlanana kadar gizli (sahte bekleme yapıyordu) */}
+          {SHOW_AD_REWARDS && (
+            <button
+              disabled={isAdLoading}
+              onClick={() => {
+                setIsAdLoading(true);
+                setTimeout(() => {
+                  useGameStore.setState({ lives: 1, gameStatus: 'playing' });
+                  setIsAdLoading(false);
+                  setInternalState('playing');
+                }, 3000);
+              }}
+              className={`w-full py-3.5 rounded-xl font-bold text-white text-sm tracking-wide bg-blue-600 hover:bg-blue-500 transition-colors flex items-center justify-center gap-2 ${isAdLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
+              <span className="material-symbols-outlined text-[20px]">{isAdLoading ? 'hourglass_empty' : 'play_circle'}</span>
+              {isAdLoading ? t('watching_ad') : t('watch_ad')}
+            </button>
+          )}
+
           <button
             disabled={balance < 25}
             onClick={() => {
               if (balance >= 25) {
                 addBalance(-25);
                 useGameStore.setState({ lives: 1, gameStatus: 'playing' });
+                // Ekspres süresi oyun sonunda durdu; devam ederken bonus penceresi kapalı kalır
+                setIsExpressOver(true);
                 setInternalState('playing');
-                startTimer(30);
               }
             }}
             className={`w-full py-3.5 rounded-xl font-bold text-white text-sm tracking-wide bg-green-600 hover:bg-green-500 transition-colors flex items-center justify-center gap-2 ${balance < 25 ? 'opacity-50 cursor-not-allowed' : ''}`}
@@ -838,7 +785,7 @@ export default function GameContainer({
                 <button
                   onClick={() => {
                     setShowConfirmModal(false);
-                    useGameStore.setState({ lives: 5, gameStatus: 'idle', combo: 0 });
+                    useGameStore.setState({ lives: MAX_LIVES, gameStatus: 'idle', combo: 0 });
                     setScreen('home');
                   }}
                   className="flex-1 py-3 rounded-xl font-bold text-white bg-red-600 hover:bg-red-500 transition-colors shadow-lg shadow-red-900/50"
@@ -855,13 +802,20 @@ export default function GameContainer({
 
 
 
-  /* ========== HOME SCREEN ========== */
   /* ========== GAME SCREEN ========== */
   if (internalState === 'playing') {
     if (!levelData) return null;
 
+    const station = getStationForLevel(levelIndex);
+    const hintCost = completedSets.includes('nostalji') ? 60 : 75;
+    const isTutorial = levelIndex === 0 && foundWords.length === 0 && localStorage.getItem('turnike_tutorial_seen') !== 'true';
+    const showStationInfo = () => {
+      setInfoCard({ word: station.displayName, meaning: `${station.stationInfo} ${levelData.missionTask || ''}`.trim(), id: Date.now() });
+      if (hapticEnabled) Haptics.selectionStart().catch(()=>{});
+    };
+
     return (
-      <div className="game-bg h-screen w-screen overflow-hidden flex flex-col relative z-10 fade-in">
+      <div className={`game-bg h-screen w-screen overflow-hidden flex flex-col relative z-10 fade-in ${shake ? 'animate-shake' : ''}`}>
         {showBonus && (
           <div className="absolute inset-0 z-[100] flex flex-col fade-in" style={{ backgroundColor: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(8px)' }}>
             <BonusLockers onComplete={() => { setShowBonus(false); setInternalState('levelComplete'); }} />
@@ -873,7 +827,7 @@ export default function GameContainer({
                  style={{ background: 'linear-gradient(135deg, #0f2d1a, #07170d)', boxShadow: '0 0 40px rgba(34,197,94,0.4)' }}>
               <span className="material-symbols-outlined text-green-400 text-6xl animate-bounce" style={{ fontVariationSettings: "'FILL' 1" }}>lock_open</span>
               <h2 className="text-white text-2xl font-black tracking-widest mt-4">KASA PATLATILDI!</h2>
-              <p className="text-green-400/80 font-bold text-lg mt-2">+100.00 ₺ İstanbulkart Bakiyesi</p>
+              <p className="text-green-400/80 font-bold text-lg mt-2">+{formatKurus(VAULT_REWARD)} İstanbulkart Bakiyesi</p>
               <span className="text-white/40 text-xs mt-4 tracking-widest uppercase">Güvenli Seferler Dileriz</span>
             </div>
           </div>
@@ -885,222 +839,81 @@ export default function GameContainer({
             80% { transform: translateY(-100px) scale(1); opacity: 1; }
             100% { transform: translateY(-130px) scale(0.8); opacity: 0; }
           }
-          .life-loss-float {
-            animation: lifeLossAnim 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-          }
+          .life-loss-float { animation: lifeLossAnim 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
         `}</style>
-        {/* Top Bar */}
-      <header className="w-full z-50 flex justify-between items-center px-4 pt-8 pb-2 shrink-0 gap-2">
-        <button onClick={() => { stopTimer(); setScreen('home'); }} className="capsule">
-          <span className="material-symbols-outlined text-[15px]">arrow_back</span>
-        </button>
 
-        {/* İstasyon İlerleme Çubuğu */}
-        <div className="flex-grow flex items-center justify-center gap-1 relative max-w-[100px]">
-          <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-white/10 -translate-y-1/2 z-0" />
-          <div className="absolute top-1/2 left-0 h-0.5 bg-green-500 -translate-y-1/2 z-0 transition-all duration-500" 
-               style={{ width: `${(foundWords.length / levelData.words.length) * 100}%` }} />
-          {levelData.words.map((_, i) => (
-            <div key={i} className={`w-2 h-2 rounded-full z-10 transition-colors duration-500 border border-black ${i < foundWords.length ? 'bg-green-400' : 'bg-gray-600'}`} />
-          ))}
-        </div>
-
-        {/* Kasa Göstergesi (İstanbulkart Görünümlü) */}
-        <div className="capsule flex items-center gap-1.5 px-2 h-[42px] justify-center relative overflow-hidden cursor-pointer" 
-             onClick={() => setScreen('vault')}
-             style={{ border: '1px solid rgba(34,197,94,0.2)' }}>
-          <span className="material-symbols-outlined text-[14px] text-green-400" style={{ fontVariationSettings: "'FILL' 1" }}>credit_card</span>
-          <div className="flex flex-col items-start">
-            <span className="text-[6px] text-white/40 font-black tracking-widest leading-none">KASA</span>
-            <span className="text-[10px] font-bold text-green-400 leading-none mt-0.5">{useGameStore.getState().vaultWords.length}/10</span>
-          </div>
-          {/* İlerleme doluluk çizgisi */}
-          <div className="absolute bottom-0 left-0 h-[3px] bg-green-500 transition-all duration-300" 
-               style={{ width: `${(useGameStore.getState().vaultWords.length / 10) * 100}%` }} />
-        </div>
-
-        <div className={`capsule flex flex-col items-end py-1 h-[42px] justify-center min-w-[80px] ${flashBalance ? 'balance-flash' : ''}`}>
-          <div className="flex items-center gap-1">
-            <span className="material-symbols-outlined text-[13px]" style={{ color: '#fbbf24', fontVariationSettings: "'FILL' 1" }}>toll</span>
+        {/* Başlık: geri | hat + durak | bakiye */}
+        <header className="w-full z-50 flex items-center gap-2 px-4 pt-4 pb-2 shrink-0">
+          <button onClick={() => { stopTimer(); setScreen('home'); }} className="icon-btn" aria-label={t('back')}>
+            <span className="material-symbols-outlined text-[20px]">arrow_back</span>
+          </button>
+          <button onClick={showStationInfo} className="flex-1 min-w-0 flex items-center gap-2.5 text-left active:opacity-70 transition-opacity">
+            <span className="line-badge" style={{ background: station.color }}>{station.id}</span>
+            <span className="min-w-0">
+              <span className="block text-[16px] font-extrabold text-white truncate leading-tight">{station.displayName}</span>
+              <span className="block text-[11px] font-semibold text-white/55 truncate">
+                {t('leg')} {station.leg}/{station.legsPerStation} · {levelData.technicalTerm}
+              </span>
+            </span>
+          </button>
+          <div className={`balance-pill ${flashBalance ? 'balance-flash' : ''}`}>
+            <span className="material-symbols-outlined text-[16px]" style={{ color: 'var(--coin)', fontVariationSettings: "'FILL' 1" }}>toll</span>
             <AnimatedBalance value={balance} />
           </div>
-          {combo > 1 && (
-            <span className="text-orange-400 font-bold text-[9px] uppercase tracking-widest mt-0.5 animate-pulse">
-              {combo >= 4 ? t('combo_20') : t('combo_15')}
+        </header>
+
+        {/* Durum satırı: can | kelime ilerlemesi | kasa */}
+        <div className="flex items-center justify-between px-4 pb-2 shrink-0">
+          <div className="flex gap-0.5" aria-label={`${lives}/${MAX_LIVES}`}>
+            {Array.from({ length: MAX_LIVES }, (_, i) => (
+              <span key={i} className={`material-symbols-outlined text-[18px] transition-all ${i < lives ? 'text-red-500' : 'text-white/15'}`} style={{ fontVariationSettings: "'FILL' 1" }}>favorite</span>
+            ))}
+          </div>
+          <div className="flex items-center gap-1.5">
+            {levelData.words.map((w, i) => (
+              <span key={i} className={`h-2 rounded-full transition-all duration-500 ${i < foundWords.length ? 'w-5 bg-green-400' : 'w-2 bg-white/20'}`} />
+            ))}
+            <span className="text-[12px] font-bold text-white/60 ml-1 tabular-nums">{foundWords.length}/{levelData.words.length}</span>
+            {combo > 1 && <span className="ml-1 text-[12px] font-black text-orange-400">🔥x{combo}</span>}
+          </div>
+          <div className="status-chip" title={t('vault')}>
+            <span className="material-symbols-outlined text-[15px] text-green-400" style={{ fontVariationSettings: "'FILL' 1" }}>savings</span>
+            <span className="tabular-nums">{vaultCount}/{VAULT_SIZE}</span>
+          </div>
+        </div>
+
+        {/* Ekspres treni: bitene kadar bonus penceresi; bitince sadece bilgi */}
+        <div className="px-4 shrink-0">
+          <div className="flex items-center justify-between text-[11px] font-bold mb-1">
+            <span style={{ color: isExpressOver ? 'rgba(255,255,255,0.4)' : 'var(--led)' }}>
+              {isExpressOver ? t('express_over') : `⚡ ${t('express')}`}
             </span>
-          )}
-        </div>
-      </header>
-
-      {/* Görev Başlığı / Mission Banner */}
-      <div className="mx-4 mb-2 px-3 py-1.5 rounded-xl flex items-center justify-between gap-2 border border-white/5 cursor-pointer active:scale-95 transition-transform"
-           style={{
-             background: 'linear-gradient(135deg, rgba(34,197,94,0.08), rgba(59,130,246,0.02))',
-             boxShadow: 'inset 0 0 12px rgba(255,255,255,0.02)'
-           }}
-           onClick={() => {
-              if (levelData.missionType === "AKTARMA GÖREVİ") {
-                setInfoCard({ word: "Aktarma Görevi", meaning: "Bu durakta kelimeler birbirine bağlı! Kesişim noktalarındaki ortak harfleri tamamlayarak ekstra bakiye kazanabilirsin.", id: Date.now() });
-              } else if (levelData.missionType === "KAYIP VAGON") {
-                setInfoCard({ word: "Kayıp Vagon", meaning: "Bu seferde listende görünmeyen ekstra bir kelime saklı. Çarktaki harfleri birleştirip kayıp vagonu bul, büyük ödülü kap!", id: Date.now() });
-              } else {
-                setInfoCard({ word: "Sefer Bilgisi", meaning: "Tüm kelimeleri bularak bir sonraki istasyona ilerle.", id: Date.now() });
-              }
-              if (hapticEnabled) Haptics.selectionStart().catch(()=>{});
-            }}>
-        <div className="flex flex-col">
-          <span className="text-[9px] font-black tracking-widest text-green-400 uppercase">
-            {levelData.missionType || "NORMAL SEFER"}
-          </span>
-          <span className="text-[11px] font-bold text-white/80">
-            {levelData.missionTask || "Hat kontrolü yapılıyor..."}
-          </span>
-        </div>
-        <span className="px-2 py-0.5 rounded-md text-[8px] font-black tracking-wider bg-white/5 text-white/50 uppercase">
-          {levelData.provider || "Metro"}
-        </span>
-      </div>
-
-      {/* Can Göstergesi ve Süre Çubuğu (Timer Bar) */}
-      <div className="w-full flex items-center px-4 mb-1 justify-between text-xs">
-        <div className="flex gap-1">
-          {[1, 2, 3].map(i => (
-            <span key={i} className={`material-symbols-outlined text-[14px] transition-all ${i <= lives ? 'text-red-500' : 'text-white/20'}`} style={{ fontVariationSettings: "'FILL' 1" }}>
-              favorite
-            </span>
-          ))}
-        </div>
-        <div className="text-white/50">{timeLeft}s</div>
-      </div>
-      {/* Süre Çubuğu — Metro İstanbul Tasarımlı 4 Vagonlu Tren + Tünel Giriş/Çıkış İllüzyonu */}
-      {(() => {
-        const totalTime = getTimeForLevel(levelIndex, levelData.words.length);
-        const pct = (timeLeft / totalTime);
-        const hue = Math.round(pct * 120); // 120=yeşil, 0=kırmızı
-        const isCritical = pct <= 0.25;
-        return (
-          <div className="w-full relative flex items-center px-[22px]" style={{ height: 26, margin: '6px 0' }}>
-            {/* Tünel Karanlık Arka Planları (z-5) */}
-            <div 
-              style={{ 
-                position: 'absolute', 
-                left: 22, 
-                bottom: 0, 
-                width: 16, 
-                height: 18, 
-                background: '#030712', 
-                borderTopLeftRadius: '8px', 
-                borderTopRightRadius: '8px',
-                boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.9)',
-                zIndex: 5
-              }} 
-            />
-            <div 
-              style={{ 
-                position: 'absolute', 
-                right: 22, 
-                bottom: 0, 
-                width: 16, 
-                height: 18, 
-                background: '#030712', 
-                borderTopLeftRadius: '8px', 
-                borderTopRightRadius: '8px',
-                boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.9)',
-                zIndex: 5
-              }} 
-            />
-
-            {/* Ray & Tren Alanı (z-10, overflow-hidden sadece yatayda tünellere göre sınırlar, dikeyde ise trenin taşmasına izin verir) */}
-            <div 
-              className="absolute overflow-hidden" 
-              style={{ 
-                left: 22, 
-                right: 22, 
-                bottom: 0, 
-                height: 22, 
-                zIndex: 10 
-              }}
-            >
-              {/* Ray Çizgisi (Track) */}
-              <div 
-                className="w-full bg-white/10 rounded-[1px]" 
-                style={{ 
-                  height: 6, 
-                  position: 'absolute', 
-                  bottom: 5, 
-                  left: 0, 
-                  right: 0 
-                }}
-              >
-                <div
-                  ref={barRef}
-                  className="h-full"
-                  style={{
-                    width: `${pct * 100}%`,
-                    background: `hsl(${hue}, 84%, 55%)`,
-                    boxShadow: `0 0 6px hsl(${hue}, 84%, 55%)`
-                  }}
-                />
+            {!isExpressOver && <span className="text-white/60 tabular-nums">{timeLeft}s</span>}
+          </div>
+          {!isExpressOver && (
+            <div className="relative h-[18px] overflow-hidden">
+              <div className="absolute left-0 right-0 bottom-[4px] h-[5px] rounded-full bg-white/10">
+                <div ref={barRef} className="h-full rounded-full" style={{ width: '100%', background: 'hsl(120, 84%, 55%)' }} />
               </div>
-
-              {/* Tren Konteyneri — Ray Üzerinde Akıcı Hareket Eder */}
-              <div
-                ref={trainRef}
-                className="absolute pointer-events-none"
-                style={{
-                  left: `calc(${pct * 100}% - 30px)`,
-                  width: 60,
-                  height: 16,
-                  bottom: 0,
-                  display: 'flex',
-                  alignItems: 'center'
-                }}
-              >
-                {/* 4 Vagonlu Mavi/Gri Tren Tasarımı (v1.2 esintisi, daha büyük) */}
-                <svg 
-                  width="60" 
-                  height="16" 
-                  viewBox="0 0 60 16" 
-                  fill="none" 
-                  xmlns="http://www.w3.org/2000/svg"
-                  style={{
-                    transform: 'translateY(-5px)'
-                  }}
-                >
-                  {/* Vagon 1 (Ön Vagon - Mavi kabin, sola gidiyor) */}
-                  <path 
-                    d="M2 3C2 2.45 2.45 2 3 2H18C18.55 2 19 2.45 19 3V11C19 11.55 18.55 12 18 12H3C2.45 12 2 11.55 2 11V3Z" 
-                    fill="#3b82f6" 
-                  />
-                  {/* Cam ve Siyah detay */}
+              <div ref={trainRef} className="absolute bottom-0 pointer-events-none" style={{ left: 'calc(100% - 30px)', width: 60, height: 16 }}>
+                <svg width="60" height="16" viewBox="0 0 60 16" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ transform: 'translateY(-4px)' }}>
+                  <path d="M2 3C2 2.45 2.45 2 3 2H18C18.55 2 19 2.45 19 3V11C19 11.55 18.55 12 18 12H3C2.45 12 2 11.55 2 11V3Z" fill="#3b82f6" />
                   <path d="M2 3.5C2 2.67 2.67 2 3.5 2H8V12H3.5C2.67 12 2 11.33 2 10.5V3.5Z" fill="#1e293b" />
                   <path d="M2.5 4H5.5V8H2.5V4Z" fill="#93c5fd" />
                   <circle cx="3.5" cy="10.5" r="0.75" fill="#facc15" />
                   <circle cx="6.5" cy="10.5" r="0.75" fill="#facc15" />
                   <rect x="11" y="4.5" width="5" height="3" rx="0.5" fill="#93c5fd" />
-
-                  {/* Bağlantı 1 */}
                   <rect x="19" y="6" width="2" height="2" fill="#475569" />
-
-                  {/* Vagon 2 (Gri) */}
                   <rect x="21" y="2" width="11" height="10" rx="1.5" fill="#4b5563" />
                   <rect x="21" y="5.5" width="11" height="1.5" fill="#3b82f6" />
                   <rect x="23" y="3.5" width="3" height="3" rx="0.5" fill="#93c5fd" />
                   <rect x="27" y="3.5" width="3" height="3" rx="0.5" fill="#93c5fd" />
-
-                  {/* Bağlantı 2 */}
                   <rect x="32" y="6" width="2" height="2" fill="#475569" />
-
-                  {/* Vagon 3 (Gri) */}
                   <rect x="34" y="2" width="11" height="10" rx="1.5" fill="#4b5563" />
                   <rect x="34" y="5.5" width="11" height="1.5" fill="#3b82f6" />
                   <rect x="36" y="3.5" width="3" height="3" rx="0.5" fill="#93c5fd" />
                   <rect x="40" y="3.5" width="3" height="3" rx="0.5" fill="#93c5fd" />
-
-                  {/* Bağlantı 3 */}
                   <rect x="45" y="6" width="2" height="2" fill="#475569" />
-
-                  {/* Vagon 4 (Gri) */}
                   <rect x="47" y="2" width="11" height="10" rx="1.5" fill="#4b5563" />
                   <rect x="47" y="5.5" width="11" height="1.5" fill="#3b82f6" />
                   <rect x="49" y="3.5" width="3" height="3" rx="0.5" fill="#93c5fd" />
@@ -1108,227 +921,119 @@ export default function GameContainer({
                 </svg>
               </div>
             </div>
-
-            {/* Sol Beton Tünel Portal Çerçevesi (z-20, fiziksel kesimle rayın üstünü örter ama açıklığı boştur) */}
-            <svg 
-              className="absolute z-20 pointer-events-none" 
-              style={{ left: 0, bottom: 0 }}
-              width="40" 
-              height="24" 
-              viewBox="0 0 40 24" 
-              fill="none" 
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              {/* Beton Portal Gövdesi */}
-              <path 
-                d="M 0,24 V 0 H 40 V 8 A 8,8 0 0,0 24,8 V 24 Z" 
-                fill="#374151" 
-                stroke="#4b5563"
-                strokeWidth="1.5"
-                strokeLinejoin="round"
-              />
-              {/* Derz / Taş Blok Sınırları */}
-              <line x1="0" y1="8" x2="24" y2="8" stroke="#1f2937" strokeWidth="1" />
-              <line x1="0" y1="16" x2="24" y2="16" stroke="#1f2937" strokeWidth="1" />
-              <line x1="24" y1="0" x2="24" y2="8" stroke="#1f2937" strokeWidth="1" />
-            </svg>
-
-            {/* Sağ Beton Tünel Portal Çerçevesi (z-20, fiziksel kesimle rayın üstünü örter ama açıklığı boştur) */}
-            <svg 
-              className="absolute z-20 pointer-events-none" 
-              style={{ right: 0, bottom: 0 }}
-              width="40" 
-              height="24" 
-              viewBox="0 0 40 24" 
-              fill="none" 
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              {/* Beton Portal Gövdesi */}
-              <path 
-                d="M 40,24 V 0 H 0 V 8 A 8,8 0 0,1 16,8 V 24 Z" 
-                fill="#374151" 
-                stroke="#4b5563"
-                strokeWidth="1.5"
-                strokeLinejoin="round"
-              />
-              {/* Derz / Taş Blok Sınırları */}
-              <line x1="16" y1="8" x2="40" y2="8" stroke="#1f2937" strokeWidth="1" />
-              <line x1="16" y1="16" x2="40" y2="16" stroke="#1f2937" strokeWidth="1" />
-              <line x1="16" y1="0" x2="16" y2="8" stroke="#1f2937" strokeWidth="1" />
-            </svg>
-          </div>
-        );
-      })()}
-
-      {lifeLossAnims.map(animId => (
-        <div key={animId} className="absolute inset-0 flex items-center justify-center pointer-events-none z-[100] life-loss-float">
-          <div className="flex items-center gap-2 text-red-500 font-black text-5xl" style={{ textShadow: '0 0 20px rgba(239,68,68,1)' }}>
-            -1 <span className="material-symbols-outlined text-[48px]" style={{ fontVariationSettings: "'FILL' 1" }}>favorite</span>
-          </div>
+          )}
         </div>
-      ))}
-      
-      {/* Grid ve Çark Alanı */}
-      <main className="flex-grow flex flex-col w-full overflow-hidden pb-2 relative z-10">
-        
-        {/* Üst Alan: Grid */}
-        <div className="flex-1 w-full flex items-center justify-center px-2 py-4 relative z-10">
-          <Grid 
-            words={levelData.words} 
-            foundWords={foundWords} 
-            hintedLetters={hintedLetters} 
+
+        {lifeLossAnims.map(animId => (
+          <div key={animId} className="absolute inset-0 flex items-center justify-center pointer-events-none z-[100] life-loss-float">
+            <div className="flex items-center gap-2 text-red-500 font-black text-5xl" style={{ textShadow: '0 0 20px rgba(239,68,68,1)' }}>
+              -1 <span className="material-symbols-outlined text-[48px]" style={{ fontVariationSettings: "'FILL' 1" }}>favorite</span>
+            </div>
+          </div>
+        ))}
+
+        {/* Izgara: kalan alanın tamamı */}
+        <main className="flex-1 min-h-0 w-full px-3 pt-3 pb-14 relative z-10">
+          <Grid
+            words={levelData.words}
+            foundWords={foundWords}
+            hintedLetters={hintedLetters}
             onIntersectionFound={handleIntersectionFound}
           />
-        </div>
+        </main>
 
-        {/* Alt Alan: Çark ve İpucu Butonları */}
-        <div className="w-full relative z-20 flex flex-col items-center pb-6" style={{ height: '340px', flexShrink: 0 }}>
-          
-          <div className={`relative w-full max-w-md h-[300px] flex items-center justify-center ${hatArizasi ? 'animate-shake opacity-70 filter grayscale' : ''}`}>
-            
-            {/* Sol İpucu (Kontrol Sinyali) */}
-            <div className="absolute left-4 top-1/2 -translate-y-1/2 z-40 flex flex-col items-center gap-1">
-              <button
-                onClick={handleLetterHint}
-                title={language === 'en' ? "Control Signal (Reveal Letter)" : "Kontrol Sinyali (Harf İpucu)"}
-                className="flex items-center justify-center rounded-full active:scale-90 transition-transform cursor-pointer"
-                style={{
-                  width: 52, height: 52,
-                  background: 'rgba(255, 255, 255, 0.15)',
-                  border: '1.5px solid rgba(255, 255, 255, 0.3)',
-                  backdropFilter: 'blur(16px)',
-                  boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.2)',
-                }}
-              >
-                <span className="material-symbols-outlined text-white text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>spellcheck</span>
-              </button>
-              <span className="px-3 py-1 rounded-full text-[10px] font-black text-white bg-black/30 backdrop-blur-md border border-white/20 shadow-sm">
-                {hints > 0 ? `${hints}✦` : '25₺'}
-              </span>
-            </div>
-
-            {/* Çark Arka Plan Efekti (Glass Plate) */}
-            <div className="absolute inset-0 m-auto w-[280px] h-[280px] rounded-full pointer-events-none"
-                 style={{ 
-                   background: 'radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.1) 100%)',
-                   border: '2px solid rgba(255,255,255,0.15)',
-                   backdropFilter: 'blur(12px)',
-                   boxShadow: '0 12px 40px rgba(0,0,0,0.3), inset 0 4px 10px rgba(255,255,255,0.1)'
-                 }} />
-
-            {/* Çark */}
-            <div className="absolute inset-0 m-auto w-[280px] h-[280px]">
-              <Wheel 
-                letters={levelData.wheelLetters} 
-                onWordSubmit={handleWordSubmit} 
-                onShuffle={handleShuffle} 
-                bonusLetter={goldLetter} 
+        {/* Çark ve araçlar */}
+        <div className="w-full shrink-0 flex flex-col items-center pb-5 relative z-20">
+          {isTutorial && (
+            <p className="tutorial-hint mb-2">
+              <span className="material-symbols-outlined text-[16px]">swipe</span>{t('tutorial_hint')}
+            </p>
+          )}
+          <div className={`relative ${hatArizasi ? 'animate-shake opacity-70 filter grayscale' : ''}`}
+               style={{ width: 'min(296px, calc(100vw - 48px), calc(100dvh - 440px))', minWidth: 200, aspectRatio: '1 / 1' }}>
+            <div className="absolute inset-0 rounded-full pointer-events-none wheel-plate" />
+            <div className="absolute inset-0">
+              <Wheel
+                letters={levelData.wheelLetters}
+                onWordSubmit={handleWordSubmit}
+                onShuffle={handleShuffle}
+                bonusLetter={goldLetter}
                 wrongWordTrigger={wrongWordTrigger}
                 eliminatedLetters={eliminatedLetters}
-                isTutorial={levelIndex === 0 && localStorage.getItem('turnike_tutorial_seen') !== 'true'}
-                tutorialWord={levelData.rootWord}
+                isTutorial={isTutorial}
+                tutorialWord={levelData.technicalTerm}
               />
             </div>
+          </div>
+          <div className="flex gap-3 mt-4">
+            <ToolButton icon="spellcheck" label={t('tool_letter')} price={hints > 0 ? `${hints} ✦` : formatKurus(25)}
+              affordable={hints > 0 || balance >= 25} onClick={handleLetterHint} />
+            <ToolButton icon="lightbulb" label={t('tool_word')} price={hints > 0 ? `${hints} ✦` : formatKurus(hintCost)}
+              affordable={hints > 0 || balance >= hintCost} onClick={handleHint} accent="#fbbf24" />
+            <ToolButton icon="disabled_visible" label={t('tool_eliminate')} price={formatKurus(50)}
+              affordable={balance >= 50} onClick={handleEliminateLetter} accent="#f87171" />
+          </div>
+        </div>
 
-            {/* Sağ İpucu (Kilit Açma) ve Yeni: Harf Eleme */}
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 z-40 flex flex-col items-center gap-4">
-              <div className="flex flex-col items-center gap-1">
-                <button
-                  onClick={handleHint}
-                  className="w-14 h-14 rounded-full bg-white/10 backdrop-blur-md border-2 border-white/20 flex flex-col items-center justify-center text-white active:scale-95 transition-all shadow-[0_4px_16px_rgba(0,0,0,0.3)] hover:bg-white/20 hover:border-yellow-400"
-                >
-                  <span className="material-symbols-outlined text-[26px]" style={{ color: '#fbbf24' }}>lightbulb</span>
-                </button>
-                <div className="bg-black/60 rounded-full px-2.5 py-0.5 text-[10px] font-black text-white border border-white/10 mt-1 drop-shadow-md tracking-wider">
-                  {hints > 0 ? `${hints} ✦` : '75 ₺'}
+        {/* Teknik Bilgi Kartı Overlay */}
+        {infoCard && (
+          <div key={infoCard.id} className="absolute inset-x-0 top-24 z-50 pointer-events-none flex justify-center fade-in px-5">
+            <div
+              className="relative overflow-hidden rounded-2xl w-full max-w-md p-5 pointer-events-auto transition-transform"
+              onClick={() => setInfoCard(null)}
+              onTouchStart={handleInfoCardTouchStart}
+              onTouchMove={handleInfoCardTouchMove}
+              onTouchEnd={handleInfoCardTouchEnd}
+              style={{
+                background: 'rgba(10, 24, 40, 0.97)',
+                border: `1px solid ${station.color}66`,
+                boxShadow: '0 20px 40px rgba(0,0,0,0.7)',
+                transform: `translateX(${swipeOffsetX}px)`,
+                opacity: 1 - Math.abs(swipeOffsetX) / 300
+              }}
+            >
+              <div className="absolute top-0 left-0 w-full h-1 bg-white/10">
+                <div className="h-full" style={{ background: station.color, width: '100%', animation: 'shrink 4s linear forwards' }} />
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style={{ background: `${station.color}22`, border: `1px solid ${station.color}55` }}>
+                  <span className="material-symbols-outlined text-[22px]" style={{ color: station.color }}>menu_book</span>
+                </div>
+                <div className="min-w-0">
+                  <h3 className="font-black text-[17px] tracking-wide mb-1 text-white">{infoCard.word}</h3>
+                  <p className="text-white/80 text-[14px] leading-relaxed">{infoCard.meaning}</p>
                 </div>
               </div>
-
-              {/* Faz 2: Harf Eleme Jokeri */}
-              <div className="flex flex-col items-center gap-1">
-                <button
-                  onClick={handleEliminateLetter}
-                  className="w-12 h-12 rounded-full bg-red-500/20 backdrop-blur-md border-2 border-red-500/40 flex flex-col items-center justify-center text-red-400 active:scale-95 transition-all shadow-[0_4px_16px_rgba(0,0,0,0.3)] hover:bg-red-500/40 hover:border-red-400"
-                >
-                  <span className="material-symbols-outlined text-[22px]">disabled_visible</span>
-                </button>
-                <div className="bg-black/60 rounded-full px-2.5 py-0.5 text-[10px] font-black text-white border border-white/10 drop-shadow-md tracking-wider">
-                  50 ₺
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </main>
-
-      {/* Bottom Nav removed for WoW aesthetics. Player can use back button in header to exit level. */}
-
-      {/* Teknik Bilgi Kartı Overlay */}
-      {infoCard && (
-        <div key={infoCard.id} className="absolute inset-0 z-50 pointer-events-none flex items-center justify-center fade-in px-6">
-          <div 
-            className="relative overflow-hidden rounded-2xl w-full max-w-md p-6 pointer-events-auto transition-transform"
-            onTouchStart={handleInfoCardTouchStart}
-            onTouchMove={handleInfoCardTouchMove}
-            onTouchEnd={handleInfoCardTouchEnd}
-            style={{
-              background: 'rgba(13, 31, 13, 0.95)',
-              border: '1px solid rgba(34,197,94,0.4)',
-              boxShadow: '0 20px 40px rgba(0,0,0,0.8), 0 0 20px rgba(34,197,94,0.2)',
-              backdropFilter: 'blur(16px)',
-              transform: `translateX(${swipeOffsetX}px)`,
-              opacity: 1 - Math.abs(swipeOffsetX) / 300
-            }}
-          >
-            <div className="absolute top-0 left-0 w-full h-1 bg-green-500/30">
-              <div className="h-full bg-green-400" style={{ width: '100%', animation: 'shrink 4s linear forwards' }} />
-            </div>
-            
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center bg-green-500/10 border border-green-500/30">
-                <span className="material-symbols-outlined text-green-400 text-[26px]">precision_manufacturing</span>
-              </div>
-              <div>
-                <h3 className="text-green-400 font-black text-lg tracking-widest mb-1 font-orbitron">{infoCard.word}</h3>
-                <p className="text-white/80 text-sm leading-relaxed">{infoCard.meaning}</p>
-              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Toast */}
-      {feedback && (
-        <div key={feedback.id} className="toast-container z-50">
-          <div className={`toast ${feedback.type === 'correct' ? 'correct' : feedback.type === 'wrong' ? 'wrong' : 'exists'}`}>
-            {feedback.text}
+        {/* Toast */}
+        {feedback && (
+          <div key={feedback.id} className="toast-container z-50">
+            <div className={`toast ${feedback.type === 'correct' ? 'correct' : feedback.type === 'wrong' ? 'wrong' : 'exists'}`}>
+              {feedback.text}
+            </div>
           </div>
-        </div>
-      )}
-    </div>
-  );
+        )}
+      </div>
+    );
   }
+
 
   /* ========== LEVEL COMPLETE SCREEN ========== */
   if (internalState === 'levelComplete') {
-    const accuracy = Math.round((levelData.words.length / (levelData.words.length + mistakeCount)) * 100) || 0;
-    const timeSpent = Math.round((Date.now() - levelStartTime) / 1000);
-
     return (
-      <LevelComplete 
+      <LevelComplete
         level={levelIndex + 1}
-        wordsFoundCount={foundWords?.length || 0}
-        totalWords={levelData?.words?.length || 0}
-        timeSpent={timeSpent || 0}
-        accuracy={accuracy || 0}
-        levelData={levelData} 
-        onNextLevel={advanceLevel} 
+        station={getStationForLevel(levelIndex)}
+        summary={levelSummary}
+        mistakes={mistakeCount}
+        meanings={WORD_MEANINGS}
+        onNextLevel={advanceLevel}
         onRetry={() => {
           loadLevel(levelIndex);
           setInternalState('playing');
-          const wordCount = levelDataRef.current?.words?.length || 4;
-          timerRef.current?.startTimer(getTimeForLevel(levelIndex, wordCount));
         }}
         onHome={() => { stopTimer(); setScreen('home'); }}
       />

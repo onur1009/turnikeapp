@@ -104,6 +104,22 @@ export const getStationData = (globalStationIndex) => {
   };
 };
 
+// Seviye -> durak eşlemesi. Oyun ekranı, ana menü, seviye sonu ve harita aynı kaynağı kullanır.
+export const getStationForLevel = (levelIndex) => {
+  const stationIndex = Math.floor(levelIndex / LEVELS_PER_STATION);
+  const station = getStationData(stationIndex);
+  const next = getStationData(stationIndex + 1);
+  return {
+    ...station,
+    stationIndex,
+    leg: (levelIndex % LEVELS_PER_STATION) + 1, // Duraktaki bölüm (1-5)
+    legsPerStation: LEVELS_PER_STATION,
+    isLastLeg: (levelIndex % LEVELS_PER_STATION) === LEVELS_PER_STATION - 1,
+    next,
+    isLineChange: next.id !== station.id
+  };
+};
+
 // Layout hesaplaması için (X koordinatı zigzag yapar)
 export const getStationXPosition = (globalStationIndex) => {
   const cycle = globalStationIndex % 20; // 20 istasyonda bir tam zikzak yapar

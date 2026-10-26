@@ -7,6 +7,7 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
   const [isSwiping, setIsSwiping] = useState(false);
   const [currentMousePos, setCurrentMousePos] = useState(null);
   const [nodePositions, setNodePositions] = useState([]);
+  const [wheelScale, setWheelScale] = useState(1); // Küçük ekranda çark daralınca harfler de küçülür
   const [isShuffling, setIsShuffling] = useState(false);
   const [isWrongAnim, setIsWrongAnim] = useState(false);
   const [isAwaiting, setIsAwaiting] = useState(false);
@@ -85,6 +86,7 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
       };
     });
     setNodePositions(positions);
+    setWheelScale(Math.max(0.72, Math.min(1, Math.min(width, height) / 296)));
   }, [letters]);
 
   const getEventPos = (e) => {
@@ -392,8 +394,8 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
         const isBonus = letters[i] === bonusLetter;
         const isEliminated = eliminatedLetters?.includes(letters[i]);
         const n = letters.length;
-        const nodeSize = n <= 5 ? 72 : n === 6 ? 62 : n === 7 ? 54 : 46;
-        const fontSize = n <= 5 ? 22 : n === 6 ? 20 : n === 7 ? 18 : 16;
+        const nodeSize = Math.round((n <= 5 ? 74 : n === 6 ? 64 : n === 7 ? 56 : 48) * wheelScale);
+        const fontSize = Math.round((n <= 5 ? 26 : n === 6 ? 24 : n === 7 ? 21 : 19) * Math.max(0.85, wheelScale));
         const half = nodeSize / 2;
         return (
           <div

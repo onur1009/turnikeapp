@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useGameStore } from '../store/gameStore';
 import { useTranslation } from '../utils/i18n';
 
+const SHOW_STORE_FEATURES = false;
+
 const CARD_COLORS = [
   { id: '#1d4ed8', name: 'Mavi', nameEn: 'Blue' },
   { id: '#dc2626', name: 'Kırmızı', nameEn: 'Red' },
@@ -108,7 +110,9 @@ const AkbilScreen = ({ onBack }) => {
           </div>
         )}
 
-        {/* Action Buttons */}
+        {/* Reklam, bakiye yükleme ve işlem geçmişi gerçek servislere bağlanana kadar gizli:
+            yükleme ödeme almadan bakiye ekliyordu, geçmiş sabit örnek veriydi */}
+        {SHOW_STORE_FEATURES && (
         <div className="flex flex-col gap-3">
           {/* Reklam İzle */}
           <button 
@@ -159,6 +163,7 @@ const AkbilScreen = ({ onBack }) => {
             {t('history')}
           </button>
         </div>
+        )}
 
         {/* History Modal */}
         {showHistory && (

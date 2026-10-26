@@ -93,6 +93,29 @@ export const translations = {
     // Hint Maliyetleri
     hint_cost_word: 'İpucu (75₺)',
     hint_cost_letter: 'Harf (25₺)',
+
+    // Yolculuk (v1.4 yeniden tasarım)
+    continue_journey: 'DEVAM ET',
+    level_short: 'SEVİYE',
+    next_stop: 'SIRADAKİ DURAK',
+    leg: 'Bölüm',
+    express: 'EKSPRES',
+    express_over: 'Normal sefer · süre baskısı yok',
+    express_bonus: 'Ekspres bonusu',
+    word_points: 'Kelime puanı',
+    perfect_bonus: 'Kusursuz sefer',
+    arrived_at: 'durağına vardın',
+    next_station: 'Sonraki durak',
+    line_change: 'Aktarma: yeni hatta geçiyorsun',
+    learned_terms: 'Bu durakta öğrendiklerin',
+    tutorial_hint: 'Harfleri sırayla kaydırarak kelimeyi yaz',
+    tool_letter: 'Harf',
+    tool_word: 'Kelime',
+    tool_eliminate: 'Ele',
+    words_label: 'kelime',
+    unlocks_at: '{n}. seviyede açılır',
+    collection: 'KOLEKSİYON',
+    vault_short: 'Kasa',
   },
   en: {
     // Menu
@@ -186,6 +209,29 @@ export const translations = {
     // Hint Costs
     hint_cost_word: 'Hint (₺75)',
     hint_cost_letter: 'Letter (₺25)',
+
+    // Journey (v1.4 redesign)
+    continue_journey: 'CONTINUE',
+    level_short: 'LEVEL',
+    next_stop: 'NEXT STOP',
+    leg: 'Leg',
+    express: 'EXPRESS',
+    express_over: 'Regular service · no time pressure',
+    express_bonus: 'Express bonus',
+    word_points: 'Word points',
+    perfect_bonus: 'Flawless trip',
+    arrived_at: 'reached',
+    next_station: 'Next stop',
+    line_change: 'Transfer: switching to a new line',
+    learned_terms: 'Terms you learned here',
+    tutorial_hint: 'Swipe the letters in order to spell the word',
+    tool_letter: 'Letter',
+    tool_word: 'Word',
+    tool_eliminate: 'Remove',
+    words_label: 'words',
+    unlocks_at: 'Unlocks at level {n}',
+    collection: 'COLLECTION',
+    vault_short: 'Vault',
   }
 };
 

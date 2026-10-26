@@ -10,7 +10,8 @@ import AkbilScreen from './AkbilScreen';
 import LostItemsScreen from './LostItemsScreen';
 import DuelsScreen from './DuelsScreen';
 import { useTranslation } from '../utils/i18n';
-import { useGameStore } from '../store/gameStore';
+import { useGameStore, MAX_LIVES } from '../store/gameStore';
+import UsernameModal from './UsernameModal';
 
 export default function NavigationContainer({ 
   screen, setScreen, 
@@ -19,6 +20,7 @@ export default function NavigationContainer({
   const { t } = useTranslation();
   const maxUnlockedLevel = useGameStore(state => state.maxUnlockedLevel);
   const learnedWords = useGameStore(state => state.learnedWords);
+  const username = useGameStore(state => state.username);
 
   if (screen === 'akbil') {
     return (
@@ -40,6 +42,8 @@ export default function NavigationContainer({
     return (
       <div className="game-bg h-screen flex flex-col relative z-10 fade-in overflow-hidden">
         <LeaderboardScreen onBack={() => setScreen('home')} />
+        {/* Kullanıcı adı ilk açılışta değil, liderlik tablosuna girerken sorulur */}
+        {!username && <UsernameModal onCancel={() => setScreen('home')} />}
       </div>
     );
   }
@@ -89,7 +93,7 @@ export default function NavigationContainer({
         <MapScreen 
           currentLevel={maxUnlockedLevel + 1} 
           onLevelSelect={(lvl) => { 
-            useGameStore.setState({ levelIndex: lvl - 1, lives: 3 }); 
+            useGameStore.setState({ levelIndex: lvl - 1, lives: MAX_LIVES }); 
             setScreen('game'); 
           }} 
         />

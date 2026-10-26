@@ -3,6 +3,11 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import { cloudService } from '../utils/supabaseClient';
 // Senkron localStorage kullanılarak state sıfırlanma sorunu giderildi
 
+// Oyunun tek can ve kasa ödülü kaynağı; ekranlar bu sabitleri kullanır
+export const MAX_LIVES = 3;
+export const VAULT_SIZE = 10;
+export const VAULT_REWARD = 1500; // kuruş (₺15)
+
 export const useGameStore = create(
   persist(
     (set, get) => ({
@@ -11,7 +16,7 @@ export const useGameStore = create(
       hints: 0, // İpucu bakiyesi
       levelIndex: 0,
       maxUnlockedLevel: 0,
-      lives: 5,
+      lives: MAX_LIVES,
       gameStatus: 'idle', // 'idle' | 'playing' | 'gameover' | 'levelcomplete'
       learnedWords: [],
       username: '', // Cloud Leaderboard username
@@ -60,7 +65,7 @@ export const useGameStore = create(
       currentVolatilityClass: 'stable',
 
       // --- ACTIONS ---
-      startGame: () => set({ gameStatus: 'playing', lives: 5, combo: 0 }),
+      startGame: () => set({ gameStatus: 'playing', lives: MAX_LIVES, combo: 0 }),
       
       setUsername: (username) => set({ username }),
 
@@ -75,7 +80,7 @@ export const useGameStore = create(
       }),
       
       addLives: (amount) => set((state) => ({ 
-        lives: Math.min(5, state.lives + amount) 
+        lives: Math.min(MAX_LIVES, state.lives + amount) 
       })),
 
       addHints: (amount) => set((state) => ({ 
@@ -133,11 +138,11 @@ export const useGameStore = create(
         
         const newVault = [...state.vaultWords, word];
         // Kasa doldu mu? (10 kelime)
-        if (newVault.length >= 10) {
+        if (newVault.length >= VAULT_SIZE) {
           return {
             vaultWords: [], // Kasayı sıfırla
-            balance: state.balance + 1500, // 15₺ büyük ödül
-            totalBalanceEarned: state.totalBalanceEarned + 1500
+            balance: state.balance + VAULT_REWARD,
+            totalBalanceEarned: state.totalBalanceEarned + VAULT_REWARD
           };
         }
         return { vaultWords: newVault };
@@ -196,7 +201,7 @@ export const useGameStore = create(
       
       resetGame: () => set({ 
         levelIndex: 0, 
-        lives: 5, 
+        lives: MAX_LIVES, 
         gameStatus: 'idle',
         combo: 0 
         // NOT: bakiye, rozetler, istatistikler KORUNUYOR
@@ -254,7 +259,7 @@ export const useGameStore = create(
         balance: 0.0,
         hints: 0,
         levelIndex: 0,
-        lives: 5,
+        lives: MAX_LIVES,
         gameStatus: 'idle',
         combo: 0,
         maxCombo: 0,

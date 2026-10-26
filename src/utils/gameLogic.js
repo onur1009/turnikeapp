@@ -640,22 +640,25 @@ const getPools = (language) => {
   return { techTerms: TECH_TR, validWords: VALID_WORDS_TR, formableCache: FORMABLE_TR };
 };
 
+// Her kök VALID_WORDS içinden en az bir alt kelime üretebilmeli; aksi halde generateLevel
+// TRAMVAY fallback'ine düşer (eski listedeki RAY/HAT/YOL 1. seviyeyi 7 harfli yapıyordu).
+// Değiştirirken: her kök için alt kelime sayısını kontrol et.
 const ONBOARDING_TR = [
-  "RAY", "HAT", "YOL", "DURAK", "PERON", // 1-5
-  "MAKAS", "FREN", "BOJİ", "SİNYAL", "KATENER", // 6-10
-  "OTOBÜS", "SEFER", "GÜZERGAH", "GARAJ", "METROBÜS", // 11-15
-  "VAPUR", "İSKELE", "RIHTIM", "HALAT", "PERVANE", // 16-20
-  "BUSFORUS", "REHBER", "PANORAMİK", "BİLETLEME", "TURROTASI", // 21-25
-  "AKTARMA", "SİSTEM", "KONTAK", "BAKIM", "ULAŞIM" // 26-30
+  "KART", "TREN", "ROTA", "FREN", "YOLCU", // 1-5: 4-5 harf, 1 alt kelime
+  "DURAK", "VAPUR", "METRO", "TÜNEL", "BİLET", // 6-10
+  "MOTOR", "SEFER", "TRAFO", "MAKAS", "TEKNE", // 11-15: 2 alt kelime
+  "LEVENT", "KAPTAN", "KAMYON", "İSKELE", "SİNYAL", // 16-20
+  "BALAST", "KONTAK", "OTOBÜS", "DİNGİL", "ULAŞIM", // 21-25
+  "SİSTEM", "TRAVERS", "TERSANE", "TURNİKE", "TRAMVAY" // 26-30: 7 harf
 ];
 
 const ONBOARDING_EN = [
-  "BUS", "CAB", "CAR", "VAN", "RAIL", // 1-5
-  "TRAIN", "FERRY", "ROUTE", "TRACK", "BRAKE", // 6-10
-  "MOTOR", "DEPOT", "LEVER", "CABIN", "WHEEL", // 11-15
-  "SIGNAL", "TUNNEL", "BRIDGE", "ENGINE", "TICKET", // 16-20
-  "HARBOR", "PISTON", "SWITCH", "BOILER", "TENDER", // 21-25
-  "TRANSIT", "PLATFORM", "TERMINAL", "OVERPASS", "COMMUTER" // 26-30
+  "RAIL", "TRAM", "TUBE", "DOCK", "GATE", // 1-5
+  "TRAIN", "TRACK", "ROUTE", "BRAKE", "CABIN", // 6-10
+  "DEPOT", "MOTOR", "LEVER", "FERRY", "WHEEL", // 11-15
+  "TICKET", "TUNNEL", "SIGNAL", "SWITCH", "ENGINE", // 16-20
+  "BRIDGE", "HARBOR", "TENDER", "PISTON", "BOILER", // 21-25
+  "STATION", "TRANSIT", "PLATFORM", "TERMINAL", "COMMUTER" // 26-30
 ];
 
 // Son 100 seviyede kullanılan kökleri takip eder (tekrarı önler)
