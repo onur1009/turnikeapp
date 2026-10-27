@@ -31,7 +31,7 @@ const BadgesScreen = ({ onBack }) => {
 
       <div className="text-center mb-6">
         <p className="text-white/40 text-sm font-medium mb-1">{t('earned_badges')}</p>
-        <div className="text-3xl font-black text-white" style={{ fontFamily: "'Orbitron', monospace" }}>
+        <div className="text-3xl font-black text-white">
           {unlockedBadges.length} <span className="text-white/20 text-xl">/ {BADGES.length}</span>
         </div>
       </div>

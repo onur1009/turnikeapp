@@ -93,7 +93,7 @@ const BonusLockers = ({ onComplete }) => {
         <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-3" style={{ background: 'rgba(245, 158, 11, 0.15)', border: '2px solid rgba(245, 158, 11, 0.4)' }}>
           <span aria-hidden="true" className="material-symbols-outlined text-[32px] text-amber-500">luggage</span>
         </div>
-        <h1 className="text-white text-2xl font-black mb-1 uppercase tracking-widest" style={{ fontFamily: "'Orbitron', monospace" }}>Kayıp Eşya Bürosu</h1>
+        <h1 className="text-white text-2xl font-black mb-1 uppercase tracking-widest">Kayıp Eşya Bürosu</h1>
         <p className="text-white/60 text-sm font-semibold max-w-xs mx-auto">İETT ve Metro'da unutulan eşyalar arasında şansını dene!</p>
       </div>
 

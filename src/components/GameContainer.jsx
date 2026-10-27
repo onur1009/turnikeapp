@@ -704,7 +704,7 @@ export default function GameContainer({
           </div>
         </div>
 
-        <h2 className="text-white text-2xl font-black tracking-[6px] mb-1" style={{ fontFamily: "'Orbitron', monospace" }}>
+        <h2 className="text-white text-2xl font-black tracking-[6px] mb-1">
           {t('word_journey')}
         </h2>
         <p className="text-white/30 text-[11px] tracking-[4px] mb-6 font-bold">TURNİKE</p>
@@ -712,7 +712,7 @@ export default function GameContainer({
         <div className="relative w-56">
           <div className="w-full h-2 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.1)' }}>
             <div className="h-full rounded-full transition-all duration-150"
-              style={{ width: `${0}%`, background: 'linear-gradient(90deg, #22c55e, #16a34a)', boxShadow: '0 0 10px rgba(34,197,94,0.5)' }} />
+              style={{ width: `${0}%`, background: 'linear-gradient(90deg, #22c55e, #16a34a)' }} />
           </div>
           <p className="text-center text-white/40 text-[11px] font-bold mt-2 tracking-widest">{0}%</p>
         </div>
@@ -840,7 +840,7 @@ export default function GameContainer({
     };
 
     return (
-      <div className={`game-bg h-full w-screen overflow-hidden flex flex-col relative z-10 fade-in ${shake ? 'animate-shake' : ''}`}>
+      <div className={`game-bg scenic h-full w-screen overflow-hidden flex flex-col relative z-10 fade-in ${shake ? 'animate-shake' : ''}`} style={{ '--accent': station.color }}>
         {showBonus && (
           <div className="absolute inset-0 z-[100] flex flex-col fade-in" style={{ backgroundColor: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(8px)' }}>
             <BonusLockers onComplete={() => { setShowBonus(false); setInternalState('levelComplete'); }} />
@@ -849,7 +849,7 @@ export default function GameContainer({
         {showVaultAnimation && (
           <div className="absolute inset-0 z-[110] flex flex-col items-center justify-center bg-black/75 backdrop-blur-sm fade-in">
             <div className="scale-in flex flex-col items-center p-6 rounded-3xl border border-green-500/30 text-center"
-                 style={{ background: 'linear-gradient(135deg, #0f2d1a, #07170d)', boxShadow: '0 0 40px rgba(34,197,94,0.4)' }}>
+                 style={{ background: '#10263f', boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}>
               <span aria-hidden="true" className="material-symbols-outlined text-green-400 text-6xl animate-bounce" style={{ fontVariationSettings: "'FILL' 1" }}>lock_open</span>
               <h2 className="text-white text-2xl font-black tracking-widest mt-4">KASA PATLATILDI!</h2>
               <p className="text-green-400/80 font-bold text-lg mt-2">+{formatKurus(VAULT_REWARD)} İstanbulkart Bakiyesi</p>
@@ -931,7 +931,7 @@ export default function GameContainer({
 
         {lifeLossAnims.map(animId => (
           <div key={animId} className="absolute inset-0 flex items-center justify-center pointer-events-none z-[100] life-loss-float">
-            <div className="flex items-center gap-2 text-red-500 font-black text-5xl" style={{ textShadow: '0 0 20px rgba(239,68,68,1)' }}>
+            <div className="flex items-center gap-2 text-red-500 font-black text-5xl" style={{ textShadow: '0 2px 6px rgba(0,0,0,0.4)' }}>
               -1 <span aria-hidden="true" className="material-symbols-outlined text-[48px]" style={{ fontVariationSettings: "'FILL' 1" }}>favorite</span>
             </div>
           </div>

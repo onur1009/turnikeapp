@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect, useState } from 'react';
 
-const Grid = ({ words, foundWords, hintedLetters = [], onIntersectionFound }) => {
+const Grid = ({ words, foundWords, hintedLetters = [], onIntersectionFound, accent }) => {
   // Izgara hem genişliğe hem yüksekliğe sığmalı (küçük ekranlarda çark ile çakışmasın)
   const containerRef = React.useRef(null);
   const [containerSize, setContainerSize] = useState({ w: window.innerWidth, h: 320 });
@@ -63,10 +63,11 @@ const Grid = ({ words, foundWords, hintedLetters = [], onIntersectionFound }) =>
         cellWordCount.set(key, (cellWordCount.get(key) || 0) + 1);
 
         if (!map.has(key)) {
-          map.set(key, { char: wordObj.word[i], isRevealed: isWordFound || isHinted, wordNames: [wordObj.word] });
+          map.set(key, { char: wordObj.word[i], isRevealed: isWordFound || isHinted, isFound: isWordFound, wordNames: [wordObj.word] });
         } else {
           const cell = map.get(key);
           if (isWordFound || isHinted) cell.isRevealed = true;
+          if (isWordFound) cell.isFound = true;
           if (!cell.wordNames.includes(wordObj.word)) cell.wordNames.push(wordObj.word);
         }
       }
@@ -104,7 +105,7 @@ const Grid = ({ words, foundWords, hintedLetters = [], onIntersectionFound }) =>
     });
   }, [foundWords, intersections, gridMap, onIntersectionFound]);
 
-  const GAP = 6;
+  const GAP = 5;
   const MAX_CELL = 58;
   const fitW = bounds ? Math.floor((containerSize.w - 16 - (bounds.cols - 1) * GAP) / bounds.cols) : MAX_CELL;
   const fitH = bounds ? Math.floor((containerSize.h - 8 - (bounds.rows - 1) * GAP) / bounds.rows) : MAX_CELL;
@@ -123,7 +124,6 @@ const Grid = ({ words, foundWords, hintedLetters = [], onIntersectionFound }) =>
     const x = parseInt(sx) - bounds.minX;
     const y = parseInt(sy) - bounds.minY;
     const delay = cellIndex * 0.05;
-    const isIntersection = intersections.has(key);
     const hasConfetti = confettiCells.some(c => c.x === parseInt(sx) && c.y === parseInt(sy));
     cellIndex++;
 
@@ -141,39 +141,20 @@ const Grid = ({ words, foundWords, hintedLetters = [], onIntersectionFound }) =>
       >
         {cellData.isRevealed ? (
           <div
-            className={`grid-cell-found w-full h-full flex items-center justify-center ${hasConfetti ? 'cell-confetti' : ''}`}
-            style={{
-              fontSize,
-              animationDelay: `${delay}s`,
-              ...(isIntersection ? {
-                border: '2px solid rgba(59,130,246,0.6)',
-                boxShadow: '0 0 12px rgba(59,130,246,0.3), inset 0 -4px 0px rgba(0,0,0,0.15), 0 6px 12px rgba(0,0,0,0.25)'
-              } : {})
-            }}
+            className={`${cellData.isFound ? 'grid-cell-found' : 'grid-cell-hinted'} w-full h-full flex items-center justify-center ${hasConfetti ? 'cell-confetti' : ''}`}
+            style={{ fontSize, animationDelay: `${delay}s` }}
           >
             {cellData.char}
-            {isIntersection && (
-              <div className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-blue-500 border border-white"
-                style={{ boxShadow: '0 0 6px rgba(59,130,246,0.6)' }}
-              />
-            )}
           </div>
         ) : (
-          <div className="grid-cell-empty w-full h-full relative">
-            {/* Sinyal Lambası: kesişim noktalarında kırmızı, normal hücrelerde gizli */}
-            {isIntersection && (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-2.5 h-2.5 rounded-full signal-red" />
-              </div>
-            )}
-          </div>
+          <div className="grid-cell-empty w-full h-full" />
         )}
       </div>
     );
   });
 
   return (
-    <div ref={containerRef} className="w-full h-full flex items-center justify-center">
+    <div ref={containerRef} className="w-full h-full flex items-center justify-center" style={accent ? { '--accent': accent } : undefined}>
       <div
         className="relative"
         style={{

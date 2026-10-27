@@ -23,13 +23,13 @@ const VaultScreen = ({ onBack }) => {
           style={{
             background: 'radial-gradient(circle at 30% 30%, #153315, #081108)',
             borderColor: currentCount === maxCapacity ? '#4ade80' : '#22c55e',
-            boxShadow: 'inset 0 0 40px rgba(0,0,0,0.8), 0 0 30px rgba(34,197,94,0.3)',
+            boxShadow: 'inset 0 0 40px rgba(0,0,0,0.8)',
           }}
         >
           <span aria-hidden="true" className="material-symbols-outlined text-[80px] mb-2" style={{ color: '#4ade80', fontVariationSettings: "'FILL' 1" }}>
             account_balance_wallet
           </span>
-          <div className="text-2xl font-black text-white" style={{ fontFamily: "'Orbitron', monospace" }}>
+          <div className="text-2xl font-black text-white">
             {currentCount} / {maxCapacity}
           </div>
         </div>

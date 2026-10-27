@@ -33,13 +33,11 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
   };
 
   return (
-    <div className="game-bg h-full flex flex-col relative z-10 fade-in overflow-hidden">
+    <div className="game-bg scenic h-full flex flex-col relative z-10 fade-in overflow-hidden">
       <style>{`
         @keyframes ybsMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         @keyframes ybsLedBlink { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
         @keyframes homeFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-        .ybs-display { background: #0a0a0a; border: 1.5px solid var(--led); border-radius: 12px; font-family: 'Orbitron', monospace; color: var(--led); overflow: hidden; }
-        .ybs-led { text-shadow: 0 0 8px #ff8c00, 0 0 16px #ff6600; }
         .ybs-marquee-inner { display: inline-block; white-space: nowrap; animation: ybsMarquee 14s linear infinite; }
       `}</style>
 
@@ -65,7 +63,7 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
       {/* YBS panosu: gerçek hat ve sıradaki durak */}
       <div className="px-4 shrink-0">
         <div className="ybs-display">
-          <div className="flex items-center justify-between px-3 py-2" style={{ borderBottom: '1px solid rgba(255,140,0,0.25)' }}>
+          <div className="flex items-center justify-between px-3 py-2" style={{ borderBottom: '1px solid rgba(255,255,255,0.12)', borderLeft: `4px solid ${station.color}` }}>
             <div className="flex items-center gap-2 min-w-0">
               <span className="line-badge" style={{ background: station.color, fontFamily: 'inherit' }}>{station.id}</span>
               <span className="ybs-led text-[11px] font-black tracking-[1px] truncate">{station.name.toLocaleUpperCase('tr-TR')}</span>
@@ -76,7 +74,7 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
             </div>
           </div>
           <div className="px-3 pt-2 pb-1">
-            <div className="text-[10px] tracking-[3px] mb-1" style={{ color: 'rgba(255,140,0,0.6)' }}>{t('next_stop')}</div>
+            <div className="text-[10px] tracking-[3px] mb-1" style={{ color: 'rgba(255,255,255,0.55)' }}>{t('next_stop')}</div>
             <div className="overflow-hidden whitespace-nowrap">
               <div className="ybs-marquee-inner">
                 {[0, 1].map(k => (
@@ -91,7 +89,7 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
           <div className="flex items-center gap-2 px-3 pb-2.5 pt-1">
             {Array.from({ length: station.legsPerStation }, (_, i) => (
               <span key={i} className="h-1.5 flex-1 rounded-full" style={{
-                background: i < station.leg - 1 ? 'var(--led)' : i === station.leg - 1 ? 'rgba(255,140,0,0.55)' : 'rgba(255,140,0,0.15)'
+                background: i < station.leg - 1 ? station.color : i === station.leg - 1 ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.15)'
               }} />
             ))}
           </div>
@@ -102,7 +100,7 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
       <div className="flex-1 flex flex-col items-center justify-center px-6 min-h-0">
         <div className="relative w-24 h-24 mb-5 rounded-full flex items-center justify-center"
           style={{ animation: 'homeFloat 3s ease-in-out infinite', background: `radial-gradient(circle, ${station.color}26, transparent 70%)`, border: `1px solid ${station.color}55` }}>
-          <span aria-hidden="true" className="material-symbols-outlined text-[52px]" style={{ color: station.color, fontVariationSettings: "'FILL' 1", filter: `drop-shadow(0 0 12px ${station.color}88)` }}>{station.icon}</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-[52px]" style={{ color: station.color, fontVariationSettings: "'FILL' 1" }}>{station.icon}</span>
         </div>
         <p className="text-white/60 text-[14px] font-semibold mb-5 text-center">{t('subtitle')}</p>
         <button onClick={onPlay} className="play-btn flex items-center gap-3">

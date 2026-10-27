@@ -194,7 +194,7 @@ function App() {
           </div>
         </div>
 
-        <h2 className="text-white text-2xl font-black tracking-[6px] mb-1" style={{ fontFamily: "'Orbitron', monospace" }}>
+        <h2 className="text-white text-2xl font-black tracking-[6px] mb-1">
           {t('word_journey')}
         </h2>
         <p className="text-white/30 text-[11px] tracking-[4px] mb-6 font-bold">TURNİKE</p>
@@ -217,7 +217,7 @@ function App() {
         <div className="w-24 h-24 rounded-full flex items-center justify-center pulse-soft mb-6" style={{ background: 'linear-gradient(135deg, #1a3a1a, #0d2010)', border: '2px solid rgba(34,197,94,0.6)' }}>
           <span aria-hidden="true" className="material-symbols-outlined text-[52px]" style={{ color: '#4ade80' }}>train</span>
         </div>
-        <h1 className="text-white text-2xl font-black tracking-widest uppercase mb-4" style={{ fontFamily: "'Orbitron', monospace" }}>Turnike</h1>
+        <h1 className="text-white text-2xl font-black tracking-widest uppercase mb-4">Turnike</h1>
         <div className="flex gap-2">
           <div className="w-2 h-2 rounded-full bg-green-500 animate-bounce" style={{ animationDelay: '0s' }} />
           <div className="w-2 h-2 rounded-full bg-blue-500 animate-bounce" style={{ animationDelay: '0.2s' }} />

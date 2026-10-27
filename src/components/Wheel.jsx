@@ -286,16 +286,14 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
         }}
         className="absolute top-1/2 left-1/2 w-[52px] h-[52px] rounded-full flex items-center justify-center z-10"
         style={{
-          background: 'rgba(255,255,255,0.25)',
-          border: '2px solid rgba(255,255,255,0.4)',
-          backdropFilter: 'blur(8px)',
+          background: 'rgba(16,38,63,0.08)',
           transition: 'transform 0.4s cubic-bezier(0.34,1.56,0.64,1)',
           transform: isShuffling
             ? 'translate(-50%,-50%) rotate(180deg) scale(0.5)'
             : 'translate(-50%,-50%) rotate(0deg) scale(1)'
         }}
       >
-        <span aria-hidden="true" className="material-symbols-outlined text-white text-[26px]">sync</span>
+        <span aria-hidden="true" className="material-symbols-outlined text-[26px]" style={{ color: 'rgba(16,38,63,0.6)' }}>sync</span>
       </button>
 
       {/* Word preview */}
@@ -303,18 +301,17 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
         <div
           className={`absolute -top-14 left-1/2 -translate-x-1/2 z-50 pointer-events-none transition-all duration-300 ${isAwaiting ? 'animate-pulse' : ''}`}
           style={{
-            background: isAwaiting ? 'rgba(239, 108, 0, 0.95)' : 'rgba(255,255,255,0.92)',
+            background: isAwaiting ? '#d97706' : 'var(--accent, #2563eb)',
             backdropFilter: 'blur(12px)',
             borderRadius: 50,
             padding: '8px 24px',
-            boxShadow: isAwaiting ? '0 0 20px rgba(239, 108, 0, 0.6)' : '0 6px 24px rgba(0,0,0,0.15)',
-            border: isAwaiting ? '1.5px solid #ff8c00' : '1px solid rgba(255,255,255,0.8)',
+            boxShadow: '0 6px 18px rgba(0,0,0,0.2)',
             minWidth: 100,
             textAlign: 'center'
           }}
         >
           <span style={{
-            color: isAwaiting ? '#ffffff' : '#1e293b',
+            color: '#ffffff',
             fontWeight: 800,
             fontSize: 22,
             letterSpacing: 6,
@@ -329,20 +326,18 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
         <polyline
           points={polylinePoints}
           fill="none"
-          stroke={isWrongAnim ? '#ef4444' : '#fbbf24'}
-          strokeWidth="7"
+          strokeWidth="8"
           strokeLinecap="round"
           strokeLinejoin="round"
-          style={{ filter: `drop-shadow(0 3px 8px ${isWrongAnim ? 'rgba(239,68,68,0.4)' : 'rgba(251,191,36,0.4)'})`, transition: 'stroke 0.2s' }}
+          style={{ stroke: isWrongAnim ? '#ef4444' : 'var(--accent, #2563eb)', transition: 'stroke 0.2s' }}
         />
         {lineToCursor && !isWrongAnim && (
           <polyline
             points={lineToCursor}
             fill="none"
-            stroke="#fbbf24"
-            strokeWidth="7"
+            strokeWidth="8"
             strokeLinecap="round"
-            style={{ filter: 'drop-shadow(0 3px 8px rgba(251,191,36,0.4))' }}
+            style={{ stroke: 'var(--accent, #2563eb)' }}
           />
         )}
         
@@ -365,7 +360,7 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
                    <path
                      d={pathString}
                      fill="none"
-                     stroke="#ffffff"
+                     stroke="#10263f"
                      strokeWidth="8"
                      strokeLinecap="round"
                      strokeLinejoin="round"
@@ -377,7 +372,7 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
                      cy={nodePositions[targetIndices[0]].y}
                      r="24"
                      fill="none"
-                     stroke="#ffffff"
+                     stroke="#10263f"
                      strokeWidth="4"
                      className="animate-ping"
                    />
@@ -418,9 +413,9 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
               opacity: isShuffling ? 0 : (isEliminated ? 0.3 : 1),
               pointerEvents: isEliminated ? 'none' : 'auto',
               filter: isEliminated ? 'grayscale(100%)' : 'none',
-              border: isBonus && !isSelected ? '4px solid #fbbf24' : (isSelected && isWrongAnim ? '4px solid #ef4444' : undefined),
-              boxShadow: isBonus && !isSelected ? '0 0 24px rgba(251,191,36,0.8), inset 0 0 10px rgba(251,191,36,0.4)' : (isSelected && isWrongAnim ? '0 0 20px rgba(239,68,68,0.6)' : undefined),
-              color: isBonus && !isSelected ? '#d97706' : (isSelected && isWrongAnim ? '#ef4444' : undefined)
+              border: isBonus && !isSelected ? '3px solid #f59e0b' : undefined,
+              background: isSelected && isWrongAnim ? '#ef4444' : undefined,
+              color: isBonus && !isSelected ? '#b45309' : undefined
             }}
           >
             {letters[i]}

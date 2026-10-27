@@ -82,7 +82,7 @@ const DailySpinScreen = ({ onComplete }) => {
 
       <div className="relative z-10 flex flex-col items-center text-center mb-10">
         <span aria-hidden="true" className="material-symbols-outlined text-[48px] text-green-400 mb-2 drop-shadow-[0_0_15px_rgba(74,222,128,0.8)]" style={{ fontVariationSettings: "'FILL' 1" }}>change_circle</span>
-        <h1 className="text-white text-4xl font-black tracking-[8px] uppercase mb-1" style={{ fontFamily: "'Orbitron', monospace", textShadow: '0 0 20px rgba(255,255,255,0.5)' }}>
+        <h1 className="text-white text-4xl font-black tracking-[8px] uppercase mb-1" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.35)' }}>
           TURNİKE ÇARKI
         </h1>
         <p className="text-white/70 font-medium tracking-widest text-sm uppercase">Günün Şanslı Seferini Çek</p>
