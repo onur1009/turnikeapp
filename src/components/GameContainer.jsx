@@ -18,6 +18,7 @@ import { calculateWordScore, calculateLevelCompletionBonus } from '../utils/scor
 import { computeRawSignal, updateEwmvAndZScore, getAlpha, detectVolatility } from '../utils/dda';
 import { getStationForLevel } from '../utils/transitNetwork';
 import VehicleSprite from './VehicleSprite';
+import SceneBackground from './SceneBackground';
 import { VAULT_SIZE, VAULT_REWARD, getMaxLives, getHintCosts, getEarningsMultiplier } from '../store/gameStore';
 import { formatKurus } from '../utils/format';
 import '../index.css';
@@ -25,8 +26,8 @@ import '../index.css';
 const SHOW_AD_REWARDS = false;
 
 // Çarkın altındaki güç düğmesi: ikon solda, etiket ve fiyat sağda (alçak, ızgaraya yer bırakır)
-const ToolButton = ({ icon, label, price, affordable, onClick, accent = '#ffffff' }) => (
-  <button onClick={onClick} className={`tool-btn ${affordable ? '' : 'opacity-45'}`}>
+const ToolButton = ({ icon, label, price, affordable, onClick, accent = '#ffffff', active = false }) => (
+  <button onClick={onClick} aria-pressed={active} className={`tool-btn ${active ? 'is-active' : ''} ${affordable || active ? '' : 'opacity-45'}`}>
     <span aria-hidden="true" className="material-symbols-outlined text-[20px]" style={{ color: accent, fontVariationSettings: "'FILL' 1" }}>{icon}</span>
     <span className="flex flex-col items-start gap-0.5">
       <span className="text-[12px] font-bold text-white/90 leading-none">{label}</span>
@@ -99,6 +100,8 @@ export default function GameContainer({
   const [showDailySpin, setShowDailySpin] = useState(false);
   const [showTutorial, setShowTutorial] = useState(false);
   const [hintedLetters, setHintedLetters] = useState([]);
+  // "Nokta" ipucu: oyuncu açılacak kutuyu kendisi seçer (WoW'daki hedef ipucu)
+  const [pickMode, setPickMode] = useState(false);
   const [isAdLoading, setIsAdLoading] = useState(false);
   const [goldLetter, setGoldLetter] = useState(null);
   
@@ -220,19 +223,11 @@ export default function GameContainer({
     const hue = Math.round(pct * 120);
     
     if (trainRef.current) {
-      trainRef.current.style.left = `calc(${pct * 100}% - 30px)`;
-      // SVG filter'ı parent div'den kontrol et
-      const svg = trainRef.current.querySelector('svg');
-      if (svg) {
-        svg.style.filter = pct <= 0.25 
-          ? 'drop-shadow(0 0 4px rgba(239,68,68,0.9))' 
-          : `drop-shadow(0 0 3px hsl(${hue}, 84%, 55%))`;
-      }
+      trainRef.current.style.left = `calc(${pct * 100}% - 36px)`;
     }
     if (barRef.current) {
       barRef.current.style.width = `${pct * 100}%`;
       barRef.current.style.background = `hsl(${hue}, 84%, 55%)`;
-      barRef.current.style.boxShadow = `0 0 6px hsl(${hue}, 84%, 55%)`;
     }
   }, []);
   
@@ -266,6 +261,7 @@ export default function GameContainer({
     useGameStore.getState().nextLevel();
     setFoundWords([]);
     setHintedLetters([]);
+    setPickMode(false);
     setMistakeCount(0);
     setInternalState('playing');
   };
@@ -302,6 +298,7 @@ export default function GameContainer({
     levelDataRef.current = data; // Timer callback için güncel referans
     setFoundWords([]);
     setHintedLetters([]);
+    setPickMode(false);
     setMistakeCount(0);
     setLevelStartTime(Date.now());
     setIsExpressOver(false);
@@ -382,7 +379,9 @@ export default function GameContainer({
     // Gizemli Paket seti: seviye kazancının tamamı 1,5x (kelime puanı zaten eklendi, farkı burada verilir)
     const multiplier = getEarningsMultiplier(completedSets);
     const setBonus = Math.round((store.levelSessionScore + perfectBonus + expressBonus) * (multiplier - 1));
-    addBalance(perfectBonus + expressBonus + setBonus);
+    // Durağın 5. ayağı = bölüm sonu: WoW'daki bölüm hediyesi gibi tek seferlik ödül
+    const stationBonus = getStationForLevel(levelIndex).isLastLeg ? 100 : 0;
+    addBalance(perfectBonus + expressBonus + setBonus + stationBonus);
 
     // DDA: başarı sinyali (bitirme süresi / ekspres süresi)
     const timeLimit = totalTimeMsRef.current / 1000;
@@ -403,6 +402,7 @@ export default function GameContainer({
       expressBonus,
       perfectBonus,
       setBonus,
+      stationBonus,
       words: wordsFound,
       timeSpent: Math.round((Date.now() - levelStartTime) / 1000)
     });
@@ -624,6 +624,26 @@ export default function GameContainer({
     }
   };
 
+  const handleTargetHint = () => {
+    if (pickMode) { setPickMode(false); return; }
+    if (hints > 0 || balance >= hintCosts.target) setPickMode(true);
+    else {
+      showFeedback('wrong', t('balance_low'));
+      if (hapticEnabled) Haptics.notification({ type: NotificationType.Warning }).catch(()=>{});
+    }
+  };
+
+  const handleCellPick = (cell) => {
+    setPickMode(false);
+    if (hintedLetters.some(hl => hl.x === cell.x && hl.y === cell.y)) return;
+    if (hints > 0) addHints(-1);
+    else if (balance >= hintCosts.target) addBalance(-hintCosts.target);
+    else return;
+    setHintedLetters(prev => [...prev, cell]);
+    if (soundEnabled) playTurnike();
+    if (hapticEnabled) Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
+  };
+
   const handleHint = () => {
     const hintCost = hintCosts.word;
 
@@ -841,6 +861,7 @@ export default function GameContainer({
 
     return (
       <div className={`game-bg scenic h-full w-screen overflow-hidden flex flex-col relative z-10 fade-in ${shake ? 'animate-shake' : ''}`} style={{ '--accent': station.color }}>
+        <SceneBackground station={station} />
         {showBonus && (
           <div className="absolute inset-0 z-[100] flex flex-col fade-in" style={{ backgroundColor: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(8px)' }}>
             <BonusLockers onComplete={() => { setShowBonus(false); setInternalState('levelComplete'); }} />
@@ -904,7 +925,10 @@ export default function GameContainer({
             {combo > 1 && <span className="ml-1 text-[12px] font-black text-orange-400">🔥x{combo}</span>}
           </div>
           <div className="status-chip" title={t('vault')}>
-            <span aria-hidden="true" className="material-symbols-outlined text-[15px] text-green-400" style={{ fontVariationSettings: "'FILL' 1" }}>savings</span>
+            {/* Ekstra kelime kavanozu: ızgarada olmayan geçerli kelimelerle dolar */}
+            <span aria-hidden="true" className="relative w-3 h-4 rounded-[3px] border-2 border-white/70 overflow-hidden">
+              <span className="absolute inset-x-0 bottom-0 bg-amber-400 transition-all duration-500" style={{ height: `${(vaultCount / VAULT_SIZE) * 100}%` }} />
+            </span>
             <span className="tabular-nums">{vaultCount}/{VAULT_SIZE}</span>
           </div>
         </div>
@@ -918,12 +942,12 @@ export default function GameContainer({
             {!isExpressOver && <span className="text-white/60 tabular-nums">{timeLeft}s</span>}
           </div>
           {!isExpressOver && (
-            <div className="relative h-[22px] overflow-hidden">
-              <div className="absolute left-0 right-0 bottom-[4px] h-[5px] rounded-full bg-white/10">
+            <div className="relative h-[28px] overflow-hidden">
+              <div className="absolute left-0 right-0 bottom-[1px] h-[4px] rounded-full bg-white/15">
                 <div ref={barRef} className="h-full rounded-full" style={{ width: '100%', background: 'hsl(120, 84%, 55%)' }} />
               </div>
-              <div ref={trainRef} className="absolute bottom-0 pointer-events-none" style={{ left: 'calc(100% - 30px)', width: 60, height: 16 }}>
-                <VehicleSprite mode={station.mode} color={station.color} />
+              <div ref={trainRef} className="absolute bottom-0 pointer-events-none" style={{ left: 'calc(100% - 36px)', width: 72, height: 21 }}>
+                <VehicleSprite mode={station.mode} color={station.color} width={72} night={station.leg === 5} />
               </div>
             </div>
           )}
@@ -943,13 +967,20 @@ export default function GameContainer({
             words={levelData.words}
             foundWords={foundWords}
             hintedLetters={hintedLetters}
+            pickMode={pickMode}
+            onCellPick={handleCellPick}
             onIntersectionFound={handleIntersectionFound}
           />
         </main>
 
         {/* Çark ve araçlar */}
         <div className="w-full shrink-0 flex flex-col items-center pb-5 relative z-20">
-          {isTutorial && (
+          {pickMode && (
+            <p className="tutorial-hint mb-2">
+              <span aria-hidden="true" className="material-symbols-outlined text-[16px]">ads_click</span>{t('pick_cell')}
+            </p>
+          )}
+          {isTutorial && !pickMode && (
             <p className="tutorial-hint mb-2">
               <span aria-hidden="true" className="material-symbols-outlined text-[16px]">swipe</span>{t('tutorial_hint')}
             </p>
@@ -969,13 +1000,15 @@ export default function GameContainer({
               />
             </div>
           </div>
-          <div className="flex gap-2 mt-3">
+          <div className="grid grid-cols-4 gap-1.5 mt-3 w-full max-w-[400px] px-3">
             <ToolButton icon="spellcheck" label={t('tool_letter')} price={hints > 0 ? `${hints} ✦` : formatKurus(hintCosts.letter)}
               affordable={hints > 0 || balance >= hintCosts.letter} onClick={handleLetterHint} />
             <ToolButton icon="lightbulb" label={t('tool_word')} price={hints > 0 ? `${hints} ✦` : formatKurus(hintCosts.word)}
               affordable={hints > 0 || balance >= hintCosts.word} onClick={handleHint} accent="#fbbf24" />
             <ToolButton icon="menu_book" label={t('tool_term')} price={termRevealed ? '✓' : formatKurus(hintCosts.term)}
               affordable={termRevealed || balance >= hintCosts.term} onClick={handleTermHint} accent="#60a5fa" />
+            <ToolButton icon="ads_click" label={t('tool_target')} price={hints > 0 ? `${hints} ✦` : formatKurus(hintCosts.target)}
+              affordable={hints > 0 || balance >= hintCosts.target} onClick={handleTargetHint} accent="#f472b6" active={pickMode} />
           </div>
         </div>
 

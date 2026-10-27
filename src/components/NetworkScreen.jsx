@@ -1,31 +1,10 @@
 import React from 'react';
-import { LINES, STATION_NAMES, MODE_META, MODE_GROUPS, LEVELS_PER_STATION } from '../utils/transitNetwork';
-
-// Hat başlangıç durak indeksleri (yolculuk sırasıyla, ilk tur)
-const LINE_START = (() => {
-  let offset = 0;
-  return Object.fromEntries(LINES.map(line => {
-    const start = offset;
-    offset += STATION_NAMES[line.id].length;
-    return [line.id, start];
-  }));
-})();
-const TOTAL_STATIONS = Object.values(STATION_NAMES).flat().length;
+import { LINES, MODE_META, MODE_GROUPS, getNetworkProgress } from '../utils/transitNetwork';
 
 // Tüm İstanbul ağı: hatlar ulaşım moduna göre gruplu; ilerleme ve kilit durumu ile.
 export default function NetworkScreen({ currentLevel, onSelectLine }) {
-  const currentStationIndex = Math.floor((currentLevel - 1) / LEVELS_PER_STATION);
-  const loop = Math.floor(currentStationIndex / TOTAL_STATIONS);
-  const indexInLoop = currentStationIndex % TOTAL_STATIONS;
-
-  const lineState = (line) => {
-    const count = STATION_NAMES[line.id].length;
-    if (loop > 0) return { done: count, count, locked: false, current: false };
-    const start = LINE_START[line.id];
-    const done = Math.max(0, Math.min(count, indexInLoop - start));
-    const current = indexInLoop >= start && indexInLoop < start + count;
-    return { done, count, current, locked: indexInLoop < start };
-  };
+  const { lines: progress } = getNetworkProgress(currentLevel);
+  const lineState = (line) => progress[line.id];
 
   return (
     <main className="flex-1 min-h-0 w-full overflow-y-auto px-4 pb-6" style={{ overscrollBehavior: 'contain' }}>

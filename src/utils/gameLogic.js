@@ -562,11 +562,11 @@ const getDifficulty = (levelIndex) => {
   if (levelIndex < 10) return { targetWords: 2, minRoot: 3, maxRoot: 5, label: "baslangic" };
   if (levelIndex < 50) return { targetWords: 3, minRoot: 4, maxRoot: 7, label: "kolay" };
   if (levelIndex < 150) return { targetWords: 4, minRoot: 5, maxRoot: 8, label: "orta" };
-  if (levelIndex < 400) return { targetWords: 4, minRoot: 6, maxRoot: 8, label: "orta-plus" };
-  if (levelIndex < 1000) return { targetWords: 5, minRoot: 6, maxRoot: 8, label: "zor" }; // Max 8 harf (UI taşmasını önlemek için)
-  if (levelIndex < 2500) return { targetWords: 5, minRoot: 7, maxRoot: 8, label: "uzman" };
-  if (levelIndex < 5000) return { targetWords: 6, minRoot: 7, maxRoot: 8, label: "usta" };
-  return { targetWords: 6, minRoot: 7, maxRoot: 8, label: "efsane" };
+  if (levelIndex < 400) return { targetWords: 5, minRoot: 6, maxRoot: 8, label: "orta-plus" };
+  if (levelIndex < 1000) return { targetWords: 6, minRoot: 6, maxRoot: 8, label: "zor" }; // Max 8 harf (UI taşmasını önlemek için)
+  if (levelIndex < 2500) return { targetWords: 6, minRoot: 7, maxRoot: 8, label: "uzman" };
+  if (levelIndex < 5000) return { targetWords: 7, minRoot: 7, maxRoot: 8, label: "usta" };
+  return { targetWords: 7, minRoot: 7, maxRoot: 8, label: "efsane" };
 };
 
 const getCandidateWords = (root, validWords, levelIndex, rand, formableCache, rareWords = new Set()) => {
@@ -585,9 +585,18 @@ const getCandidateWords = (root, validWords, levelIndex, rand, formableCache, ra
   });
 };
 
-const placePuzzleWords = (root, candidates, targetWords) => {
+// Bulmaca ızgarası (Words of Wonders mantığı): tek açgözlü yerleşim yerine aynı seed ile
+// birçok aday yerleşim denenir ve en "dolu ama derli toplu" olanı seçilir. Her kelime için
+// tüm geçerli konumlar toplanır; en çok kesişen ve kutuyu en az büyüten konum alınır.
+// Telefon dikey ekranına sığsın diye ızgara MAX_COLS x MAX_ROWS ile sınırlıdır.
+const MAX_COLS = 8;
+const MAX_ROWS = 8;
+const LAYOUT_ATTEMPTS = 36;
+
+const buildLayout = (root, order, targetWords) => {
   const selectedWords = [];
   const gridLetters = new Map();
+  let minX = 0, maxX = root.length - 1, minY = 0, maxY = 0, crossings = 0;
 
   const placeWord = (word, startX, startY, isHorizontal) => {
     selectedWords.push({ word, startX, startY, isHorizontal });
@@ -595,67 +604,84 @@ const placePuzzleWords = (root, candidates, targetWords) => {
       const x = startX + (isHorizontal ? i : 0);
       const y = startY + (isHorizontal ? 0 : i);
       gridLetters.set(`${x},${y}`, word[i]);
+      if (x < minX) minX = x; if (x > maxX) maxX = x;
+      if (y < minY) minY = y; if (y > maxY) maxY = y;
     }
   };
 
-  const canPlaceWord = (word, startX, startY, isHorizontal) => {
-    const beforeX = startX - (isHorizontal ? 1 : 0);
-    const beforeY = startY - (isHorizontal ? 0 : 1);
-    const afterX = startX + (isHorizontal ? word.length : 0);
-    const afterY = startY + (isHorizontal ? 0 : word.length);
-    if (gridLetters.has(`${beforeX},${beforeY}`)) return false;
-    if (gridLetters.has(`${afterX},${afterY}`)) return false;
-
-    let hasIntersection = false;
+  // Geçerliyse kesişim sayısını, değilse -1 döner
+  const crossCount = (word, startX, startY, isHorizontal) => {
+    const beforeKey = isHorizontal ? `${startX - 1},${startY}` : `${startX},${startY - 1}`;
+    const afterKey = isHorizontal ? `${startX + word.length},${startY}` : `${startX},${startY + word.length}`;
+    if (gridLetters.has(beforeKey) || gridLetters.has(afterKey)) return -1;
+    let hits = 0;
     for (let i = 0; i < word.length; i++) {
       const x = startX + (isHorizontal ? i : 0);
       const y = startY + (isHorizontal ? 0 : i);
       const key = `${x},${y}`;
-
       if (gridLetters.has(key)) {
-        if (gridLetters.get(key) !== word[i]) return false;
-        hasIntersection = true;
+        if (gridLetters.get(key) !== word[i]) return -1;
+        hits++;
         continue;
       }
-
       const sideA = isHorizontal ? `${x},${y - 1}` : `${x - 1},${y}`;
       const sideB = isHorizontal ? `${x},${y + 1}` : `${x + 1},${y}`;
-      if (gridLetters.has(sideA) || gridLetters.has(sideB)) return false;
+      if (gridLetters.has(sideA) || gridLetters.has(sideB)) return -1;
     }
-
-    return selectedWords.length === 0 || hasIntersection;
+    // Kelimenin tamamı zaten ızgarada olamaz (başka kelimenin içinde gizli kalır)
+    return hits === word.length ? -1 : hits;
   };
 
   placeWord(root, 0, 0, true);
 
-  for (const word of candidates) {
+  for (const word of order) {
     if (selectedWords.length >= targetWords) break;
-    let placed = false;
-
-    for (const target of [...selectedWords]) {
-      if (placed) break;
+    let best = null;
+    for (const target of selectedWords) {
+      const isHorizontal = !target.isHorizontal;
       for (let i = 0; i < word.length; i++) {
-        if (placed) break;
-        const char = word[i];
-        let targetIndex = target.word.indexOf(char);
-
-        while (targetIndex !== -1) {
-          const isHorizontal = !target.isHorizontal;
-          const startX = target.startX + (target.isHorizontal ? targetIndex : 0) - (isHorizontal ? i : 0);
-          const startY = target.startY + (target.isHorizontal ? 0 : targetIndex) - (isHorizontal ? 0 : i);
-
-          if (canPlaceWord(word, startX, startY, isHorizontal)) {
-            placeWord(word, startX, startY, isHorizontal);
-            placed = true;
-            break;
+        let t = target.word.indexOf(word[i]);
+        while (t !== -1) {
+          const startX = target.startX + (target.isHorizontal ? t : 0) - (isHorizontal ? i : 0);
+          const startY = target.startY + (target.isHorizontal ? 0 : t) - (isHorizontal ? 0 : i);
+          const hits = crossCount(word, startX, startY, isHorizontal);
+          if (hits > 0) {
+            const endX = startX + (isHorizontal ? word.length - 1 : 0);
+            const endY = startY + (isHorizontal ? 0 : word.length - 1);
+            const cols = Math.max(maxX, endX) - Math.min(minX, startX) + 1;
+            const rows = Math.max(maxY, endY) - Math.min(minY, startY) + 1;
+            if (cols <= MAX_COLS && rows <= MAX_ROWS) {
+              const score = hits * 10 - cols * rows * 0.4 - Math.abs(cols - rows) * 0.6;
+              if (!best || score > best.score) best = { startX, startY, isHorizontal, hits, score };
+            }
           }
-          targetIndex = target.word.indexOf(char, targetIndex + 1);
+          t = target.word.indexOf(word[i], t + 1);
         }
       }
     }
+    if (best) {
+      placeWord(word, best.startX, best.startY, best.isHorizontal);
+      crossings += best.hits;
+    }
   }
 
-  return selectedWords;
+  const cols = maxX - minX + 1, rows = maxY - minY + 1;
+  const score = selectedWords.length * 100 + crossings * 8 - cols * rows * 0.5 - Math.abs(cols - rows) * 2;
+  return { words: selectedWords, score };
+};
+
+const placePuzzleWords = (root, candidates, targetWords, rand = Math.random) => {
+  let best = buildLayout(root, candidates, targetWords);
+  for (let attempt = 1; attempt < LAYOUT_ATTEMPTS; attempt++) {
+    // Uzunluk tercihini koruyarak sırayı karıştır: aday listesinin başı her denemede biraz değişir
+    const order = candidates
+      .map((word, idx) => ({ word, key: idx + rand() * candidates.length * 0.6 }))
+      .sort((p, q) => p.key - q.key)
+      .map(p => p.word);
+    const layout = buildLayout(root, order, targetWords);
+    if (layout.score > best.score) best = layout;
+  }
+  return best.words;
 };
 
 const getPools = (language) => {
@@ -897,7 +923,7 @@ export const generateLevel = (levelIndex, language = "tr", attempts = 1, perform
     candidates = getCandidateWords(term.root, validWords, safeLevel, rand, formableCache, rareWords);
   }
 
-  const words = placePuzzleWords(term.root, candidates, difficulty.targetWords);
+  const words = placePuzzleWords(term.root, candidates, difficulty.targetWords, rand);
   const wheelLetters = shuffleWith(term.root.split(""), rand);
   const missionInfo = getMissionInfo(term.provider, safeLevel, language);
 

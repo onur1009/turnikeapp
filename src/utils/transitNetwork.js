@@ -139,3 +139,39 @@ export const getStationXPosition = (globalStationIndex) => {
   if (cycle >= 18) return 30; // Sol düze dönüş
   return 50;
 };
+
+// Ağ ilerlemesi (harita ve hat listesi ortak kullanır): her hat için tamamlanan durak sayısı,
+// bulunulan hat mı, kilitli mi. İlk tur bitince tüm hatlar açık ve tamamlanmış sayılır.
+const LINE_START = (() => {
+  let offset = 0;
+  return Object.fromEntries(LINES.map(line => {
+    const start = offset;
+    offset += STATION_NAMES[line.id].length;
+    return [line.id, start];
+  }));
+})();
+
+export const getNetworkProgress = (currentLevel) => {
+  const currentStationIndex = Math.floor((currentLevel - 1) / LEVELS_PER_STATION);
+  const loop = Math.floor(currentStationIndex / TOTAL_BASE_STATIONS);
+  const indexInLoop = currentStationIndex % TOTAL_BASE_STATIONS;
+  const lines = {};
+  let doneStations = 0, doneLines = 0;
+  LINES.forEach(line => {
+    const count = STATION_NAMES[line.id].length;
+    const start = LINE_START[line.id];
+    const state = loop > 0
+      ? { done: count, count, current: indexInLoop >= start && indexInLoop < start + count, locked: false, currentIndex: indexInLoop - start }
+      : {
+        done: Math.max(0, Math.min(count, indexInLoop - start)),
+        count,
+        current: indexInLoop >= start && indexInLoop < start + count,
+        locked: indexInLoop < start,
+        currentIndex: indexInLoop - start,
+      };
+    lines[line.id] = state;
+    doneStations += state.done;
+    if (state.done === count) doneLines++;
+  });
+  return { lines, doneStations, totalStations: TOTAL_BASE_STATIONS, doneLines, loop };
+};

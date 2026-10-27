@@ -68,18 +68,7 @@
     linear-gradient(180deg, #0e2546 0%, #1d416c 30%, #3f6f97 52%, #c99a7c 63%, #2b5f86 64.5%, #19476d 78%, #0c2a48 100%);
 }
 
-/* İstanbul silueti (köprü, Galata, cami kubbeleri) ufuk çizgisinde */
-.game-bg.scenic::before {
-  content: '';
-  position: fixed;
-  left: 0; right: 0;
-  bottom: 35.5%;
-  height: 17vw;
-  max-height: 120px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 100' preserveAspectRatio='xMidYMax slice'%3E%3Cg fill='%2310263f' fill-opacity='.62'%3E%3Cpath d='M0 100V86h18v-6h10v6h14V74l6-8 6 8v12h12V92h20V80c0-10 12-16 22-16s22 6 22 16v12h8V58l2-6 2 6v34h6V78c0-6 6-10 12-10s12 4 12 10v14h6V58l2-6 2 6v42zM236 100V70h6V44l7-14 7 14v26h6v30z'/%3E%3Cpath d='M268 100V84h10V70c0-7 7-12 15-12s15 5 15 12v14h8V60l2-5 2 5v40zM330 100V40h4v24c20 6 40 18 66 28v8z'/%3E%3C/g%3E%3Cpath d='M300 92c20-26 30-50 32-52 6 18 30 44 68 52' fill='none' stroke='%2310263f' stroke-opacity='.5' stroke-width='1.2'/%3E%3C/svg%3E") bottom center / cover no-repeat;
-  pointer-events: none;
-  z-index: -1;
-}
+/* Ana menü ve oyunda asıl görsel SceneBackground bileşenidir; yukarıdaki gradyan yalnızca yedek. */
 
 /* ===== COMPONENTS ===== */
 @layer components {
@@ -111,6 +100,13 @@
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
     box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.22), 0 2px 4px rgba(0, 0, 0, 0.2);
     position: relative;
+  }
+  /* "Nokta" ipucu: seçilebilir boş kutular hat renginde nabız atar */
+  .grid-cell-pickable {
+    outline: 3px solid var(--accent, #2563eb);
+    outline-offset: -3px;
+    animation: pickPulse 1s ease-in-out infinite;
+    cursor: pointer;
   }
   /* İpucuyla açılan tek harf: henüz bulunmamış kelimenin parçası, beyaz taşta koyu harf */
   .grid-cell-hinted {
@@ -462,6 +458,8 @@ body.theme-retro .rounded-full, body.theme-retro .rounded-xl, body.theme-retro .
 }
 
 /* Bulunan kelimenin taşları sırayla "oturur" (parlama yok, küçük bir zıplama) */
+@keyframes pickPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(0.9); } }
+
 @keyframes confettiBurst {
   0% { transform: scale(0.6); opacity: 0; }
   60% { transform: scale(1.1); opacity: 1; }
@@ -588,7 +586,7 @@ body.theme-retro .rounded-full, body.theme-retro .rounded-xl, body.theme-retro .
 }
 
 .tool-btn {
-  min-width: 100px; height: 46px; padding: 0 12px;
+  min-width: 0; height: 46px; padding: 0 6px;
   display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 8px;
   border-radius: 14px;
   background: var(--surface);
@@ -598,6 +596,7 @@ body.theme-retro .rounded-full, body.theme-retro .rounded-xl, body.theme-retro .
   transition: transform 0.15s, background 0.15s;
 }
 .tool-btn:active { transform: scale(0.94); background: var(--surface-strong); }
+.tool-btn.is-active { background: var(--accent, #2563eb); border-color: transparent; }
 
 /* Çark tabağı: denizin üstünde beyaz, hafif saydam daire */
 .wheel-plate {
@@ -639,3 +638,62 @@ body.theme-light .icon-btn, body.theme-light .balance-pill, body.theme-light .st
 }
 body.theme-light .tab-bar { background: rgba(255,255,255,0.92); border-color: rgba(0,0,0,0.1); }
 body.theme-light .tab-item { color: rgba(15,23,42,0.75); }
+
+/* ===== Hat araçları (VehicleSprite) ===== */
+.vehicle-anim .veh-wheel { transform-box: fill-box; transform-origin: center; animation: vehWheel 0.7s linear infinite; }
+.vehicle-anim .veh-body { animation: vehBob 0.6s ease-in-out infinite; }
+.vehicle-anim .veh-float { animation: vehFloat 2.6s ease-in-out infinite; }
+.vehicle-anim .veh-sway { transform-box: view-box; transform-origin: 48px 3px; animation: vehSway 3s ease-in-out infinite; }
+.vehicle-anim .veh-wave { animation: vehWave 1.2s linear infinite; }
+@keyframes vehWheel { to { transform: rotate(-360deg); } }
+@keyframes vehBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-0.4px); } }
+@keyframes vehFloat { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(0.8px) rotate(-0.6deg); } }
+@keyframes vehSway { 0%, 100% { transform: rotate(2deg); } 50% { transform: rotate(-2deg); } }
+@keyframes vehWave { to { transform: translateX(-6px); } }
+@media (prefers-reduced-motion: reduce) {
+  .vehicle-anim * { animation: none !important; }
+}
+
+/* ===== Bölüm sahnesi (SceneBackground) ===== */
+.scene-cloud { animation: sceneCloud 90s linear infinite; }
+@keyframes sceneCloud { from { transform: translateX(140px); } to { transform: translateX(-460px); } }
+.scene-twinkle { animation: sceneTwinkle 2.4s ease-in-out infinite; }
+@keyframes sceneTwinkle { 50% { opacity: 0.15; } }
+.scene-shimmer { animation: sceneShimmer 3.5s ease-in-out infinite; }
+@keyframes sceneShimmer { 50% { opacity: 0.4; transform: translateX(6px); } }
+.scene-birds { animation: sceneBirds 40s linear infinite; }
+@keyframes sceneBirds { from { transform: translate(-120px, 20px); } to { transform: translate(480px, -40px); } }
+.scene-plane { animation: scenePlane 26s linear infinite; }
+@keyframes scenePlane { from { transform: translate(-200px, 40px); } to { transform: translate(420px, -60px); } }
+.scene-gondola { animation: sceneGondola 9s ease-in-out infinite alternate; }
+@keyframes sceneGondola { to { transform: translate(110px, -60px); } }
+.scene-vehicle { animation: sceneVehicle 18s linear infinite; animation-delay: 2s; transform: translateX(110vw); }
+@keyframes sceneVehicle { 0% { transform: translateX(110vw); } 45%, 100% { transform: translateX(-120px); } }
+@media (prefers-reduced-motion: reduce) {
+  .scene-root * { animation: none !important; }
+}
+
+/* ===== Ağ haritası (NetworkMap) ===== */
+.map-stat {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 8px 4px; border-radius: 14px;
+  background: var(--surface); border: 1px solid var(--border);
+}
+.map-stat-value { color: #fff; font-weight: 900; font-size: 16px; font-variant-numeric: tabular-nums; }
+.map-stat-label { color: rgba(255,255,255,0.6); font-weight: 700; font-size: 11px; }
+.map-canvas { background: #e9e4d8; border-top: 1px solid var(--border); touch-action: pan-x pan-y; }
+.map-water-label { fill: #4b7fa8; font-size: 16px; font-weight: 700; font-style: italic; letter-spacing: 2px; }
+.map-side-label { fill: #a8a294; font-size: 22px; font-weight: 900; letter-spacing: 8px; }
+.map-line-code { fill: #fff; font-size: 10px; font-weight: 900; }
+.map-here-pulse { transform-box: fill-box; transform-origin: center; animation: mapHere 1.6s ease-out infinite; }
+@keyframes mapHere { from { transform: scale(0.5); opacity: 0.6; } to { transform: scale(1.6); opacity: 0; } }
+.map-sheet {
+  padding: 10px 16px 16px;
+  background: var(--surface-strong);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--border);
+  border-radius: 22px 22px 0 0;
+}
+.seg { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; border-radius: 9999px; background: var(--surface); border: 1px solid var(--border); }
+.seg button { padding: 7px 0; border-radius: 9999px; font-weight: 800; font-size: 13px; color: rgba(255,255,255,0.7); }
+.seg button[aria-pressed="true"] { background: #ffffff; color: #10263f; }

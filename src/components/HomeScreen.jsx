@@ -1,3 +1,4 @@
+import SceneBackground from './SceneBackground';
 import React, { useState } from 'react';
 import AnimatedBalance from './AnimatedBalance';
 import { useGameStore, VAULT_SIZE } from '../store/gameStore';
@@ -34,6 +35,7 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
 
   return (
     <div className="game-bg scenic h-full flex flex-col relative z-10 fade-in overflow-hidden">
+      <SceneBackground station={station} />
       <style>{`
         @keyframes ybsMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         @keyframes ybsLedBlink { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }

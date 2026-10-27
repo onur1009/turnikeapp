@@ -1,6 +1,7 @@
 import React, { useMemo, useEffect, useState } from 'react';
 
-const Grid = ({ words, foundWords, hintedLetters = [], onIntersectionFound, accent }) => {
+// pickMode: "Nokta" ipucu açıkken boş kutular dokunulabilir olur, seçilen kutu onCellPick ile bildirilir
+const Grid = ({ words, foundWords, hintedLetters = [], onIntersectionFound, accent, pickMode = false, onCellPick }) => {
   // Izgara hem genişliğe hem yüksekliğe sığmalı (küçük ekranlarda çark ile çakışmasın)
   const containerRef = React.useRef(null);
   const [containerSize, setContainerSize] = useState({ w: window.innerWidth, h: 320 });
@@ -147,7 +148,16 @@ const Grid = ({ words, foundWords, hintedLetters = [], onIntersectionFound, acce
             {cellData.char}
           </div>
         ) : (
-          <div className="grid-cell-empty w-full h-full" />
+          pickMode ? (
+            <button
+              type="button"
+              aria-label="Bu kutuyu aç"
+              onClick={() => onCellPick?.({ x: parseInt(sx), y: parseInt(sy), char: cellData.char })}
+              className="grid-cell-empty grid-cell-pickable w-full h-full"
+            />
+          ) : (
+            <div className="grid-cell-empty w-full h-full" />
+          )
         )}
       </div>
     );

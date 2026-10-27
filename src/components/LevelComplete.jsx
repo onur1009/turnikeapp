@@ -42,6 +42,7 @@ const LevelComplete = ({ level, station, summary, mistakes, meanings, onNextLeve
     { label: t('express_bonus'), value: summary?.expressBonus || 0 },
     { label: t('perfect_bonus'), value: summary?.perfectBonus || 0 },
     ...(summary?.setBonus ? [{ label: t('set_bonus'), value: summary.setBonus }] : []),
+    ...(summary?.stationBonus ? [{ label: t('station_bonus'), value: summary.stationBonus }] : []),
   ];
   const total = earnings.reduce((sum, e) => sum + e.value, 0);
   const learned = words.filter(w => meanings[w]);

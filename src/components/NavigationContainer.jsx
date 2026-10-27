@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import NetworkScreen from './NetworkScreen';
+import NetworkMap from './NetworkMap';
 import MapScreen from './MapScreen';
 import DictionaryScreen from './DictionaryScreen';
 import BadgesScreen from './BadgesScreen';
@@ -24,6 +25,8 @@ export default function NavigationContainer({
   const { t } = useTranslation();
   // Harita: null = tüm ağ listesi, hat id = o hattın durak görünümü
   const [mapLineId, setMapLineId] = useState(null);
+  // Ağ görünümü: şematik harita veya mod gruplu liste
+  const [networkView, setNetworkView] = useState('map');
   const maxUnlockedLevel = useGameStore(state => state.maxUnlockedLevel);
   const learnedWords = useGameStore(state => state.learnedWords);
   const username = useGameStore(state => state.username);
@@ -99,9 +102,19 @@ export default function NavigationContainer({
           onBack={() => (mapLineId ? setMapLineId(null) : setScreen('home'))}
         />
         <div className="flex-1 min-h-0 flex flex-col">
-          {mapLineId
-            ? <MapScreen key={mapLineId} currentLevel={maxUnlockedLevel + 1} onLevelSelect={playLevel} initialLineId={mapLineId} />
-            : <NetworkScreen currentLevel={maxUnlockedLevel + 1} onSelectLine={setMapLineId} />}
+          {mapLineId ? (
+            <MapScreen key={mapLineId} currentLevel={maxUnlockedLevel + 1} onLevelSelect={playLevel} initialLineId={mapLineId} />
+          ) : (
+            <>
+              <div className="seg mx-4 mb-3 shrink-0">
+                <button aria-pressed={networkView === 'map'} onClick={() => setNetworkView('map')}>Harita</button>
+                <button aria-pressed={networkView === 'list'} onClick={() => setNetworkView('list')}>Hat listesi</button>
+              </div>
+              {networkView === 'map'
+                ? <NetworkMap currentLevel={maxUnlockedLevel + 1} onOpenLine={setMapLineId} />
+                : <NetworkScreen currentLevel={maxUnlockedLevel + 1} onSelectLine={setMapLineId} />}
+            </>
+          )}
         </div>
         {/* Bulunduğun durak: haritadan doğrudan yolculuğa dön */}
         <div className="shrink-0 px-4 pt-3 pb-5" style={{ background: 'rgba(5,10,24,0.92)', borderTop: '1px solid var(--border)' }}>

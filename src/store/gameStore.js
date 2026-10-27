@@ -14,7 +14,7 @@ export const VAULT_REWARD = 1500; // kuruş (₺15)
 export const getMaxLives = (completedSets = []) => MAX_LIVES + (completedSets.includes('unutkan') ? 1 : 0);
 export const getHintCosts = (completedSets = []) => {
   const factor = completedSets.includes('nostalji') ? 0.8 : 1; // Nostalji: tüm ipuçları %20 indirimli
-  return { letter: Math.round(25 * factor), word: Math.round(75 * factor), term: Math.round(50 * factor) };
+  return { letter: Math.round(25 * factor), word: Math.round(75 * factor), term: Math.round(50 * factor), target: Math.round(40 * factor) };
 };
 export const getEarningsMultiplier = (completedSets = []) => (completedSets.includes('gizli') ? 1.5 : 1);
 
