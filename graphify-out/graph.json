@@ -84,6 +84,78 @@
       "source_location": "L17"
     },
     {
+      "id": "src_components_akbilscreen_akbilscreen",
+      "label": "AkbilScreen()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "NavigationContainer.jsx",
+      "file_type": "code",
+      "norm_label": "akbilscreen()",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L127"
+    },
+    {
+      "id": "src_components_akbilscreen_cardpattern",
+      "label": "CardPattern()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "NavigationContainer.jsx",
+      "file_type": "code",
+      "norm_label": "cardpattern()",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L35"
+    },
+    {
+      "id": "src_components_akbilscreen_istanbulcard",
+      "label": "IstanbulCard()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "NavigationContainer.jsx",
+      "file_type": "code",
+      "norm_label": "istanbulcard()",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L78"
+    },
+    {
+      "id": "src_components_akbilscreen_module",
+      "label": "Module()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "NavigationContainer.jsx",
+      "file_type": "code",
+      "norm_label": "module()",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L106"
+    },
+    {
+      "id": "src_components_akbilscreen_todaykey",
+      "label": "todayKey()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "NavigationContainer.jsx",
+      "file_type": "code",
+      "norm_label": "todaykey()",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L29"
+    },
+    {
+      "id": "src_components_animatedbalance_animatedbalance",
+      "label": "AnimatedBalance()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "NavigationContainer.jsx",
+      "file_type": "code",
+      "norm_label": "animatedbalance()",
+      "source_file": "src/components/AnimatedBalance.jsx",
+      "source_location": "L5"
+    },
+    {
       "id": "src_components_badgesscreen_badgesscreen",
       "label": "BadgesScreen()",
       "_callable": true,
@@ -144,6 +216,30 @@
       "source_location": "L9"
     },
     {
+      "id": "src_components_levelcomplete_countup",
+      "label": "CountUp()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "NavigationContainer.jsx",
+      "file_type": "code",
+      "norm_label": "countup()",
+      "source_file": "src/components/LevelComplete.jsx",
+      "source_location": "L6"
+    },
+    {
+      "id": "src_components_levelcomplete_levelcomplete",
+      "label": "LevelComplete()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "NavigationContainer.jsx",
+      "file_type": "code",
+      "norm_label": "levelcomplete()",
+      "source_file": "src/components/LevelComplete.jsx",
+      "source_location": "L34"
+    },
+    {
       "id": "src_components_lostitemsscreen_lostitemsscreen",
       "label": "LostItemsScreen()",
       "_callable": true,
@@ -166,18 +262,6 @@
       "norm_label": "navigationcontainer()",
       "source_file": "src/components/NavigationContainer.jsx",
       "source_location": "L21"
-    },
-    {
-      "id": "src_components_networkscreen_networkscreen",
-      "label": "NetworkScreen()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "NavigationContainer.jsx",
-      "file_type": "code",
-      "norm_label": "networkscreen()",
-      "source_file": "src/components/NetworkScreen.jsx",
-      "source_location": "L5"
     },
     {
       "id": "src_components_screenheader_screenheader",
@@ -240,18 +324,6 @@
       "source_location": "L6"
     },
     {
-      "id": "src_data_lostitems_getrandomitem",
-      "label": "getRandomItem()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "NavigationContainer.jsx",
-      "file_type": "code",
-      "norm_label": "getrandomitem()",
-      "source_file": "src/data/lostItems.js",
-      "source_location": "L42"
-    },
-    {
       "id": "src_store_gamestore_getmaxlives",
       "label": "getMaxLives()",
       "_callable": true,
@@ -262,6 +334,54 @@
       "norm_label": "getmaxlives()",
       "source_file": "src/store/gameStore.js",
       "source_location": "L14"
+    },
+    {
+      "id": "src_utils_adservice_isrewardedadsupported",
+      "label": "isRewardedAdSupported()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "NavigationContainer.jsx",
+      "file_type": "code",
+      "norm_label": "isrewardedadsupported()",
+      "source_file": "src/utils/adService.js",
+      "source_location": "L21"
+    },
+    {
+      "id": "src_utils_adservice_loadadmob",
+      "label": "loadAdMob()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "NavigationContainer.jsx",
+      "file_type": "code",
+      "norm_label": "loadadmob()",
+      "source_file": "src/utils/adService.js",
+      "source_location": "L14"
+    },
+    {
+      "id": "src_utils_adservice_showrewardedad",
+      "label": "showRewardedAd()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "NavigationContainer.jsx",
+      "file_type": "code",
+      "norm_label": "showrewardedad()",
+      "source_file": "src/utils/adService.js",
+      "source_location": "L24"
+    },
+    {
+      "id": "src_utils_format_formatkurus",
+      "label": "formatKurus()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "NavigationContainer.jsx",
+      "file_type": "code",
+      "norm_label": "formatkurus()",
+      "source_file": "src/utils/format.js",
+      "source_location": "L2"
     },
     {
       "id": "src_utils_i18n_usetranslation",
@@ -298,18 +418,6 @@
       "norm_label": "getstationforlevel()",
       "source_file": "src/utils/transitNetwork.js",
       "source_location": "L113"
-    },
-    {
-      "id": "src_components_animatedbalance_animatedbalance",
-      "label": "AnimatedBalance()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "GameContainer.jsx",
-      "file_type": "code",
-      "norm_label": "animatedbalance()",
-      "source_file": "src/components/AnimatedBalance.jsx",
-      "source_location": "L5"
     },
     {
       "id": "src_components_bonuslockers_bonuslockers",
@@ -384,30 +492,6 @@
       "source_location": "L29"
     },
     {
-      "id": "src_components_levelcomplete_countup",
-      "label": "CountUp()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "GameContainer.jsx",
-      "file_type": "code",
-      "norm_label": "countup()",
-      "source_file": "src/components/LevelComplete.jsx",
-      "source_location": "L6"
-    },
-    {
-      "id": "src_components_levelcomplete_levelcomplete",
-      "label": "LevelComplete()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "GameContainer.jsx",
-      "file_type": "code",
-      "norm_label": "levelcomplete()",
-      "source_file": "src/components/LevelComplete.jsx",
-      "source_location": "L34"
-    },
-    {
       "id": "src_components_vehiclesprite_vehiclesprite",
       "label": "VehicleSprite()",
       "_callable": true,
@@ -418,6 +502,18 @@
       "norm_label": "vehiclesprite()",
       "source_file": "src/components/VehicleSprite.jsx",
       "source_location": "L163"
+    },
+    {
+      "id": "src_data_lostitems_getrandomitem",
+      "label": "getRandomItem()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "GameContainer.jsx",
+      "file_type": "code",
+      "norm_label": "getrandomitem()",
+      "source_file": "src/data/lostItems.js",
+      "source_location": "L42"
     },
     {
       "id": "src_hooks_usegametimer_usegametimer",
@@ -490,18 +586,6 @@
       "norm_label": "updateewmvandzscore()",
       "source_file": "src/utils/dda.js",
       "source_location": "L50"
-    },
-    {
-      "id": "src_utils_format_formatkurus",
-      "label": "formatKurus()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "GameContainer.jsx",
-      "file_type": "code",
-      "norm_label": "formatkurus()",
-      "source_file": "src/utils/format.js",
-      "source_location": "L2"
     },
     {
       "id": "src_utils_gamelogic_gettimeforlevel",
@@ -1044,6 +1128,18 @@
       "source_location": "L10"
     },
     {
+      "id": "src_components_duelsscreen_avatar",
+      "label": "Avatar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 13,
+      "community_name": "DuelsScreen.jsx",
+      "file_type": "code",
+      "norm_label": "avatar()",
+      "source_file": "src/components/DuelsScreen.jsx",
+      "source_location": "L15"
+    },
+    {
       "id": "src_components_duelsscreen_duelsscreen",
       "label": "DuelsScreen()",
       "_callable": true,
@@ -1053,31 +1149,43 @@
       "file_type": "code",
       "norm_label": "duelsscreen()",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L27"
+      "source_location": "L37"
     },
     {
-      "id": "src_components_duelsscreen_resultcard",
-      "label": "ResultCard()",
+      "id": "src_components_duelsscreen_initials",
+      "label": "initials()",
       "_callable": true,
       "_origin": "ast",
       "community": 13,
       "community_name": "DuelsScreen.jsx",
       "file_type": "code",
-      "norm_label": "resultcard()",
+      "norm_label": "initials()",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L12"
+      "source_location": "L13"
     },
     {
-      "id": "src_components_duelsscreen_scoretext",
-      "label": "scoreText()",
+      "id": "src_components_duelsscreen_score",
+      "label": "Score()",
       "_callable": true,
       "_origin": "ast",
       "community": 13,
       "community_name": "DuelsScreen.jsx",
       "file_type": "code",
-      "norm_label": "scoretext()",
+      "norm_label": "score()",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L10"
+      "source_location": "L33"
+    },
+    {
+      "id": "src_components_duelsscreen_vsbadge",
+      "label": "VsBadge()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 13,
+      "community_name": "DuelsScreen.jsx",
+      "file_type": "code",
+      "norm_label": "vsbadge()",
+      "source_file": "src/components/DuelsScreen.jsx",
+      "source_location": "L28"
     },
     {
       "id": "src_components_grid_grid",
@@ -1222,102 +1330,6 @@
       "norm_label": "tob64url()",
       "source_file": "src/utils/duel.js",
       "source_location": "L10"
-    },
-    {
-      "id": "src_components_akbilscreen_akbilscreen",
-      "label": "AkbilScreen()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "akbilscreen()",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L127"
-    },
-    {
-      "id": "src_components_akbilscreen_cardpattern",
-      "label": "CardPattern()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "cardpattern()",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L35"
-    },
-    {
-      "id": "src_components_akbilscreen_istanbulcard",
-      "label": "IstanbulCard()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "istanbulcard()",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L78"
-    },
-    {
-      "id": "src_components_akbilscreen_module",
-      "label": "Module()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "module()",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L106"
-    },
-    {
-      "id": "src_components_akbilscreen_todaykey",
-      "label": "todayKey()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "todaykey()",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L29"
-    },
-    {
-      "id": "src_utils_adservice_isrewardedadsupported",
-      "label": "isRewardedAdSupported()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "isrewardedadsupported()",
-      "source_file": "src/utils/adService.js",
-      "source_location": "L21"
-    },
-    {
-      "id": "src_utils_adservice_loadadmob",
-      "label": "loadAdMob()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "loadadmob()",
-      "source_file": "src/utils/adService.js",
-      "source_location": "L14"
-    },
-    {
-      "id": "src_utils_adservice_showrewardedad",
-      "label": "showRewardedAd()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "showrewardedad()",
-      "source_file": "src/utils/adService.js",
-      "source_location": "L24"
     },
     {
       "id": "src_data_transitterms_toentries",
@@ -1828,6 +1840,18 @@
       "source_location": "L9"
     },
     {
+      "id": "src_components_networkscreen_networkscreen",
+      "label": "NetworkScreen()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "transitNetwork.js",
+      "file_type": "code",
+      "norm_label": "networkscreen()",
+      "source_file": "src/components/NetworkScreen.jsx",
+      "source_location": "L5"
+    },
+    {
       "id": "src_data_networkgeometry_getstationpoints",
       "label": "getStationPoints()",
       "_callable": true,
@@ -1900,6 +1924,105 @@
       "source_location": "L129"
     },
     {
+      "id": "admob",
+      "label": "@capacitor-community/admob",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "NavigationContainer.jsx",
+      "confidence": "EXTRACTED",
+      "file_type": "code",
+      "norm_label": "@capacitor-community/admob",
+      "source_file": "@capacitor-community/admob"
+    },
+    {
+      "id": "src_components_akbilscreen",
+      "label": "AkbilScreen.jsx",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "NavigationContainer.jsx",
+      "file_type": "code",
+      "norm_label": "akbilscreen.jsx",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_components_akbilscreen_ad_daily_limit",
+      "label": "AD_DAILY_LIMIT",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "NavigationContainer.jsx",
+      "file_type": "code",
+      "norm_label": "ad_daily_limit",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L14"
+    },
+    {
+      "id": "src_components_akbilscreen_ad_reward",
+      "label": "AD_REWARD",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "NavigationContainer.jsx",
+      "file_type": "code",
+      "norm_label": "ad_reward",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L13"
+    },
+    {
+      "id": "src_components_akbilscreen_card_colors",
+      "label": "CARD_COLORS",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "NavigationContainer.jsx",
+      "file_type": "code",
+      "norm_label": "card_colors",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L17"
+    },
+    {
+      "id": "src_components_akbilscreen_daily_top_up",
+      "label": "DAILY_TOP_UP",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "NavigationContainer.jsx",
+      "file_type": "code",
+      "norm_label": "daily_top_up",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L15"
+    },
+    {
+      "id": "src_components_akbilscreen_patterns",
+      "label": "PATTERNS",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "NavigationContainer.jsx",
+      "file_type": "code",
+      "norm_label": "patterns",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L19"
+    },
+    {
+      "id": "src_components_akbilscreen_top_up_labels",
+      "label": "TOP_UP_LABELS",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "NavigationContainer.jsx",
+      "file_type": "code",
+      "norm_label": "top_up_labels",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L27"
+    },
+    {
+      "id": "src_components_animatedbalance",
+      "label": "AnimatedBalance.jsx",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "NavigationContainer.jsx",
+      "file_type": "code",
+      "norm_label": "animatedbalance.jsx",
+      "source_file": "src/components/AnimatedBalance.jsx",
+      "source_location": "L1"
+    },
+    {
       "id": "src_components_badgesscreen",
       "label": "BadgesScreen.jsx",
       "_origin": "ast",
@@ -1941,6 +2064,17 @@
       "file_type": "code",
       "norm_label": "leaderboardscreen.jsx",
       "source_file": "src/components/LeaderboardScreen.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_components_levelcomplete",
+      "label": "LevelComplete.jsx",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "NavigationContainer.jsx",
+      "file_type": "code",
+      "norm_label": "levelcomplete.jsx",
+      "source_file": "src/components/LevelComplete.jsx",
       "source_location": "L1"
     },
     {
@@ -2021,39 +2155,6 @@
       "source_location": "L1"
     },
     {
-      "id": "src_data_lostitems",
-      "label": "lostItems.js",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "NavigationContainer.jsx",
-      "file_type": "code",
-      "norm_label": "lostitems.js",
-      "source_file": "src/data/lostItems.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_data_lostitems_lost_items_catalog",
-      "label": "LOST_ITEMS_CATALOG",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "NavigationContainer.jsx",
-      "file_type": "code",
-      "norm_label": "lost_items_catalog",
-      "source_file": "src/data/lostItems.js",
-      "source_location": "L28"
-    },
-    {
-      "id": "src_data_lostitems_lost_items_sets",
-      "label": "LOST_ITEMS_SETS",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "NavigationContainer.jsx",
-      "file_type": "code",
-      "norm_label": "lost_items_sets",
-      "source_file": "src/data/lostItems.js",
-      "source_location": "L1"
-    },
-    {
       "id": "src_store_gamestore",
       "label": "gameStore.js",
       "_origin": "ast",
@@ -2109,6 +2210,28 @@
       "source_location": "L10"
     },
     {
+      "id": "src_utils_adservice",
+      "label": "adService.js",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "NavigationContainer.jsx",
+      "file_type": "code",
+      "norm_label": "adservice.js",
+      "source_file": "src/utils/adService.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_utils_adservice_rewarded_ad_id",
+      "label": "REWARDED_AD_ID",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "NavigationContainer.jsx",
+      "file_type": "code",
+      "norm_label": "rewarded_ad_id",
+      "source_file": "src/utils/adService.js",
+      "source_location": "L7"
+    },
+    {
       "id": "src_utils_badges",
       "label": "badges.js",
       "_origin": "ast",
@@ -2128,6 +2251,17 @@
       "file_type": "code",
       "norm_label": "badges",
       "source_file": "src/utils/badges.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_utils_format",
+      "label": "format.js",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "NavigationContainer.jsx",
+      "file_type": "code",
+      "norm_label": "format.js",
+      "source_file": "src/utils/format.js",
       "source_location": "L1"
     },
     {
@@ -2219,17 +2353,6 @@
       "source_location": "L1"
     },
     {
-      "id": "src_components_animatedbalance",
-      "label": "AnimatedBalance.jsx",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "GameContainer.jsx",
-      "file_type": "code",
-      "norm_label": "animatedbalance.jsx",
-      "source_file": "src/components/AnimatedBalance.jsx",
-      "source_location": "L1"
-    },
-    {
       "id": "src_components_bonuslockers",
       "label": "BonusLockers.jsx",
       "_origin": "ast",
@@ -2285,14 +2408,47 @@
       "source_location": "L1"
     },
     {
-      "id": "src_components_levelcomplete",
-      "label": "LevelComplete.jsx",
+      "id": "src_components_wheel",
+      "label": "Wheel.jsx",
       "_origin": "ast",
       "community": 1,
       "community_name": "GameContainer.jsx",
       "file_type": "code",
-      "norm_label": "levelcomplete.jsx",
-      "source_file": "src/components/LevelComplete.jsx",
+      "norm_label": "wheel.jsx",
+      "source_file": "src/components/Wheel.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_data_lostitems",
+      "label": "lostItems.js",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "GameContainer.jsx",
+      "file_type": "code",
+      "norm_label": "lostitems.js",
+      "source_file": "src/data/lostItems.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_data_lostitems_lost_items_catalog",
+      "label": "LOST_ITEMS_CATALOG",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "GameContainer.jsx",
+      "file_type": "code",
+      "norm_label": "lost_items_catalog",
+      "source_file": "src/data/lostItems.js",
+      "source_location": "L28"
+    },
+    {
+      "id": "src_data_lostitems_lost_items_sets",
+      "label": "LOST_ITEMS_SETS",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "GameContainer.jsx",
+      "file_type": "code",
+      "norm_label": "lost_items_sets",
+      "source_file": "src/data/lostItems.js",
       "source_location": "L1"
     },
     {
@@ -2304,17 +2460,6 @@
       "file_type": "code",
       "norm_label": "usegametimer.js",
       "source_file": "src/hooks/useGameTimer.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_utils_format",
-      "label": "format.js",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "GameContainer.jsx",
-      "file_type": "code",
-      "norm_label": "format.js",
-      "source_file": "src/utils/format.js",
       "source_location": "L1"
     },
     {
@@ -2459,50 +2604,6 @@
       "norm_label": "game_storage_key",
       "source_file": "src/store/gameStore.js",
       "source_location": "L6"
-    },
-    {
-      "id": "src_utils_persiststorage",
-      "label": "persistStorage.js",
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "main.jsx",
-      "file_type": "code",
-      "norm_label": "persiststorage.js",
-      "source_file": "src/utils/persistStorage.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_utils_persiststorage_backedupstorage",
-      "label": "backedUpStorage",
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "main.jsx",
-      "file_type": "code",
-      "norm_label": "backedupstorage",
-      "source_file": "src/utils/persistStorage.js",
-      "source_location": "L9"
-    },
-    {
-      "id": "src_utils_persiststorage_isnative",
-      "label": "isNative",
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "main.jsx",
-      "file_type": "code",
-      "norm_label": "isnative",
-      "source_file": "src/utils/persistStorage.js",
-      "source_location": "L7"
-    },
-    {
-      "id": "ref_capacitor_preferences",
-      "label": "@capacitor/preferences",
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "main.jsx",
-      "file_type": "concept",
-      "norm_label": "@capacitor/preferences",
-      "source_file": "package.json",
-      "source_location": "L22"
     },
     {
       "id": "ref_react_dom",
@@ -2658,17 +2759,6 @@
       "file_type": "code",
       "norm_label": "grid.jsx",
       "source_file": "src/components/Grid.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_components_wheel",
-      "label": "Wheel.jsx",
-      "_origin": "ast",
-      "community": 13,
-      "community_name": "DuelsScreen.jsx",
-      "file_type": "code",
-      "norm_label": "wheel.jsx",
-      "source_file": "src/components/Wheel.jsx",
       "source_location": "L1"
     },
     {
@@ -2963,136 +3053,59 @@
       "source_location": "L39"
     },
     {
-      "id": "admob",
-      "label": "@capacitor-community/admob",
+      "id": "src_utils_persiststorage",
+      "label": "persistStorage.js",
       "_origin": "ast",
       "community": 18,
-      "community_name": "AkbilScreen.jsx",
-      "confidence": "EXTRACTED",
+      "community_name": "persistStorage.js",
       "file_type": "code",
-      "norm_label": "@capacitor-community/admob",
-      "source_file": "@capacitor-community/admob"
-    },
-    {
-      "id": "src_components_akbilscreen",
-      "label": "AkbilScreen.jsx",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "akbilscreen.jsx",
-      "source_file": "src/components/AkbilScreen.jsx",
+      "norm_label": "persiststorage.js",
+      "source_file": "src/utils/persistStorage.js",
       "source_location": "L1"
     },
     {
-      "id": "src_components_akbilscreen_ad_daily_limit",
-      "label": "AD_DAILY_LIMIT",
+      "id": "src_utils_persiststorage_backedupstorage",
+      "label": "backedUpStorage",
       "_origin": "ast",
       "community": 18,
-      "community_name": "AkbilScreen.jsx",
+      "community_name": "persistStorage.js",
       "file_type": "code",
-      "norm_label": "ad_daily_limit",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L14"
+      "norm_label": "backedupstorage",
+      "source_file": "src/utils/persistStorage.js",
+      "source_location": "L9"
     },
     {
-      "id": "src_components_akbilscreen_ad_reward",
-      "label": "AD_REWARD",
+      "id": "src_utils_persiststorage_isnative",
+      "label": "isNative",
       "_origin": "ast",
       "community": 18,
-      "community_name": "AkbilScreen.jsx",
+      "community_name": "persistStorage.js",
       "file_type": "code",
-      "norm_label": "ad_reward",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L13"
-    },
-    {
-      "id": "src_components_akbilscreen_card_colors",
-      "label": "CARD_COLORS",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "card_colors",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L17"
-    },
-    {
-      "id": "src_components_akbilscreen_daily_top_up",
-      "label": "DAILY_TOP_UP",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "daily_top_up",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L15"
-    },
-    {
-      "id": "src_components_akbilscreen_patterns",
-      "label": "PATTERNS",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "patterns",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L19"
-    },
-    {
-      "id": "src_components_akbilscreen_top_up_labels",
-      "label": "TOP_UP_LABELS",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "top_up_labels",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L27"
-    },
-    {
-      "id": "src_utils_adservice",
-      "label": "adService.js",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "adservice.js",
-      "source_file": "src/utils/adService.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_utils_adservice_rewarded_ad_id",
-      "label": "REWARDED_AD_ID",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "rewarded_ad_id",
-      "source_file": "src/utils/adService.js",
+      "norm_label": "isnative",
+      "source_file": "src/utils/persistStorage.js",
       "source_location": "L7"
-    },
-    {
-      "id": "ref_capacitor_community_admob",
-      "label": "@capacitor-community/admob",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "concept",
-      "norm_label": "@capacitor-community/admob",
-      "source_file": "package.json",
-      "source_location": "L15"
     },
     {
       "id": "ref_capacitor_core",
       "label": "@capacitor/core",
       "_origin": "ast",
       "community": 18,
-      "community_name": "AkbilScreen.jsx",
+      "community_name": "persistStorage.js",
       "file_type": "concept",
       "norm_label": "@capacitor/core",
       "source_file": "package.json",
       "source_location": "L19"
+    },
+    {
+      "id": "ref_capacitor_preferences",
+      "label": "@capacitor/preferences",
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "persistStorage.js",
+      "file_type": "concept",
+      "norm_label": "@capacitor/preferences",
+      "source_file": "package.json",
+      "source_location": "L22"
     },
     {
       "id": "android_app_src_main_java_com_turnike_app_mainactivity",
@@ -4180,6 +4193,17 @@
       "norm_label": "@capacitor/cli",
       "source_file": "package.json",
       "source_location": "L18"
+    },
+    {
+      "id": "ref_capacitor_community_admob",
+      "label": "@capacitor-community/admob",
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "package.json",
+      "file_type": "concept",
+      "norm_label": "@capacitor-community/admob",
+      "source_file": "package.json",
+      "source_location": "L15"
     },
     {
       "id": "ref_capacitor_ios",
@@ -5632,6 +5656,18 @@
     },
     {
       "source": "src_components_duelgame_duelgame",
+      "target": "src_components_wheel_wheel",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DuelGame.jsx",
+      "source_location": "L104",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_duelgame_duelgame",
       "target": "src_utils_gamelogic_generateduellevel",
       "relation": "calls",
       "_origin": "ast",
@@ -5651,19 +5687,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DuelGame.jsx",
-      "source_location": "L76",
+      "source_location": "L97",
       "weight": 1.0
     },
     {
-      "source": "src_components_duelgame_duelgame",
-      "target": "src_components_wheel_wheel",
+      "source": "src_components_duelsscreen_avatar",
+      "target": "src_components_duelsscreen_initials",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
-      "source_file": "src/components/DuelGame.jsx",
-      "source_location": "L83",
+      "source_file": "src/components/DuelsScreen.jsx",
+      "source_location": "L21",
       "weight": 1.0
     },
     {
@@ -5675,31 +5711,43 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L105",
+      "source_location": "L109",
       "weight": 1.0
     },
     {
       "source": "src_components_duelsscreen_duelsscreen",
-      "target": "src_components_screenheader_screenheader",
+      "target": "src_components_duelsscreen_avatar",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L111",
+      "source_location": "L131",
       "weight": 1.0
     },
     {
       "source": "src_components_duelsscreen_duelsscreen",
-      "target": "src_components_duelsscreen_resultcard",
+      "target": "src_components_duelsscreen_score",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L116",
+      "source_location": "L131",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_duelsscreen_duelsscreen",
+      "target": "src_components_duelsscreen_vsbadge",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DuelsScreen.jsx",
+      "source_location": "L132",
       "weight": 1.0
     },
     {
@@ -5711,43 +5759,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L125",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_duelsscreen_duelsscreen",
-      "target": "src_store_gamestore_usegamestore",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L28",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_duelsscreen_duelsscreen",
-      "target": "src_utils_duel_decodeduel",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L44",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_duelsscreen_duelsscreen",
-      "target": "src_utils_duel_comparescores",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L59",
+      "source_location": "L135",
       "weight": 1.0
     },
     {
@@ -5759,19 +5771,43 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L66",
+      "source_location": "L143",
       "weight": 1.0
     },
     {
       "source": "src_components_duelsscreen_duelsscreen",
-      "target": "src_components_duelsscreen_scoretext",
+      "target": "src_store_gamestore_usegamestore",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L90",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_duelsscreen_duelsscreen",
+      "target": "src_utils_duel_decodeduel",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DuelsScreen.jsx",
+      "source_location": "L54",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_duelsscreen_duelsscreen",
+      "target": "src_utils_duel_comparescores",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DuelsScreen.jsx",
+      "source_location": "L57",
       "weight": 1.0
     },
     {
@@ -5783,31 +5819,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L92",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_duelsscreen_resultcard",
-      "target": "src_utils_duel_comparescores",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L13",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_duelsscreen_resultcard",
-      "target": "src_components_duelsscreen_scoretext",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L20",
+      "source_location": "L98",
       "weight": 1.0
     },
     {
@@ -9197,7 +9209,7 @@
     },
     {
       "source": "src_components_duelsscreen",
-      "target": "src_components_screenheader_screenheader",
+      "target": "src_components_duelgame_duelgame",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -9209,7 +9221,7 @@
     },
     {
       "source": "src_components_duelsscreen",
-      "target": "src_components_duelgame_duelgame",
+      "target": "src_utils_format_formatkurus",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -9221,7 +9233,7 @@
     },
     {
       "source": "src_components_duelsscreen",
-      "target": "src_utils_format_formatkurus",
+      "target": "src_utils_duel_comparescores",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -9233,18 +9245,6 @@
     },
     {
       "source": "src_components_duelsscreen",
-      "target": "src_utils_duel_comparescores",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L6",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_duelsscreen",
       "target": "src_utils_duel_decodeduel",
       "relation": "imports",
       "_origin": "ast",
@@ -9252,7 +9252,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L6",
+      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -9264,7 +9264,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L6",
+      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -9276,7 +9276,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L6",
+      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -9288,7 +9288,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L6",
+      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -9300,7 +9300,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L6",
+      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -11681,7 +11681,7 @@
     },
     {
       "source": "src_components_duelsscreen",
-      "target": "src_components_screenheader",
+      "target": "src_components_duelgame",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -11693,7 +11693,7 @@
     },
     {
       "source": "src_components_duelsscreen",
-      "target": "src_components_duelgame",
+      "target": "src_utils_format",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -11705,18 +11705,6 @@
     },
     {
       "source": "src_components_duelsscreen",
-      "target": "src_utils_format",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L5",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_duelsscreen",
       "target": "src_utils_duel",
       "relation": "imports_from",
       "_origin": "ast",
@@ -11724,7 +11712,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L6",
+      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -14189,24 +14177,46 @@
     },
     {
       "source": "src_components_duelsscreen",
-      "target": "src_components_duelsscreen_scoretext",
+      "target": "src_components_duelsscreen_initials",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L10",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
       "source": "src_components_duelsscreen",
-      "target": "src_components_duelsscreen_resultcard",
+      "target": "src_components_duelsscreen_avatar",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L12",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_duelsscreen",
+      "target": "src_components_duelsscreen_vsbadge",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/components/DuelsScreen.jsx",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_duelsscreen",
+      "target": "src_components_duelsscreen_score",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/components/DuelsScreen.jsx",
+      "source_location": "L33",
       "weight": 1.0
     },
     {
@@ -14217,7 +14227,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L27",
+      "source_location": "L37",
       "weight": 1.0
     },
     {
@@ -16779,5 +16789,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "c7618e3ac1efaef6ec71ed5a144a66a0a48b15e2"
+  "built_at_commit": "9a36930b6b198a886ef2f2812b116683ff5d3039"
 }

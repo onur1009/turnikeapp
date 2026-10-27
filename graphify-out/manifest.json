@@ -162,9 +162,9 @@
     "semantic_hash": ""
   },
   "src/components/DuelsScreen.jsx": {
-    "mtime": 1793087129.325851,
-    "seen": 1793087136.203123,
-    "ast_hash": "e1b26fca6de3548d1a9a2053843f7249",
+    "mtime": 1793087787.829676,
+    "seen": 1793087795.5133226,
+    "ast_hash": "9a1668199c5be61a3dd2400d91ddfc29",
     "semantic_hash": ""
   },
   "src/components/GameContainer.jsx": {
@@ -180,9 +180,9 @@
     "semantic_hash": ""
   },
   "src/components/HomeScreen.jsx": {
-    "mtime": 1793087129.3280706,
-    "seen": 1793087136.203123,
-    "ast_hash": "0efd407e01aca0e52da837d6cd3f9234",
+    "mtime": 1793087787.829676,
+    "seen": 1793087795.5133226,
+    "ast_hash": "56b47d54ad2d720a141dc5ed18c18263",
     "semantic_hash": ""
   },
   "src/components/LeaderboardScreen.jsx": {
@@ -654,9 +654,9 @@
     "semantic_hash": ""
   },
   "src/components/DuelGame.jsx": {
-    "mtime": 1793087129.3238392,
-    "seen": 1793087136.203123,
-    "ast_hash": "56847d3aff51f1145624c3405eec7e13",
+    "mtime": 1793087787.825332,
+    "seen": 1793087795.5133226,
+    "ast_hash": "febd4edcad28f578bc72d64a5012e5a3",
     "semantic_hash": ""
   },
   "src/components/SceneAnimal.jsx": {

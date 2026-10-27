@@ -1,17 +1,17 @@
 # Graph Report - TurnikeApp  (2026-10-27)
 
 ## Corpus Check
-- 80 files · ~88,546 words
+- 80 files · ~88,729 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 23 file(s) not represented in the graph (top: .xml 10, (none) 5, .properties 2)
 
 ## Summary
-- 446 nodes · 995 edges · 34 communities (20 shown, 14 thin omitted)
+- 448 nodes · 994 edges · 34 communities (20 shown, 14 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 20 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `c7618e3a`
+- Built from commit: `9a36930b`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -33,7 +33,7 @@
 - scripts
 - vercel.json
 - eslint.config.js
-- AkbilScreen.jsx
+- persistStorage.js
 - MainActivity.java
 - Turnike mobil testleri (Artemis)
 - React + Vite
@@ -47,8 +47,8 @@
 3. `react` - 31 edges
 4. `useTranslation()` - 26 edges
 5. `NavigationContainer()` - 21 edges
-6. `ScreenHeader()` - 20 edges
-7. `formatKurus()` - 20 edges
+6. `formatKurus()` - 20 edges
+7. `ScreenHeader()` - 18 edges
 8. `AkbilScreen()` - 14 edges
 9. `playTone()` - 14 edges
 10. `getStationForLevel()` - 14 edges
@@ -62,8 +62,8 @@
   src/App.jsx → src/utils/soundManager.js
 - `start()` --calls--> `App()`  [EXTRACTED]
   src/main.jsx → src/App.jsx
-- `IstanbulCard()` --calls--> `formatKurus()`  [EXTRACTED]
-  src/components/AkbilScreen.jsx → src/utils/format.js
+- `AkbilScreen()` --calls--> `getNetworkProgress()`  [EXTRACTED]
+  src/components/AkbilScreen.jsx → src/utils/transitNetwork.js
 
 ## Import Cycles
 - None detected.
@@ -71,12 +71,12 @@
 ## Communities (34 total, 14 thin omitted)
 
 ### Community 0 - "NavigationContainer.jsx"
-Cohesion: 0.15
-Nodes (31): react, App(), BadgesScreen(), DictionaryScreen(), HomeScreen(), TABS, LeaderboardScreen(), withTimeout() (+23 more)
+Cohesion: 0.10
+Nodes (46): react, App(), AD_DAILY_LIMIT, AD_REWARD, AkbilScreen(), CARD_COLORS, CardPattern(), DAILY_TOP_UP (+38 more)
 
 ### Community 1 - "GameContainer.jsx"
 Cohesion: 0.10
-Nodes (47): @capacitor/app, @capacitor/haptics, @capacitor/status-bar, AnimatedBalance(), BonusLockers(), generateLockerContents(), REWARD_TYPES, DailySpinScreen() (+39 more)
+Nodes (46): @capacitor/app, @capacitor/haptics, @capacitor/status-bar, BonusLockers(), generateLockerContents(), REWARD_TYPES, DailySpinScreen(), PRIZES (+38 more)
 
 ### Community 2 - "gameLogic.js"
 Cohesion: 0.06
@@ -92,7 +92,7 @@ Nodes (5): adb(), find_adb(), main(), parse_verdict(), Scenario
 
 ### Community 5 - "package.json"
 Cohesion: 0.12
-Nodes (15): name, private, type, version, autoprefixer, @capacitor/android, @capacitor/cli, @capacitor/ios (+7 more)
+Nodes (16): name, private, type, version, autoprefixer, @capacitor/android, @capacitor/cli, @capacitor-community/admob (+8 more)
 
 ### Community 6 - "devDependencies"
 Cohesion: 0.13
@@ -104,19 +104,19 @@ Nodes (15): dependencies, @capacitor/android, @capacitor/app, @capacitor/cli, @c
 
 ### Community 9 - "transitNetwork.js"
 Cohesion: 0.13
-Nodes (24): MapScreen(), NetworkMap(), ZOOMS, EXTRA_STATION_NAMES, LINE_DEFS, MODE_GROUPS, MODE_META, getStationPoints() (+16 more)
+Nodes (25): MapScreen(), NetworkMap(), ZOOMS, NetworkScreen(), EXTRA_STATION_NAMES, LINE_DEFS, MODE_GROUPS, MODE_META (+17 more)
 
 ### Community 10 - "main.jsx"
-Cohesion: 0.21
-Nodes (8): @capacitor/preferences, react-dom, ErrorBoundary, start(), GAME_STORAGE_KEY, backedUpStorage, isNative, restoreFromBackup()
+Cohesion: 0.31
+Nodes (5): react-dom, ErrorBoundary, start(), GAME_STORAGE_KEY, restoreFromBackup()
 
 ### Community 12 - "SceneBackground.jsx"
 Cohesion: 0.11
 Nodes (14): Cat(), Gull(), Owl(), pickAnimal(), SceneAnimal(), FarCity(), LANDMARKS, rng() (+6 more)
 
 ### Community 13 - "DuelsScreen.jsx"
-Cohesion: 0.19
-Nodes (18): DuelGame(), DuelsScreen(), ResultCard(), scoreText(), Grid(), Wheel(), cleanName(), cleanScore() (+10 more)
+Cohesion: 0.17
+Nodes (20): DuelGame(), Avatar(), DuelsScreen(), initials(), Score(), VsBadge(), Grid(), Wheel() (+12 more)
 
 ### Community 14 - "scripts"
 Cohesion: 0.29
@@ -130,9 +130,9 @@ Nodes (4): buildCommand, framework, outputDirectory, rewrites
 Cohesion: 0.33
 Nodes (5): eslint, @eslint/js, eslint-plugin-react-hooks, eslint-plugin-react-refresh, globals
 
-### Community 18 - "AkbilScreen.jsx"
-Cohesion: 0.15
-Nodes (17): @capacitor-community/admob, @capacitor/core, AD_DAILY_LIMIT, AD_REWARD, AkbilScreen(), CARD_COLORS, CardPattern(), DAILY_TOP_UP (+9 more)
+### Community 18 - "persistStorage.js"
+Cohesion: 0.40
+Nodes (4): @capacitor/core, @capacitor/preferences, backedUpStorage, isNative
 
 ### Community 29 - "Turnike mobil testleri (Artemis)"
 Cohesion: 0.40
@@ -158,17 +158,17 @@ Nodes (9): Bogie(), Funicular(), Marmaray(), Metro(), Metrobus(), RailCar(), SPR
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `react` connect `NavigationContainer.jsx` to `GameContainer.jsx`, `gameLogic.js`, `VehicleSprite.jsx`, `package.json`, `transitNetwork.js`, `main.jsx`, `SceneBackground.jsx`, `DuelsScreen.jsx`, `AkbilScreen.jsx`?**
-  _High betweenness centrality (0.181) - this node is a cross-community bridge._
+- **Why does `react` connect `NavigationContainer.jsx` to `GameContainer.jsx`, `gameLogic.js`, `VehicleSprite.jsx`, `package.json`, `transitNetwork.js`, `main.jsx`, `SceneBackground.jsx`, `DuelsScreen.jsx`?**
+  _High betweenness centrality (0.182) - this node is a cross-community bridge._
 - **What connects `fs`, `content`, `fs` to the rest of the system?**
   _124 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `GameContainer.jsx` be split into smaller, more focused modules?**
-  _Cohesion score 0.1011104617182934 - nodes in this community are weakly interconnected._
+- **Should `NavigationContainer.jsx` be split into smaller, more focused modules?**
+  _Cohesion score 0.10312075983717775 - nodes in this community are weakly interconnected._
 - **Why does `dependencies` connect `dependencies` to `package.json`?**
+  _High betweenness centrality (0.049) - this node is a cross-community bridge._
+- **Should `GameContainer.jsx` be split into smaller, more focused modules?**
+  _Cohesion score 0.09962406015037593 - nodes in this community are weakly interconnected._
+- **Why does `devDependencies` connect `devDependencies` to `package.json`?**
   _High betweenness centrality (0.049) - this node is a cross-community bridge._
 - **Should `gameLogic.js` be split into smaller, more focused modules?**
   _Cohesion score 0.06429070580013976 - nodes in this community are weakly interconnected._
-- **Why does `devDependencies` connect `devDependencies` to `package.json`?**
-  _High betweenness centrality (0.049) - this node is a cross-community bridge._
-- **Should `run.cjs` be split into smaller, more focused modules?**
-  _Cohesion score 0.08307692307692308 - nodes in this community are weakly interconnected._
