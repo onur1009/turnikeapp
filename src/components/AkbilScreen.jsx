@@ -1,201 +1,285 @@
 import React, { useState } from 'react';
-import { useGameStore } from '../store/gameStore';
+import { useGameStore, VAULT_SIZE, VAULT_REWARD } from '../store/gameStore';
 import { useTranslation } from '../utils/i18n';
 import ScreenHeader from './ScreenHeader';
 import { formatKurus } from '../utils/format';
+import { LINES, getStationForLevel, getNetworkProgress } from '../utils/transitNetwork';
+import { isRewardedAdSupported, showRewardedAd } from '../utils/adService';
 
-const SHOW_STORE_FEATURES = false;
+// İstanbulkart: kart görünümü + kişiselleştirme + bakiye yükleme modülleri + işlem geçmişi.
+// Bakiye oyun parasıdır; gerçek para alınmaz. Kaynaklar: ödüllü reklam, günlük yükleme,
+// ekstra kelime kavanozu ve durak ödülleri (son ikisi oyunda kazanılır, burada gösterilir).
 
-const CARD_COLORS = [
-  { id: '#1d4ed8', name: 'Mavi', nameEn: 'Blue' },
-  { id: '#dc2626', name: 'Kırmızı', nameEn: 'Red' },
-  { id: '#16a34a', name: 'Yeşil', nameEn: 'Green' },
-  { id: '#ea580c', name: 'Turuncu', nameEn: 'Orange' },
-  { id: '#7c3aed', name: 'Mor', nameEn: 'Purple' },
-  { id: '#0f172a', name: 'Siyah', nameEn: 'Black' },
+export const AD_REWARD = 50; // kuruş
+export const AD_DAILY_LIMIT = 5;
+export const DAILY_TOP_UP = 30;
+
+const CARD_COLORS = ['#1d4ed8', '#dc2626', '#16a34a', '#ea580c', '#7c3aed', '#0f172a', '#0e7490', '#be185d'];
+
+const PATTERNS = [
+  { id: 'plain', label: 'Düz' },
+  { id: 'lines', label: 'Hatlar' },
+  { id: 'bosphorus', label: 'Boğaz' },
+  { id: 'mosaic', label: 'Çini' },
+  { id: 'night', label: 'Gece' },
 ];
 
-const BALANCE_PACKS = [
-  { amount: 100, label: '₺1.00', color: '#22c55e' },
-  { amount: 500, label: '₺5.00', color: '#3b82f6' },
-  { amount: 1000, label: '₺10.00', color: '#8b5cf6' },
-  { amount: 2500, label: '₺25.00', color: '#f59e0b' },
-];
+const TOP_UP_LABELS = { ad: 'Reklam ödülü', daily: 'Günlük yükleme', duel: 'Düello ödülü' };
+
+const todayKey = () => {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+};
+
+// Kart üstü desen katmanı (SVG, kartın rengine bindirilir)
+const CardPattern = ({ pattern }) => {
+  if (pattern === 'lines') return (
+    <svg className="absolute inset-0 w-full h-full" viewBox="0 0 320 200" preserveAspectRatio="none" aria-hidden="true">
+      {['#16a34a', '#dc2626', '#eab308', '#0ea5e9', '#db2777'].map((c, i) => (
+        <path key={c} d={`M-20 ${150 - i * 14} C 80 ${120 - i * 14}, 160 ${190 - i * 14}, 340 ${60 - i * 10}`} stroke={c} strokeWidth="5" fill="none" opacity="0.55" />
+      ))}
+    </svg>
+  );
+  if (pattern === 'bosphorus') return (
+    <svg className="absolute inset-0 w-full h-full" viewBox="0 0 320 200" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 150 Q80 135 160 150 T320 145 V200 H0 Z" fill="#ffffff" opacity="0.14" />
+      <path d="M40 150 V110 M200 150 V110" stroke="#ffffff" strokeWidth="4" opacity="0.35" />
+      <path d="M0 140 Q40 120 40 110 Q120 150 200 110 Q240 120 320 135" stroke="#ffffff" strokeWidth="2" fill="none" opacity="0.35" />
+      <path d="M250 150 V95 l6 -14 l6 14 V150 Z M235 150 V125 h45 V150 Z" fill="#ffffff" opacity="0.2" />
+    </svg>
+  );
+  if (pattern === 'mosaic') return (
+    <svg className="absolute inset-0 w-full h-full" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <pattern id="cini" width="40" height="40" patternUnits="userSpaceOnUse">
+          <path d="M20 2 L38 20 L20 38 L2 20 Z" fill="none" stroke="#ffffff" strokeWidth="1.5" opacity="0.28" />
+          <circle cx="20" cy="20" r="5" fill="#ffffff" opacity="0.18" />
+        </pattern>
+      </defs>
+      <rect width="320" height="200" fill="url(#cini)" />
+    </svg>
+  );
+  if (pattern === 'night') return (
+    <svg className="absolute inset-0 w-full h-full" viewBox="0 0 320 200" preserveAspectRatio="none" aria-hidden="true">
+      <rect width="320" height="200" fill="#020617" opacity="0.45" />
+      {Array.from({ length: 24 }, (_, i) => <circle key={i} cx={(i * 47) % 320} cy={(i * 29) % 110} r="1.2" fill="#ffffff" opacity="0.7" />)}
+      <circle cx="270" cy="40" r="14" fill="#fde68a" opacity="0.85" />
+      <path d="M0 200 V160 h20 v-15 h18 v20 h25 v-30 l8 -12 l8 12 v30 h30 v-18 h22 v33 h40 v-25 h20 v25 h40 v-10 h30 v10 h59 V200 Z" fill="#020617" opacity="0.7" />
+    </svg>
+  );
+  return (
+    <>
+      <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-white/10" />
+      <div className="absolute -bottom-12 -left-8 w-36 h-36 rounded-full bg-white/5" />
+    </>
+  );
+};
+
+export const IstanbulCard = ({ color, pattern, name, sticker, balance, onClick }) => {
+  const stickerLine = LINES.find(l => l.id === sticker);
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="w-full aspect-[1.586/1] rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden text-left active:scale-[0.98] transition-transform"
+      style={{ background: `linear-gradient(135deg, ${color}, ${color}cc)`, boxShadow: '0 18px 36px rgba(0,0,0,0.35)' }}
+      aria-label="Kartı kişiselleştir"
+    >
+      <CardPattern pattern={pattern} />
+      <div className="flex justify-between items-start relative">
+        <span className="text-white font-black text-[18px] tracking-tight">İstanbul<span className="font-semibold">kart</span></span>
+        {stickerLine && <span className="line-badge" style={{ background: stickerLine.color }}>{stickerLine.code}</span>}
+      </div>
+      {/* Temassız çip */}
+      <div className="relative w-10 h-7 rounded-md bg-gradient-to-br from-amber-200 to-amber-500 opacity-90" />
+      <div className="relative flex items-end justify-between gap-2">
+        <div className="min-w-0">
+          <p className="text-white/70 text-[11px] font-bold uppercase tracking-wider">Bakiye</p>
+          <p className="text-white text-[34px] leading-none font-black tracking-tight tabular-nums">{formatKurus(balance)}</p>
+        </div>
+        <p className="text-white/85 text-[12px] font-bold uppercase tracking-widest truncate max-w-[45%]">{name || 'YOLCU'}</p>
+      </div>
+    </button>
+  );
+};
+
+const Module = ({ icon, iconColor, title, subtitle, action, disabled, onClick, progress }) => (
+  <div className="card-panel !rounded-2xl p-4 flex items-center gap-3">
+    <span aria-hidden="true" className="material-symbols-outlined text-[26px] shrink-0" style={{ color: iconColor, fontVariationSettings: "'FILL' 1" }}>{icon}</span>
+    <div className="flex-1 min-w-0">
+      <p className="text-white font-extrabold text-[14px] leading-tight">{title}</p>
+      <p className="text-white/60 text-[12px] font-semibold mt-0.5">{subtitle}</p>
+      {progress != null && (
+        <div className="h-1.5 rounded-full bg-white/10 mt-2 overflow-hidden">
+          <div className="h-full rounded-full bg-amber-400" style={{ width: `${Math.min(100, progress * 100)}%` }} />
+        </div>
+      )}
+    </div>
+    {action && (
+      <button onClick={onClick} disabled={disabled}
+        className="shrink-0 px-4 py-2.5 rounded-full font-black text-[13px] text-white bg-green-600 active:scale-95 transition-transform disabled:opacity-40 disabled:active:scale-100">
+        {action}
+      </button>
+    )}
+  </div>
+);
 
 const AkbilScreen = ({ onBack }) => {
-  const balance = useGameStore(state => state.balance);
-  const addBalance = useGameStore(state => state.addBalance);
-  const cardColor = useGameStore(state => state.cardColor);
-  const setSettings = useGameStore(state => state.setSettings);
-  const { t, language } = useTranslation();
-  const [isWatchingAd, setIsWatchingAd] = useState(false);
-  const [showHistory, setShowHistory] = useState(false);
-  const [showColorPicker, setShowColorPicker] = useState(false);
-  const [showPacks, setShowPacks] = useState(false);
-  const [purchaseFeedback, setPurchaseFeedback] = useState(null);
+  const { t } = useTranslation();
+  const balance = useGameStore(s => s.balance);
+  const cardColor = useGameStore(s => s.cardColor);
+  const cardPattern = useGameStore(s => s.cardPattern);
+  const cardName = useGameStore(s => s.cardName);
+  const cardSticker = useGameStore(s => s.cardSticker);
+  const topUpHistory = useGameStore(s => s.topUpHistory);
+  const adRewardDate = useGameStore(s => s.adRewardDate);
+  const adRewardCount = useGameStore(s => s.adRewardCount);
+  const dailyTopUpDate = useGameStore(s => s.dailyTopUpDate);
+  const vaultCount = useGameStore(s => s.vaultWords.length);
+  const maxUnlockedLevel = useGameStore(s => s.maxUnlockedLevel);
+  const setSettings = useGameStore(s => s.setSettings);
+  const recordTopUp = useGameStore(s => s.recordTopUp);
+  const registerAdReward = useGameStore(s => s.registerAdReward);
 
+  const [customizing, setCustomizing] = useState(false);
+  const [adState, setAdState] = useState('idle'); // idle | loading | failed
+  const [toast, setToast] = useState(null);
 
-  const handlePurchase = (amount, label) => {
-    addBalance(amount);
-    setPurchaseFeedback(label);
-    setTimeout(() => setPurchaseFeedback(null), 2000);
+  const today = todayKey();
+  const adsLeft = AD_DAILY_LIMIT - (adRewardDate === today ? adRewardCount : 0);
+  const dailyClaimed = dailyTopUpDate === today;
+  const adsSupported = isRewardedAdSupported();
+  const station = getStationForLevel(maxUnlockedLevel);
+  const progress = getNetworkProgress(maxUnlockedLevel + 1);
+  // Kart rozeti: oyuncunun girdiği (kilidi açık) hatlar
+  const stickerLines = LINES.filter(l => !progress.lines[l.id].locked);
+
+  const flash = (msg) => { setToast(msg); setTimeout(() => setToast(null), 2200); };
+
+  const watchAd = async () => {
+    setAdState('loading');
+    const rewarded = await showRewardedAd();
+    if (rewarded) {
+      registerAdReward(today);
+      recordTopUp('ad', AD_REWARD);
+      flash(`+${formatKurus(AD_REWARD)} yüklendi`);
+      setAdState('idle');
+    } else {
+      setAdState('failed');
+    }
+  };
+
+  const claimDaily = () => {
+    setSettings({ dailyTopUpDate: today });
+    recordTopUp('daily', DAILY_TOP_UP);
+    flash(`+${formatKurus(DAILY_TOP_UP)} yüklendi`);
   };
 
   return (
-    <main className="flex-1 w-full flex flex-col p-6 pb-20 relative z-10 fade-in items-center overflow-y-auto">
-      <div className="w-full max-w-sm">
-        <ScreenHeader title={t('akbil')} onBack={onBack} className="px-0 pt-0 mb-6" />
+    <main className="flex-1 w-full flex flex-col relative z-10 fade-in overflow-y-auto" style={{ overscrollBehavior: 'contain' }}>
+      <div className="w-full max-w-sm mx-auto px-4 pb-8">
+        <ScreenHeader title={t('akbil')} onBack={onBack} className="px-0" />
 
-        {/* Akbil Card */}
-        <div 
-          className="w-full aspect-[1.586/1] rounded-2xl p-6 flex flex-col justify-between shadow-[0_20px_40px_rgba(0,0,0,0.5)] mb-6 relative overflow-hidden transition-all duration-500 hover:scale-[1.02] active:scale-[0.98]"
-          style={{
-            background: `linear-gradient(135deg, ${cardColor}, ${cardColor}dd)`,
-            border: '1px solid rgba(255,255,255,0.15)'
-          }}
-          onClick={() => setShowColorPicker(!showColorPicker)}
-        >
-          {/* Card Decorations */}
-          <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-white/5" />
-          <div className="absolute -bottom-10 -left-10 w-32 h-32 rounded-full bg-white/5" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-white/[0.03]" />
-          
-          <div className="flex justify-between items-start relative z-10">
-            <span aria-hidden="true" className="material-symbols-outlined text-white/80 text-[32px]">subway</span>
-            <div className="flex gap-2 items-center">
-              <span aria-hidden="true" className="material-symbols-outlined text-white/40 text-[16px]">palette</span>
-              <div className="px-2 py-1 bg-white/10 rounded font-black text-white/50 text-[10px] tracking-widest">
-                {language === 'en' ? 'TRANSIT' : 'İBB'}
+        <IstanbulCard color={cardColor} pattern={cardPattern} name={cardName} sticker={cardSticker} balance={balance}
+          onClick={() => setCustomizing(c => !c)} />
+        <p className="text-center text-white/50 text-[12px] font-semibold mt-2 mb-4">
+          {customizing ? 'Kartını düzenliyorsun' : 'Kartına dokunarak kişiselleştir'}
+        </p>
+
+        {customizing && (
+          <section className="card-panel !rounded-2xl p-4 mb-4 flex flex-col gap-4 fade-in">
+            <div>
+              <h3 className="kart-label">Renk</h3>
+              <div className="flex gap-2 flex-wrap">
+                {CARD_COLORS.map(c => (
+                  <button key={c} aria-label={`Renk ${c}`} aria-pressed={cardColor === c} onClick={() => setSettings({ cardColor: c })}
+                    className={`w-9 h-9 rounded-full transition-transform ${cardColor === c ? 'ring-2 ring-white scale-110' : ''}`} style={{ background: c }} />
+                ))}
               </div>
             </div>
-          </div>
-
-          <div className="relative z-10">
-            <p className="text-white/60 text-xs font-bold uppercase tracking-wider mb-1">{t('available_balance')}</p>
-            <div className="flex items-end gap-2">
-              <span className="text-white text-5xl font-black tracking-tighter">{formatKurus(balance)}</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Renk Seçici */}
-        {showColorPicker && (
-          <div className="mb-4 p-4 bg-white/5 rounded-2xl border border-white/10 fade-in">
-            <h3 className="text-white/60 text-xs font-bold uppercase tracking-widest mb-3">{t('card_color')}</h3>
-            <div className="flex gap-2 flex-wrap">
-              {CARD_COLORS.map(c => (
-                <button
-                  key={c.id}
-                  onClick={() => { setSettings({ cardColor: c.id }); setShowColorPicker(false); }}
-                  className={`w-10 h-10 rounded-full transition-all ${cardColor === c.id ? 'ring-2 ring-white scale-110' : 'hover:scale-105'}`}
-                  style={{ background: c.id, border: '2px solid rgba(255,255,255,0.2)' }}
-                  title={language === 'en' ? c.nameEn : c.name}
-                />
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Satın Alma Geri Bildirimi */}
-        {purchaseFeedback && (
-          <div className="mb-4 p-3 bg-green-500/20 border border-green-500/30 rounded-xl text-center fade-in">
-            <span className="text-green-400 font-bold text-sm">✓ {purchaseFeedback} yüklendi!</span>
-          </div>
-        )}
-
-        {/* Reklam, bakiye yükleme ve işlem geçmişi gerçek servislere bağlanana kadar gizli:
-            yükleme ödeme almadan bakiye ekliyordu, geçmiş sabit örnek veriydi */}
-        {SHOW_STORE_FEATURES && (
-        <div className="flex flex-col gap-3">
-          {/* Reklam İzle */}
-          <button 
-            disabled={isWatchingAd}
-            onClick={() => {
-              setIsWatchingAd(true);
-              setTimeout(() => {
-                addBalance(50);
-                setIsWatchingAd(false);
-              }, 3000);
-            }}
-            className={`w-full py-4 rounded-xl font-bold text-white text-sm tracking-wide bg-blue-600 hover:bg-blue-500 transition-colors flex items-center justify-center gap-2 ${isWatchingAd ? 'opacity-50 cursor-not-allowed' : ''}`}>
-            <span aria-hidden="true" className="material-symbols-outlined text-[20px]">
-              {isWatchingAd ? 'hourglass_empty' : 'play_circle'}
-            </span>
-            {isWatchingAd ? t('watching_ad') : t('watch_ad_balance')}
-          </button>
-          
-          {/* Bakiye Yükle */}
-          <button 
-            onClick={() => setShowPacks(!showPacks)}
-            className="w-full py-4 rounded-xl font-bold text-white text-sm tracking-wide bg-green-600 hover:bg-green-500 transition-colors flex items-center justify-center gap-2">
-            <span aria-hidden="true" className="material-symbols-outlined text-[20px]">add_circle</span>
-            {t('load_balance')}
-          </button>
-
-          {showPacks && (
-            <div className="grid grid-cols-2 gap-2 fade-in">
-              {BALANCE_PACKS.map(pack => (
-                <button
-                  key={pack.amount}
-                  onClick={() => handlePurchase(pack.amount, pack.label)}
-                  className="py-3 rounded-xl font-bold text-white text-sm transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-1"
-                  style={{ background: `${pack.color}20`, border: `1px solid ${pack.color}40` }}
-                >
-                  <span aria-hidden="true" className="material-symbols-outlined text-[16px]" style={{ color: pack.color }}>add</span>
-                  {pack.label}
-                </button>
-              ))}
-            </div>
-          )}
-          
-          {/* Geçmiş */}
-          <button 
-            onClick={() => setShowHistory(true)}
-            className="w-full py-4 rounded-xl font-bold text-white/80 text-sm tracking-wide bg-white/5 hover:bg-white/10 transition-colors flex items-center justify-center gap-2">
-            <span aria-hidden="true" className="material-symbols-outlined text-[20px]">history</span>
-            {t('history')}
-          </button>
-        </div>
-        )}
-
-        {/* History Modal */}
-        {showHistory && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm fade-in px-4">
-            <div className="bg-[#0f172a] border border-white/10 rounded-2xl w-full max-w-sm p-6 shadow-2xl relative">
-              <button 
-                onClick={() => setShowHistory(false)}
-                className="absolute top-4 right-4 text-white/50 hover:text-white transition-colors">
-                <span aria-hidden="true" className="material-symbols-outlined">close</span>
-              </button>
-              <h3 className="text-white font-bold text-lg mb-4 flex items-center gap-2">
-                <span aria-hidden="true" className="material-symbols-outlined text-blue-400">history</span>
-                {t('recent_ops')}
-              </h3>
-              <div className="flex flex-col gap-3 max-h-[300px] overflow-y-auto pr-2">
-                <div className="flex justify-between items-center bg-white/5 p-3 rounded-lg">
-                  <div>
-                    <p className="text-white/90 text-sm font-medium">{language === 'en' ? 'Ad Reward' : 'Video İzleme Ödülü'}</p>
-                    <p className="text-white/40 text-xs">{language === 'en' ? 'Today' : 'Bugün'}</p>
-                  </div>
-                  <span className="text-green-400 font-bold">+₺0.50</span>
-                </div>
-                <div className="flex justify-between items-center bg-white/5 p-3 rounded-lg">
-                  <div>
-                    <p className="text-white/90 text-sm font-medium">{language === 'en' ? 'Word Found (Fast)' : 'Kelime Bulma (Hızlı)'}</p>
-                    <p className="text-white/40 text-xs">{language === 'en' ? 'Today' : 'Bugün'}</p>
-                  </div>
-                  <span className="text-green-400 font-bold">+₺2.00</span>
-                </div>
-                <div className="flex justify-between items-center bg-white/5 p-3 rounded-lg">
-                  <div>
-                    <p className="text-white/90 text-sm font-medium">{language === 'en' ? 'Hint Used' : 'Otomatik Bul (Kopya)'}</p>
-                    <p className="text-white/40 text-xs">{language === 'en' ? 'Today' : 'Bugün'}</p>
-                  </div>
-                  <span className="text-red-400 font-bold">-₺0.75</span>
-                </div>
+            <div>
+              <h3 className="kart-label">Desen</h3>
+              <div className="flex gap-2 flex-wrap">
+                {PATTERNS.map(p => (
+                  <button key={p.id} aria-pressed={cardPattern === p.id} onClick={() => setSettings({ cardPattern: p.id })}
+                    className={`kart-chip ${cardPattern === p.id ? 'is-on' : ''}`}>{p.label}</button>
+                ))}
               </div>
             </div>
-          </div>
+            <div>
+              <h3 className="kart-label">Hat rozeti</h3>
+              <div className="flex gap-1.5 flex-wrap">
+                <button aria-pressed={!cardSticker} onClick={() => setSettings({ cardSticker: null })} className={`kart-chip ${!cardSticker ? 'is-on' : ''}`}>Yok</button>
+                {stickerLines.map(l => (
+                  <button key={l.id} aria-pressed={cardSticker === l.id} onClick={() => setSettings({ cardSticker: l.id })}
+                    className={`line-badge transition-transform ${cardSticker === l.id ? 'ring-2 ring-white scale-110' : 'opacity-80'}`} style={{ background: l.color }}>{l.code}</button>
+                ))}
+              </div>
+            </div>
+            <label className="block">
+              <span className="kart-label block">Kart üstündeki isim</span>
+              <input value={cardName} maxLength={16} placeholder="YOLCU"
+                onChange={e => setSettings({ cardName: e.target.value.toLocaleUpperCase('tr-TR') })}
+                className="w-full rounded-xl bg-white/10 border border-white/15 px-3 py-2.5 text-white font-bold tracking-widest uppercase placeholder:text-white/30 outline-none focus:border-white/40" />
+            </label>
+          </section>
+        )}
+
+        {toast && (
+          <div role="status" className="mb-3 p-3 rounded-xl text-center bg-green-600/25 border border-green-500/40 text-green-300 font-bold text-[14px] fade-in">✓ {toast}</div>
+        )}
+
+        <h2 className="kart-label mt-1">Bakiye yükle</h2>
+        <div className="flex flex-col gap-2.5">
+          <Module
+            icon="smart_display" iconColor="#60a5fa"
+            title={`Reklam izle, ${formatKurus(AD_REWARD)} yükle`}
+            subtitle={!adsSupported
+              ? 'Yalnızca Android uygulamasında'
+              : adState === 'failed'
+                ? 'Reklam yüklenemedi, biraz sonra tekrar dene'
+                : `Bugün ${Math.max(0, adsLeft)}/${AD_DAILY_LIMIT} hak kaldı`}
+            action={adState === 'loading' ? '...' : 'İzle'}
+            disabled={!adsSupported || adsLeft <= 0 || adState === 'loading'}
+            onClick={watchAd}
+          />
+          <Module
+            icon="calendar_today" iconColor="#34d399"
+            title={`Günlük yükleme ${formatKurus(DAILY_TOP_UP)}`}
+            subtitle={dailyClaimed ? 'Bugün alındı, yarın yine gel' : 'Her gün bir kez ücretsiz'}
+            action={dailyClaimed ? 'Alındı' : 'Al'}
+            disabled={dailyClaimed}
+            onClick={claimDaily}
+          />
+          <Module
+            icon="savings" iconColor="#fbbf24"
+            title={`Kelime kavanozu: ${vaultCount}/${VAULT_SIZE}`}
+            subtitle={`Izgarada olmayan ${VAULT_SIZE} kelime bul, ${formatKurus(VAULT_REWARD)} kazan`}
+            progress={vaultCount / VAULT_SIZE}
+          />
+          <Module
+            icon="flag" iconColor={station.color}
+            title={`Durak ödülü: ${station.displayName}`}
+            subtitle={`Bölüm ${station.leg}/${station.legsPerStation} · durağı bitirince ${formatKurus(100)}`}
+            progress={(station.leg - 1) / station.legsPerStation}
+          />
+        </div>
+
+        <h2 className="kart-label mt-5">Son işlemler</h2>
+        {topUpHistory.length === 0 ? (
+          <p className="text-white/45 text-[13px] font-semibold">Henüz yükleme yok.</p>
+        ) : (
+          <ul className="flex flex-col gap-1.5">
+            {topUpHistory.slice(0, 10).map((h, i) => (
+              <li key={i} className="flex items-center justify-between rounded-xl px-3 py-2.5 bg-white/5">
+                <span>
+                  <span className="block text-white/90 text-[13px] font-bold">{TOP_UP_LABELS[h.type] || h.type}</span>
+                  <span className="block text-white/45 text-[11px] font-semibold">{new Date(h.at).toLocaleString('tr-TR', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}</span>
+                </span>
+                <span className="text-green-400 font-black text-[14px] tabular-nums">+{formatKurus(h.amount)}</span>
+              </li>
+            ))}
+          </ul>
         )}
       </div>
     </main>

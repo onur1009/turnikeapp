@@ -60,6 +60,19 @@ export const useGameStore = create(
       theme: 'dark', // 'dark' | 'light' | 'retro'
       language: 'tr', // 'tr' | 'en'
       cardColor: '#1d4ed8', // Akbil kart rengi
+      cardPattern: 'plain', // Kart deseni: plain | lines | bosphorus | mosaic | night
+      cardName: '', // Kartın üstüne basılan isim
+      cardSticker: null, // Karta yapıştırılan hat rozeti (hat id)
+
+      // İstanbulkart bakiye yükleme
+      topUpHistory: [], // { type: 'ad' | 'daily' | 'duel', amount, at }
+      adRewardDate: null,
+      adRewardCount: 0,
+      dailyTopUpDate: null,
+
+      // Düellolar (bağlantıyla, sunucusuz)
+      duels: [], // { seed, role: 'sent' | 'received', opponent, mine: {w,t}, theirs, rewarded, at }
+      incomingDuel: null, // ?duel= bağlantısından gelen, henüz açılmamış kod
 
       // Genel İstatistikler
       totalGamesPlayed: 0,
@@ -141,6 +154,21 @@ export const useGameStore = create(
         };
       }),
       resetCombo: () => set({ combo: 0 }),
+
+      // Bakiye yükleme: tüm yüklemeler geçmişe yazılır (en yeni başta, en çok 30 kayıt)
+      recordTopUp: (type, amount) => set((state) => ({
+        balance: state.balance + amount,
+        totalBalanceEarned: state.totalBalanceEarned + amount,
+        topUpHistory: [{ type, amount, at: Date.now() }, ...state.topUpHistory].slice(0, 30),
+      })),
+      // Ödüllü reklam sayacı gün değişince sıfırlanır
+      registerAdReward: (today) => set((state) => ({
+        adRewardDate: today,
+        adRewardCount: state.adRewardDate === today ? state.adRewardCount + 1 : 1,
+      })),
+      saveDuel: (duel) => set((state) => ({
+        duels: [duel, ...state.duels.filter(d => d.code !== duel.code)].slice(0, 20),
+      })),
 
       // Kasa Sistemi
       addVaultWord: (word) => set((state) => {

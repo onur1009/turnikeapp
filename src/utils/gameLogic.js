@@ -948,3 +948,32 @@ export const generateLevel = (levelIndex, language = "tr", attempts = 1, perform
 
 export const VALID_WORDS = VALID_WORDS_TR;
 export const WORD_MEANINGS = WORD_MEANINGS_TR;
+
+// Düello bulmacası: yalnızca seed'e bağlı (oyuncunun geçmişine değil), böylece bağlantıyı açan
+// arkadaş birebir aynı ızgarayı ve çarkı görür. 6-7 harfli kökler, en fazla 6 kelime.
+export const generateDuelLevel = (seed, language = "tr") => {
+  const { techTerms, validWords, formableCache, rareWords } = getPools(language);
+  const rand = seededRandom((Math.abs(seed | 0) % 2147483646) + 1);
+  const pool = techTerms.filter(t => t.root.length >= 6 && t.root.length <= 7);
+  const usable = pool.length ? pool : techTerms;
+  // Seed sırasıyla kökleri dene; en az 5 alt kelime çıkaran ilk kök seçilir (dolu bir ızgara için)
+  const start = Math.floor(rand() * usable.length);
+  let term = usable[start];
+  let candidates = [];
+  for (let k = 0; k < usable.length; k++) {
+    const t = usable[(start + k * 7) % usable.length];
+    const c = getCandidateWords(t.root, validWords, 100, rand, formableCache, rareWords);
+    if (c.length >= 5) { term = t; candidates = c; break; }
+  }
+  if (candidates.length === 0) {
+    term = { root: language === 'en' ? 'TRAIN' : 'TRAMVAY', provider: 'Metro', category: 'General' };
+    candidates = getCandidateWords(term.root, validWords, 100, rand, formableCache, rareWords);
+  }
+  const words = placePuzzleWords(term.root, candidates, 6, rand);
+  return {
+    words,
+    wheelLetters: shuffleWith(term.root.split(""), rand),
+    technicalTerm: term.root,
+    validWordsSet: validWords,
+  };
+};

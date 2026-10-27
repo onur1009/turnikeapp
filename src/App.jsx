@@ -167,12 +167,24 @@ function App() {
     };
   }, [screen]);
 
+  // Düello bağlantısı (?duel=...): kodu sakla, adres çubuğunu temizle, yükleme sonrası düelloya git
+  // (yalnızca bu açılışta bağlantıyla gelindiyse düello ekranı açılır; kayıtlı kod her açılışta yönlendirmez)
+  const openDuelOnStart = useRef(false);
+  useEffect(() => {
+    const code = new URLSearchParams(window.location.search).get('duel');
+    if (code) {
+      openDuelOnStart.current = true;
+      useGameStore.setState({ incomingDuel: code });
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+  }, []);
+
   useEffect(() => {
     if (screen === 'loading') {
       let progress = 0;
       const interval = setInterval(() => {
         progress += Math.random() * 28;
-        if (progress >= 100) { progress = 100; clearInterval(interval); setTimeout(() => setScreen('home'), 500); }
+        if (progress >= 100) { progress = 100; clearInterval(interval); setTimeout(() => setScreen(openDuelOnStart.current ? 'duels' : 'home'), 500); }
         setLoadingProgress(Math.floor(progress));
       }, 130);
       return () => clearInterval(interval);

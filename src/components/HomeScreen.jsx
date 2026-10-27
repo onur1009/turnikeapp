@@ -53,6 +53,9 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
           {streak > 0 && (
             <span className="status-chip" title="Seri">🔥 {streak}</span>
           )}
+          <button className="icon-btn" onClick={() => setScreen('duels')} aria-label="Düellolar">
+            <span aria-hidden="true" className="material-symbols-outlined text-[18px]">swords</span>
+          </button>
           <button className="icon-btn" onClick={() => setScreen('stats')} aria-label={t('stats')}>
             <span aria-hidden="true" className="material-symbols-outlined text-[18px]">bar_chart</span>
           </button>

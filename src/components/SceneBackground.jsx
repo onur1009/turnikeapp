@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
 import { getSceneFor } from '../data/scenes';
-import VehicleSprite from './VehicleSprite';
+import SceneAnimal, { pickAnimal } from './SceneAnimal';
 
 // Bölüm sahnesi: gökyüzü (ayağa göre saat), uzak şehir, semte özgü simgeler, deniz/kara,
-// bulutlar, martılar ve arada geçen hat aracı. Tamamen SVG; animasyonlar yalnızca transform.
+// bulutlar ve arada geçen bir hayvan (martı, kedi, baykuş). Tamamen SVG; animasyonlar yalnızca transform.
 // Ebeveyn .game-bg (isolation: isolate) olmalı: sahne -z-10 ile içeriğin arkasında kalır.
 const HY = 520; // ufuk çizgisi (viewBox 400x800)
 
@@ -237,10 +237,8 @@ export default function SceneBackground({ station }) {
         )}
       </svg>
 
-      {/* Ufukta arada geçen hat aracı */}
-      <div className="scene-vehicle absolute" style={{ top: `calc(65% - ${region.water ? 2 : 14}px)`, left: 0 }}>
-        <VehicleSprite mode={station.mode} color={station.color} width={88} night={night} />
-      </div>
+      {/* Arada geçen hayvan: gündüz kıyıda martı, karada kedi, gece baykuş */}
+      <SceneAnimal kind={pickAnimal({ night, water: region.water })} />
     </div>
   );
 }

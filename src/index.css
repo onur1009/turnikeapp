@@ -667,8 +667,28 @@ body.theme-light .tab-item { color: rgba(15,23,42,0.75); }
 @keyframes scenePlane { from { transform: translate(-200px, 40px); } to { transform: translate(420px, -60px); } }
 .scene-gondola { animation: sceneGondola 9s ease-in-out infinite alternate; }
 @keyframes sceneGondola { to { transform: translate(110px, -60px); } }
-.scene-vehicle { animation: sceneVehicle 18s linear infinite; animation-delay: 2s; transform: translateX(110vw); }
-@keyframes sceneVehicle { 0% { transform: translateX(110vw); } 45%, 100% { transform: translateX(-120px); } }
+/* Geçen hayvanlar: ekrandan dışarıda başlar, bir kez geçer, bir süre bekler */
+.scene-animal { left: 0; transform: translateX(110vw); }
+.scene-animal-fly { animation: animalFly 16s linear infinite 1.5s; }
+.scene-animal-fly.is-owl { animation-duration: 20s; }
+@keyframes animalFly {
+  0% { transform: translate(110vw, 0); }
+  25% { transform: translate(60vw, -18px); }
+  50% { transform: translate(10vw, 6px); }
+  65%, 100% { transform: translate(-80px, -10px); }
+}
+.scene-animal-walk { animation: animalWalk 22s linear infinite 1s; transform: translateX(-80px); }
+@keyframes animalWalk { 0% { transform: translateX(-80px); } 60%, 100% { transform: translateX(110vw); } }
+.animal-wing-l, .animal-wing-r { transform-box: fill-box; animation: animalFlap 0.45s ease-in-out infinite alternate; }
+.animal-wing-l { transform-origin: right bottom; }
+.animal-wing-r { transform-origin: left bottom; }
+.is-owl .animal-wing-l, .is-owl .animal-wing-r { animation-duration: 0.7s; }
+@keyframes animalFlap { from { transform: scaleY(1); } to { transform: scaleY(-0.55); } }
+.animal-leg-a, .animal-leg-b { animation: animalStep 0.5s ease-in-out infinite alternate; }
+.animal-leg-b { animation-direction: alternate-reverse; }
+@keyframes animalStep { from { transform: translateX(-1.5px); } to { transform: translateX(1.5px); } }
+.animal-tail { transform-box: fill-box; transform-origin: right bottom; animation: animalTail 1.2s ease-in-out infinite alternate; }
+@keyframes animalTail { from { transform: rotate(-8deg); } to { transform: rotate(10deg); } }
 @media (prefers-reduced-motion: reduce) {
   .scene-root * { animation: none !important; }
 }
@@ -697,3 +717,8 @@ body.theme-light .tab-item { color: rgba(15,23,42,0.75); }
 .seg { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; border-radius: 9999px; background: var(--surface); border: 1px solid var(--border); }
 .seg button { padding: 7px 0; border-radius: 9999px; font-weight: 800; font-size: 13px; color: rgba(255,255,255,0.7); }
 .seg button[aria-pressed="true"] { background: #ffffff; color: #10263f; }
+
+/* ===== İstanbulkart ekranı ===== */
+.kart-label { color: rgba(255,255,255,0.6); font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
+.kart-chip { padding: 7px 14px; border-radius: 9999px; font-size: 13px; font-weight: 800; color: rgba(255,255,255,0.75); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); }
+.kart-chip.is-on { background: #ffffff; color: #10263f; }
