@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { getStationData, getStationXPosition, LEVELS_PER_STATION, LINES, STATION_NAMES } from '../utils/transitNetwork';
 
-const MapScreen = ({ onLevelSelect, currentLevel }) => {
+const MapScreen = ({ onLevelSelect, currentLevel, initialLineId }) => {
   // currentLevel: 1-indexed (örn: 1, 2, 3...)
   const totalLevelsCompleted = currentLevel - 1;
   const currentStationIndex = Math.floor(totalLevelsCompleted / LEVELS_PER_STATION);
@@ -12,7 +12,7 @@ const MapScreen = ({ onLevelSelect, currentLevel }) => {
   const currentLoop = currentStationData.loopCount;
 
   // Haritada gösterilecek hat ve tur (loop)
-  const [viewLineId, setViewLineId] = useState(currentLineId);
+  const [viewLineId, setViewLineId] = useState(initialLineId || currentLineId);
   const [viewLoop, setViewLoop] = useState(currentLoop);
   
   const scrollRef = useRef(null);
@@ -132,7 +132,7 @@ const MapScreen = ({ onLevelSelect, currentLevel }) => {
           <div className="flex items-center justify-center gap-1.5 mb-0.5">
             <span aria-hidden="true" className="material-symbols-outlined text-[14px]" style={{ color: activeLineObj.color }}>{activeLineObj.icon}</span>
             <p className="text-xs font-bold tracking-[2px] uppercase" style={{ color: activeLineObj.color }}>
-              {activeLineObj.id} Hattı {viewLoop > 0 && `(Tur ${viewLoop + 1})`}
+              {activeLineObj.code} · {activeLineObj.modeLabel} {viewLoop > 0 && `(Tur ${viewLoop + 1})`}
             </p>
           </div>
           <h2 className="text-white text-[15px] font-extrabold leading-tight">{activeLineObj.name}</h2>

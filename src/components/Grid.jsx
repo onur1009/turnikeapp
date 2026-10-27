@@ -105,7 +105,7 @@ const Grid = ({ words, foundWords, hintedLetters = [], onIntersectionFound }) =>
   }, [foundWords, intersections, gridMap, onIntersectionFound]);
 
   const GAP = 6;
-  const MAX_CELL = 52;
+  const MAX_CELL = 58;
   const fitW = bounds ? Math.floor((containerSize.w - 16 - (bounds.cols - 1) * GAP) / bounds.cols) : MAX_CELL;
   const fitH = bounds ? Math.floor((containerSize.h - 8 - (bounds.rows - 1) * GAP) / bounds.rows) : MAX_CELL;
   const CELL = Math.max(24, Math.min(MAX_CELL, fitW, fitH));

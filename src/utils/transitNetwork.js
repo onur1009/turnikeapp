@@ -1,12 +1,15 @@
 export const LEVELS_PER_STATION = 5; // Her durakta 5 bölüm oynanır
 
-export const LINES = [
-  { id: 'M2', name: 'M2 Hacıosman - Yenikapı', color: '#22c55e', icon: 'train' },       // Yeşil
-  { id: 'MARMARAY', name: 'Marmaray', color: '#64748b', icon: 'directions_train' },   // Gri
-  { id: 'METROBUS', name: 'Metrobüs', color: '#eab308', icon: 'directions_bus' },     // Sarı
-  { id: 'VAPUR', name: 'Şehir Hatları', color: '#3b82f6', icon: 'directions_boat' },  // Mavi
-  { id: 'T1', name: 'T1 Kabataş - Bağcılar', color: '#1d4ed8', icon: 'tram' }         // Koyu Mavi
-];
+import { LINE_DEFS, EXTRA_STATION_NAMES, MODE_META } from '../data/istanbulLines';
+
+export { MODE_META, MODE_GROUPS } from '../data/istanbulLines';
+
+// Hat listesi: yolculuk sırası LINE_DEFS'teki sıradır (ilk 5 hat ilk sürümdeki gibi).
+export const LINES = LINE_DEFS.map(line => ({
+  ...line,
+  icon: MODE_META[line.mode].icon,
+  modeLabel: MODE_META[line.mode].label,
+}));
 
 export const STATION_NAMES = {
   'M2': [
@@ -66,6 +69,8 @@ export const STATION_INFO = {
   'Halkalı': 'Avrupa yönüne giden uluslararası trenlerin de kalktığı ana istasyon.',
   'Gebze': 'Kocaeli sınırlarında yer alan Marmaray\'ın en doğu ucu.'
 };
+
+Object.assign(STATION_NAMES, EXTRA_STATION_NAMES);
 
 const stationFreq = {};
 LINES.forEach(line => {

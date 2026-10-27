@@ -20,7 +20,14 @@
     /* manipulation: çift dokunma yakınlaştırmasını kapatır ama iki parmakla büyütmeye izin verir
        (pan-x pan-y büyütmeyi de engelliyordu). Çark kendi alanında touch-none kullanır. */
     touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent; /* dokunmada gri/mavi flaş olmasın */
   }
+
+  /* Çarkta kaydırırken aşağı çekip yenileme / lastik sekme oyunu bölmesin */
+  html, body { overscroll-behavior: none; }
+
+  /* 16 px altındaki giriş alanlarında iOS sayfayı yakınlaştırıyor */
+  input, textarea, select { font-size: 16px; }
   
   /* Çentikli telefonlar (iPhone X ve üstü) için güvenli alanlar */
   #root {
@@ -639,9 +646,9 @@ body.theme-retro .rounded-full, body.theme-retro .rounded-xl, body.theme-retro .
 }
 
 .tool-btn {
-  width: 84px; padding: 10px 0 9px;
-  display: flex; flex-direction: column; align-items: center; gap: 5px;
-  border-radius: 16px;
+  min-width: 100px; height: 46px; padding: 0 12px;
+  display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 8px;
+  border-radius: 14px;
   background: var(--surface);
   border: 1px solid var(--border);
   backdrop-filter: blur(12px);

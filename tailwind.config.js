@@ -5,6 +5,8 @@ export default {
       "./src/**/*.{js,ts,jsx,tsx}",
     ],
     darkMode: "class",
+    // hover: stilleri yalnızca fareli cihazlarda; dokunmatikte dokunduktan sonra takılı kalmasın
+    future: { hoverOnlyWhenSupported: true },
     theme: {
         extend: {
             "colors": {

@@ -17,20 +17,36 @@ import { LOST_ITEMS_CATALOG, LOST_ITEMS_SETS, getRandomItem } from '../data/lost
 import { calculateWordScore, calculateLevelCompletionBonus } from '../utils/scoring';
 import { computeRawSignal, updateEwmvAndZScore, getAlpha, detectVolatility } from '../utils/dda';
 import { getStationForLevel } from '../utils/transitNetwork';
+import VehicleSprite from './VehicleSprite';
 import { VAULT_SIZE, VAULT_REWARD, getMaxLives, getHintCosts, getEarningsMultiplier } from '../store/gameStore';
 import { formatKurus } from '../utils/format';
 import '../index.css';
 
 const SHOW_AD_REWARDS = false;
 
-// Çarkın altındaki güç düğmesi: ikon + etiket + fiyat; bakiye yetmiyorsa soluk
+// Çarkın altındaki güç düğmesi: ikon solda, etiket ve fiyat sağda (alçak, ızgaraya yer bırakır)
 const ToolButton = ({ icon, label, price, affordable, onClick, accent = '#ffffff' }) => (
   <button onClick={onClick} className={`tool-btn ${affordable ? '' : 'opacity-45'}`}>
-    <span aria-hidden="true" className="material-symbols-outlined text-[22px]" style={{ color: accent, fontVariationSettings: "'FILL' 1" }}>{icon}</span>
-    <span className="text-[12px] font-bold text-white/90 leading-none">{label}</span>
-    <span className="text-[11px] font-bold text-white/55 leading-none tabular-nums">{price}</span>
+    <span aria-hidden="true" className="material-symbols-outlined text-[20px]" style={{ color: accent, fontVariationSettings: "'FILL' 1" }}>{icon}</span>
+    <span className="flex flex-col items-start gap-0.5">
+      <span className="text-[12px] font-bold text-white/90 leading-none">{label}</span>
+      <span className="text-[11px] font-bold text-white/55 leading-none tabular-nums">{price}</span>
+    </span>
   </button>
 );
+
+// Izgaranın satır sayısı: çark boyutu buna göre ayarlanır ki çok satırlı bulmacalarda hücreler küçülmesin
+const gridRows = (words) => {
+  let min = Infinity, max = -Infinity;
+  words.forEach(w => {
+    const end = w.startY + (w.isHorizontal ? 0 : w.word.length - 1);
+    min = Math.min(min, w.startY); max = Math.max(max, end);
+  });
+  return Number.isFinite(min) ? max - min + 1 : 1;
+};
+// Başlık + durum + ekspres + araçlar + boşluklar (px) ve ızgara satırı başına ayrılan yükseklik
+const GAME_CHROME_PX = 270;
+const GRID_ROW_PX = 46;
 
 export default function GameContainer({
   setScreen,
@@ -857,12 +873,13 @@ export default function GameContainer({
             <span aria-hidden="true" className="material-symbols-outlined text-[20px]">arrow_back</span>
           </button>
           <button onClick={showStationInfo} className="flex-1 min-w-0 flex items-center gap-2.5 text-left active:opacity-70 transition-opacity">
-            <span className="line-badge" style={{ background: station.color }}>{station.id}</span>
+            <span className="line-badge" style={{ background: station.color }}>{station.code}</span>
             <span className="min-w-0">
-              <span className="block text-[16px] font-extrabold text-white truncate leading-tight">{station.displayName}</span>
+              {/* Uzun durak adları (Küçükçekmece, Sabiha Gökçen Havalimanı) iki satıra sığar */}
+              <span className={`block font-extrabold text-white leading-tight line-clamp-2 break-words ${station.displayName.length > 14 ? 'text-[14px]' : 'text-[16px]'}`}>{station.displayName}</span>
               <span className="block text-[11px] font-semibold text-white/55 truncate">
                 {/* Kök kelime burada gösterilmez: bulmacanın cevabıdır */}
-                {t('leg')} {station.leg}/{station.legsPerStation} · {levelData.provider}
+                {t('leg')} {station.leg}/{station.legsPerStation} · {station.modeLabel}
               </span>
             </span>
           </button>
@@ -901,34 +918,12 @@ export default function GameContainer({
             {!isExpressOver && <span className="text-white/60 tabular-nums">{timeLeft}s</span>}
           </div>
           {!isExpressOver && (
-            <div className="relative h-[18px] overflow-hidden">
+            <div className="relative h-[22px] overflow-hidden">
               <div className="absolute left-0 right-0 bottom-[4px] h-[5px] rounded-full bg-white/10">
                 <div ref={barRef} className="h-full rounded-full" style={{ width: '100%', background: 'hsl(120, 84%, 55%)' }} />
               </div>
               <div ref={trainRef} className="absolute bottom-0 pointer-events-none" style={{ left: 'calc(100% - 30px)', width: 60, height: 16 }}>
-                <svg width="60" height="16" viewBox="0 0 60 16" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ transform: 'translateY(-4px)' }}>
-                  <path d="M2 3C2 2.45 2.45 2 3 2H18C18.55 2 19 2.45 19 3V11C19 11.55 18.55 12 18 12H3C2.45 12 2 11.55 2 11V3Z" fill="#3b82f6" />
-                  <path d="M2 3.5C2 2.67 2.67 2 3.5 2H8V12H3.5C2.67 12 2 11.33 2 10.5V3.5Z" fill="#1e293b" />
-                  <path d="M2.5 4H5.5V8H2.5V4Z" fill="#93c5fd" />
-                  <circle cx="3.5" cy="10.5" r="0.75" fill="#facc15" />
-                  <circle cx="6.5" cy="10.5" r="0.75" fill="#facc15" />
-                  <rect x="11" y="4.5" width="5" height="3" rx="0.5" fill="#93c5fd" />
-                  <rect x="19" y="6" width="2" height="2" fill="#475569" />
-                  <rect x="21" y="2" width="11" height="10" rx="1.5" fill="#4b5563" />
-                  <rect x="21" y="5.5" width="11" height="1.5" fill="#3b82f6" />
-                  <rect x="23" y="3.5" width="3" height="3" rx="0.5" fill="#93c5fd" />
-                  <rect x="27" y="3.5" width="3" height="3" rx="0.5" fill="#93c5fd" />
-                  <rect x="32" y="6" width="2" height="2" fill="#475569" />
-                  <rect x="34" y="2" width="11" height="10" rx="1.5" fill="#4b5563" />
-                  <rect x="34" y="5.5" width="11" height="1.5" fill="#3b82f6" />
-                  <rect x="36" y="3.5" width="3" height="3" rx="0.5" fill="#93c5fd" />
-                  <rect x="40" y="3.5" width="3" height="3" rx="0.5" fill="#93c5fd" />
-                  <rect x="45" y="6" width="2" height="2" fill="#475569" />
-                  <rect x="47" y="2" width="11" height="10" rx="1.5" fill="#4b5563" />
-                  <rect x="47" y="5.5" width="11" height="1.5" fill="#3b82f6" />
-                  <rect x="49" y="3.5" width="3" height="3" rx="0.5" fill="#93c5fd" />
-                  <rect x="53" y="3.5" width="3" height="3" rx="0.5" fill="#93c5fd" />
-                </svg>
+                <VehicleSprite mode={station.mode} color={station.color} />
               </div>
             </div>
           )}
@@ -943,7 +938,7 @@ export default function GameContainer({
         ))}
 
         {/* Izgara: kalan alanın tamamı */}
-        <main className="flex-1 min-h-0 w-full px-3 pt-3 pb-14 relative z-10">
+        <main className="flex-1 min-h-0 w-full px-3 pt-2 pb-12 relative z-10">
           <Grid
             words={levelData.words}
             foundWords={foundWords}
@@ -960,7 +955,7 @@ export default function GameContainer({
             </p>
           )}
           <div className={`relative ${hatArizasi ? 'animate-shake opacity-70 filter grayscale' : ''}`}
-               style={{ width: 'min(296px, calc(100vw - 48px), calc(100dvh - 440px))', minWidth: 200, aspectRatio: '1 / 1' }}>
+               style={{ width: `min(296px, calc(100vw - 48px), calc(100dvh - ${GAME_CHROME_PX + gridRows(levelData.words) * GRID_ROW_PX}px))`, minWidth: 200, aspectRatio: '1 / 1' }}>
             <div className="absolute inset-0 rounded-full pointer-events-none wheel-plate" />
             <div className="absolute inset-0">
               <Wheel
@@ -974,7 +969,7 @@ export default function GameContainer({
               />
             </div>
           </div>
-          <div className="flex gap-3 mt-4">
+          <div className="flex gap-2 mt-3">
             <ToolButton icon="spellcheck" label={t('tool_letter')} price={hints > 0 ? `${hints} ✦` : formatKurus(hintCosts.letter)}
               affordable={hints > 0 || balance >= hintCosts.letter} onClick={handleLetterHint} />
             <ToolButton icon="lightbulb" label={t('tool_word')} price={hints > 0 ? `${hints} ✦` : formatKurus(hintCosts.word)}

@@ -3,6 +3,7 @@
 // Alt kelimeler tamamen bu kök kelimenin harflerinden türetilebilen anlamlı kelimelerdir.
 
 import { applyDDA } from './dda';
+import { getStationForLevel, MODE_META } from './transitNetwork';
 import {
   TRANSIT_MEANINGS_TR, TRANSIT_MEANINGS_EN, TRANSIT_PROVIDERS_TR, TRANSIT_PROVIDERS_EN,
   COMMON_WORDS_TR, COMMON_WORDS_EN
@@ -686,7 +687,8 @@ const ONBOARDING_EN = [
 ];
 
 // Son 100 seviyede kullanılan kökleri takip eder (tekrarı önler)
-const usedRootsHistory = new Set();
+// Sıralı kök geçmişi (en yeni sonda); en fazla 100 kayıt
+const usedRootsHistory = [];
 
 const chooseTechnicalRoot = (levelIndex, language) => {
   // 1-30 Seviyeleri için özel onboarding akışı
@@ -715,19 +717,31 @@ const chooseTechnicalRoot = (levelIndex, language) => {
   const shuffledPool = shuffleWith(pool, rand);
 
   // Tema tercihi (provider) artık "bonus puan" olarak, hard-filter değil
-  const providerCycle = language === "en"
-    ? ["Metro", "IETT", "City Lines", "Busforus"]
-    : ["Metro Istanbul", "IETT", "Sehir Hatlari", "Busforus"];
-  const desiredProvider = providerCycle[levelIndex % providerCycle.length];
+  // Hatta göre içerik: vapur hattında denizcilik, metrobüste karayolu, raylılarda raylı sistem terimleri
+  const modeMeta = MODE_META[getStationForLevel(levelIndex).mode];
+  const desiredProvider = language === "en" ? modeMeta.termProviderEn : modeMeta.termProvider;
 
   const minLen = levelIndex < 150 ? 3 : 4;
 
-  // Tarihe geçmeyen (taze) köklerden en iyi skoru bul
-  const pickFresh = () => {
+  // Önce bu hattın terimleri denenir; taze terimi kalmadıysa diğer terimlere geçilir
+  const orderedPool = [
+    ...shuffledPool.filter(t => t.provider === desiredProvider),
+    ...shuffledPool.filter(t => t.provider !== desiredProvider),
+  ];
+
+  // Hattın kendi terimleri önce denenir. Tekrar yasağı havuz büyüklüğüne göre: terimi az olan
+  // hatlarda (vapur, metrobüs) aynı kök birkaç seviye sonra dönebilir ama art arda gelmez; o hatta
+  // taze terim kalmazsa diğer terimlere geçilir. Diğer terimler son 100 kök boyunca tekrar etmez.
+  const onThemeCount = orderedPool.filter(t => t.provider === desiredProvider).length;
+  const onThemeWindow = Math.min(40, Math.max(3, Math.floor(onThemeCount * 0.7)));
+  const pickFresh = (onThemeBlock, otherBlock) => {
+    const recentOnTheme = new Set(usedRootsHistory.slice(-onThemeBlock));
+    const recentOther = new Set(usedRootsHistory.slice(-otherBlock));
     let pick = null;
     let bestScore = -1;
-    for (const term of shuffledPool) {
-      if (usedRootsHistory.has(term.root)) continue;
+    for (const term of orderedPool) {
+      const blocked = term.provider === desiredProvider ? recentOnTheme.has(term.root) : recentOther.has(term.root);
+      if (blocked) continue;
       const count = (formableCache.get(term.root) || [...validWords].filter(w => canFormNormalizedWord(w, term.root)))
         .filter(w => w.length >= minLen && w !== term.root && !rareWords.has(w)).length;
       if (count < 1) continue;
@@ -739,32 +753,16 @@ const chooseTechnicalRoot = (levelIndex, language) => {
     return pick;
   };
 
-  // Havuz küçük olduğundan bu banttaki tüm kökler kullanıldıysa geçmişi sıfırla ve baştan dön
-  // (eskiden 2. geçiş geçmişi yok sayıp hep aynı "en iyi" kökü seçiyordu)
-  let best = pickFresh();
-  if (!best) {
-    // Son 15 kökü koru ki yeni turun ilk seviyeleri az önce oynanan kökleri tekrar etmesin
-    const recent = [...usedRootsHistory].slice(-15);
-    usedRootsHistory.clear();
-    recent.forEach(r => usedRootsHistory.add(r));
-    best = pickFresh();
-  }
-  if (!best) {
-    usedRootsHistory.clear();
-    best = pickFresh();
-  }
+  // Bu banttaki kökler tükendiyse yasak pencereleri daraltılır (eskiden 2. geçiş hep aynı kökü seçiyordu)
+  let best = pickFresh(onThemeWindow, 100) || pickFresh(3, 15) || pickFresh(1, 1);
 
   // Güvenlik amaçlı fallback
   if (!best) {
     best = { root: language === "en" ? "TRAIN" : "TRAMVAY", provider: language === "en" ? "Metro" : "Metro Istanbul", category: "Genel" };
   }
 
-  // Kullanılan kökü geçmişe ekle (max 100 kayıt tut)
-  usedRootsHistory.add(best.root);
-  if (usedRootsHistory.size > 100) {
-    const [oldest] = usedRootsHistory;
-    usedRootsHistory.delete(oldest);
-  }
+  usedRootsHistory.push(best.root);
+  if (usedRootsHistory.length > 100) usedRootsHistory.shift();
 
   return best;
 };

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import NetworkScreen from './NetworkScreen';
 import MapScreen from './MapScreen';
 import DictionaryScreen from './DictionaryScreen';
 import BadgesScreen from './BadgesScreen';
@@ -21,6 +22,8 @@ export default function NavigationContainer({
    
 }) {
   const { t } = useTranslation();
+  // Harita: null = tüm ağ listesi, hat id = o hattın durak görünümü
+  const [mapLineId, setMapLineId] = useState(null);
   const maxUnlockedLevel = useGameStore(state => state.maxUnlockedLevel);
   const learnedWords = useGameStore(state => state.learnedWords);
   const username = useGameStore(state => state.username);
@@ -91,9 +94,14 @@ export default function NavigationContainer({
     const station = getStationForLevel(maxUnlockedLevel);
     return (
       <div className="game-bg h-full flex flex-col relative z-10 fade-in">
-        <ScreenHeader title={t('map')} onBack={() => setScreen('home')} />
+        <ScreenHeader
+          title={mapLineId ? t('map') : 'İstanbul Ulaşım Ağı'}
+          onBack={() => (mapLineId ? setMapLineId(null) : setScreen('home'))}
+        />
         <div className="flex-1 min-h-0 flex flex-col">
-          <MapScreen currentLevel={maxUnlockedLevel + 1} onLevelSelect={playLevel} />
+          {mapLineId
+            ? <MapScreen key={mapLineId} currentLevel={maxUnlockedLevel + 1} onLevelSelect={playLevel} initialLineId={mapLineId} />
+            : <NetworkScreen currentLevel={maxUnlockedLevel + 1} onSelectLine={setMapLineId} />}
         </div>
         {/* Bulunduğun durak: haritadan doğrudan yolculuğa dön */}
         <div className="shrink-0 px-4 pt-3 pb-5" style={{ background: 'rgba(5,10,24,0.92)', borderTop: '1px solid var(--border)' }}>

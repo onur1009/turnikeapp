@@ -58,7 +58,7 @@ const DictionaryScreen = ({ learnedWords = [] }) => {
         >
           <span aria-hidden="true" className="material-symbols-outlined text-white/50 pl-4 pr-2 text-[20px]">search</span>
           <input
-            className="w-full bg-transparent border-none py-3 pr-4 text-white placeholder-white/40 outline-none text-sm font-semibold"
+            className="w-full bg-transparent border-none py-3 pr-4 text-white placeholder-white/40 outline-none text-base font-semibold"
             placeholder={t('search_word')}
             type="text"
             value={searchTerm}
