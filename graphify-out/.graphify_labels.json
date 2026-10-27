@@ -1,5 +1,5 @@
 {
-  "0": "NavigationContainer.jsx",
+  "0": "useGameStore",
   "1": "GameContainer.jsx",
   "2": "gameLogic.js",
   "3": "run.cjs",
@@ -11,6 +11,8 @@
   "9": "transitNetwork.js",
   "10": "main.jsx",
   "11": "CLAUDE.md",
+  "12": "VehicleSprite.jsx",
+  "13": "persistStorage.js",
   "14": "scripts",
   "15": "vercel.json",
   "16": "gradlew",
