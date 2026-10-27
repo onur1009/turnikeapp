@@ -126,9 +126,9 @@
     "semantic_hash": ""
   },
   "src/components/AkbilScreen.jsx": {
-    "mtime": 1793087129.32165,
-    "seen": 1793087136.203123,
-    "ast_hash": "6377bc95c626418c0803fee1f38e411a",
+    "mtime": 1793100771.0836575,
+    "seen": 1793100778.6425118,
+    "ast_hash": "476f87afd85cd8508bb469158a80ffe1",
     "semantic_hash": ""
   },
   "src/components/AnimatedBalance.jsx": {
@@ -162,15 +162,15 @@
     "semantic_hash": ""
   },
   "src/components/DuelsScreen.jsx": {
-    "mtime": 1793087787.829676,
-    "seen": 1793087795.5133226,
-    "ast_hash": "9a1668199c5be61a3dd2400d91ddfc29",
+    "mtime": 1793100771.0836575,
+    "seen": 1793100778.6471593,
+    "ast_hash": "045ef788b906e5afbc02374592d7e85e",
     "semantic_hash": ""
   },
   "src/components/GameContainer.jsx": {
-    "mtime": 1793085506.6048813,
-    "seen": 1793085513.4288998,
-    "ast_hash": "befd53f4c708591670d64ffcee7559af",
+    "mtime": 1793100771.0886822,
+    "seen": 1793100778.6471593,
+    "ast_hash": "d5af5b51001edfa3af923c8ffa21cc8a",
     "semantic_hash": ""
   },
   "src/components/Grid.jsx": {
@@ -180,9 +180,9 @@
     "semantic_hash": ""
   },
   "src/components/HomeScreen.jsx": {
-    "mtime": 1793087787.829676,
-    "seen": 1793087795.5133226,
-    "ast_hash": "56b47d54ad2d720a141dc5ed18c18263",
+    "mtime": 1793100771.090633,
+    "seen": 1793100778.6471593,
+    "ast_hash": "f215c3c60550b278bf717a52712efd85",
     "semantic_hash": ""
   },
   "src/components/LeaderboardScreen.jsx": {
@@ -222,9 +222,9 @@
     "semantic_hash": ""
   },
   "src/components/SettingsScreen.jsx": {
-    "mtime": 1793082700.9078083,
-    "seen": 1793082926.1195166,
-    "ast_hash": "b4aac2572fa8b8dffb122ec840a07d29",
+    "mtime": 1793100771.090633,
+    "seen": 1793100778.6487286,
+    "ast_hash": "796655f22ba59f64a30f7626bb916cda",
     "semantic_hash": ""
   },
   "src/components/StatsScreen.jsx": {
@@ -270,15 +270,15 @@
     "semantic_hash": "8b682daf983de35a27bd76bbc7a2995a"
   },
   "src/main.jsx": {
-    "mtime": 1793023071.1910982,
-    "seen": 1793023123.2418876,
-    "ast_hash": "693174d0ae6e25df4249745d8a98f94a",
+    "mtime": 1793100771.0978718,
+    "seen": 1793100778.6487286,
+    "ast_hash": "c8051a508c87d1bf2b03df112dcc4ada",
     "semantic_hash": ""
   },
   "src/store/gameStore.js": {
-    "mtime": 1793087129.337904,
-    "seen": 1793087136.2104025,
-    "ast_hash": "d0556eff95c3548b875c3236a1b364e2",
+    "mtime": 1793100771.0978718,
+    "seen": 1793100778.6487286,
+    "ast_hash": "df17d8c1a8975c0672e465eb4bf60648",
     "semantic_hash": ""
   },
   "src/utils/badges.js": {
@@ -300,9 +300,9 @@
     "semantic_hash": "01b1c57a84bcc4010f920f5a84778021"
   },
   "src/utils/gameLogic.js": {
-    "mtime": 1793087129.337904,
-    "seen": 1793087136.2104025,
-    "ast_hash": "4353154930b2f5ada60e48726f3f2ff9",
+    "mtime": 1793100771.1054373,
+    "seen": 1793100778.6487286,
+    "ast_hash": "a88c2e05755e085f17a3e7566f0f490e",
     "semantic_hash": ""
   },
   "src/utils/i18n.js": {
@@ -675,6 +675,30 @@
     "mtime": 1793087129.337904,
     "seen": 1793087136.2104025,
     "ast_hash": "e7e5ed77e656345a2eb356bffddcbac8",
+    "semantic_hash": ""
+  },
+  "src/components/ConsentSheet.jsx": {
+    "mtime": 1793100771.0836575,
+    "seen": 1793100778.6471593,
+    "ast_hash": "10e2b58a213a9c715cf9785be35947a3",
+    "semantic_hash": ""
+  },
+  "src/components/TipBubble.jsx": {
+    "mtime": 1793100771.090633,
+    "seen": 1793100778.6487286,
+    "ast_hash": "4588c3cdb525350ba0fd8a6583aa64be",
+    "semantic_hash": ""
+  },
+  "src/data/turkishWords.js": {
+    "mtime": 1793100771.090633,
+    "seen": 1793100778.6487286,
+    "ast_hash": "6791ccc03028e06002c8d9669b294282",
+    "semantic_hash": ""
+  },
+  "src/utils/analytics.js": {
+    "mtime": 1793100771.0978718,
+    "seen": 1793100778.6487286,
+    "ast_hash": "326a5072b7d4e1a2df61332956bccbc1",
     "semantic_hash": ""
   }
 }
