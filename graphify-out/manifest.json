@@ -6,10 +6,10 @@
     "semantic_hash": "81b97e05c43fe78e7387ad23265a9a45"
   },
   "android/app/capacitor.build.gradle": {
-    "mtime": 1793013192.955145,
-    "seen": 1793022710.6167996,
-    "ast_hash": "7f309479f67789cb2b479727354595b5",
-    "semantic_hash": "7f309479f67789cb2b479727354595b5"
+    "mtime": 1793087129.299351,
+    "seen": 1793087136.193765,
+    "ast_hash": "cd1cd54758a21c78f6de223f35a1afae",
+    "semantic_hash": ""
   },
   "android/app/src/androidTest/java/com/getcapacitor/myapp/ExampleInstrumentedTest.java": {
     "mtime": 1781859670.0,
@@ -36,10 +36,10 @@
     "semantic_hash": "682315a426653617c6a74fc12bef55b6"
   },
   "android/capacitor.settings.gradle": {
-    "mtime": 1793013192.955145,
-    "seen": 1793022710.6167996,
-    "ast_hash": "fefb49f7ca0761054e930cf7871f14ef",
-    "semantic_hash": "fefb49f7ca0761054e930cf7871f14ef"
+    "mtime": 1793087129.299351,
+    "seen": 1793087136.193765,
+    "ast_hash": "3f09d897be5fcea8f5fec54c538764e5",
+    "semantic_hash": ""
   },
   "android/gradlew": {
     "mtime": 1781859670.0,
@@ -90,9 +90,9 @@
     "semantic_hash": "3aa4b57d7f08181d86bde52a4dcb7f22"
   },
   "package.json": {
-    "mtime": 1793023071.1314533,
-    "seen": 1793023123.2418876,
-    "ast_hash": "86c54b185bd9065f720121b5330b45d1",
+    "mtime": 1793087129.3164835,
+    "seen": 1793087136.203123,
+    "ast_hash": "53e95717fd4d0c6bb25c6a435b8c28be",
     "semantic_hash": ""
   },
   "postcss.config.js": {
@@ -120,15 +120,15 @@
     "semantic_hash": "89f4fb5a8d8cae2dfb6f2ffc76de64e3"
   },
   "src/App.jsx": {
-    "mtime": 1793083016.1486256,
-    "seen": 1793083022.6522737,
-    "ast_hash": "87fe55dd111b923e3217adff9c0bdd79",
+    "mtime": 1793087129.3164835,
+    "seen": 1793087136.203123,
+    "ast_hash": "6e8431363b28692e533eadf72e891a83",
     "semantic_hash": ""
   },
   "src/components/AkbilScreen.jsx": {
-    "mtime": 1793082700.8389473,
-    "seen": 1793082926.1195166,
-    "ast_hash": "6397fecf92d592bab21ff77249946c31",
+    "mtime": 1793087129.32165,
+    "seen": 1793087136.203123,
+    "ast_hash": "6377bc95c626418c0803fee1f38e411a",
     "semantic_hash": ""
   },
   "src/components/AnimatedBalance.jsx": {
@@ -162,9 +162,9 @@
     "semantic_hash": ""
   },
   "src/components/DuelsScreen.jsx": {
-    "mtime": 1793082700.8687403,
-    "seen": 1793082926.1195166,
-    "ast_hash": "87823b2df200e811a7e578747dae58f3",
+    "mtime": 1793087129.325851,
+    "seen": 1793087136.203123,
+    "ast_hash": "e1b26fca6de3548d1a9a2053843f7249",
     "semantic_hash": ""
   },
   "src/components/GameContainer.jsx": {
@@ -180,9 +180,9 @@
     "semantic_hash": ""
   },
   "src/components/HomeScreen.jsx": {
-    "mtime": 1793085506.6119313,
-    "seen": 1793085513.4288998,
-    "ast_hash": "0f5c6b758edd42ae54c1aad47447b183",
+    "mtime": 1793087129.3280706,
+    "seen": 1793087136.203123,
+    "ast_hash": "0efd407e01aca0e52da837d6cd3f9234",
     "semantic_hash": ""
   },
   "src/components/LeaderboardScreen.jsx": {
@@ -276,9 +276,9 @@
     "semantic_hash": ""
   },
   "src/store/gameStore.js": {
-    "mtime": 1793085506.6274285,
-    "seen": 1793085513.4288998,
-    "ast_hash": "bc3287e3ee3521e57be1661aebbf6e87",
+    "mtime": 1793087129.337904,
+    "seen": 1793087136.2104025,
+    "ast_hash": "d0556eff95c3548b875c3236a1b364e2",
     "semantic_hash": ""
   },
   "src/utils/badges.js": {
@@ -300,9 +300,9 @@
     "semantic_hash": "01b1c57a84bcc4010f920f5a84778021"
   },
   "src/utils/gameLogic.js": {
-    "mtime": 1793085506.6305807,
-    "seen": 1793085513.4288998,
-    "ast_hash": "b24efbad46c4878c8ea8590ca2512b51",
+    "mtime": 1793087129.337904,
+    "seen": 1793087136.2104025,
+    "ast_hash": "4353154930b2f5ada60e48726f3f2ff9",
     "semantic_hash": ""
   },
   "src/utils/i18n.js": {
@@ -636,9 +636,9 @@
     "semantic_hash": ""
   },
   "src/components/SceneBackground.jsx": {
-    "mtime": 1793085506.6195393,
-    "seen": 1793085513.4288998,
-    "ast_hash": "7bde1cb9005fd68e780134b9fee26f23",
+    "mtime": 1793087129.3280706,
+    "seen": 1793087136.203123,
+    "ast_hash": "1a857ba4ccb23b951fabc36486a9dc5a",
     "semantic_hash": ""
   },
   "src/data/networkGeometry.js": {
@@ -651,6 +651,30 @@
     "mtime": 1793085506.6226995,
     "seen": 1793085513.4288998,
     "ast_hash": "6de20f8a534046aaf3cc1d9175fce093",
+    "semantic_hash": ""
+  },
+  "src/components/DuelGame.jsx": {
+    "mtime": 1793087129.3238392,
+    "seen": 1793087136.203123,
+    "ast_hash": "56847d3aff51f1145624c3405eec7e13",
+    "semantic_hash": ""
+  },
+  "src/components/SceneAnimal.jsx": {
+    "mtime": 1793087129.3280706,
+    "seen": 1793087136.203123,
+    "ast_hash": "726ee9213cf7e68094c178182026f100",
+    "semantic_hash": ""
+  },
+  "src/utils/adService.js": {
+    "mtime": 1793087129.337904,
+    "seen": 1793087136.2104025,
+    "ast_hash": "f1b991caa1439515facf818f97420b97",
+    "semantic_hash": ""
+  },
+  "src/utils/duel.js": {
+    "mtime": 1793087129.337904,
+    "seen": 1793087136.2104025,
+    "ast_hash": "e7e5ed77e656345a2eb356bffddcbac8",
     "semantic_hash": ""
   }
 }

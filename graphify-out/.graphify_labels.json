@@ -12,10 +12,12 @@
   "10": "main.jsx",
   "11": "CLAUDE.md",
   "12": "SceneBackground.jsx",
+  "13": "DuelsScreen.jsx",
   "14": "scripts",
   "15": "vercel.json",
   "16": "gradlew",
   "17": "eslint.config.js",
+  "18": "AkbilScreen.jsx",
   "19": "MainActivity.java",
   "20": "tailwind.config.js",
   "21": "app/build.gradle",
@@ -29,5 +31,6 @@
   "29": "Turnike mobil testleri (Artemis)",
   "30": "React + Vite",
   "31": "puppeteer",
-  "32": "vite.config.js"
+  "32": "vite.config.js",
+  "33": "VehicleSprite.jsx"
 }
