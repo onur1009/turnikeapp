@@ -1,10 +1,12 @@
 import React from 'react';
+import { setAnalyticsConsent } from '../utils/analytics';
 import { useGameStore } from '../store/gameStore';
 import { useTranslation } from '../utils/i18n';
 import ScreenHeader from './ScreenHeader';
 
 const SettingsScreen = ({ onBack }) => {
   const soundEnabled = useGameStore(state => state.soundEnabled);
+  const analyticsConsent = useGameStore(state => state.analyticsConsent);
   const hapticEnabled = useGameStore(state => state.hapticEnabled);
   const theme = useGameStore(state => state.theme);
   const language = useGameStore(state => state.language);
@@ -41,6 +43,22 @@ const SettingsScreen = ({ onBack }) => {
                 className={`w-12 h-6 rounded-full transition-colors relative ${hapticEnabled ? 'bg-green-500' : 'bg-gray-600'}`}
               >
                 <div className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform ${hapticEnabled ? 'translate-x-7' : 'translate-x-1'}`} />
+              </button>
+            </div>
+
+            {/* KVKK: anonim kullanım verisi rızası */}
+            <div className="flex justify-between items-center mt-4 gap-3">
+              <span className="text-white font-bold flex items-center gap-2 min-w-0">
+                <span aria-hidden="true" className="material-symbols-outlined text-teal-400">insights</span>
+                <span className="flex flex-col"><span>Anonim kullanım verisi</span><span className="text-white/50 text-[11px] font-semibold">Ad, e-posta, konum toplanmaz</span></span>
+              </span>
+              <button
+                aria-pressed={analyticsConsent === true}
+                aria-label="Anonim kullanım verisi"
+                onClick={() => setAnalyticsConsent(analyticsConsent !== true)}
+                className={`w-12 h-6 shrink-0 rounded-full transition-colors relative ${analyticsConsent === true ? 'bg-green-500' : 'bg-gray-600'}`}
+              >
+                <div className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform ${analyticsConsent === true ? 'translate-x-7' : 'translate-x-1'}`} />
               </button>
             </div>
           </div>

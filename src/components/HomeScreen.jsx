@@ -1,4 +1,6 @@
 import SceneBackground from './SceneBackground';
+import TipBubble from './TipBubble';
+import ConsentSheet from './ConsentSheet';
 import React, { useState } from 'react';
 import AnimatedBalance from './AnimatedBalance';
 import { useGameStore, VAULT_SIZE } from '../store/gameStore';
@@ -114,6 +116,9 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
               <span className="text-[11px] font-bold opacity-80 tracking-wider">{t('level_short')} {maxUnlockedLevel + 1}</span>
             </span>
           </button>
+          <TipBubble id="tip-duel" when={maxUnlockedLevel >= 5}>
+            Arkadaşına meydan oku: aynı bulmacayı kim daha hızlı çözecek?
+          </TipBubble>
           <button onClick={() => setScreen('duels')} className="duel-btn w-full flex items-center justify-center gap-3">
             <span aria-hidden="true" className="material-symbols-outlined text-[26px]">swords</span>
             <span className="flex flex-col items-start leading-tight">
@@ -161,6 +166,7 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
           </div>
         </div>
       )}
+      <ConsentSheet />
     </div>
   );
 }

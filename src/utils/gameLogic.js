@@ -8,6 +8,7 @@ import {
   TRANSIT_MEANINGS_TR, TRANSIT_MEANINGS_EN, TRANSIT_PROVIDERS_TR, TRANSIT_PROVIDERS_EN,
   COMMON_WORDS_TR, COMMON_WORDS_EN
 } from '../data/transitTerms';
+import { EVERYDAY_ROOTS_TR, EXTRA_WORDS_TR } from '../data/turkishWords';
 
 const PUZZLE_SETS_TR = [
   // SEVİYE 1-10: SADECE TEK KELİME (Çark = Kök Kelime)
@@ -533,6 +534,9 @@ const mergeTerms = (validWords, meanings, providers, newMeanings, newProviders, 
 };
 mergeTerms(VALID_WORDS_TR, WORD_MEANINGS_TR, PROVIDER_MAP_TR, TRANSIT_MEANINGS_TR, TRANSIT_PROVIDERS_TR, COMMON_WORDS_TR);
 mergeTerms(VALID_WORDS_EN, WORD_MEANINGS_EN, PROVIDER_MAP_EN, TRANSIT_MEANINGS_EN, TRANSIT_PROVIDERS_EN, COMMON_WORDS_EN);
+// Gündelik kökler (sağlayıcı "Genel"): hattın ulaşım terimleri tükenince tekrarı azaltır
+mergeTerms(VALID_WORDS_TR, WORD_MEANINGS_TR, PROVIDER_MAP_TR,
+  Object.fromEntries(EVERYDAY_ROOTS_TR), Object.fromEntries(EVERYDAY_ROOTS_TR.map(([w]) => [w, 'Genel'])), EXTRA_WORDS_TR);
 
 // Izgarada sorulmayan nadir kelimeler: sözlükte geçerli kalır (oyuncu bulursa kasaya girer)
 // ama bulmacanın zorunlu kelimesi olarak oyuncuyu şaşırtır (1. seviyede "AKT" gibi).
@@ -549,7 +553,8 @@ const RARE_WORDS_EN = new Set(["HEW", "IRE", "RUE", "ION", "RIG", "ORB", "COD", 
 const buildTechPool = (meanings, validWords, rareWords, providerMap, defaultProvider) =>
   Object.keys(meanings)
     .filter(root => validWords.has(root) && root.length >= 4)
-    .filter(root => [...validWords].some(w => w !== root && w.length >= 3 && w.length < root.length && !rareWords.has(w) && canFormNormalizedWord(w, root)))
+    // Ulaşım terimi için 1 alt kelime yeter; gündelik ("Genel") köklerden en az 4 isteriz ki ızgara dolsun
+    .filter(root => [...validWords].filter(w => w !== root && w.length >= 3 && w.length < root.length && !rareWords.has(w) && canFormNormalizedWord(w, root)).length >= (providerMap[root] === 'Genel' ? 4 : 1))
     .map(root => ({ root, provider: providerMap[root] || defaultProvider, category: "Genel" }));
 
 const TECH_TR = buildTechPool(WORD_MEANINGS_TR, VALID_WORDS_TR, RARE_WORDS_TR, PROVIDER_MAP_TR, "Metro Istanbul");
@@ -757,9 +762,9 @@ const chooseTechnicalRoot = (levelIndex, language) => {
 
   // Hattın kendi terimleri önce denenir. Tekrar yasağı havuz büyüklüğüne göre: terimi az olan
   // hatlarda (vapur, metrobüs) aynı kök birkaç seviye sonra dönebilir ama art arda gelmez; o hatta
-  // taze terim kalmazsa diğer terimlere geçilir. Diğer terimler son 100 kök boyunca tekrar etmez.
+  // taze terim kalmazsa diğer terimlere geçilir. Diğer terimler son 250 kök boyunca tekrar etmez.
   const onThemeCount = orderedPool.filter(t => t.provider === desiredProvider).length;
-  const onThemeWindow = Math.min(40, Math.max(3, Math.floor(onThemeCount * 0.7)));
+  const onThemeWindow = Math.max(3, Math.floor(onThemeCount * 0.85));
   const pickFresh = (onThemeBlock, otherBlock) => {
     const recentOnTheme = new Set(usedRootsHistory.slice(-onThemeBlock));
     const recentOther = new Set(usedRootsHistory.slice(-otherBlock));
@@ -780,7 +785,7 @@ const chooseTechnicalRoot = (levelIndex, language) => {
   };
 
   // Bu banttaki kökler tükendiyse yasak pencereleri daraltılır (eskiden 2. geçiş hep aynı kökü seçiyordu)
-  let best = pickFresh(onThemeWindow, 100) || pickFresh(3, 15) || pickFresh(1, 1);
+  let best = pickFresh(onThemeWindow, 250) || pickFresh(3, 15) || pickFresh(1, 1);
 
   // Güvenlik amaçlı fallback
   if (!best) {
@@ -788,7 +793,7 @@ const chooseTechnicalRoot = (levelIndex, language) => {
   }
 
   usedRootsHistory.push(best.root);
-  if (usedRootsHistory.length > 100) usedRootsHistory.shift();
+  if (usedRootsHistory.length > 300) usedRootsHistory.shift();
 
   return best;
 };

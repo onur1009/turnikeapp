@@ -74,6 +74,10 @@ export const useGameStore = create(
       duels: [], // { seed, role: 'sent' | 'received', opponent, mine: {w,t}, theirs, rewarded, at }
       incomingDuel: null, // ?duel= bağlantısından gelen, henüz açılmamış kod
 
+      // Ölçüm ve ilk oturum
+      analyticsConsent: null, // null: henüz sorulmadı, true/false: oyuncunun seçimi
+      seenTips: [], // bir kez gösterilen ipucu baloncukları (id listesi)
+
       // Genel İstatistikler
       totalGamesPlayed: 0,
       totalWordsFound: 0,

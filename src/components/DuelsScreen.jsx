@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useGameStore } from '../store/gameStore';
 import DuelGame from './DuelGame';
 import { formatKurus } from '../utils/format';
+import { track } from '../utils/analytics';
 import { DUEL_SECONDS, DUEL_WIN_REWARD, newDuelSeed, decodeDuel, compareScores, shareDuel } from '../utils/duel';
 
 // Arkadaş düellosu (bağlantıyla). Tek ekran, tek ana düğme:
@@ -72,9 +73,10 @@ const DuelsScreen = ({ onBack }) => {
     setView('result');
   };
 
-  const play = (seed, opponent) => { setActive({ seed, opponent }); setView('play'); };
+  const play = (seed, opponent) => { track('duel_start', { challenge: !!opponent }); setActive({ seed, opponent }); setView('play'); };
 
   const onFinish = (score) => {
+    track('duel_finish', { words: score.w, seconds: score.t, challenge: !!active.opponent });
     if (active.opponent) {
       const record = reward({ seed: active.seed, role: 'received', opponent: active.opponent.name, mine: score, theirs: active.opponent.score, at: Date.now() });
       saveDuel(record);
@@ -96,6 +98,7 @@ const DuelsScreen = ({ onBack }) => {
       ? `${myName} düellonu oynadı: ${l.toScore.w} kelime, ${l.toScore.t} sn. Sonuca bak!`
       : `${myName} seni Turnike düellosuna çağırıyor: ${l.fromScore.w} kelime, ${l.fromScore.t} sn. Geçebilir misin?`;
     const r = await shareDuel(l, text);
+    track('duel_share', { result: r, reply: !!l.toScore });
     if (r === 'copied') setNote('Bağlantı kopyalandı. WhatsApp\'ta arkadaşına yapıştır.');
   };
 

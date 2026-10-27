@@ -5,6 +5,7 @@ import ScreenHeader from './ScreenHeader';
 import { formatKurus } from '../utils/format';
 import { LINES, getStationForLevel, getNetworkProgress } from '../utils/transitNetwork';
 import { isRewardedAdSupported, showRewardedAd } from '../utils/adService';
+import { track } from '../utils/analytics';
 
 // İstanbulkart: kart görünümü + kişiselleştirme + bakiye yükleme modülleri + işlem geçmişi.
 // Bakiye oyun parasıdır; gerçek para alınmaz. Kaynaklar: ödüllü reklam, günlük yükleme,
@@ -159,6 +160,7 @@ const AkbilScreen = ({ onBack }) => {
   const watchAd = async () => {
     setAdState('loading');
     const rewarded = await showRewardedAd();
+    track('ad_rewarded', { completed: rewarded });
     if (rewarded) {
       registerAdReward(today);
       recordTopUp('ad', AD_REWARD);
@@ -172,6 +174,7 @@ const AkbilScreen = ({ onBack }) => {
   const claimDaily = () => {
     setSettings({ dailyTopUpDate: today });
     recordTopUp('daily', DAILY_TOP_UP);
+    track('top_up_daily');
     flash(`+${formatKurus(DAILY_TOP_UP)} yüklendi`);
   };
 

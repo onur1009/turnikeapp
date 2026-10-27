@@ -19,6 +19,8 @@ import { computeRawSignal, updateEwmvAndZScore, getAlpha, detectVolatility } fro
 import { getStationForLevel } from '../utils/transitNetwork';
 import VehicleSprite from './VehicleSprite';
 import SceneBackground from './SceneBackground';
+import { track } from '../utils/analytics';
+import TipBubble from './TipBubble';
 import { VAULT_SIZE, VAULT_REWARD, getMaxLives, getHintCosts, getEarningsMultiplier } from '../store/gameStore';
 import { formatKurus } from '../utils/format';
 import '../index.css';
@@ -270,6 +272,7 @@ export default function GameContainer({
     if (lives === 0 && internalState === 'playing') {
       stopTimer();
       setInternalState('gameover');
+      track('level_fail', { level: useGameStore.getState().levelIndex + 1 });
       if (useGameStore.getState().soundEnabled) playGameOver();
       if (hapticEnabled) Haptics.notification({ type: NotificationType.Error }).catch(()=>{});
     }
@@ -296,6 +299,7 @@ export default function GameContainer({
     const data = generateLevel(idx, language, 1, store.performanceScore, store.currentVolatilityClass);
     setLevelData(data);
     levelDataRef.current = data; // Timer callback için güncel referans
+    track('level_start', { level: idx + 1, root: data.technicalTerm, words: data.words.length, line: getStationForLevel(idx).id });
     setFoundWords([]);
     setHintedLetters([]);
     setPickMode(false);
@@ -397,6 +401,7 @@ export default function GameContainer({
       currentVolatilityClass: detectVolatility(recent, zScore)
     });
 
+    track('level_complete', { level: levelIndex + 1, seconds: Math.round((Date.now() - levelStartTime) / 1000), mistakes: mistakeCount, hints: hintedLetters.length, express: expressRemaining > 0 });
     setLevelSummary({
       wordPoints: store.levelSessionScore,
       expressBonus,
@@ -513,6 +518,7 @@ export default function GameContainer({
           if (soundEnabled) setTimeout(() => playBalanceUp(), 500);
         } else if (newVaultCount > currentVaultCount) {
           showFeedback('exists', `KASAYA EKLENDİ (${newVaultCount}/10)`);
+          track('extra_word', { level: levelIndex + 1 });
           if (hapticEnabled) Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
         } else {
           showFeedback('exists', t('extra_word'));
@@ -554,6 +560,7 @@ export default function GameContainer({
               if (soundEnabled) setTimeout(() => playBalanceUp(), 500);
             } else if (newVaultCount > currentVaultCount) {
               showFeedback('exists', `KASAYA EKLENDİ (${newVaultCount}/10)`);
+          track('extra_word', { level: levelIndex + 1 });
             }
             
             const meaning = data[0]?.anlamlarListe?.[0]?.anlam || "TDK onaylı kelime.";
@@ -573,8 +580,11 @@ export default function GameContainer({
 
         // TDK'da da yoksa veya ağ hatası varsa hata ver
         setMistakeCount(c => c + 1); 
-        deductLife();
-        triggerLifeLossAnim();
+        // İlk 5 seviye öğrenme alanı: yanlış kelime can götürmez
+        if (levelIndex >= 5) {
+          deductLife();
+          triggerLifeLossAnim();
+        }
         resetCombo();
         setShake(true);
         setTimeout(() => setShake(false), 400);
@@ -611,6 +621,7 @@ export default function GameContainer({
             addHints(-1);
           } else {
             addBalance(-hintCosts.letter);
+            track('hint_used', { type: 'letter', level: levelIndex + 1 });
           }
           const pick = candidates[Math.floor(Math.random() * candidates.length)];
           setHintedLetters(prev => [...prev, pick]);
@@ -640,6 +651,7 @@ export default function GameContainer({
     else if (balance >= hintCosts.target) addBalance(-hintCosts.target);
     else return;
     setHintedLetters(prev => [...prev, cell]);
+    track('hint_used', { type: 'pick', level: levelIndex + 1 });
     if (soundEnabled) playTurnike();
     if (hapticEnabled) Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
   };
@@ -654,6 +666,7 @@ export default function GameContainer({
           addHints(-1);
         } else {
           addBalance(-hintCost);
+          track('hint_used', { type: 'word', level: levelIndex + 1 });
         }
         const pick = missing[Math.floor(Math.random() * missing.length)];
         const newFound = [...foundWords, pick.word];
@@ -699,6 +712,7 @@ export default function GameContainer({
       }
       addBalance(-hintCosts.term);
       setTermRevealed(true);
+      track('hint_used', { type: 'term', level: levelIndex + 1 });
       if (soundEnabled) playTurnike();
     }
     const masked = meaning.split(term).join('●'.repeat(term.length));
@@ -975,6 +989,12 @@ export default function GameContainer({
 
         {/* Çark ve araçlar */}
         <div className="w-full shrink-0 flex flex-col items-center pb-5 relative z-20">
+          <TipBubble id="tip-pick" when={!pickMode && levelIndex >= 3} className="mb-2 mx-4">
+            Yeni: <b>Nokta</b> ipucuyla açmak istediğin kutuyu kendin seç.
+          </TipBubble>
+          <TipBubble id="tip-jar" when={vaultCount > 0} className="mb-2 mx-4">
+            Izgarada olmayan geçerli kelimeler <b>kavanoza</b> gider. 10 kelimede bakiye ödülü!
+          </TipBubble>
           {pickMode && (
             <p className="tutorial-hint mb-2">
               <span aria-hidden="true" className="material-symbols-outlined text-[16px]">ads_click</span>{t('pick_cell')}
