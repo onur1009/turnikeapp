@@ -168,21 +168,21 @@
     "semantic_hash": ""
   },
   "src/components/GameContainer.jsx": {
-    "mtime": 1793083016.16162,
-    "seen": 1793083022.6538243,
-    "ast_hash": "ca19e03d549227ac73dd8b0e71a8b0c7",
+    "mtime": 1793085506.6048813,
+    "seen": 1793085513.4288998,
+    "ast_hash": "befd53f4c708591670d64ffcee7559af",
     "semantic_hash": ""
   },
   "src/components/Grid.jsx": {
-    "mtime": 1793083016.16162,
-    "seen": 1793083022.6538243,
-    "ast_hash": "be0ff2e84d5a72c414a68adf5cd0863a",
+    "mtime": 1793085506.6048813,
+    "seen": 1793085513.4288998,
+    "ast_hash": "87ec433a12ef5cec4c46ace66b3a79fe",
     "semantic_hash": ""
   },
   "src/components/HomeScreen.jsx": {
-    "mtime": 1793083016.16162,
-    "seen": 1793083022.6538243,
-    "ast_hash": "70a33737229ae02d09837574787919f2",
+    "mtime": 1793085506.6119313,
+    "seen": 1793085513.4288998,
+    "ast_hash": "0f5c6b758edd42ae54c1aad47447b183",
     "semantic_hash": ""
   },
   "src/components/LeaderboardScreen.jsx": {
@@ -192,9 +192,9 @@
     "semantic_hash": ""
   },
   "src/components/LevelComplete.jsx": {
-    "mtime": 1793082700.87606,
-    "seen": 1793082926.1195166,
-    "ast_hash": "180201d9c4327718af48f026e7e14ea5",
+    "mtime": 1793085506.6133242,
+    "seen": 1793085513.4288998,
+    "ast_hash": "6205042d39346f3ae493d08b7ec46c6d",
     "semantic_hash": ""
   },
   "src/components/LostItemsScreen.jsx": {
@@ -210,9 +210,9 @@
     "semantic_hash": ""
   },
   "src/components/NavigationContainer.jsx": {
-    "mtime": 1793082700.8917265,
-    "seen": 1793082926.1195166,
-    "ast_hash": "b5ee104e176aaa25e97e5dbf5846992b",
+    "mtime": 1793085506.6133242,
+    "seen": 1793085513.4288998,
+    "ast_hash": "deec8220aa96aa2acf6c8d4ac7fb2cf4",
     "semantic_hash": ""
   },
   "src/components/ScreenHeader.jsx": {
@@ -276,10 +276,10 @@
     "semantic_hash": ""
   },
   "src/store/gameStore.js": {
-    "mtime": 1793023071.1910982,
-    "seen": 1793023123.2418876,
-    "ast_hash": "169451a485e1dcedc685b72ff10e4f19",
-    "semantic_hash": "169451a485e1dcedc685b72ff10e4f19"
+    "mtime": 1793085506.6274285,
+    "seen": 1793085513.4288998,
+    "ast_hash": "bc3287e3ee3521e57be1661aebbf6e87",
+    "semantic_hash": ""
   },
   "src/utils/badges.js": {
     "mtime": 1782368720.586131,
@@ -300,16 +300,16 @@
     "semantic_hash": "01b1c57a84bcc4010f920f5a84778021"
   },
   "src/utils/gameLogic.js": {
-    "mtime": 1793080968.6273568,
-    "seen": 1793082926.1195166,
-    "ast_hash": "bf4f595de3f7b26f44db852ebc0a4046",
+    "mtime": 1793085506.6305807,
+    "seen": 1793085513.4288998,
+    "ast_hash": "b24efbad46c4878c8ea8590ca2512b51",
     "semantic_hash": ""
   },
   "src/utils/i18n.js": {
-    "mtime": 1792999894.818398,
-    "seen": 1793022710.6167996,
-    "ast_hash": "0779d758f7166837ae6c108c6c634218",
-    "semantic_hash": "0779d758f7166837ae6c108c6c634218"
+    "mtime": 1793085506.631591,
+    "seen": 1793085513.4288998,
+    "ast_hash": "e72fb9065204ec2672b2fa1b36686ec2",
+    "semantic_hash": ""
   },
   "src/utils/persistStorage.js": {
     "mtime": 1793023071.1910982,
@@ -336,9 +336,9 @@
     "semantic_hash": ""
   },
   "src/utils/transitNetwork.js": {
-    "mtime": 1793080968.6273568,
-    "seen": 1793082926.1195166,
-    "ast_hash": "c642960b6ffc9fab6ddc4c8568d4b52c",
+    "mtime": 1793085506.632602,
+    "seen": 1793085513.4288998,
+    "ast_hash": "9bb371ba3d2d9156998a0528ae873349",
     "semantic_hash": ""
   },
   "tailwind.config.js": {
@@ -612,21 +612,45 @@
     "semantic_hash": ""
   },
   "src/components/NetworkScreen.jsx": {
-    "mtime": 1793082700.8917265,
-    "seen": 1793082926.1195166,
-    "ast_hash": "e911fc1f315dc57974aea92f329a212d",
+    "mtime": 1793085506.6178594,
+    "seen": 1793085513.4288998,
+    "ast_hash": "712c1bd85241da7c52114f12c09fc23b",
     "semantic_hash": ""
   },
   "src/components/VehicleSprite.jsx": {
-    "mtime": 1793082700.9235878,
-    "seen": 1793082926.1195166,
-    "ast_hash": "dafad7181d00293bc1bfc297c4442523",
+    "mtime": 1793085506.620574,
+    "seen": 1793085513.4288998,
+    "ast_hash": "0588a0826e10f7e0a69cc3f15a2f6311",
     "semantic_hash": ""
   },
   "src/data/istanbulLines.js": {
     "mtime": 1793080968.6273568,
     "seen": 1793082926.1195166,
     "ast_hash": "83028cb72ef3413814707ebd8c617642",
+    "semantic_hash": ""
+  },
+  "src/components/NetworkMap.jsx": {
+    "mtime": 1793085506.6133242,
+    "seen": 1793085513.4288998,
+    "ast_hash": "13df7503c86ac6b6a6ab98a773ea1029",
+    "semantic_hash": ""
+  },
+  "src/components/SceneBackground.jsx": {
+    "mtime": 1793085506.6195393,
+    "seen": 1793085513.4288998,
+    "ast_hash": "7bde1cb9005fd68e780134b9fee26f23",
+    "semantic_hash": ""
+  },
+  "src/data/networkGeometry.js": {
+    "mtime": 1793085506.6216953,
+    "seen": 1793085513.4288998,
+    "ast_hash": "5a154607192ae0a3ff76c0196ddd5857",
+    "semantic_hash": ""
+  },
+  "src/data/scenes.js": {
+    "mtime": 1793085506.6226995,
+    "seen": 1793085513.4288998,
+    "ast_hash": "6de20f8a534046aaf3cc1d9175fce093",
     "semantic_hash": ""
   }
 }

@@ -165,7 +165,7 @@
       "file_type": "code",
       "norm_label": "homescreen()",
       "source_file": "src/components/HomeScreen.jsx",
-      "source_location": "L16"
+      "source_location": "L17"
     },
     {
       "id": "src_components_leaderboardscreen_leaderboardscreen",
@@ -237,19 +237,7 @@
       "file_type": "code",
       "norm_label": "navigationcontainer()",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L20"
-    },
-    {
-      "id": "src_components_networkscreen_networkscreen",
-      "label": "NetworkScreen()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "NavigationContainer.jsx",
-      "file_type": "code",
-      "norm_label": "networkscreen()",
-      "source_file": "src/components/NetworkScreen.jsx",
-      "source_location": "L16"
+      "source_location": "L21"
     },
     {
       "id": "src_components_screenheader_screenheader",
@@ -312,18 +300,6 @@
       "source_location": "L6"
     },
     {
-      "id": "src_data_lostitems_getrandomitem",
-      "label": "getRandomItem()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "NavigationContainer.jsx",
-      "file_type": "code",
-      "norm_label": "getrandomitem()",
-      "source_file": "src/data/lostItems.js",
-      "source_location": "L42"
-    },
-    {
       "id": "src_store_gamestore_getmaxlives",
       "label": "getMaxLives()",
       "_callable": true,
@@ -357,7 +333,7 @@
       "file_type": "code",
       "norm_label": "usetranslation()",
       "source_file": "src/utils/i18n.js",
-      "source_location": "L242"
+      "source_location": "L248"
     },
     {
       "id": "src_utils_supabaseclient_ensuresession",
@@ -417,7 +393,7 @@
       "file_type": "code",
       "norm_label": "gamecontainer()",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L51"
+      "source_location": "L52"
     },
     {
       "id": "src_components_gamecontainer_gridrows",
@@ -429,7 +405,7 @@
       "file_type": "code",
       "norm_label": "gridrows()",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L39"
+      "source_location": "L40"
     },
     {
       "id": "src_components_gamecontainer_toolbutton",
@@ -441,7 +417,7 @@
       "file_type": "code",
       "norm_label": "toolbutton()",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L28"
+      "source_location": "L29"
     },
     {
       "id": "src_components_grid_grid",
@@ -453,19 +429,7 @@
       "file_type": "code",
       "norm_label": "grid()",
       "source_file": "src/components/Grid.jsx",
-      "source_location": "L3"
-    },
-    {
-      "id": "src_components_vehiclesprite_vehiclesprite",
-      "label": "VehicleSprite()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "GameContainer.jsx",
-      "file_type": "code",
-      "norm_label": "vehiclesprite()",
-      "source_file": "src/components/VehicleSprite.jsx",
-      "source_location": "L103"
+      "source_location": "L4"
     },
     {
       "id": "src_components_wheel_wheel",
@@ -478,6 +442,18 @@
       "norm_label": "wheel()",
       "source_file": "src/components/Wheel.jsx",
       "source_location": "L4"
+    },
+    {
+      "id": "src_data_lostitems_getrandomitem",
+      "label": "getRandomItem()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "GameContainer.jsx",
+      "file_type": "code",
+      "norm_label": "getrandomitem()",
+      "source_file": "src/data/lostItems.js",
+      "source_location": "L42"
     },
     {
       "id": "src_hooks_usegametimer_usegametimer",
@@ -561,7 +537,7 @@
       "file_type": "code",
       "norm_label": "gettimeforlevel()",
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L770"
+      "source_location": "L796"
     },
     {
       "id": "src_utils_scoring_calculatelevelcompletionbonus",
@@ -852,16 +828,184 @@
       "source_location": "L22"
     },
     {
+      "id": "src_components_scenebackground_airport",
+      "label": "Airport()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "SceneBackground.jsx",
+      "file_type": "code",
+      "norm_label": "airport()",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L90"
+    },
+    {
+      "id": "src_components_scenebackground_bridge",
+      "label": "Bridge()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "SceneBackground.jsx",
+      "file_type": "code",
+      "norm_label": "bridge()",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L41"
+    },
+    {
+      "id": "src_components_scenebackground_cable",
+      "label": "Cable()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "SceneBackground.jsx",
+      "file_type": "code",
+      "norm_label": "cable()",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L109"
+    },
+    {
+      "id": "src_components_scenebackground_camlica",
+      "label": "Camlica()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "SceneBackground.jsx",
+      "file_type": "code",
+      "norm_label": "camlica()",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L61"
+    },
+    {
+      "id": "src_components_scenebackground_farcity",
+      "label": "FarCity()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "SceneBackground.jsx",
+      "file_type": "code",
+      "norm_label": "farcity()",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L123"
+    },
+    {
+      "id": "src_components_scenebackground_galata",
+      "label": "Galata()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "SceneBackground.jsx",
+      "file_type": "code",
+      "norm_label": "galata()",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L32"
+    },
+    {
+      "id": "src_components_scenebackground_islands",
+      "label": "Islands()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "SceneBackground.jsx",
+      "file_type": "code",
+      "norm_label": "islands()",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L101"
+    },
+    {
+      "id": "src_components_scenebackground_maiden",
+      "label": "Maiden()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "SceneBackground.jsx",
+      "file_type": "code",
+      "norm_label": "maiden()",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L52"
+    },
+    {
+      "id": "src_components_scenebackground_mosque",
+      "label": "Mosque()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "SceneBackground.jsx",
+      "file_type": "code",
+      "norm_label": "mosque()",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L16"
+    },
+    {
+      "id": "src_components_scenebackground_rng",
+      "label": "rng()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "SceneBackground.jsx",
+      "file_type": "code",
+      "norm_label": "rng()",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L10"
+    },
+    {
+      "id": "src_components_scenebackground_scenebackground",
+      "label": "SceneBackground()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "SceneBackground.jsx",
+      "file_type": "code",
+      "norm_label": "scenebackground()",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L146"
+    },
+    {
+      "id": "src_components_scenebackground_skyscrapers",
+      "label": "Skyscrapers()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "SceneBackground.jsx",
+      "file_type": "code",
+      "norm_label": "skyscrapers()",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L70"
+    },
+    {
+      "id": "src_components_scenebackground_towers",
+      "label": "Towers()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "SceneBackground.jsx",
+      "file_type": "code",
+      "norm_label": "towers()",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L84"
+    },
+    {
+      "id": "src_components_vehiclesprite_bogie",
+      "label": "Bogie()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "SceneBackground.jsx",
+      "file_type": "code",
+      "norm_label": "bogie()",
+      "source_file": "src/components/VehicleSprite.jsx",
+      "source_location": "L19"
+    },
+    {
       "id": "src_components_vehiclesprite_cablecar",
       "label": "CableCar()",
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "VehicleSprite.jsx",
+      "community_name": "SceneBackground.jsx",
       "file_type": "code",
       "norm_label": "cablecar()",
       "source_file": "src/components/VehicleSprite.jsx",
-      "source_location": "L65"
+      "source_location": "L147"
     },
     {
       "id": "src_components_vehiclesprite_ferry",
@@ -869,11 +1013,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "VehicleSprite.jsx",
+      "community_name": "SceneBackground.jsx",
       "file_type": "code",
       "norm_label": "ferry()",
       "source_file": "src/components/VehicleSprite.jsx",
-      "source_location": "L89"
+      "source_location": "L114"
     },
     {
       "id": "src_components_vehiclesprite_funicular",
@@ -881,11 +1025,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "VehicleSprite.jsx",
+      "community_name": "SceneBackground.jsx",
       "file_type": "code",
       "norm_label": "funicular()",
       "source_file": "src/components/VehicleSprite.jsx",
-      "source_location": "L53"
+      "source_location": "L133"
     },
     {
       "id": "src_components_vehiclesprite_marmaray",
@@ -893,11 +1037,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "VehicleSprite.jsx",
+      "community_name": "SceneBackground.jsx",
       "file_type": "code",
       "norm_label": "marmaray()",
       "source_file": "src/components/VehicleSprite.jsx",
-      "source_location": "L25"
+      "source_location": "L62"
     },
     {
       "id": "src_components_vehiclesprite_metro",
@@ -905,11 +1049,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "VehicleSprite.jsx",
+      "community_name": "SceneBackground.jsx",
       "file_type": "code",
       "norm_label": "metro()",
       "source_file": "src/components/VehicleSprite.jsx",
-      "source_location": "L7"
+      "source_location": "L50"
     },
     {
       "id": "src_components_vehiclesprite_metrobus",
@@ -917,11 +1061,23 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "VehicleSprite.jsx",
+      "community_name": "SceneBackground.jsx",
       "file_type": "code",
       "norm_label": "metrobus()",
       "source_file": "src/components/VehicleSprite.jsx",
-      "source_location": "L76"
+      "source_location": "L98"
+    },
+    {
+      "id": "src_components_vehiclesprite_railcar",
+      "label": "RailCar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "SceneBackground.jsx",
+      "file_type": "code",
+      "norm_label": "railcar()",
+      "source_file": "src/components/VehicleSprite.jsx",
+      "source_location": "L28"
     },
     {
       "id": "src_components_vehiclesprite_tram",
@@ -929,11 +1085,47 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "VehicleSprite.jsx",
+      "community_name": "SceneBackground.jsx",
       "file_type": "code",
       "norm_label": "tram()",
       "source_file": "src/components/VehicleSprite.jsx",
-      "source_location": "L42"
+      "source_location": "L78"
+    },
+    {
+      "id": "src_components_vehiclesprite_vehiclesprite",
+      "label": "VehicleSprite()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "SceneBackground.jsx",
+      "file_type": "code",
+      "norm_label": "vehiclesprite()",
+      "source_file": "src/components/VehicleSprite.jsx",
+      "source_location": "L163"
+    },
+    {
+      "id": "src_components_vehiclesprite_wheel",
+      "label": "Wheel()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "SceneBackground.jsx",
+      "file_type": "code",
+      "norm_label": "wheel()",
+      "source_file": "src/components/VehicleSprite.jsx",
+      "source_location": "L11"
+    },
+    {
+      "id": "src_data_scenes_getscenefor",
+      "label": "getSceneFor()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "SceneBackground.jsx",
+      "file_type": "code",
+      "norm_label": "getscenefor()",
+      "source_file": "src/data/scenes.js",
+      "source_location": "L46"
     },
     {
       "id": "src_data_transitterms_toentries",
@@ -1020,6 +1212,18 @@
       "source_location": "L8"
     },
     {
+      "id": "src_utils_gamelogic_buildlayout",
+      "label": "buildLayout()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "gameLogic.js",
+      "file_type": "code",
+      "norm_label": "buildlayout()",
+      "source_file": "src/utils/gameLogic.js",
+      "source_location": "L596"
+    },
+    {
       "id": "src_utils_gamelogic_buildtechpool",
       "label": "buildTechPool()",
       "_callable": true,
@@ -1065,7 +1269,7 @@
       "file_type": "code",
       "norm_label": "choosetechnicalroot()",
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L693"
+      "source_location": "L719"
     },
     {
       "id": "src_utils_gamelogic_generatelevel",
@@ -1077,7 +1281,7 @@
       "file_type": "code",
       "norm_label": "generatelevel()",
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L873"
+      "source_location": "L899"
     },
     {
       "id": "src_utils_gamelogic_getcandidatewords",
@@ -1113,7 +1317,7 @@
       "file_type": "code",
       "norm_label": "getmissioninfo()",
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L798"
+      "source_location": "L824"
     },
     {
       "id": "src_utils_gamelogic_getpools",
@@ -1125,7 +1329,7 @@
       "file_type": "code",
       "norm_label": "getpools()",
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L661"
+      "source_location": "L687"
     },
     {
       "id": "src_utils_gamelogic_mergeterms",
@@ -1161,7 +1365,7 @@
       "file_type": "code",
       "norm_label": "placepuzzlewords()",
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L588"
+      "source_location": "L673"
     },
     {
       "id": "src_utils_gamelogic_seededrandom",
@@ -1286,6 +1490,78 @@
       "norm_label": "mapscreen()",
       "source_file": "src/components/MapScreen.jsx",
       "source_location": "L4"
+    },
+    {
+      "id": "src_components_networkmap_networkmap",
+      "label": "NetworkMap()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "transitNetwork.js",
+      "file_type": "code",
+      "norm_label": "networkmap()",
+      "source_file": "src/components/NetworkMap.jsx",
+      "source_location": "L9"
+    },
+    {
+      "id": "src_components_networkscreen_networkscreen",
+      "label": "NetworkScreen()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "transitNetwork.js",
+      "file_type": "code",
+      "norm_label": "networkscreen()",
+      "source_file": "src/components/NetworkScreen.jsx",
+      "source_location": "L5"
+    },
+    {
+      "id": "src_data_networkgeometry_getstationpoints",
+      "label": "getStationPoints()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "transitNetwork.js",
+      "file_type": "code",
+      "norm_label": "getstationpoints()",
+      "source_file": "src/data/networkGeometry.js",
+      "source_location": "L48"
+    },
+    {
+      "id": "src_data_networkgeometry_seglen",
+      "label": "segLen()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "transitNetwork.js",
+      "file_type": "code",
+      "norm_label": "seglen()",
+      "source_file": "src/data/networkGeometry.js",
+      "source_location": "L45"
+    },
+    {
+      "id": "src_data_networkgeometry_topath",
+      "label": "toPath()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "transitNetwork.js",
+      "file_type": "code",
+      "norm_label": "topath()",
+      "source_file": "src/data/networkGeometry.js",
+      "source_location": "L65"
+    },
+    {
+      "id": "src_utils_transitnetwork_getnetworkprogress",
+      "label": "getNetworkProgress()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "transitNetwork.js",
+      "file_type": "code",
+      "norm_label": "getnetworkprogress()",
+      "source_file": "src/utils/transitNetwork.js",
+      "source_location": "L154"
     },
     {
       "id": "src_utils_transitnetwork_getstationdata",
@@ -1419,7 +1695,7 @@
       "file_type": "code",
       "norm_label": "tabs",
       "source_file": "src/components/HomeScreen.jsx",
-      "source_location": "L8"
+      "source_location": "L9"
     },
     {
       "id": "src_components_leaderboardscreen",
@@ -1518,39 +1794,6 @@
       "file_type": "code",
       "norm_label": "vaultscreen.jsx",
       "source_file": "src/components/VaultScreen.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_data_lostitems",
-      "label": "lostItems.js",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "NavigationContainer.jsx",
-      "file_type": "code",
-      "norm_label": "lostitems.js",
-      "source_file": "src/data/lostItems.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_data_lostitems_lost_items_catalog",
-      "label": "LOST_ITEMS_CATALOG",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "NavigationContainer.jsx",
-      "file_type": "code",
-      "norm_label": "lost_items_catalog",
-      "source_file": "src/data/lostItems.js",
-      "source_location": "L28"
-    },
-    {
-      "id": "src_data_lostitems_lost_items_sets",
-      "label": "LOST_ITEMS_SETS",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "NavigationContainer.jsx",
-      "file_type": "code",
-      "norm_label": "lost_items_sets",
-      "source_file": "src/data/lostItems.js",
       "source_location": "L1"
     },
     {
@@ -1719,6 +1962,17 @@
       "source_location": "L25"
     },
     {
+      "id": "ref_supabase_supabase_js",
+      "label": "@supabase/supabase-js",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "NavigationContainer.jsx",
+      "file_type": "concept",
+      "norm_label": "@supabase/supabase-js",
+      "source_file": "package.json",
+      "source_location": "L23"
+    },
+    {
       "id": "src_app",
       "label": "App.jsx",
       "_origin": "ast",
@@ -1782,6 +2036,39 @@
       "file_type": "code",
       "norm_label": "wheel.jsx",
       "source_file": "src/components/Wheel.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_data_lostitems",
+      "label": "lostItems.js",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "GameContainer.jsx",
+      "file_type": "code",
+      "norm_label": "lostitems.js",
+      "source_file": "src/data/lostItems.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_data_lostitems_lost_items_catalog",
+      "label": "LOST_ITEMS_CATALOG",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "GameContainer.jsx",
+      "file_type": "code",
+      "norm_label": "lost_items_catalog",
+      "source_file": "src/data/lostItems.js",
+      "source_location": "L28"
+    },
+    {
+      "id": "src_data_lostitems_lost_items_sets",
+      "label": "LOST_ITEMS_SETS",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "GameContainer.jsx",
+      "file_type": "code",
+      "norm_label": "lost_items_sets",
+      "source_file": "src/data/lostItems.js",
       "source_location": "L1"
     },
     {
@@ -1939,6 +2226,61 @@
       "source_location": "L6"
     },
     {
+      "id": "src_utils_persiststorage",
+      "label": "persistStorage.js",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "main.jsx",
+      "file_type": "code",
+      "norm_label": "persiststorage.js",
+      "source_file": "src/utils/persistStorage.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_utils_persiststorage_backedupstorage",
+      "label": "backedUpStorage",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "main.jsx",
+      "file_type": "code",
+      "norm_label": "backedupstorage",
+      "source_file": "src/utils/persistStorage.js",
+      "source_location": "L9"
+    },
+    {
+      "id": "src_utils_persiststorage_isnative",
+      "label": "isNative",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "main.jsx",
+      "file_type": "code",
+      "norm_label": "isnative",
+      "source_file": "src/utils/persistStorage.js",
+      "source_location": "L7"
+    },
+    {
+      "id": "ref_capacitor_core",
+      "label": "@capacitor/core",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "main.jsx",
+      "file_type": "concept",
+      "norm_label": "@capacitor/core",
+      "source_file": "package.json",
+      "source_location": "L18"
+    },
+    {
+      "id": "ref_capacitor_preferences",
+      "label": "@capacitor/preferences",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "main.jsx",
+      "file_type": "concept",
+      "norm_label": "@capacitor/preferences",
+      "source_file": "package.json",
+      "source_location": "L21"
+    },
+    {
       "id": "ref_react_dom",
       "label": "react-dom",
       "_origin": "ast",
@@ -1974,11 +2316,33 @@
       "source_location": "L1"
     },
     {
+      "id": "src_components_scenebackground",
+      "label": "SceneBackground.jsx",
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "SceneBackground.jsx",
+      "file_type": "code",
+      "norm_label": "scenebackground.jsx",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_components_scenebackground_landmarks",
+      "label": "LANDMARKS",
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "SceneBackground.jsx",
+      "file_type": "code",
+      "norm_label": "landmarks",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L120"
+    },
+    {
       "id": "src_components_vehiclesprite",
       "label": "VehicleSprite.jsx",
       "_origin": "ast",
       "community": 12,
-      "community_name": "VehicleSprite.jsx",
+      "community_name": "SceneBackground.jsx",
       "file_type": "code",
       "norm_label": "vehiclesprite.jsx",
       "source_file": "src/components/VehicleSprite.jsx",
@@ -1989,66 +2353,66 @@
       "label": "SPRITES",
       "_origin": "ast",
       "community": 12,
-      "community_name": "VehicleSprite.jsx",
+      "community_name": "SceneBackground.jsx",
       "file_type": "code",
       "norm_label": "sprites",
       "source_file": "src/components/VehicleSprite.jsx",
-      "source_location": "L101"
+      "source_location": "L161"
     },
     {
-      "id": "src_utils_persiststorage",
-      "label": "persistStorage.js",
+      "id": "src_data_scenes",
+      "label": "scenes.js",
       "_origin": "ast",
-      "community": 13,
-      "community_name": "persistStorage.js",
+      "community": 12,
+      "community_name": "SceneBackground.jsx",
       "file_type": "code",
-      "norm_label": "persiststorage.js",
-      "source_file": "src/utils/persistStorage.js",
+      "norm_label": "scenes.js",
+      "source_file": "src/data/scenes.js",
       "source_location": "L1"
     },
     {
-      "id": "src_utils_persiststorage_backedupstorage",
-      "label": "backedUpStorage",
+      "id": "src_data_scenes_keywords",
+      "label": "KEYWORDS",
       "_origin": "ast",
-      "community": 13,
-      "community_name": "persistStorage.js",
+      "community": 12,
+      "community_name": "SceneBackground.jsx",
       "file_type": "code",
-      "norm_label": "backedupstorage",
-      "source_file": "src/utils/persistStorage.js",
-      "source_location": "L9"
+      "norm_label": "keywords",
+      "source_file": "src/data/scenes.js",
+      "source_location": "L35"
     },
     {
-      "id": "src_utils_persiststorage_isnative",
-      "label": "isNative",
+      "id": "src_data_scenes_line_region",
+      "label": "LINE_REGION",
       "_origin": "ast",
-      "community": 13,
-      "community_name": "persistStorage.js",
+      "community": 12,
+      "community_name": "SceneBackground.jsx",
       "file_type": "code",
-      "norm_label": "isnative",
-      "source_file": "src/utils/persistStorage.js",
-      "source_location": "L7"
+      "norm_label": "line_region",
+      "source_file": "src/data/scenes.js",
+      "source_location": "L27"
     },
     {
-      "id": "ref_capacitor_core",
-      "label": "@capacitor/core",
+      "id": "src_data_scenes_regions",
+      "label": "REGIONS",
       "_origin": "ast",
-      "community": 13,
-      "community_name": "persistStorage.js",
-      "file_type": "concept",
-      "norm_label": "@capacitor/core",
-      "source_file": "package.json",
-      "source_location": "L18"
+      "community": 12,
+      "community_name": "SceneBackground.jsx",
+      "file_type": "code",
+      "norm_label": "regions",
+      "source_file": "src/data/scenes.js",
+      "source_location": "L14"
     },
     {
-      "id": "ref_capacitor_preferences",
-      "label": "@capacitor/preferences",
+      "id": "src_data_scenes_times",
+      "label": "TIMES",
       "_origin": "ast",
-      "community": 13,
-      "community_name": "persistStorage.js",
-      "file_type": "concept",
-      "norm_label": "@capacitor/preferences",
-      "source_file": "package.json",
-      "source_location": "L21"
+      "community": 12,
+      "community_name": "SceneBackground.jsx",
+      "file_type": "code",
+      "norm_label": "times",
+      "source_file": "src/data/scenes.js",
+      "source_location": "L5"
     },
     {
       "id": "package_scripts",
@@ -2537,7 +2901,7 @@
       "file_type": "code",
       "norm_label": "onboarding_en",
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L680"
+      "source_location": "L706"
     },
     {
       "id": "src_utils_gamelogic_onboarding_tr",
@@ -2548,7 +2912,7 @@
       "file_type": "code",
       "norm_label": "onboarding_tr",
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L671"
+      "source_location": "L697"
     },
     {
       "id": "src_utils_gamelogic_provider_map_en",
@@ -2647,7 +3011,7 @@
       "file_type": "code",
       "norm_label": "usedrootshistory",
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L691"
+      "source_location": "L717"
     },
     {
       "id": "src_utils_gamelogic_valid_words",
@@ -2658,7 +3022,7 @@
       "file_type": "code",
       "norm_label": "valid_words",
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L923"
+      "source_location": "L949"
     },
     {
       "id": "src_utils_gamelogic_word_meanings",
@@ -2669,7 +3033,7 @@
       "file_type": "code",
       "norm_label": "word_meanings",
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L924"
+      "source_location": "L950"
     },
     {
       "id": "tailwindcss",
@@ -3407,17 +3771,6 @@
       "source_location": "L39"
     },
     {
-      "id": "ref_supabase_supabase_js",
-      "label": "@supabase/supabase-js",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "package.json",
-      "file_type": "concept",
-      "norm_label": "@supabase/supabase-js",
-      "source_file": "package.json",
-      "source_location": "L23"
-    },
-    {
       "id": "ref_tailwindcss",
       "label": "tailwindcss",
       "_origin": "ast",
@@ -3847,6 +4200,28 @@
       "source_location": "L1"
     },
     {
+      "id": "src_components_networkmap",
+      "label": "NetworkMap.jsx",
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "transitNetwork.js",
+      "file_type": "code",
+      "norm_label": "networkmap.jsx",
+      "source_file": "src/components/NetworkMap.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_components_networkmap_zooms",
+      "label": "ZOOMS",
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "transitNetwork.js",
+      "file_type": "code",
+      "norm_label": "zooms",
+      "source_file": "src/components/NetworkMap.jsx",
+      "source_location": "L5"
+    },
+    {
       "id": "src_components_networkscreen",
       "label": "NetworkScreen.jsx",
       "_origin": "ast",
@@ -3856,17 +4231,6 @@
       "norm_label": "networkscreen.jsx",
       "source_file": "src/components/NetworkScreen.jsx",
       "source_location": "L1"
-    },
-    {
-      "id": "src_components_networkscreen_line_start",
-      "label": "LINE_START",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "transitNetwork.js",
-      "file_type": "code",
-      "norm_label": "line_start",
-      "source_file": "src/components/NetworkScreen.jsx",
-      "source_location": "L5"
     },
     {
       "id": "src_data_istanbullines",
@@ -3924,6 +4288,61 @@
       "source_location": "L101"
     },
     {
+      "id": "src_data_networkgeometry",
+      "label": "networkGeometry.js",
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "transitNetwork.js",
+      "file_type": "code",
+      "norm_label": "networkgeometry.js",
+      "source_file": "src/data/networkGeometry.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_data_networkgeometry_line_paths",
+      "label": "LINE_PATHS",
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "transitNetwork.js",
+      "file_type": "code",
+      "norm_label": "line_paths",
+      "source_file": "src/data/networkGeometry.js",
+      "source_location": "L19"
+    },
+    {
+      "id": "src_data_networkgeometry_map_h",
+      "label": "MAP_H",
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "transitNetwork.js",
+      "file_type": "code",
+      "norm_label": "map_h",
+      "source_file": "src/data/networkGeometry.js",
+      "source_location": "L7"
+    },
+    {
+      "id": "src_data_networkgeometry_map_w",
+      "label": "MAP_W",
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "transitNetwork.js",
+      "file_type": "code",
+      "norm_label": "map_w",
+      "source_file": "src/data/networkGeometry.js",
+      "source_location": "L6"
+    },
+    {
+      "id": "src_data_networkgeometry_water",
+      "label": "WATER",
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "transitNetwork.js",
+      "file_type": "code",
+      "norm_label": "water",
+      "source_file": "src/data/networkGeometry.js",
+      "source_location": "L10"
+    },
+    {
       "id": "src_utils_transitnetwork",
       "label": "transitNetwork.js",
       "_origin": "ast",
@@ -3955,6 +4374,17 @@
       "norm_label": "levels_per_station",
       "source_file": "src/utils/transitNetwork.js",
       "source_location": "L1"
+    },
+    {
+      "id": "src_utils_transitnetwork_line_start",
+      "label": "LINE_START",
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "transitNetwork.js",
+      "file_type": "code",
+      "norm_label": "line_start",
+      "source_file": "src/utils/transitNetwork.js",
+      "source_location": "L145"
     },
     {
       "id": "src_utils_transitnetwork_lines",
@@ -4640,6 +5070,18 @@
     },
     {
       "source": "src_components_gamecontainer_gamecontainer",
+      "target": "src_components_gamecontainer_toolbutton",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/GameContainer.jsx",
+      "source_location": "L1004",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_gamecontainer_gamecontainer",
       "target": "src_components_levelcomplete_levelcomplete",
       "relation": "calls",
       "_origin": "ast",
@@ -4647,7 +5089,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L1032",
+      "source_location": "L1065",
       "weight": 1.0
     },
     {
@@ -4659,7 +5101,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L161",
+      "source_location": "L164",
       "weight": 1.0
     },
     {
@@ -4671,7 +5113,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L239",
+      "source_location": "L234",
       "weight": 1.0
     },
     {
@@ -4683,7 +5125,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L277",
+      "source_location": "L273",
       "weight": 1.0
     },
     {
@@ -4695,7 +5137,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L284",
+      "source_location": "L280",
       "weight": 1.0
     },
     {
@@ -4707,7 +5149,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L290",
+      "source_location": "L286",
       "weight": 1.0
     },
     {
@@ -4719,7 +5161,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L300",
+      "source_location": "L296",
       "weight": 1.0
     },
     {
@@ -4731,7 +5173,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L324",
+      "source_location": "L321",
       "weight": 1.0
     },
     {
@@ -4743,7 +5185,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L370",
+      "source_location": "L367",
       "weight": 1.0
     },
     {
@@ -4755,12 +5197,24 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L379",
+      "source_location": "L376",
       "weight": 1.0
     },
     {
       "source": "src_components_gamecontainer_gamecontainer",
       "target": "src_store_gamestore_getearningsmultiplier",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/GameContainer.jsx",
+      "source_location": "L380",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_gamecontainer_gamecontainer",
+      "target": "src_utils_transitnetwork_getstationforlevel",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -4779,7 +5233,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L390",
+      "source_location": "L389",
       "weight": 1.0
     },
     {
@@ -4791,7 +5245,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L391",
+      "source_location": "L390",
       "weight": 1.0
     },
     {
@@ -4803,7 +5257,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L392",
+      "source_location": "L391",
       "weight": 1.0
     },
     {
@@ -4815,7 +5269,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L398",
+      "source_location": "L397",
       "weight": 1.0
     },
     {
@@ -4911,7 +5365,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L60",
+      "source_location": "L61",
       "weight": 1.0
     },
     {
@@ -4928,14 +5382,14 @@
     },
     {
       "source": "src_components_gamecontainer_gamecontainer",
-      "target": "src_utils_transitnetwork_getstationforlevel",
+      "target": "src_components_scenebackground_scenebackground",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L835",
+      "source_location": "L864",
       "weight": 1.0
     },
     {
@@ -4947,7 +5401,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L846",
+      "source_location": "L867",
       "weight": 1.0
     },
     {
@@ -4959,7 +5413,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L855",
+      "source_location": "L876",
       "weight": 1.0
     },
     {
@@ -4971,7 +5425,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L888",
+      "source_location": "L909",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_gamecontainer_gamecontainer",
+      "target": "src_utils_i18n_usetranslation",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/GameContainer.jsx",
+      "source_location": "L94",
       "weight": 1.0
     },
     {
@@ -4983,19 +5449,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L926",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_gamecontainer_gamecontainer",
-      "target": "src_utils_i18n_usetranslation",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L93",
+      "source_location": "L950",
       "weight": 1.0
     },
     {
@@ -5007,7 +5461,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L942",
+      "source_location": "L966",
       "weight": 1.0
     },
     {
@@ -5019,31 +5473,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L958",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_gamecontainer_gamecontainer",
-      "target": "src_components_wheel_wheel",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L961",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_gamecontainer_gamecontainer",
-      "target": "src_components_gamecontainer_toolbutton",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L973",
+      "source_location": "L989",
       "weight": 1.0
     },
     {
@@ -5055,7 +5485,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/HomeScreen.jsx",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0
     },
     {
@@ -5067,7 +5497,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/HomeScreen.jsx",
-      "source_location": "L18",
+      "source_location": "L19",
       "weight": 1.0
     },
     {
@@ -5079,7 +5509,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/HomeScreen.jsx",
-      "source_location": "L24",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_homescreen_homescreen",
+      "target": "src_components_scenebackground_scenebackground",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/HomeScreen.jsx",
+      "source_location": "L38",
       "weight": 1.0
     },
     {
@@ -5091,7 +5533,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/HomeScreen.jsx",
-      "source_location": "L48",
+      "source_location": "L50",
       "weight": 1.0
     },
     {
@@ -5139,7 +5581,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/LevelComplete.jsx",
-      "source_location": "L103",
+      "source_location": "L104",
       "weight": 1.0
     },
     {
@@ -5163,7 +5605,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/LevelComplete.jsx",
-      "source_location": "L97",
+      "source_location": "L98",
       "weight": 1.0
     },
     {
@@ -5240,6 +5682,18 @@
     },
     {
       "source": "src_components_navigationcontainer_navigationcontainer",
+      "target": "src_components_screenheader_screenheader",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L100",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer_navigationcontainer",
       "target": "src_components_mapscreen_mapscreen",
       "relation": "calls",
       "_origin": "ast",
@@ -5247,7 +5701,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L103",
+      "source_location": "L106",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer_navigationcontainer",
+      "target": "src_components_networkmap_networkmap",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L114",
       "weight": 1.0
     },
     {
@@ -5259,7 +5725,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L104",
+      "source_location": "L115",
       "weight": 1.0
     },
     {
@@ -5271,7 +5737,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L128",
+      "source_location": "L141",
       "weight": 1.0
     },
     {
@@ -5283,7 +5749,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L136",
+      "source_location": "L149",
       "weight": 1.0
     },
     {
@@ -5295,7 +5761,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L24",
+      "source_location": "L25",
       "weight": 1.0
     },
     {
@@ -5307,7 +5773,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L27",
+      "source_location": "L30",
       "weight": 1.0
     },
     {
@@ -5319,7 +5785,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L34",
+      "source_location": "L37",
       "weight": 1.0
     },
     {
@@ -5331,7 +5797,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L42",
+      "source_location": "L45",
       "weight": 1.0
     },
     {
@@ -5343,7 +5809,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L50",
+      "source_location": "L53",
       "weight": 1.0
     },
     {
@@ -5355,7 +5821,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L52",
+      "source_location": "L55",
       "weight": 1.0
     },
     {
@@ -5367,7 +5833,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L60",
+      "source_location": "L63",
       "weight": 1.0
     },
     {
@@ -5379,7 +5845,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L68",
+      "source_location": "L71",
       "weight": 1.0
     },
     {
@@ -5391,7 +5857,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L76",
+      "source_location": "L79",
       "weight": 1.0
     },
     {
@@ -5403,7 +5869,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L84",
+      "source_location": "L87",
       "weight": 1.0
     },
     {
@@ -5415,7 +5881,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L91",
+      "source_location": "L94",
       "weight": 1.0
     },
     {
@@ -5427,19 +5893,115 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L94",
+      "source_location": "L97",
       "weight": 1.0
     },
     {
-      "source": "src_components_navigationcontainer_navigationcontainer",
-      "target": "src_components_screenheader_screenheader",
+      "source": "src_components_networkmap_networkmap",
+      "target": "src_utils_transitnetwork_getnetworkprogress",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
-      "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L97",
+      "source_file": "src/components/NetworkMap.jsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_networkmap_networkmap",
+      "target": "src_data_networkgeometry_getstationpoints",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/NetworkMap.jsx",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_networkmap_networkmap",
+      "target": "src_data_networkgeometry_topath",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/NetworkMap.jsx",
+      "source_location": "L78",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_networkscreen_networkscreen",
+      "target": "src_utils_transitnetwork_getnetworkprogress",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/NetworkScreen.jsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_scenebackground_farcity",
+      "target": "src_components_scenebackground_rng",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L125",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_scenebackground_scenebackground",
+      "target": "src_data_scenes_getscenefor",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L147",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_scenebackground_scenebackground",
+      "target": "src_components_scenebackground_rng",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L150",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_scenebackground_scenebackground",
+      "target": "src_components_scenebackground_farcity",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L203",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_scenebackground_scenebackground",
+      "target": "src_components_vehiclesprite_vehiclesprite",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L242",
       "weight": 1.0
     },
     {
@@ -5596,6 +6158,114 @@
       "context": "call",
       "source_file": "src/components/VaultScreen.jsx",
       "source_location": "L88",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_vehiclesprite_bogie",
+      "target": "src_components_vehiclesprite_wheel",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/VehicleSprite.jsx",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_vehiclesprite_funicular",
+      "target": "src_components_vehiclesprite_wheel",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/VehicleSprite.jsx",
+      "source_location": "L141",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_vehiclesprite_marmaray",
+      "target": "src_components_vehiclesprite_railcar",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/VehicleSprite.jsx",
+      "source_location": "L68",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_vehiclesprite_marmaray",
+      "target": "src_components_vehiclesprite_bogie",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/VehicleSprite.jsx",
+      "source_location": "L72",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_vehiclesprite_metro",
+      "target": "src_components_vehiclesprite_railcar",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/VehicleSprite.jsx",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_vehiclesprite_metro",
+      "target": "src_components_vehiclesprite_bogie",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/VehicleSprite.jsx",
+      "source_location": "L57",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_vehiclesprite_metrobus",
+      "target": "src_components_vehiclesprite_wheel",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/VehicleSprite.jsx",
+      "source_location": "L109",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_vehiclesprite_tram",
+      "target": "src_components_vehiclesprite_wheel",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/VehicleSprite.jsx",
+      "source_location": "L92",
+      "weight": 1.0
+    },
+    {
+      "source": "src_data_networkgeometry_getstationpoints",
+      "target": "src_data_networkgeometry_seglen",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/data/networkGeometry.js",
+      "source_location": "L52",
       "weight": 1.0
     },
     {
@@ -5763,7 +6433,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L701",
+      "source_location": "L727",
       "weight": 1.0
     },
     {
@@ -5775,7 +6445,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L702",
+      "source_location": "L728",
       "weight": 1.0
     },
     {
@@ -5787,7 +6457,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L709",
+      "source_location": "L735",
       "weight": 1.0
     },
     {
@@ -5799,7 +6469,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L717",
+      "source_location": "L743",
       "weight": 1.0
     },
     {
@@ -5811,7 +6481,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L721",
+      "source_location": "L747",
       "weight": 1.0
     },
     {
@@ -5823,7 +6493,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L745",
+      "source_location": "L771",
       "weight": 1.0
     },
     {
@@ -5835,7 +6505,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L882",
+      "source_location": "L908",
       "weight": 1.0
     },
     {
@@ -5847,7 +6517,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L884",
+      "source_location": "L910",
       "weight": 1.0
     },
     {
@@ -5859,7 +6529,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L885",
+      "source_location": "L911",
       "weight": 1.0
     },
     {
@@ -5871,7 +6541,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L886",
+      "source_location": "L912",
       "weight": 1.0
     },
     {
@@ -5883,7 +6553,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L888",
+      "source_location": "L914",
       "weight": 1.0
     },
     {
@@ -5895,7 +6565,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L890",
+      "source_location": "L916",
       "weight": 1.0
     },
     {
@@ -5907,7 +6577,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L900",
+      "source_location": "L926",
       "weight": 1.0
     },
     {
@@ -5919,7 +6589,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L901",
+      "source_location": "L927",
       "weight": 1.0
     },
     {
@@ -5931,7 +6601,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L902",
+      "source_location": "L928",
       "weight": 1.0
     },
     {
@@ -5967,7 +6637,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L771",
+      "source_location": "L797",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_gamelogic_placepuzzlewords",
+      "target": "src_utils_gamelogic_buildlayout",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/utils/gameLogic.js",
+      "source_location": "L674",
       "weight": 1.0
     },
     {
@@ -5979,7 +6661,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/utils/i18n.js",
-      "source_location": "L243",
+      "source_location": "L249",
       "weight": 1.0
     },
     {
@@ -7676,7 +8358,7 @@
     },
     {
       "source": "src_components_gamecontainer",
-      "target": "src_store_gamestore_getearningsmultiplier",
+      "target": "src_components_scenebackground_scenebackground",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -7684,6 +8366,18 @@
       "context": "import",
       "source_file": "src/components/GameContainer.jsx",
       "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_gamecontainer",
+      "target": "src_store_gamestore_getearningsmultiplier",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/GameContainer.jsx",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -7695,7 +8389,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -7707,7 +8401,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -7719,7 +8413,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -7731,7 +8425,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -7743,7 +8437,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L22",
+      "source_location": "L23",
       "weight": 1.0
     },
     {
@@ -7904,31 +8598,19 @@
     },
     {
       "source": "src_components_homescreen",
+      "target": "src_components_scenebackground_scenebackground",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/HomeScreen.jsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_homescreen",
       "target": "src_store_gamestore_usegamestore",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/components/HomeScreen.jsx",
-      "source_location": "L3",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_homescreen",
-      "target": "src_store_gamestore_vault_size",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/components/HomeScreen.jsx",
-      "source_location": "L3",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_homescreen",
-      "target": "src_utils_i18n_usetranslation",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -7940,7 +8622,19 @@
     },
     {
       "source": "src_components_homescreen",
-      "target": "src_utils_transitnetwork_getstationforlevel",
+      "target": "src_store_gamestore_vault_size",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/HomeScreen.jsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_homescreen",
+      "target": "src_utils_i18n_usetranslation",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -7948,6 +8642,18 @@
       "context": "import",
       "source_file": "src/components/HomeScreen.jsx",
       "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_homescreen",
+      "target": "src_utils_transitnetwork_getstationforlevel",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/HomeScreen.jsx",
+      "source_location": "L6",
       "weight": 1.0
     },
     {
@@ -8156,7 +8862,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_components_akbilscreen_akbilscreen",
+      "target": "src_components_leaderboardscreen_leaderboardscreen",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -8168,7 +8874,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_components_lostitemsscreen_lostitemsscreen",
+      "target": "src_components_akbilscreen_akbilscreen",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -8180,7 +8886,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_components_duelsscreen_duelsscreen",
+      "target": "src_components_lostitemsscreen_lostitemsscreen",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -8192,7 +8898,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_utils_i18n_usetranslation",
+      "target": "src_components_duelsscreen_duelsscreen",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -8204,31 +8910,19 @@
     },
     {
       "source": "src_components_navigationcontainer",
+      "target": "src_utils_i18n_usetranslation",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer",
       "target": "src_store_gamestore_getmaxlives",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L14",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_navigationcontainer",
-      "target": "src_store_gamestore_usegamestore",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L14",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_navigationcontainer",
-      "target": "src_components_usernamemodal_usernamemodal",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -8240,7 +8934,19 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_components_screenheader_screenheader",
+      "target": "src_store_gamestore_usegamestore",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer",
+      "target": "src_components_usernamemodal_usernamemodal",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -8252,7 +8958,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_utils_transitnetwork_getstationforlevel",
+      "target": "src_components_screenheader_screenheader",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -8264,7 +8970,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_utils_supabaseclient_iscloudconfigured",
+      "target": "src_utils_transitnetwork_getstationforlevel",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -8272,6 +8978,18 @@
       "context": "import",
       "source_file": "src/components/NavigationContainer.jsx",
       "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer",
+      "target": "src_utils_supabaseclient_iscloudconfigured",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L19",
       "weight": 1.0
     },
     {
@@ -8288,7 +9006,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_components_mapscreen_mapscreen",
+      "target": "src_components_networkmap_networkmap",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -8300,7 +9018,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_components_dictionaryscreen_dictionaryscreen",
+      "target": "src_components_mapscreen_mapscreen",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -8312,7 +9030,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_components_badgesscreen_badgesscreen",
+      "target": "src_components_dictionaryscreen_dictionaryscreen",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -8324,7 +9042,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_components_settingsscreen_settingsscreen",
+      "target": "src_components_badgesscreen_badgesscreen",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -8336,7 +9054,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_components_statsscreen_statsscreen",
+      "target": "src_components_settingsscreen_settingsscreen",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -8348,7 +9066,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_components_vaultscreen_vaultscreen",
+      "target": "src_components_statsscreen_statsscreen",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -8360,7 +9078,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_components_leaderboardscreen_leaderboardscreen",
+      "target": "src_components_vaultscreen_vaultscreen",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -8368,6 +9086,114 @@
       "context": "import",
       "source_file": "src/components/NavigationContainer.jsx",
       "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_networkmap",
+      "target": "src_data_istanbullines_mode_meta",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/NetworkMap.jsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_networkmap",
+      "target": "src_utils_transitnetwork_getnetworkprogress",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/NetworkMap.jsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_networkmap",
+      "target": "src_utils_transitnetwork_lines",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/NetworkMap.jsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_networkmap",
+      "target": "src_utils_transitnetwork_station_names",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/NetworkMap.jsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_networkmap",
+      "target": "src_data_networkgeometry_getstationpoints",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/NetworkMap.jsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_networkmap",
+      "target": "src_data_networkgeometry_map_h",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/NetworkMap.jsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_networkmap",
+      "target": "src_data_networkgeometry_map_w",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/NetworkMap.jsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_networkmap",
+      "target": "src_data_networkgeometry_topath",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/NetworkMap.jsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_networkmap",
+      "target": "src_data_networkgeometry_water",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/NetworkMap.jsx",
+      "source_location": "L3",
       "weight": 1.0
     },
     {
@@ -8396,7 +9222,7 @@
     },
     {
       "source": "src_components_networkscreen",
-      "target": "src_utils_transitnetwork_levels_per_station",
+      "target": "src_utils_transitnetwork_getnetworkprogress",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -8419,15 +9245,27 @@
       "weight": 1.0
     },
     {
-      "source": "src_components_networkscreen",
-      "target": "src_utils_transitnetwork_station_names",
+      "source": "src_components_scenebackground",
+      "target": "src_data_scenes_getscenefor",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "import",
-      "source_file": "src/components/NetworkScreen.jsx",
+      "source_file": "src/components/SceneBackground.jsx",
       "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_scenebackground",
+      "target": "src_components_vehiclesprite_vehiclesprite",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L3",
       "weight": 1.0
     },
     {
@@ -9704,7 +10542,7 @@
     },
     {
       "source": "src_components_gamecontainer",
-      "target": "src_store_gamestore",
+      "target": "src_components_scenebackground",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -9716,7 +10554,7 @@
     },
     {
       "source": "src_components_gamecontainer",
-      "target": "src_utils_format",
+      "target": "src_store_gamestore",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -9728,7 +10566,7 @@
     },
     {
       "source": "src_components_gamecontainer",
-      "target": "src_index",
+      "target": "src_utils_format",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -9736,6 +10574,18 @@
       "context": "import",
       "source_file": "src/components/GameContainer.jsx",
       "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_gamecontainer",
+      "target": "src_index",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/GameContainer.jsx",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
@@ -9836,7 +10686,7 @@
     },
     {
       "source": "src_components_homescreen",
-      "target": "ref_react",
+      "target": "src_components_scenebackground",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -9848,7 +10698,7 @@
     },
     {
       "source": "src_components_homescreen",
-      "target": "src_components_animatedbalance",
+      "target": "ref_react",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -9860,7 +10710,7 @@
     },
     {
       "source": "src_components_homescreen",
-      "target": "src_store_gamestore",
+      "target": "src_components_animatedbalance",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -9872,7 +10722,7 @@
     },
     {
       "source": "src_components_homescreen",
-      "target": "src_utils_i18n",
+      "target": "src_store_gamestore",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -9884,7 +10734,7 @@
     },
     {
       "source": "src_components_homescreen",
-      "target": "src_utils_transitnetwork",
+      "target": "src_utils_i18n",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -9892,6 +10742,18 @@
       "context": "import",
       "source_file": "src/components/HomeScreen.jsx",
       "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_homescreen",
+      "target": "src_utils_transitnetwork",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/HomeScreen.jsx",
+      "source_location": "L6",
       "weight": 1.0
     },
     {
@@ -10100,7 +10962,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_components_akbilscreen",
+      "target": "src_components_leaderboardscreen",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -10112,7 +10974,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_components_lostitemsscreen",
+      "target": "src_components_akbilscreen",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -10124,7 +10986,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_components_duelsscreen",
+      "target": "src_components_lostitemsscreen",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -10136,7 +10998,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_utils_i18n",
+      "target": "src_components_duelsscreen",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -10148,7 +11010,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_store_gamestore",
+      "target": "src_utils_i18n",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -10160,7 +11022,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_components_usernamemodal",
+      "target": "src_store_gamestore",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -10172,7 +11034,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_components_screenheader",
+      "target": "src_components_usernamemodal",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -10184,7 +11046,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_utils_transitnetwork",
+      "target": "src_components_screenheader",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -10196,7 +11058,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_utils_supabaseclient",
+      "target": "src_utils_transitnetwork",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -10204,6 +11066,18 @@
       "context": "import",
       "source_file": "src/components/NavigationContainer.jsx",
       "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer",
+      "target": "src_utils_supabaseclient",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L19",
       "weight": 1.0
     },
     {
@@ -10220,7 +11094,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_components_mapscreen",
+      "target": "src_components_networkmap",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -10232,7 +11106,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_components_dictionaryscreen",
+      "target": "src_components_mapscreen",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -10244,7 +11118,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_components_badgesscreen",
+      "target": "src_components_dictionaryscreen",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -10256,7 +11130,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_components_settingsscreen",
+      "target": "src_components_badgesscreen",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -10268,7 +11142,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_components_statsscreen",
+      "target": "src_components_settingsscreen",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -10280,7 +11154,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_components_vaultscreen",
+      "target": "src_components_statsscreen",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -10292,7 +11166,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_components_leaderboardscreen",
+      "target": "src_components_vaultscreen",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -10300,6 +11174,42 @@
       "context": "import",
       "source_file": "src/components/NavigationContainer.jsx",
       "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_networkmap",
+      "target": "ref_react",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/NetworkMap.jsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_networkmap",
+      "target": "src_utils_transitnetwork",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/NetworkMap.jsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_networkmap",
+      "target": "src_data_networkgeometry",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/NetworkMap.jsx",
+      "source_location": "L3",
       "weight": 1.0
     },
     {
@@ -10324,6 +11234,42 @@
       "context": "import",
       "source_file": "src/components/NetworkScreen.jsx",
       "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_scenebackground",
+      "target": "ref_react",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_scenebackground",
+      "target": "src_data_scenes",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_scenebackground",
+      "target": "src_components_vehiclesprite",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L3",
       "weight": 1.0
     },
     {
@@ -11783,7 +12729,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L28",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -11794,7 +12740,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L39",
+      "source_location": "L40",
       "weight": 1.0
     },
     {
@@ -11805,7 +12751,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L51",
+      "source_location": "L52",
       "weight": 1.0
     },
     {
@@ -11816,7 +12762,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/HomeScreen.jsx",
-      "source_location": "L16",
+      "source_location": "L17",
       "weight": 1.0
     },
     {
@@ -11827,7 +12773,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/HomeScreen.jsx",
-      "source_location": "L8",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -11904,7 +12850,29 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L20",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_networkmap",
+      "target": "src_components_networkmap_zooms",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/components/NetworkMap.jsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_networkmap",
+      "target": "src_components_networkmap_networkmap",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/components/NetworkMap.jsx",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -11915,18 +12883,51 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/NetworkScreen.jsx",
-      "source_location": "L16",
+      "source_location": "L5",
       "weight": 1.0
     },
     {
-      "source": "src_components_networkscreen",
-      "target": "src_components_networkscreen_line_start",
+      "source": "src_components_scenebackground",
+      "target": "src_components_scenebackground_rng",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "src/components/NetworkScreen.jsx",
-      "source_location": "L5",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_scenebackground",
+      "target": "src_components_scenebackground_landmarks",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_scenebackground",
+      "target": "src_components_scenebackground_farcity",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L123",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_scenebackground",
+      "target": "src_components_scenebackground_scenebackground",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L146",
       "weight": 1.0
     },
     {
@@ -11986,13 +12987,24 @@
     },
     {
       "source": "src_components_vehiclesprite",
+      "target": "src_components_vehiclesprite_wheel",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/components/VehicleSprite.jsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_vehiclesprite",
       "target": "src_components_vehiclesprite_sprites",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/VehicleSprite.jsx",
-      "source_location": "L101",
+      "source_location": "L161",
       "weight": 1.0
     },
     {
@@ -12003,7 +13015,29 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/VehicleSprite.jsx",
-      "source_location": "L103",
+      "source_location": "L163",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_vehiclesprite",
+      "target": "src_components_vehiclesprite_bogie",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/components/VehicleSprite.jsx",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_vehiclesprite",
+      "target": "src_components_vehiclesprite_railcar",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/components/VehicleSprite.jsx",
+      "source_location": "L28",
       "weight": 1.0
     },
     {
@@ -12081,6 +13115,138 @@
       "confidence_score": 1.0,
       "source_file": "src/data/lostItems.js",
       "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "src_data_networkgeometry",
+      "target": "src_data_networkgeometry_water",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/data/networkGeometry.js",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "src_data_networkgeometry",
+      "target": "src_data_networkgeometry_line_paths",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/data/networkGeometry.js",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "src_data_networkgeometry",
+      "target": "src_data_networkgeometry_seglen",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/data/networkGeometry.js",
+      "source_location": "L45",
+      "weight": 1.0
+    },
+    {
+      "source": "src_data_networkgeometry",
+      "target": "src_data_networkgeometry_getstationpoints",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/data/networkGeometry.js",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "src_data_networkgeometry",
+      "target": "src_data_networkgeometry_map_w",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/data/networkGeometry.js",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "src_data_networkgeometry",
+      "target": "src_data_networkgeometry_topath",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/data/networkGeometry.js",
+      "source_location": "L65",
+      "weight": 1.0
+    },
+    {
+      "source": "src_data_networkgeometry",
+      "target": "src_data_networkgeometry_map_h",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/data/networkGeometry.js",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "src_data_scenes",
+      "target": "src_data_scenes_regions",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/data/scenes.js",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "src_data_scenes",
+      "target": "src_data_scenes_line_region",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/data/scenes.js",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "src_data_scenes",
+      "target": "src_data_scenes_keywords",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/data/scenes.js",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "src_data_scenes",
+      "target": "src_data_scenes_getscenefor",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/data/scenes.js",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "src_data_scenes",
+      "target": "src_data_scenes_times",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/data/scenes.js",
+      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -12712,13 +13878,24 @@
     },
     {
       "source": "src_utils_gamelogic",
+      "target": "src_utils_gamelogic_buildlayout",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/gameLogic.js",
+      "source_location": "L596",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_gamelogic",
       "target": "src_utils_gamelogic_placepuzzlewords",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L588",
+      "source_location": "L673",
       "weight": 1.0
     },
     {
@@ -12729,7 +13906,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L661",
+      "source_location": "L687",
       "weight": 1.0
     },
     {
@@ -12740,7 +13917,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L671",
+      "source_location": "L697",
       "weight": 1.0
     },
     {
@@ -12751,7 +13928,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L680",
+      "source_location": "L706",
       "weight": 1.0
     },
     {
@@ -12762,7 +13939,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L691",
+      "source_location": "L717",
       "weight": 1.0
     },
     {
@@ -12773,7 +13950,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L693",
+      "source_location": "L719",
       "weight": 1.0
     },
     {
@@ -12784,7 +13961,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L770",
+      "source_location": "L796",
       "weight": 1.0
     },
     {
@@ -12795,7 +13972,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L798",
+      "source_location": "L824",
       "weight": 1.0
     },
     {
@@ -12806,7 +13983,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L873",
+      "source_location": "L899",
       "weight": 1.0
     },
     {
@@ -12817,7 +13994,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L923",
+      "source_location": "L949",
       "weight": 1.0
     },
     {
@@ -12828,7 +14005,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/utils/gameLogic.js",
-      "source_location": "L924",
+      "source_location": "L950",
       "weight": 1.0
     },
     {
@@ -12839,7 +14016,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/utils/i18n.js",
-      "source_location": "L242",
+      "source_location": "L248",
       "weight": 1.0
     },
     {
@@ -13203,6 +14380,28 @@
       "confidence_score": 1.0,
       "source_file": "src/utils/transitNetwork.js",
       "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_transitnetwork",
+      "target": "src_utils_transitnetwork_line_start",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/transitNetwork.js",
+      "source_location": "L145",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_transitnetwork",
+      "target": "src_utils_transitnetwork_getnetworkprogress",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/transitNetwork.js",
+      "source_location": "L154",
       "weight": 1.0
     },
     {
@@ -13609,7 +14808,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/components/Grid.jsx",
-      "source_location": "L171",
+      "source_location": "L181",
       "weight": 1.0
     },
     {
@@ -13625,6 +14824,126 @@
       "weight": 1.0
     },
     {
+      "source": "src_components_scenebackground",
+      "target": "src_components_scenebackground_airport",
+      "relation": "indirect_call",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "context": "collection",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_scenebackground",
+      "target": "src_components_scenebackground_bridge",
+      "relation": "indirect_call",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "context": "collection",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_scenebackground",
+      "target": "src_components_scenebackground_cable",
+      "relation": "indirect_call",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "context": "collection",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_scenebackground",
+      "target": "src_components_scenebackground_camlica",
+      "relation": "indirect_call",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "context": "collection",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_scenebackground",
+      "target": "src_components_scenebackground_galata",
+      "relation": "indirect_call",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "context": "collection",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_scenebackground",
+      "target": "src_components_scenebackground_islands",
+      "relation": "indirect_call",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "context": "collection",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_scenebackground",
+      "target": "src_components_scenebackground_maiden",
+      "relation": "indirect_call",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "context": "collection",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_scenebackground",
+      "target": "src_components_scenebackground_mosque",
+      "relation": "indirect_call",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "context": "collection",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_scenebackground",
+      "target": "src_components_scenebackground_skyscrapers",
+      "relation": "indirect_call",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "context": "collection",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_scenebackground",
+      "target": "src_components_scenebackground_towers",
+      "relation": "indirect_call",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "context": "collection",
+      "source_file": "src/components/SceneBackground.jsx",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
       "source": "src_components_vehiclesprite",
       "target": "src_components_vehiclesprite_cablecar",
       "relation": "indirect_call",
@@ -13633,7 +14952,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "src/components/VehicleSprite.jsx",
-      "source_location": "L101",
+      "source_location": "L161",
       "weight": 1.0
     },
     {
@@ -13645,7 +14964,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "src/components/VehicleSprite.jsx",
-      "source_location": "L101",
+      "source_location": "L161",
       "weight": 1.0
     },
     {
@@ -13657,7 +14976,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "src/components/VehicleSprite.jsx",
-      "source_location": "L101",
+      "source_location": "L161",
       "weight": 1.0
     },
     {
@@ -13669,7 +14988,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "src/components/VehicleSprite.jsx",
-      "source_location": "L101",
+      "source_location": "L161",
       "weight": 1.0
     },
     {
@@ -13681,7 +15000,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "src/components/VehicleSprite.jsx",
-      "source_location": "L101",
+      "source_location": "L161",
       "weight": 1.0
     },
     {
@@ -13693,7 +15012,7 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "src/components/VehicleSprite.jsx",
-      "source_location": "L101",
+      "source_location": "L161",
       "weight": 1.0
     },
     {
@@ -13705,10 +15024,10 @@
       "confidence_score": 0.85,
       "context": "collection",
       "source_file": "src/components/VehicleSprite.jsx",
-      "source_location": "L101",
+      "source_location": "L161",
       "weight": 1.0
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "fe503ae09e318cf946ad2cb09e726ed872f90e8c"
+  "built_at_commit": "695192972991a8ecb52e9913445cbf4652ae49b0"
 }
