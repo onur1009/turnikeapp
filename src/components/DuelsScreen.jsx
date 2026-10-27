@@ -1,28 +1,38 @@
 import React, { useState } from 'react';
 import { useGameStore } from '../store/gameStore';
-import ScreenHeader from './ScreenHeader';
 import DuelGame from './DuelGame';
 import { formatKurus } from '../utils/format';
 import { DUEL_SECONDS, DUEL_WIN_REWARD, newDuelSeed, decodeDuel, compareScores, shareDuel } from '../utils/duel';
 
-// Arkadaş düelloları (bağlantıyla). Ekranlar: liste → oyun → sonuç.
-// incoming: açılışta ?duel= ile gelen ya da yapıştırılan düello.
-const scoreText = (s) => `${s.w} kelime · ${s.t} sn`;
+// Arkadaş düellosu (bağlantıyla). Tek ekran, tek ana düğme:
+//  - gelen meydan okuma varsa: "Kabul et"
+//  - cevap geldiyse: sonucu göster
+//  - yoksa: "Meydan oku"
+// Oyun → sonuç (VS kartı) → tek paylaş düğmesi.
 
-const ResultCard = ({ me, them, myName, theirName }) => {
-  const r = compareScores(me, them);
-  return (
-    <div className="card-panel !rounded-2xl p-4">
-      <p className="text-center font-black text-[22px] mb-3" style={{ color: r > 0 ? '#4ade80' : r < 0 ? '#f87171' : '#fbbf24' }}>
-        {r > 0 ? 'Kazandın!' : r < 0 ? 'Kaybettin' : 'Berabere'}
-      </p>
-      <div className="grid grid-cols-2 gap-2 text-center">
-        <div className="rounded-xl p-3 bg-white/5"><p className="text-white/60 text-[12px] font-bold truncate">{myName} (sen)</p><p className="text-white font-black text-[16px]">{scoreText(me)}</p></div>
-        <div className="rounded-xl p-3 bg-white/5"><p className="text-white/60 text-[12px] font-bold truncate">{theirName}</p><p className="text-white font-black text-[16px]">{scoreText(them)}</p></div>
+const initials = (name) => (name || '?').trim().slice(0, 1).toLocaleUpperCase('tr-TR');
+
+const Avatar = ({ name, color, crown }) => (
+  <div className="flex flex-col items-center gap-1.5 min-w-0 w-full">
+    <div className="relative">
+      {crown && <span aria-hidden="true" className="absolute -top-5 left-1/2 -translate-x-1/2 text-[22px]">👑</span>}
+      <div className="w-[72px] h-[72px] rounded-full flex items-center justify-center text-white font-black text-[30px] border-4 border-white/90"
+        style={{ background: color, boxShadow: '0 8px 20px rgba(0,0,0,0.35)' }}>
+        {initials(name)}
       </div>
     </div>
-  );
-};
+    <p className="text-white font-extrabold text-[14px] truncate max-w-full">{name}</p>
+  </div>
+);
+
+const VsBadge = () => (
+  <div className="w-12 h-12 rounded-full bg-amber-400 text-[#10263f] font-black text-[18px] flex items-center justify-center shrink-0"
+    style={{ boxShadow: 'inset 0 -3px 0 rgba(0,0,0,0.2), 0 6px 14px rgba(0,0,0,0.3)' }}>VS</div>
+);
+
+const Score = ({ s }) => s
+  ? <p className="text-white/80 text-[13px] font-bold tabular-nums">{s.w} kelime · {s.t} sn</p>
+  : <p className="text-white/40 text-[13px] font-bold">?</p>;
 
 const DuelsScreen = ({ onBack }) => {
   const username = useGameStore(s => s.username);
@@ -32,170 +42,157 @@ const DuelsScreen = ({ onBack }) => {
   const recordTopUp = useGameStore(s => s.recordTopUp);
   const incomingDuel = useGameStore(s => s.incomingDuel);
   const setSettings = useGameStore(s => s.setSettings);
-  const myName = (username || cardName || 'Yolcu').slice(0, 16);
+  const myName = (username || cardName || 'Sen').slice(0, 16);
 
-  const [view, setView] = useState('list'); // list | play | result
+  const [view, setView] = useState('lobby'); // lobby | play | result
   const [active, setActive] = useState(null); // { seed, opponent?: {name, score} }
-  const [result, setResult] = useState(null); // { duel, myScore, theirScore? }
+  const [result, setResult] = useState(null);
+  const [showCode, setShowCode] = useState(false);
   const [paste, setPaste] = useState('');
   const [note, setNote] = useState(null);
 
-  // Gelen bağlantı: cevap mı (iki skor da var), meydan okuma mı?
   const incoming = incomingDuel ? decodeDuel(incomingDuel) : null;
-  const known = incoming ? duels.find(d => d.seed === incoming.seed) : null;
-  const isReplyToMe = incoming && incoming.toScore && known?.role === 'sent';
+  const known = incoming ? duels.find(d => d.seed === incoming.seed && d.role === 'sent') : null;
+  const isReply = !!(incoming?.toScore && known);
+  const wins = duels.filter(d => d.theirs && compareScores(d.mine, d.theirs) > 0).length;
+  const losses = duels.filter(d => d.theirs && compareScores(d.mine, d.theirs) < 0).length;
 
   const clearIncoming = () => setSettings({ incomingDuel: null });
-
-  const giveReward = (record) => {
-    if (record.rewarded) return record;
+  const reward = (record) => {
+    if (record.rewarded || compareScores(record.mine, record.theirs) <= 0) return record;
     recordTopUp('duel', DUEL_WIN_REWARD);
     return { ...record, rewarded: true };
   };
 
-  // Gönderdiğim düellonun cevabı geldi: sonucu kaydet, kazandıysam ödül
-  const acceptReply = () => {
-    let record = { ...known, theirs: incoming.toScore, opponent: incoming.to, at: Date.now() };
-    if (compareScores(record.mine, record.theirs) > 0) record = giveReward(record);
+  const openReply = () => {
+    const record = reward({ ...known, theirs: incoming.toScore, opponent: incoming.to, at: Date.now() });
     saveDuel(record);
-    setResult({ duel: { seed: incoming.seed }, myScore: record.mine, theirScore: record.theirs, theirName: incoming.to, final: true });
+    setResult({ mine: record.mine, theirs: record.theirs, opponent: incoming.to, final: true });
     clearIncoming();
     setView('result');
   };
 
-  const startNew = () => { setActive({ seed: newDuelSeed() }); setView('play'); };
-  const startChallenge = (d) => {
-    setActive({ seed: d.seed, opponent: { name: d.from, score: d.fromScore } });
-    clearIncoming();
-    setView('play');
-  };
+  const play = (seed, opponent) => { setActive({ seed, opponent }); setView('play'); };
 
   const onFinish = (score) => {
     if (active.opponent) {
-      // Meydan okumaya cevap: sonucu hemen gör, cevabı geri gönder
-      let record = { seed: active.seed, role: 'received', opponent: active.opponent.name, mine: score, theirs: active.opponent.score, at: Date.now() };
-      if (compareScores(score, active.opponent.score) > 0) record = giveReward(record);
+      const record = reward({ seed: active.seed, role: 'received', opponent: active.opponent.name, mine: score, theirs: active.opponent.score, at: Date.now() });
       saveDuel(record);
-      setResult({ duel: { seed: active.seed, from: active.opponent.name, fromScore: active.opponent.score, to: myName, toScore: score }, myScore: score, theirScore: active.opponent.score, theirName: active.opponent.name });
+      clearIncoming();
+      setResult({
+        mine: score, theirs: active.opponent.score, opponent: active.opponent.name,
+        link: { seed: active.seed, from: active.opponent.name, fromScore: active.opponent.score, to: myName, toScore: score },
+      });
     } else {
       saveDuel({ seed: active.seed, role: 'sent', opponent: null, mine: score, theirs: null, at: Date.now() });
-      setResult({ duel: { seed: active.seed, from: myName, fromScore: score }, myScore: score });
+      setResult({ mine: score, link: { seed: active.seed, from: myName, fromScore: score } });
     }
     setView('result');
   };
 
   const share = async () => {
-    const d = result.duel;
-    const text = d.toScore
-      ? `${myName}: ${scoreText(d.toScore)} — senin skorun ${scoreText(d.fromScore)}. Sonuca bak!`
-      : `${myName} seni Turnike düellosuna çağırıyor: ${scoreText(d.fromScore)}. Geçebilir misin?`;
-    const r = await shareDuel(d, text);
-    if (r === 'copied') setNote('Bağlantı kopyalandı, arkadaşına yapıştır.');
+    const l = result.link;
+    const text = l.toScore
+      ? `${myName} düellonu oynadı: ${l.toScore.w} kelime, ${l.toScore.t} sn. Sonuca bak!`
+      : `${myName} seni Turnike düellosuna çağırıyor: ${l.fromScore.w} kelime, ${l.fromScore.t} sn. Geçebilir misin?`;
+    const r = await shareDuel(l, text);
+    if (r === 'copied') setNote('Bağlantı kopyalandı. WhatsApp\'ta arkadaşına yapıştır.');
   };
 
   const openPasted = () => {
-    const d = decodeDuel(paste);
-    if (!d) { setNote('Bu bağlantı ya da kod okunamadı.'); return; }
+    if (!decodeDuel(paste)) { setNote('Bu bağlantı okunamadı.'); return; }
     setSettings({ incomingDuel: paste.trim() });
-    setPaste('');
-    setNote(null);
+    setPaste(''); setShowCode(false); setNote(null);
   };
 
   if (view === 'play' && active) {
-    return <DuelGame seed={active.seed} opponent={active.opponent} onFinish={onFinish} onQuit={() => setView('list')} />;
+    return <DuelGame seed={active.seed} me={myName} opponent={active.opponent} onFinish={onFinish} onQuit={() => setView('lobby')} />;
   }
 
-  return (
-    <main className="flex-1 w-full overflow-y-auto" style={{ overscrollBehavior: 'contain' }}>
-      <div className="w-full max-w-sm mx-auto px-4 pb-8">
-        <ScreenHeader title="Düellolar" onBack={view === 'result' ? () => setView('list') : onBack} className="px-0" />
+  const outcome = result?.theirs ? compareScores(result.mine, result.theirs) : null;
 
-        {view === 'result' && result && (
-          <div className="flex flex-col gap-3 fade-in">
-            {result.theirScore
-              ? <ResultCard me={result.myScore} them={result.theirScore} myName={myName} theirName={result.theirName} />
-              : (
-                <div className="card-panel !rounded-2xl p-4 text-center">
-                  <p className="text-white/60 text-[13px] font-bold">Skorun</p>
-                  <p className="text-white font-black text-[26px]">{scoreText(result.myScore)}</p>
-                  <p className="text-white/60 text-[13px] font-semibold mt-1">Bağlantıyı arkadaşına gönder; aynı bulmacayı çözsün.</p>
-                </div>
-              )}
-            {result.theirScore && compareScores(result.myScore, result.theirScore) > 0 && (
-              <p className="text-center text-green-300 font-bold text-[13px]">+{formatKurus(DUEL_WIN_REWARD)} İstanbulkart'ına yüklendi</p>
-            )}
+  return (
+    <main className="duel-bg flex-1 w-full flex flex-col overflow-y-auto" style={{ overscrollBehavior: 'contain' }}>
+      <header className="flex items-center justify-between px-4 pt-4 shrink-0">
+        <button className="icon-btn" onClick={view === 'result' ? () => setView('lobby') : onBack} aria-label="Geri">
+          <span aria-hidden="true" className="material-symbols-outlined text-[20px]">arrow_back</span>
+        </button>
+        <span className="status-chip">🏆 {wins} · {losses} 💔</span>
+      </header>
+
+      <div className="flex-1 flex flex-col justify-center w-full max-w-sm mx-auto px-5 py-6 gap-6">
+        {view === 'result' && result ? (
+          <>
+            <p className="text-center font-black text-[34px] tracking-tight fade-in"
+              style={{ color: outcome == null ? '#ffffff' : outcome > 0 ? '#4ade80' : outcome < 0 ? '#fda4af' : '#fde047' }}>
+              {outcome == null ? 'Skorun hazır!' : outcome > 0 ? 'KAZANDIN!' : outcome < 0 ? 'Kaybettin' : 'Berabere'}
+            </p>
+            <div className="flex items-start justify-between scale-in">
+              <div className="flex flex-col items-center w-[38%]"><Avatar name={myName} color="#2563eb" crown={outcome > 0} /><Score s={result.mine} /></div>
+              <div className="pt-3"><VsBadge /></div>
+              <div className="flex flex-col items-center w-[38%]"><Avatar name={result.opponent || 'Arkadaşın'} color="#e11d48" crown={outcome < 0} /><Score s={result.theirs} /></div>
+            </div>
+            {outcome > 0 && <p className="text-center text-green-300 font-bold text-[14px]">+{formatKurus(DUEL_WIN_REWARD)} İstanbulkart'ına yüklendi</p>}
             {!result.final && (
-              <button onClick={share} className="w-full py-3.5 rounded-full bg-green-600 text-white font-black text-[15px] active:scale-95 transition-transform flex items-center justify-center gap-2">
-                <span aria-hidden="true" className="material-symbols-outlined text-[20px]">share</span>
-                {result.theirScore ? 'Sonucu arkadaşına gönder' : 'Arkadaşına meydan oku'}
+              <button onClick={share} className="duel-btn w-full flex items-center justify-center gap-2">
+                <span aria-hidden="true" className="material-symbols-outlined text-[24px]">send</span>
+                {result.theirs ? 'SONUCU GÖNDER' : 'ARKADAŞINA GÖNDER'}
               </button>
             )}
-            {note && <p role="status" className="text-center text-white/70 text-[13px] font-semibold">{note}</p>}
-          </div>
-        )}
-
-        {view === 'list' && (
-          <div className="flex flex-col gap-3">
-            {incoming && (isReplyToMe ? (
-              <div className="card-panel !rounded-2xl p-4 fade-in">
-                <p className="text-white font-extrabold text-[15px]">{incoming.to} düellonu oynadı</p>
-                <p className="text-white/60 text-[13px] font-semibold mb-3">Sonucu görmek için aç.</p>
-                <button onClick={acceptReply} className="w-full py-3 rounded-full bg-green-600 text-white font-black text-[14px]">Sonucu gör</button>
-              </div>
-            ) : incoming.toScore ? (
-              <div className="card-panel !rounded-2xl p-4 fade-in">
-                <p className="text-white font-extrabold text-[15px]">{incoming.from} – {incoming.to}</p>
-                <p className="text-white/60 text-[13px] font-semibold">{scoreText(incoming.fromScore)} / {scoreText(incoming.toScore)}</p>
-                <button onClick={clearIncoming} className="mt-3 w-full py-2.5 rounded-full bg-white/10 text-white font-bold text-[13px]">Tamam</button>
-              </div>
-            ) : (
-              <div className="card-panel !rounded-2xl p-4 fade-in" style={{ borderColor: '#e11d48' }}>
-                <p className="text-white font-extrabold text-[16px]">⚔️ {incoming.from} seni düelloya çağırdı</p>
-                <p className="text-white/65 text-[13px] font-semibold mb-3">Skoru: {scoreText(incoming.fromScore)}. Aynı bulmaca, {DUEL_SECONDS} saniye.</p>
-                <button onClick={() => startChallenge(incoming)} className="w-full py-3 rounded-full bg-rose-600 text-white font-black text-[14px] active:scale-95 transition-transform">Kabul et ve oyna</button>
-              </div>
-            ))}
-
-            <button onClick={startNew} className="w-full py-4 rounded-2xl bg-rose-600 text-white font-black text-[16px] active:scale-[0.98] transition-transform flex items-center justify-center gap-2">
-              <span aria-hidden="true" className="material-symbols-outlined text-[22px]">swords</span>
-              Yeni düello başlat
-            </button>
-            <p className="text-white/55 text-[12px] font-semibold text-center -mt-1">
-              Bulmacayı çöz, bağlantıyı WhatsApp vb. ile gönder. Kazanana {formatKurus(DUEL_WIN_REWARD)}.
-            </p>
-
-            <div className="card-panel !rounded-2xl p-3">
-              <label className="kart-label block" htmlFor="duel-paste">Bağlantı ya da kod yapıştır</label>
-              <div className="flex gap-2">
-                <input id="duel-paste" value={paste} onChange={e => setPaste(e.target.value)} placeholder="https://…?duel=…"
-                  className="flex-1 min-w-0 rounded-xl bg-white/10 border border-white/15 px-3 py-2.5 text-white text-[14px] outline-none focus:border-white/40" />
-                <button onClick={openPasted} disabled={!paste.trim()} className="px-4 rounded-xl bg-white text-[#10263f] font-black text-[13px] disabled:opacity-40">Aç</button>
-              </div>
-              {note && view === 'list' && <p role="status" className="text-white/70 text-[12px] font-semibold mt-2">{note}</p>}
-            </div>
-
-            <h2 className="kart-label mt-2">Geçmiş düellolar</h2>
-            {duels.length === 0 ? (
-              <p className="text-white/45 text-[13px] font-semibold">Henüz düello yok.</p>
-            ) : (
-              <ul className="flex flex-col gap-1.5">
-                {duels.map(d => {
-                  const r = d.theirs ? compareScores(d.mine, d.theirs) : null;
-                  return (
-                    <li key={`${d.seed}-${d.role}`} className="flex items-center justify-between rounded-xl px-3 py-2.5 bg-white/5">
-                      <span className="min-w-0">
-                        <span className="block text-white/90 text-[13px] font-bold truncate">{d.opponent || 'Cevap bekleniyor'}</span>
-                        <span className="block text-white/45 text-[11px] font-semibold">Sen: {scoreText(d.mine)}{d.theirs ? ` · Rakip: ${scoreText(d.theirs)}` : ''}</span>
-                      </span>
-                      <span className="text-[12px] font-black shrink-0" style={{ color: r == null ? 'rgba(255,255,255,0.5)' : r > 0 ? '#4ade80' : r < 0 ? '#f87171' : '#fbbf24' }}>
-                        {r == null ? 'Bekliyor' : r > 0 ? 'Kazandın' : r < 0 ? 'Kaybettin' : 'Berabere'}
-                      </span>
-                    </li>
-                  );
-                })}
-              </ul>
+            {result.final && (
+              <button onClick={() => play(newDuelSeed())} className="duel-btn w-full flex items-center justify-center gap-2">
+                <span aria-hidden="true" className="material-symbols-outlined text-[24px]">replay</span>RÖVANŞ
+              </button>
             )}
-          </div>
+            {note && <p role="status" className="text-center text-white/75 text-[13px] font-semibold">{note}</p>}
+          </>
+        ) : incoming && !isReply && !incoming.toScore ? (
+          <>
+            <p className="text-center text-white font-black text-[26px] leading-tight">{incoming.from}<br />seni düelloya çağırdı!</p>
+            <div className="flex items-start justify-between">
+              <div className="flex flex-col items-center w-[38%]"><Avatar name={incoming.from} color="#e11d48" /><Score s={incoming.fromScore} /></div>
+              <div className="pt-3"><VsBadge /></div>
+              <div className="flex flex-col items-center w-[38%]"><Avatar name={myName} color="#2563eb" /><Score s={null} /></div>
+            </div>
+            <p className="text-center text-white/70 text-[14px] font-semibold">Aynı bulmaca, {DUEL_SECONDS} saniye. Daha çok kelime bulan kazanır.</p>
+            <button onClick={() => play(incoming.seed, { name: incoming.from, score: incoming.fromScore })} className="duel-btn w-full flex items-center justify-center gap-2">
+              <span aria-hidden="true" className="material-symbols-outlined text-[24px]">swords</span>KABUL ET
+            </button>
+            <button onClick={clearIncoming} className="text-white/55 font-bold text-[13px]">Şimdi değil</button>
+          </>
+        ) : isReply ? (
+          <>
+            <p className="text-center text-white font-black text-[26px] leading-tight">{incoming.to}<br />düellonu oynadı!</p>
+            <button onClick={openReply} className="duel-btn w-full">SONUCU GÖR</button>
+          </>
+        ) : (
+          <>
+            <div className="flex items-start justify-between">
+              <div className="flex flex-col items-center w-[38%]"><Avatar name={myName} color="#2563eb" /></div>
+              <div className="pt-3"><VsBadge /></div>
+              <div className="flex flex-col items-center w-[38%]"><Avatar name="Arkadaşın" color="#64748b" /></div>
+            </div>
+            <ol className="flex flex-col gap-2 text-white/80 text-[14px] font-semibold">
+              <li className="duel-step"><span>1</span>{DUEL_SECONDS} saniyede bulmacayı çöz</li>
+              <li className="duel-step"><span>2</span>Bağlantıyı arkadaşına gönder</li>
+              <li className="duel-step"><span>3</span>Aynı bulmacada seni geçmeye çalışsın</li>
+            </ol>
+            <button onClick={() => play(newDuelSeed())} className="duel-btn w-full flex items-center justify-center gap-2">
+              <span aria-hidden="true" className="material-symbols-outlined text-[24px]">swords</span>MEYDAN OKU
+            </button>
+            <p className="text-center text-white/55 text-[12px] font-semibold -mt-3">Kazanana {formatKurus(DUEL_WIN_REWARD)} İstanbulkart bakiyesi</p>
+
+            {showCode ? (
+              <div className="flex gap-2">
+                <input aria-label="Düello bağlantısı" value={paste} onChange={e => setPaste(e.target.value)} placeholder="Bağlantıyı yapıştır"
+                  className="flex-1 min-w-0 rounded-full bg-white/10 border border-white/20 px-4 py-2.5 text-white text-[14px] outline-none focus:border-white/50" />
+                <button onClick={openPasted} disabled={!paste.trim()} className="px-5 rounded-full bg-white text-[#10263f] font-black text-[13px] disabled:opacity-40">Aç</button>
+              </div>
+            ) : (
+              <button onClick={() => setShowCode(true)} className="text-white/60 font-bold text-[13px] underline underline-offset-4">Bağlantım var</button>
+            )}
+            {note && <p role="status" className="text-center text-white/75 text-[13px] font-semibold">{note}</p>}
+          </>
         )}
       </div>
     </main>

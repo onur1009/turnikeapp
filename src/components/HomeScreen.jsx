@@ -53,9 +53,6 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
           {streak > 0 && (
             <span className="status-chip" title="Seri">🔥 {streak}</span>
           )}
-          <button className="icon-btn" onClick={() => setScreen('duels')} aria-label="Düellolar">
-            <span aria-hidden="true" className="material-symbols-outlined text-[18px]">swords</span>
-          </button>
           <button className="icon-btn" onClick={() => setScreen('stats')} aria-label={t('stats')}>
             <span aria-hidden="true" className="material-symbols-outlined text-[18px]">bar_chart</span>
           </button>
@@ -108,13 +105,23 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
           <span aria-hidden="true" className="material-symbols-outlined text-[52px]" style={{ color: station.color, fontVariationSettings: "'FILL' 1" }}>{station.icon}</span>
         </div>
         <p className="text-white/60 text-[14px] font-semibold mb-5 text-center">{t('subtitle')}</p>
-        <button onClick={onPlay} className="play-btn flex items-center gap-3">
-          <span aria-hidden="true" className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>play_circle</span>
-          <span className="flex flex-col items-start leading-tight">
-            <span>{maxUnlockedLevel === 0 ? t('play') : t('continue_journey')}</span>
-            <span className="text-[11px] font-bold opacity-80 tracking-wider">{t('level_short')} {maxUnlockedLevel + 1}</span>
-          </span>
-        </button>
+        {/* İki ana eylem: yolculuğa devam ve düello */}
+        <div className="w-full max-w-[340px] flex flex-col gap-3">
+          <button onClick={onPlay} className="play-btn w-full flex items-center justify-center gap-3">
+            <span aria-hidden="true" className="material-symbols-outlined text-[26px]" style={{ fontVariationSettings: "'FILL' 1" }}>play_circle</span>
+            <span className="flex flex-col items-start leading-tight">
+              <span>{maxUnlockedLevel === 0 ? t('play') : t('continue_journey')}</span>
+              <span className="text-[11px] font-bold opacity-80 tracking-wider">{t('level_short')} {maxUnlockedLevel + 1}</span>
+            </span>
+          </button>
+          <button onClick={() => setScreen('duels')} className="duel-btn w-full flex items-center justify-center gap-3">
+            <span aria-hidden="true" className="material-symbols-outlined text-[26px]">swords</span>
+            <span className="flex flex-col items-start leading-tight">
+              <span>DÜELLO</span>
+              <span className="text-[11px] font-bold opacity-85 tracking-wider">Arkadaşına meydan oku</span>
+            </span>
+          </button>
+        </div>
       </div>
 
       {/* Alt sekme çubuğu */}

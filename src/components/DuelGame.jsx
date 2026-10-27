@@ -4,28 +4,35 @@ import Wheel from './Wheel';
 import { generateDuelLevel } from '../utils/gameLogic';
 import { DUEL_SECONDS } from '../utils/duel';
 
-
-// Düello turu: seed'den gelen aynı bulmaca, 120 saniye. Tüm kelimeler bulununca ya da süre
-// bitince (veya "Bitir") sonuç {w: kelime, t: geçen saniye} ile bildirilir.
-export default function DuelGame({ seed, opponent, onFinish, onQuit }) {
+// Düello turu: 3-2-1 sayımı, sonra seed'den gelen aynı bulmaca ve DUEL_SECONDS süre.
+// Üstte skor tabelası (sen / rakip), süre çubuğunda rakibin bitirdiği an işaretli.
+// Bitince {w: kelime, t: geçen saniye} bildirilir.
+export default function DuelGame({ seed, me, opponent, onFinish, onQuit }) {
   const level = useMemo(() => generateDuelLevel(seed), [seed]);
   const [letters, setLetters] = useState(level.wheelLetters);
   const [found, setFound] = useState([]);
+  const [countdown, setCountdown] = useState(3);
   const [left, setLeft] = useState(DUEL_SECONDS);
   const [wrong, setWrong] = useState(0);
-  const startRef = useRef(Date.now());
+  const startRef = useRef(0);
   const doneRef = useRef(false);
   const foundRef = useRef(found);
   foundRef.current = found;
 
   const finish = () => {
-    if (doneRef.current) return;
+    if (doneRef.current || !startRef.current) return;
     doneRef.current = true;
     const t = Math.min(DUEL_SECONDS, Math.round((Date.now() - startRef.current) / 1000));
     onFinish({ w: foundRef.current.length, t });
   };
 
+  // 3-2-1, ardından süre
   useEffect(() => {
+    if (countdown > 0) {
+      const id = setTimeout(() => setCountdown(c => c - 1), 800);
+      return () => clearTimeout(id);
+    }
+    startRef.current = Date.now();
     const id = setInterval(() => {
       const remaining = DUEL_SECONDS - Math.floor((Date.now() - startRef.current) / 1000);
       setLeft(Math.max(0, remaining));
@@ -33,7 +40,7 @@ export default function DuelGame({ seed, opponent, onFinish, onQuit }) {
     }, 250);
     return () => clearInterval(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [countdown]);
 
   useEffect(() => {
     if (found.length === level.words.length) setTimeout(finish, 400);
@@ -41,6 +48,7 @@ export default function DuelGame({ seed, opponent, onFinish, onQuit }) {
   }, [found.length]);
 
   const onWordSubmit = async (word) => {
+    if (countdown > 0) return false;
     if (level.words.some(w => w.word === word) && !foundRef.current.includes(word)) {
       setFound(f => [...f, word]);
       return true;
@@ -50,30 +58,43 @@ export default function DuelGame({ seed, opponent, onFinish, onQuit }) {
   };
 
   const pct = left / DUEL_SECONDS;
+  const total = level.words.length;
+  const ahead = opponent ? found.length - opponent.score.w : 0;
 
   return (
-    <div className="flex-1 min-h-0 flex flex-col" style={{ '--accent': '#e11d48' }}>
-      <div className="flex items-center gap-3 px-4 pb-2 shrink-0">
+    <div className="duel-bg flex-1 min-h-0 flex flex-col relative" style={{ '--accent': '#e11d48' }}>
+      {/* Skor tabelası */}
+      <div className="flex items-center gap-2 px-3 pt-3 pb-2 shrink-0">
         <button className="icon-btn" onClick={onQuit} aria-label="Düellodan çık">
           <span aria-hidden="true" className="material-symbols-outlined text-[20px]">close</span>
         </button>
-        <div className="flex-1 min-w-0">
-          <p className="text-white font-extrabold text-[15px] leading-tight truncate">{opponent ? `${opponent.name} ile düello` : 'Yeni düello'}</p>
-          <p className="text-white/60 text-[12px] font-semibold">
-            {opponent ? `Rakip: ${opponent.score.w} kelime · ${opponent.score.t} sn` : 'Bitirince bağlantıyı arkadaşına gönder'}
-          </p>
+        <div className="duel-scoreboard flex-1">
+          <div className="duel-side is-me">
+            <span className="truncate">{me}</span>
+            <b className="tabular-nums">{found.length}/{total}</b>
+          </div>
+          <div className="duel-clock tabular-nums" style={{ color: pct > 0.25 ? '#ffffff' : '#fda4af' }}>{left}</div>
+          <div className="duel-side is-them">
+            <b className="tabular-nums">{opponent ? `${opponent.score.w}/${total}` : '?'}</b>
+            <span className="truncate">{opponent ? opponent.name : 'Arkadaşın'}</span>
+          </div>
         </div>
-        <span className="status-chip tabular-nums">{found.length}/{level.words.length}</span>
       </div>
       <div className="px-4 shrink-0">
-        <div className="h-2 rounded-full bg-white/15 overflow-hidden">
+        <div className="relative h-2.5 rounded-full bg-white/15">
           <div className="h-full rounded-full transition-[width] duration-300" style={{ width: `${pct * 100}%`, background: pct > 0.25 ? '#22c55e' : '#ef4444' }} />
+          {/* Rakibin bitirdiği an */}
+          {opponent && (
+            <div className="absolute -top-1 w-1 h-[18px] rounded-full bg-rose-400" style={{ left: `${(1 - opponent.score.t / DUEL_SECONDS) * 100}%` }} title="Rakibin bitirdiği an" />
+          )}
         </div>
-        <p className="text-right text-white/70 text-[12px] font-bold mt-1 tabular-nums">{left} sn</p>
+        <p className="text-center text-[12px] font-bold mt-1.5" style={{ color: !opponent ? 'rgba(255,255,255,0.6)' : ahead > 0 ? '#86efac' : ahead < 0 ? '#fda4af' : '#fde047' }}>
+          {!opponent ? 'Ne kadar çok kelime, o kadar iyi' : ahead > 0 ? `Öndesin (+${ahead})` : ahead < 0 ? `${-ahead} kelime gerisindesin` : 'Başa baş'}
+        </p>
       </div>
 
-      <main className="flex-1 min-h-0 w-full px-3 pt-1 pb-6">
-        <Grid words={level.words} foundWords={found} />
+      <main className="flex-1 min-h-0 w-full px-3 pt-1 pb-4">
+        <Grid words={level.words} foundWords={found} accent="#e11d48" />
       </main>
 
       <div className="shrink-0 flex flex-col items-center pb-5">
@@ -83,10 +104,14 @@ export default function DuelGame({ seed, opponent, onFinish, onQuit }) {
             <Wheel letters={letters} onWordSubmit={onWordSubmit} onShuffle={() => setLetters(l => [...l].sort(() => Math.random() - 0.5))} wrongWordTrigger={wrong} />
           </div>
         </div>
-        <button onClick={finish} className="mt-3 px-6 py-2.5 rounded-full bg-white/10 border border-white/20 text-white font-extrabold text-[13px] active:scale-95 transition-transform">
-          Bitir ve gönder
-        </button>
+        <button onClick={finish} className="mt-3 text-white/60 font-bold text-[13px] underline underline-offset-4">Pes et, bu skorla bitir</button>
       </div>
+
+      {countdown > 0 && (
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/55">
+          <span key={countdown} className="scale-in text-white font-black text-[120px] leading-none">{countdown}</span>
+        </div>
+      )}
     </div>
   );
 }
