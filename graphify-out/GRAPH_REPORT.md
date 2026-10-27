@@ -1,22 +1,22 @@
 # Graph Report - TurnikeApp  (2026-10-27)
 
 ## Corpus Check
-- 72 files · ~80,891 words
+- 72 files · ~80,694 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 23 file(s) not represented in the graph (top: .xml 10, (none) 5, .properties 2)
 
 ## Summary
-- 369 nodes · 796 edges · 32 communities (17 shown, 15 thin omitted)
+- 369 nodes · 809 edges · 32 communities (17 shown, 15 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 10 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `72694e7a`
+- Built from commit: `fe503ae0`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
-- useGameStore
+- NavigationContainer.jsx
 - GameContainer.jsx
 - gameLogic.js
 - run.cjs
@@ -45,7 +45,7 @@
 3. `react` - 27 edges
 4. `useTranslation()` - 26 edges
 5. `NavigationContainer()` - 20 edges
-6. `ScreenHeader()` - 17 edges
+6. `ScreenHeader()` - 18 edges
 7. `formatKurus()` - 17 edges
 8. `playTone()` - 14 edges
 9. `generateLevel()` - 13 edges
@@ -54,23 +54,23 @@
 ## Surprising Connections (you probably didn't know these)
 - `App()` --calls--> `GameContainer()`  [EXTRACTED]
   src/App.jsx → src/components/GameContainer.jsx
+- `App()` --calls--> `playBadgeUnlock()`  [EXTRACTED]
+  src/App.jsx → src/utils/soundManager.js
+- `start()` --calls--> `App()`  [EXTRACTED]
+  src/main.jsx → src/App.jsx
 - `GameContainer()` --calls--> `AnimatedBalance()`  [EXTRACTED]
   src/components/GameContainer.jsx → src/components/AnimatedBalance.jsx
-- `GameContainer()` --calls--> `Grid()`  [EXTRACTED]
-  src/components/GameContainer.jsx → src/components/Grid.jsx
-- `GameContainer()` --calls--> `LevelComplete()`  [EXTRACTED]
-  src/components/GameContainer.jsx → src/components/LevelComplete.jsx
-- `GameContainer()` --calls--> `Wheel()`  [EXTRACTED]
-  src/components/GameContainer.jsx → src/components/Wheel.jsx
+- `BonusLockers()` --calls--> `useGameStore`  [EXTRACTED]
+  src/components/BonusLockers.jsx → src/store/gameStore.js
 
 ## Import Cycles
 - None detected.
 
 ## Communities (32 total, 15 thin omitted)
 
-### Community 0 - "useGameStore"
+### Community 0 - "NavigationContainer.jsx"
 Cohesion: 0.11
-Nodes (42): react, @supabase/supabase-js, App(), AkbilScreen(), BALANCE_PACKS, CARD_COLORS, AnimatedBalance(), BadgesScreen() (+34 more)
+Nodes (41): react, App(), AkbilScreen(), BALANCE_PACKS, CARD_COLORS, AnimatedBalance(), BadgesScreen(), DailySpinScreen() (+33 more)
 
 ### Community 1 - "GameContainer.jsx"
 Cohesion: 0.11
@@ -89,8 +89,8 @@ Cohesion: 0.13
 Nodes (5): adb(), find_adb(), main(), parse_verdict(), Scenario
 
 ### Community 5 - "package.json"
-Cohesion: 0.13
-Nodes (14): name, private, type, version, autoprefixer, @capacitor/android, @capacitor/cli, @capacitor/ios (+6 more)
+Cohesion: 0.12
+Nodes (15): name, private, type, version, autoprefixer, @capacitor/android, @capacitor/cli, @capacitor/ios (+7 more)
 
 ### Community 6 - "devDependencies"
 Cohesion: 0.13
@@ -137,23 +137,23 @@ Cohesion: 0.50
 Nodes (3): vite, vite-plugin-pwa, @vitejs/plugin-react
 
 ## Knowledge Gaps
-- **111 isolated node(s):** `PROVIDER_THEMES`, `LINE_START`, `SPRITES`, `PUZZLE_SETS_TR`, `PUZZLE_SETS_EN` (+106 more)
+- **111 isolated node(s):** `fs`, `content`, `fs`, `path`, `outputFile` (+106 more)
   These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 150 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **15 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `react` connect `useGameStore` to `GameContainer.jsx`, `gameLogic.js`, `package.json`, `transitNetwork.js`, `main.jsx`, `VehicleSprite.jsx`?**
-  _High betweenness centrality (0.128) - this node is a cross-community bridge._
-- **What connects `PROVIDER_THEMES`, `LINE_START`, `SPRITES` to the rest of the system?**
+- **Why does `react` connect `NavigationContainer.jsx` to `GameContainer.jsx`, `gameLogic.js`, `package.json`, `transitNetwork.js`, `main.jsx`, `VehicleSprite.jsx`?**
+  _High betweenness centrality (0.127) - this node is a cross-community bridge._
+- **What connects `fs`, `content`, `fs` to the rest of the system?**
   _111 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `useGameStore` be split into smaller, more focused modules?**
-  _Cohesion score 0.10664682539682539 - nodes in this community are weakly interconnected._
+- **Should `NavigationContainer.jsx` be split into smaller, more focused modules?**
+  _Cohesion score 0.11469534050179211 - nodes in this community are weakly interconnected._
 - **Why does `devDependencies` connect `devDependencies` to `package.json`?**
   _High betweenness centrality (0.055) - this node is a cross-community bridge._
 - **Should `GameContainer.jsx` be split into smaller, more focused modules?**
-  _Cohesion score 0.10740203193033382 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.1081277213352685 - nodes in this community are weakly interconnected._
 - **Why does `dependencies` connect `dependencies` to `package.json`?**
   _High betweenness centrality (0.051) - this node is a cross-community bridge._
 - **Should `gameLogic.js` be split into smaller, more focused modules?**
