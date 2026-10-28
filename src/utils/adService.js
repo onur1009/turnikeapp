@@ -13,13 +13,18 @@ const AD_IDS = {
 const IS_TESTING = true;
 const DEV_SIMULATE = import.meta.env.DEV && !Capacitor.isNativePlatform();
 
+// Dikkat: Capacitor eklenti nesnesi bir Promise'ten döndürülmemeli. Döndürülürse JS onu
+// "thenable" sanıp AdMob.then() çağırır; Android'de bu "not implemented" hatası verir ve
+// Promise hiç sonuçlanmaz (düğme sonsuza kadar "…" kalıyordu). Eklenti modül değişkeninde tutulur.
+let AdMob = null;
 let initPromise = null;
-const loadAdMob = async () => {
-  const { AdMob } = await import('@capacitor-community/admob');
+const ensureAdMob = async () => {
+  if (!AdMob) AdMob = (await import('@capacitor-community/admob')).AdMob;
   if (!initPromise) initPromise = AdMob.initialize({ initializeForTesting: IS_TESTING });
   await initPromise;
-  return AdMob;
 };
+// Reklam akışı hiçbir durumda oyunu kilitlemesin: 45 sn'de sonuçlanmazsa vazgeç
+const withTimeout = (p, ms = 45000) => Promise.race([p, new Promise((_, rej) => setTimeout(() => rej(new Error('ad_timeout')), ms))]);
 const ids = () => AD_IDS[Capacitor.getPlatform()] || AD_IDS.android;
 const simulate = () => new Promise(r => setTimeout(() => r(true), 1500));
 
@@ -30,9 +35,9 @@ export const showRewardedAd = async () => {
   if (DEV_SIMULATE) return simulate();
   if (!Capacitor.isNativePlatform()) return false;
   try {
-    const AdMob = await loadAdMob();
-    await AdMob.prepareRewardVideoAd({ adId: ids().rewarded, isTesting: IS_TESTING });
-    const reward = await AdMob.showRewardVideoAd();
+    await withTimeout(ensureAdMob());
+    await withTimeout(AdMob.prepareRewardVideoAd({ adId: ids().rewarded, isTesting: IS_TESTING }));
+    const reward = await withTimeout(AdMob.showRewardVideoAd(), 180000);
     return !!reward;
   } catch {
     return false;
@@ -44,9 +49,9 @@ export const showInterstitialAd = async () => {
   if (DEV_SIMULATE) return simulate();
   if (!Capacitor.isNativePlatform()) return false;
   try {
-    const AdMob = await loadAdMob();
-    await AdMob.prepareInterstitial({ adId: ids().interstitial, isTesting: IS_TESTING });
-    await AdMob.showInterstitial();
+    await withTimeout(ensureAdMob());
+    await withTimeout(AdMob.prepareInterstitial({ adId: ids().interstitial, isTesting: IS_TESTING }));
+    await withTimeout(AdMob.showInterstitial(), 180000);
     return true;
   } catch {
     return false;

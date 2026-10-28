@@ -5,6 +5,27 @@ import App from './App.jsx'
 import { useGameStore, GAME_STORAGE_KEY } from './store/gameStore'
 import { restoreFromBackup } from './utils/persistStorage'
 import { initAnalytics, track } from './utils/analytics'
+import { Capacitor } from '@capacitor/core'
+import { registerSW } from 'virtual:pwa-register'
+
+// Çevrimdışı önbellek (PWA) yalnızca web'de. Android uygulamasında dosyalar zaten APK'nın
+// içinde; servis çalışanı orada eski sürümün kodunu sunup yeni APK'yı bozuyordu
+// (eski kod, yeni pakette olmayan dosyaları istiyordu). Önceki sürümlerden kalan kayıt ve
+// önbellekler silinir, temizlik olduysa sayfa bir kez yeniden yüklenir.
+const setupServiceWorker = async () => {
+  if (!('serviceWorker' in navigator)) return;
+  if (!Capacitor.isNativePlatform()) { registerSW({ immediate: true }); return; }
+  try {
+    const regs = await navigator.serviceWorker.getRegistrations();
+    await Promise.all(regs.map(r => r.unregister()));
+    if (window.caches) { const keys = await caches.keys(); await Promise.all(keys.map(k => caches.delete(k))); }
+    if (regs.length && !sessionStorage.getItem('turnike_sw_cleaned')) {
+      sessionStorage.setItem('turnike_sw_cleaned', '1');
+      window.location.reload();
+    }
+  } catch { /* önbellek temizlenemezse oyun yine açılır */ }
+};
+setupServiceWorker();
 
 class ErrorBoundary extends React.Component {
   constructor(props) {

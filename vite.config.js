@@ -10,6 +10,8 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
+      // Kayıt main.jsx'te elle yapılır: Android uygulamasında servis çalışanı olmamalı
+      injectRegister: null,
       devOptions: {
         enabled: true
       },
