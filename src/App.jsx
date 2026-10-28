@@ -158,7 +158,7 @@ function App() {
 
     const backListener = CapacitorApp.addListener('backButton', ({ canGoBack }) => {
       if (screen === 'game') setScreen('home');
-      else if (['dictionary', 'levels', 'badges', 'stats', 'settings', 'akbil', 'vault', 'leaderboard', 'lostitems', 'duels', 'daily', 'postcards'].includes(screen)) setScreen('home');
+      else if (['dictionary', 'levels', 'badges', 'stats', 'settings', 'akbil', 'vault', 'leaderboard', 'lostitems', 'duels', 'daily', 'postcards', 'globalboard'].includes(screen)) setScreen('home');
       else if (screen === 'home') CapacitorApp.exitApp();
     });
     
@@ -264,7 +264,7 @@ function App() {
   }
 
   /* ========== NAVIGATION SCREENS ========== */
-  if (['akbil', 'vault', 'leaderboard', 'settings', 'stats', 'levels', 'dictionary', 'badges', 'lostitems', 'duels', 'daily', 'postcards'].includes(screen)) {
+  if (['akbil', 'vault', 'leaderboard', 'settings', 'stats', 'levels', 'dictionary', 'badges', 'lostitems', 'duels', 'daily', 'postcards', 'globalboard'].includes(screen)) {
     return (
       <NavigationContainer 
         screen={screen} 

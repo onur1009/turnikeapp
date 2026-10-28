@@ -86,6 +86,8 @@ export const useGameStore = create(
       streakRewardsClaimed: [], // ödülü alınmış seri günleri (3, 7, 14...)
       eventProgress: { id: null, levels: 0, claimed: [] }, // hafta sonu etkinliği (id = etkinliğin cuması)
       postcards: [], // tamamlanan duraklar: { stationIndex, lineId, name, at }
+      // Haftalık Hat Ligi (utils/league.js yönetir)
+      leagueState: { week: null, tier: 1, points: 0, groupNo: null, cachedGroup: [], userId: null, lastResult: null, seenResult: true },
 
       // Genel İstatistikler
       totalGamesPlayed: 0,

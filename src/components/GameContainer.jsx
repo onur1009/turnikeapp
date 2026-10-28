@@ -22,6 +22,7 @@ import SceneBackground from './SceneBackground';
 import { track } from '../utils/analytics';
 import TipBubble from './TipBubble';
 import { currentEvent, EVENT_MULTIPLIER } from '../utils/events';
+import { addLeaguePoints } from '../utils/league';
 import { VAULT_SIZE, VAULT_REWARD, getMaxLives, getHintCosts, getEarningsMultiplier } from '../store/gameStore';
 import { formatKurus } from '../utils/format';
 import '../index.css';
@@ -413,6 +414,7 @@ export default function GameContainer({
 
     const bump = useGameStore.getState().bumpDaily;
     bump('levels');
+    addLeaguePoints('level');
     bump('words', wordsFound.length);
     if (isFlawless) bump('flawless');
     track('level_complete', { level: levelIndex + 1, seconds: Math.round((Date.now() - levelStartTime) / 1000), mistakes: mistakeCount, hints: hintedLetters.length, express: expressRemaining > 0 });

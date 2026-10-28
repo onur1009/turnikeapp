@@ -18,12 +18,13 @@ export default function DuelGame({ seed, me, opponent, onFinish, onQuit }) {
   const doneRef = useRef(false);
   const foundRef = useRef(found);
   foundRef.current = found;
+  const timelineRef = useRef([]);
 
   const finish = () => {
     if (doneRef.current || !startRef.current) return;
     doneRef.current = true;
     const t = Math.min(DUEL_SECONDS, Math.round((Date.now() - startRef.current) / 1000));
-    onFinish({ w: foundRef.current.length, t });
+    onFinish({ w: foundRef.current.length, t, found: foundRef.current, timeline: timelineRef.current, puzzle: level.words.map(x => x.word) });
   };
 
   // 3-2-1, ardından süre
@@ -50,6 +51,7 @@ export default function DuelGame({ seed, me, opponent, onFinish, onQuit }) {
   const onWordSubmit = async (word) => {
     if (countdown > 0) return false;
     if (level.words.some(w => w.word === word) && !foundRef.current.includes(word)) {
+      timelineRef.current = [...timelineRef.current, { w: word, t: Math.round((Date.now() - startRef.current) / 1000) }];
       setFound(f => [...f, word]);
       return true;
     }
@@ -59,7 +61,11 @@ export default function DuelGame({ seed, me, opponent, onFinish, onQuit }) {
 
   const pct = left / DUEL_SECONDS;
   const total = level.words.length;
-  const ahead = opponent ? found.length - opponent.score.w : 0;
+  const elapsed = DUEL_SECONDS - left;
+  const rivalNow = !opponent ? 0 : opponent.timeline?.length && countdown === 0
+    ? opponent.timeline.filter(e => e.t <= elapsed).length
+    : opponent.timeline?.length ? 0 : opponent.score.w;
+  const ahead = opponent ? found.length - rivalNow : 0;
 
   return (
     <div className="duel-bg flex-1 min-h-0 flex flex-col relative" style={{ '--accent': '#e11d48' }}>
@@ -75,7 +81,7 @@ export default function DuelGame({ seed, me, opponent, onFinish, onQuit }) {
           </div>
           <div className="duel-clock tabular-nums" style={{ color: pct > 0.25 ? '#ffffff' : '#fda4af' }}>{left}</div>
           <div className="duel-side is-them">
-            <b className="tabular-nums">{opponent ? `${opponent.score.w}/${total}` : '?'}</b>
+            <b className="tabular-nums">{opponent ? `${rivalNow}/${total}` : '?'}</b>
             <span className="truncate">{opponent ? opponent.name : 'Arkadaşın'}</span>
           </div>
         </div>

@@ -5,6 +5,7 @@ import { useGameStore } from '../store/gameStore';
 import { generateDuelLevel } from '../utils/gameLogic';
 import { formatKurus } from '../utils/format';
 import { track } from '../utils/analytics';
+import { addLeaguePoints } from '../utils/league';
 import { todayKey, yesterdayKey, dayNumber, dailySeed, buildShareText, DAILY_REWARD } from '../utils/daily';
 
 // Günün Seferi: herkese aynı gün aynı bulmaca, günde bir kez. Süre baskısı yok, süre ölçülür.
@@ -101,6 +102,7 @@ export default function DailyScreen({ onBack }) {
       saveDailyResult(result);
       recordTopUp('puzzle', DAILY_REWARD);
       bumpDaily('daily');
+      addLeaguePoints('daily');
       track('daily_complete', { day: dayNumber(result.date), seconds: result.seconds, wrong: result.wrong });
     }
     setPlaying(false);

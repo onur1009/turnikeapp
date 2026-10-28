@@ -15,7 +15,7 @@ export const supabase = isCloudConfigured ? createClient(supabaseUrl, supabaseKe
 // Her oyuncu arka planda anonim bir Supabase oturumu alır. RLS kuralları bir satırı yalnızca
 // sahibinin (auth.uid() = user_id) yazabilmesine izin verir; böylece kimse başkasının
 // kullanıcı adıyla skor gönderip üzerine yazamaz.
-const ensureSession = async () => {
+export const ensureSession = async () => {
   const { data: { session } } = await supabase.auth.getSession();
   if (session) return session;
   const { data, error } = await supabase.auth.signInAnonymously();

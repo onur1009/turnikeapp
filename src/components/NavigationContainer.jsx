@@ -13,6 +13,7 @@ import LostItemsScreen from './LostItemsScreen';
 import DuelsScreen from './DuelsScreen';
 import DailyScreen from './DailyScreen';
 import PostcardsScreen from './PostcardsScreen';
+import LeagueScreen from './LeagueScreen';
 import { useTranslation } from '../utils/i18n';
 import { useGameStore, getMaxLives } from '../store/gameStore';
 import UsernameModal from './UsernameModal';
@@ -49,10 +50,19 @@ export default function NavigationContainer({
     );
   }
 
+  // Liderlik sekmesi artık Haftalık Hat Ligi'ni açar; genel sıralama onun içinden
   if (screen === 'leaderboard') {
     return (
       <div className="game-bg h-full flex flex-col relative z-10 fade-in overflow-hidden">
-        <LeaderboardScreen onBack={() => setScreen('home')} />
+        <LeagueScreen onBack={() => setScreen('home')} onGlobal={() => setScreen('globalboard')} />
+      </div>
+    );
+  }
+
+  if (screen === 'globalboard') {
+    return (
+      <div className="game-bg h-full flex flex-col relative z-10 fade-in overflow-hidden">
+        <LeaderboardScreen onBack={() => setScreen('leaderboard')} />
         {/* Kullanıcı adı ilk açılışta değil, liderlik tablosuna girerken sorulur */}
         {!username && isCloudConfigured && <UsernameModal onCancel={() => setScreen('home')} />}
       </div>
