@@ -3,6 +3,8 @@ import TipBubble from './TipBubble';
 import ConsentSheet from './ConsentSheet';
 import MissionsSheet, { useMissionProgress } from './MissionsSheet';
 import { todayKey, dayNumber } from '../utils/daily';
+import { currentEvent, timeLeft } from '../utils/events';
+import EventSheet from './EventSheet';
 import React, { useState } from 'react';
 import AnimatedBalance from './AnimatedBalance';
 import { useGameStore, VAULT_SIZE } from '../store/gameStore';
@@ -26,6 +28,9 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
   const vaultCount = useGameStore(state => state.vaultWords.length);
   const [showCollection, setShowCollection] = useState(false);
   const [showMissions, setShowMissions] = useState(false);
+  const [showEvent, setShowEvent] = useState(false);
+  const event = currentEvent();
+  const postcardCount = useGameStore(state => state.postcards.length);
   const dailySolved = useGameStore(state => !!state.dailyResults[todayKey()]);
   const { ready: missionsReady, doneCount } = useMissionProgress();
 
@@ -114,6 +119,16 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
         <p className="text-white/60 text-[14px] font-semibold mb-5 text-center">{t('subtitle')}</p>
         {/* İki ana eylem: yolculuğa devam ve düello */}
         <div className="w-full max-w-[340px] flex flex-col gap-3">
+          {event && (
+            <button onClick={() => setShowEvent(true)} className="event-strip" style={{ background: event.color }}>
+              <span aria-hidden="true" className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>{event.icon}</span>
+              <span className="flex-1 min-w-0 text-left leading-tight">
+                <span className="block font-black text-[14px] truncate">{event.name} · 2x</span>
+                <span className="block text-[11px] font-bold opacity-85">{timeLeft(event.endsAt)} kaldı</span>
+              </span>
+              <span aria-hidden="true" className="material-symbols-outlined text-[20px]">chevron_right</span>
+            </button>
+          )}
           {/* Günlük ritim: Günün Seferi ve görevler */}
           <div className="grid grid-cols-2 gap-2">
             <button onClick={() => setScreen('daily')} className="home-chip" aria-label={`Günün Seferi #${dayNumber()}`}>
@@ -171,6 +186,13 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
         <div className="fixed inset-0 z-[150] bg-black/60 flex items-end fade-in" onClick={() => setShowCollection(false)}>
           <div className="w-full rounded-t-3xl p-5 pb-8 flex flex-col gap-3" style={{ background: '#0b1428', borderTop: '1px solid var(--border)' }} onClick={e => e.stopPropagation()}>
             <div className="w-10 h-1 rounded-full bg-white/20 mx-auto mb-2" />
+            <button onClick={() => setScreen('postcards')} className="card-panel flex items-center gap-3 p-4 text-left active:scale-[0.98] transition-transform">
+              <span aria-hidden="true" className="material-symbols-outlined text-[28px] text-amber-300" style={{ fontVariationSettings: "'FILL' 1" }}>mail</span>
+              <span className="flex-1">
+                <span className="block text-white font-bold">Kartpostallarım</span>
+                <span className="block text-white/55 text-[12px] font-semibold">{postcardCount} durak kartpostalı</span>
+              </span>
+            </button>
             <button onClick={() => setScreen('vault')} className="card-panel flex items-center gap-3 p-4 text-left active:scale-[0.98] transition-transform">
               <span aria-hidden="true" className="material-symbols-outlined text-[28px] text-green-400" style={{ fontVariationSettings: "'FILL' 1" }}>savings</span>
               <span className="flex-1">
@@ -191,6 +213,7 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
         </div>
       )}
       {showMissions && <MissionsSheet onClose={() => setShowMissions(false)} />}
+      {showEvent && event && <EventSheet event={event} onClose={() => setShowEvent(false)} onPlay={() => { setShowEvent(false); onPlay(); }} />}
       <ConsentSheet />
     </div>
   );

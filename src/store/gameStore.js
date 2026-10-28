@@ -84,6 +84,8 @@ export const useGameStore = create(
       dailyStats: { date: null }, // bugünkü görev sayaçları: levels, extraWords, flawless, duels, daily, words
       missionsClaimed: { date: null, ids: [] },
       streakRewardsClaimed: [], // ödülü alınmış seri günleri (3, 7, 14...)
+      eventProgress: { id: null, levels: 0, claimed: [] }, // hafta sonu etkinliği (id = etkinliğin cuması)
+      postcards: [], // tamamlanan duraklar: { stationIndex, lineId, name, at }
 
       // Genel İstatistikler
       totalGamesPlayed: 0,
@@ -188,6 +190,27 @@ export const useGameStore = create(
         const kept = Object.fromEntries(keys.map(k => [k, state.dailyResults[k]]));
         return { dailyResults: { ...kept, [result.date]: result } };
       }),
+      // Hafta sonu etkinliği: yeni hafta sonunda ilerleme sıfırlanır
+      bumpEvent: (eventId) => set((state) => {
+        const base = state.eventProgress.id === eventId ? state.eventProgress : { id: eventId, levels: 0, claimed: [] };
+        return { eventProgress: { ...base, levels: base.levels + 1 } };
+      }),
+      claimEventTier: (eventId, tier, reward) => set((state) => {
+        const p = state.eventProgress;
+        if (p.id !== eventId || p.levels < tier || p.claimed.includes(tier)) return state;
+        return {
+          eventProgress: { ...p, claimed: [...p.claimed, tier] },
+          balance: state.balance + reward,
+          totalBalanceEarned: state.totalBalanceEarned + reward,
+          topUpHistory: [{ type: 'event', amount: reward, at: Date.now() }, ...state.topUpHistory].slice(0, 30),
+        };
+      }),
+      // Durak kartpostalı: aynı durak (tur dahil index) bir kez eklenir
+      addPostcard: (card) => set((state) => (
+        state.postcards.some(p => p.stationIndex === card.stationIndex)
+          ? state
+          : { postcards: [...state.postcards, { ...card, at: Date.now() }] }
+      )),
       claimMission: (id, reward) => set((state) => {
         const today = todayKey();
         const claimed = state.missionsClaimed.date === today ? state.missionsClaimed.ids : [];

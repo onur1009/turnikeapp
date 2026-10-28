@@ -21,6 +21,7 @@ import VehicleSprite from './VehicleSprite';
 import SceneBackground from './SceneBackground';
 import { track } from '../utils/analytics';
 import TipBubble from './TipBubble';
+import { currentEvent, EVENT_MULTIPLIER } from '../utils/events';
 import { VAULT_SIZE, VAULT_REWARD, getMaxLives, getHintCosts, getEarningsMultiplier } from '../store/gameStore';
 import { formatKurus } from '../utils/format';
 import '../index.css';
@@ -384,8 +385,17 @@ export default function GameContainer({
     const multiplier = getEarningsMultiplier(completedSets);
     const setBonus = Math.round((store.levelSessionScore + perfectBonus + expressBonus) * (multiplier - 1));
     // Durağın 5. ayağı = bölüm sonu: WoW'daki bölüm hediyesi gibi tek seferlik ödül
-    const stationBonus = getStationForLevel(levelIndex).isLastLeg ? 100 : 0;
-    addBalance(perfectBonus + expressBonus + setBonus + stationBonus);
+    const finishedStation = getStationForLevel(levelIndex);
+    const stationBonus = finishedStation.isLastLeg ? 100 : 0;
+    // Hafta sonu etkinliği: kelime puanı 2 kat (fark burada eklenir) ve etkinlik ilerlemesi
+    const event = currentEvent();
+    const eventBonus = event ? Math.round(store.levelSessionScore * (EVENT_MULTIPLIER - 1)) : 0;
+    if (event) store.bumpEvent(event.id);
+    // Durağın son ayağı: o semtin kartpostalı koleksiyona girer
+    if (finishedStation.isLastLeg) {
+      store.addPostcard({ stationIndex: finishedStation.stationIndex, lineId: finishedStation.id, name: finishedStation.stationName || finishedStation.displayName });
+    }
+    addBalance(perfectBonus + expressBonus + setBonus + stationBonus + eventBonus);
 
     // DDA: başarı sinyali (bitirme süresi / ekspres süresi)
     const timeLimit = totalTimeMsRef.current / 1000;
@@ -412,6 +422,9 @@ export default function GameContainer({
       perfectBonus,
       setBonus,
       stationBonus,
+      eventBonus,
+      eventName: event?.name,
+      postcard: finishedStation.isLastLeg,
       words: wordsFound,
       timeSpent: Math.round((Date.now() - levelStartTime) / 1000)
     });

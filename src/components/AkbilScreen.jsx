@@ -25,7 +25,7 @@ const PATTERNS = [
   { id: 'night', label: 'Gece' },
 ];
 
-const TOP_UP_LABELS = { ad: 'Reklam ödülü', daily: 'Günlük yükleme', duel: 'Düello ödülü', puzzle: 'Günün Seferi', mission: 'Günlük görev', streak: 'Seri ödülü' };
+const TOP_UP_LABELS = { ad: 'Reklam ödülü', daily: 'Günlük yükleme', duel: 'Düello ödülü', puzzle: 'Günün Seferi', mission: 'Günlük görev', streak: 'Seri ödülü', event: 'Hafta sonu etkinliği' };
 
 const todayKey = () => {
   const d = new Date();

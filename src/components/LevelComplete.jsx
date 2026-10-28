@@ -43,6 +43,7 @@ const LevelComplete = ({ level, station, summary, mistakes, meanings, onNextLeve
     { label: t('perfect_bonus'), value: summary?.perfectBonus || 0 },
     ...(summary?.setBonus ? [{ label: t('set_bonus'), value: summary.setBonus }] : []),
     ...(summary?.stationBonus ? [{ label: t('station_bonus'), value: summary.stationBonus }] : []),
+    ...(summary?.eventBonus ? [{ label: `${summary.eventName} (2x)`, value: summary.eventBonus }] : []),
   ];
   const total = earnings.reduce((sum, e) => sum + e.value, 0);
   const learned = words.filter(w => meanings[w]);
@@ -107,6 +108,12 @@ const LevelComplete = ({ level, station, summary, mistakes, meanings, onNextLeve
         </div>
 
         {/* Öğrenilen terimler */}
+        {summary?.postcard && (
+          <div className="w-full rounded-2xl p-3 mb-4 flex items-center gap-3 fade-in" style={{ background: 'rgba(251,191,36,0.15)', border: '1px solid rgba(251,191,36,0.45)' }}>
+            <span aria-hidden="true" className="material-symbols-outlined text-[28px] text-amber-300" style={{ fontVariationSettings: "'FILL' 1" }}>mail</span>
+            <span className="text-white text-[13px] font-semibold"><b>Yeni kartpostal!</b> {station.displayName} kartpostalı koleksiyonuna eklendi.</span>
+          </div>
+        )}
         {learned.length > 0 && (
           <div className="w-full card-panel p-4 mb-4">
             <p className="text-[11px] font-black tracking-[2px] text-white/50 uppercase mb-2">{t('learned_terms')}</p>
