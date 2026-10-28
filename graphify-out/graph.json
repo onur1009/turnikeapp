@@ -72,16 +72,76 @@
       "source_location": "L12"
     },
     {
-      "id": "src_components_animatedbalance_animatedbalance",
-      "label": "AnimatedBalance()",
+      "id": "src_app_app",
+      "label": "App()",
       "_callable": true,
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
-      "norm_label": "animatedbalance()",
-      "source_file": "src/components/AnimatedBalance.jsx",
-      "source_location": "L5"
+      "norm_label": "app()",
+      "source_file": "src/App.jsx",
+      "source_location": "L17"
+    },
+    {
+      "id": "src_components_akbilscreen_akbilscreen",
+      "label": "AkbilScreen()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "akbilscreen()",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L128"
+    },
+    {
+      "id": "src_components_akbilscreen_cardpattern",
+      "label": "CardPattern()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "cardpattern()",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L36"
+    },
+    {
+      "id": "src_components_akbilscreen_istanbulcard",
+      "label": "IstanbulCard()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "istanbulcard()",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L79"
+    },
+    {
+      "id": "src_components_akbilscreen_module",
+      "label": "Module()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "module()",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L107"
+    },
+    {
+      "id": "src_components_akbilscreen_todaykey",
+      "label": "todayKey()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "todaykey()",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L30"
     },
     {
       "id": "src_components_badgesscreen_badgesscreen",
@@ -89,22 +149,10 @@
       "_callable": true,
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "badgesscreen()",
       "source_file": "src/components/BadgesScreen.jsx",
-      "source_location": "L7"
-    },
-    {
-      "id": "src_components_consentsheet_consentsheet",
-      "label": "ConsentSheet()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "NavigationContainer.jsx",
-      "file_type": "code",
-      "norm_label": "consentsheet()",
-      "source_file": "src/components/ConsentSheet.jsx",
       "source_location": "L7"
     },
     {
@@ -113,23 +161,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "dictionaryscreen()",
       "source_file": "src/components/DictionaryScreen.jsx",
       "source_location": "L14"
-    },
-    {
-      "id": "src_components_homescreen_homescreen",
-      "label": "HomeScreen()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "NavigationContainer.jsx",
-      "file_type": "code",
-      "norm_label": "homescreen()",
-      "source_file": "src/components/HomeScreen.jsx",
-      "source_location": "L19"
     },
     {
       "id": "src_components_leaderboardscreen_leaderboardscreen",
@@ -137,7 +173,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "leaderboardscreen()",
       "source_file": "src/components/LeaderboardScreen.jsx",
@@ -149,35 +185,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "withtimeout()",
       "source_file": "src/components/LeaderboardScreen.jsx",
       "source_location": "L9"
-    },
-    {
-      "id": "src_components_levelcomplete_countup",
-      "label": "CountUp()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "NavigationContainer.jsx",
-      "file_type": "code",
-      "norm_label": "countup()",
-      "source_file": "src/components/LevelComplete.jsx",
-      "source_location": "L6"
-    },
-    {
-      "id": "src_components_levelcomplete_levelcomplete",
-      "label": "LevelComplete()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "NavigationContainer.jsx",
-      "file_type": "code",
-      "norm_label": "levelcomplete()",
-      "source_file": "src/components/LevelComplete.jsx",
-      "source_location": "L34"
     },
     {
       "id": "src_components_lostitemsscreen_lostitemsscreen",
@@ -185,7 +197,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "lostitemsscreen()",
       "source_file": "src/components/LostItemsScreen.jsx",
@@ -197,11 +209,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "navigationcontainer()",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L21"
+      "source_location": "L22"
     },
     {
       "id": "src_components_networkscreen_networkscreen",
@@ -209,7 +221,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "networkscreen()",
       "source_file": "src/components/NetworkScreen.jsx",
@@ -221,7 +233,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "screenheader()",
       "source_file": "src/components/ScreenHeader.jsx",
@@ -233,7 +245,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "settingsscreen()",
       "source_file": "src/components/SettingsScreen.jsx",
@@ -245,23 +257,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "statsscreen()",
       "source_file": "src/components/StatsScreen.jsx",
       "source_location": "L8"
-    },
-    {
-      "id": "src_components_tipbubble_tipbubble",
-      "label": "TipBubble()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "NavigationContainer.jsx",
-      "file_type": "code",
-      "norm_label": "tipbubble()",
-      "source_file": "src/components/TipBubble.jsx",
-      "source_location": "L6"
     },
     {
       "id": "src_components_usernamemodal_usernamemodal",
@@ -269,7 +269,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "usernamemodal()",
       "source_file": "src/components/UsernameModal.jsx",
@@ -281,11 +281,47 @@
       "_callable": true,
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "vaultscreen()",
       "source_file": "src/components/VaultScreen.jsx",
       "source_location": "L6"
+    },
+    {
+      "id": "src_data_lostitems_getrandomitem",
+      "label": "getRandomItem()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "getrandomitem()",
+      "source_file": "src/data/lostItems.js",
+      "source_location": "L42"
+    },
+    {
+      "id": "src_store_gamestore_getearningsmultiplier",
+      "label": "getEarningsMultiplier()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "getearningsmultiplier()",
+      "source_file": "src/store/gameStore.js",
+      "source_location": "L20"
+    },
+    {
+      "id": "src_store_gamestore_gethintcosts",
+      "label": "getHintCosts()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "gethintcosts()",
+      "source_file": "src/store/gameStore.js",
+      "source_location": "L16"
     },
     {
       "id": "src_store_gamestore_getmaxlives",
@@ -293,23 +329,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "getmaxlives()",
       "source_file": "src/store/gameStore.js",
-      "source_location": "L14"
-    },
-    {
-      "id": "src_utils_format_formatkurus",
-      "label": "formatKurus()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "NavigationContainer.jsx",
-      "file_type": "code",
-      "norm_label": "formatkurus()",
-      "source_file": "src/utils/format.js",
-      "source_location": "L2"
+      "source_location": "L15"
     },
     {
       "id": "src_utils_i18n_usetranslation",
@@ -317,7 +341,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "usetranslation()",
       "source_file": "src/utils/i18n.js",
@@ -329,7 +353,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "ensuresession()",
       "source_file": "src/utils/supabaseClient.js",
@@ -341,23 +365,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "getstationforlevel()",
       "source_file": "src/utils/transitNetwork.js",
       "source_location": "L113"
-    },
-    {
-      "id": "src_app_app",
-      "label": "App()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "GameContainer.jsx",
-      "file_type": "code",
-      "norm_label": "app()",
-      "source_file": "src/App.jsx",
-      "source_location": "L17"
     },
     {
       "id": "src_components_bonuslockers_bonuslockers",
@@ -432,30 +444,6 @@
       "source_location": "L31"
     },
     {
-      "id": "src_components_vehiclesprite_vehiclesprite",
-      "label": "VehicleSprite()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "GameContainer.jsx",
-      "file_type": "code",
-      "norm_label": "vehiclesprite()",
-      "source_file": "src/components/VehicleSprite.jsx",
-      "source_location": "L163"
-    },
-    {
-      "id": "src_data_lostitems_getrandomitem",
-      "label": "getRandomItem()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "GameContainer.jsx",
-      "file_type": "code",
-      "norm_label": "getrandomitem()",
-      "source_file": "src/data/lostItems.js",
-      "source_location": "L42"
-    },
-    {
       "id": "src_hooks_usegametimer_usegametimer",
       "label": "useGameTimer()",
       "_callable": true,
@@ -466,30 +454,6 @@
       "norm_label": "usegametimer()",
       "source_file": "src/hooks/useGameTimer.js",
       "source_location": "L3"
-    },
-    {
-      "id": "src_store_gamestore_getearningsmultiplier",
-      "label": "getEarningsMultiplier()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "GameContainer.jsx",
-      "file_type": "code",
-      "norm_label": "getearningsmultiplier()",
-      "source_file": "src/store/gameStore.js",
-      "source_location": "L19"
-    },
-    {
-      "id": "src_store_gamestore_gethintcosts",
-      "label": "getHintCosts()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "GameContainer.jsx",
-      "file_type": "code",
-      "norm_label": "gethintcosts()",
-      "source_file": "src/store/gameStore.js",
-      "source_location": "L15"
     },
     {
       "id": "src_utils_dda_computerawsignal",
@@ -504,6 +468,18 @@
       "source_location": "L38"
     },
     {
+      "id": "src_utils_dda_detectvolatility",
+      "label": "detectVolatility()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "GameContainer.jsx",
+      "file_type": "code",
+      "norm_label": "detectvolatility()",
+      "source_file": "src/utils/dda.js",
+      "source_location": "L64"
+    },
+    {
       "id": "src_utils_dda_getalpha",
       "label": "getAlpha()",
       "_callable": true,
@@ -516,6 +492,42 @@
       "source_location": "L58"
     },
     {
+      "id": "src_utils_dda_mean",
+      "label": "mean()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "GameContainer.jsx",
+      "file_type": "code",
+      "norm_label": "mean()",
+      "source_file": "src/utils/dda.js",
+      "source_location": "L7"
+    },
+    {
+      "id": "src_utils_dda_runstestz",
+      "label": "runsTestZ()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "GameContainer.jsx",
+      "file_type": "code",
+      "norm_label": "runstestz()",
+      "source_file": "src/utils/dda.js",
+      "source_location": "L23"
+    },
+    {
+      "id": "src_utils_dda_trendslope",
+      "label": "trendSlope()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "GameContainer.jsx",
+      "file_type": "code",
+      "norm_label": "trendslope()",
+      "source_file": "src/utils/dda.js",
+      "source_location": "L10"
+    },
+    {
       "id": "src_utils_dda_updateewmvandzscore",
       "label": "updateEwmvAndZScore()",
       "_callable": true,
@@ -526,6 +538,18 @@
       "norm_label": "updateewmvandzscore()",
       "source_file": "src/utils/dda.js",
       "source_location": "L50"
+    },
+    {
+      "id": "src_utils_dda_variance",
+      "label": "variance()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "GameContainer.jsx",
+      "file_type": "code",
+      "norm_label": "variance()",
+      "source_file": "src/utils/dda.js",
+      "source_location": "L8"
     },
     {
       "id": "src_utils_gamelogic_gettimeforlevel",
@@ -1416,100 +1440,256 @@
       "source_location": "L10"
     },
     {
-      "id": "src_components_akbilscreen_akbilscreen",
-      "label": "AkbilScreen()",
+      "id": "src_components_animatedbalance_animatedbalance",
+      "label": "AnimatedBalance()",
       "_callable": true,
       "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
       "file_type": "code",
-      "norm_label": "akbilscreen()",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L128"
+      "norm_label": "animatedbalance()",
+      "source_file": "src/components/AnimatedBalance.jsx",
+      "source_location": "L5"
     },
     {
-      "id": "src_components_akbilscreen_cardpattern",
-      "label": "CardPattern()",
+      "id": "src_components_consentsheet_consentsheet",
+      "label": "ConsentSheet()",
       "_callable": true,
       "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
       "file_type": "code",
-      "norm_label": "cardpattern()",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L36"
+      "norm_label": "consentsheet()",
+      "source_file": "src/components/ConsentSheet.jsx",
+      "source_location": "L7"
     },
     {
-      "id": "src_components_akbilscreen_istanbulcard",
-      "label": "IstanbulCard()",
+      "id": "src_components_dailyscreen_dailyscreen",
+      "label": "DailyScreen()",
       "_callable": true,
       "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
       "file_type": "code",
-      "norm_label": "istanbulcard()",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L79"
+      "norm_label": "dailyscreen()",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L88"
     },
     {
-      "id": "src_components_akbilscreen_module",
-      "label": "Module()",
+      "id": "src_components_dailyscreen_dailystreak",
+      "label": "dailyStreak()",
       "_callable": true,
       "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
       "file_type": "code",
-      "norm_label": "module()",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L107"
+      "norm_label": "dailystreak()",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L16"
     },
     {
-      "id": "src_components_akbilscreen_todaykey",
-      "label": "todayKey()",
+      "id": "src_components_dailyscreen_mmss",
+      "label": "mmss()",
       "_callable": true,
       "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
       "file_type": "code",
-      "norm_label": "todaykey()",
-      "source_file": "src/components/AkbilScreen.jsx",
+      "norm_label": "mmss()",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L13"
+    },
+    {
+      "id": "src_components_dailyscreen_play",
+      "label": "Play()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
+      "file_type": "code",
+      "norm_label": "play()",
+      "source_file": "src/components/DailyScreen.jsx",
       "source_location": "L30"
     },
     {
-      "id": "src_utils_adservice_isrewardedadsupported",
-      "label": "isRewardedAdSupported()",
+      "id": "src_components_dailyscreen_untilmidnight",
+      "label": "untilMidnight()",
       "_callable": true,
       "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
       "file_type": "code",
-      "norm_label": "isrewardedadsupported()",
-      "source_file": "src/utils/adService.js",
+      "norm_label": "untilmidnight()",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L23"
+    },
+    {
+      "id": "src_components_homescreen_homescreen",
+      "label": "HomeScreen()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
+      "file_type": "code",
+      "norm_label": "homescreen()",
+      "source_file": "src/components/HomeScreen.jsx",
       "source_location": "L21"
     },
     {
-      "id": "src_utils_adservice_loadadmob",
-      "label": "loadAdMob()",
+      "id": "src_components_levelcomplete_countup",
+      "label": "CountUp()",
       "_callable": true,
       "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
       "file_type": "code",
-      "norm_label": "loadadmob()",
-      "source_file": "src/utils/adService.js",
-      "source_location": "L14"
+      "norm_label": "countup()",
+      "source_file": "src/components/LevelComplete.jsx",
+      "source_location": "L6"
     },
     {
-      "id": "src_utils_adservice_showrewardedad",
-      "label": "showRewardedAd()",
+      "id": "src_components_levelcomplete_levelcomplete",
+      "label": "LevelComplete()",
       "_callable": true,
       "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
       "file_type": "code",
-      "norm_label": "showrewardedad()",
-      "source_file": "src/utils/adService.js",
-      "source_location": "L24"
+      "norm_label": "levelcomplete()",
+      "source_file": "src/components/LevelComplete.jsx",
+      "source_location": "L34"
+    },
+    {
+      "id": "src_components_missionssheet_missionssheet",
+      "label": "MissionsSheet()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
+      "file_type": "code",
+      "norm_label": "missionssheet()",
+      "source_file": "src/components/MissionsSheet.jsx",
+      "source_location": "L21"
+    },
+    {
+      "id": "src_components_missionssheet_usemissionprogress",
+      "label": "useMissionProgress()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
+      "file_type": "code",
+      "norm_label": "usemissionprogress()",
+      "source_file": "src/components/MissionsSheet.jsx",
+      "source_location": "L8"
+    },
+    {
+      "id": "src_components_tipbubble_tipbubble",
+      "label": "TipBubble()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
+      "file_type": "code",
+      "norm_label": "tipbubble()",
+      "source_file": "src/components/TipBubble.jsx",
+      "source_location": "L6"
+    },
+    {
+      "id": "src_utils_daily_buildsharetext",
+      "label": "buildShareText()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
+      "file_type": "code",
+      "norm_label": "buildsharetext()",
+      "source_file": "src/utils/daily.js",
+      "source_location": "L31"
+    },
+    {
+      "id": "src_utils_daily_dailyseed",
+      "label": "dailySeed()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
+      "file_type": "code",
+      "norm_label": "dailyseed()",
+      "source_file": "src/utils/daily.js",
+      "source_location": "L17"
+    },
+    {
+      "id": "src_utils_daily_daynumber",
+      "label": "dayNumber()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
+      "file_type": "code",
+      "norm_label": "daynumber()",
+      "source_file": "src/utils/daily.js",
+      "source_location": "L12"
+    },
+    {
+      "id": "src_utils_daily_missionsfor",
+      "label": "missionsFor()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
+      "file_type": "code",
+      "norm_label": "missionsfor()",
+      "source_file": "src/utils/daily.js",
+      "source_location": "L49"
+    },
+    {
+      "id": "src_utils_daily_mmss",
+      "label": "mmss()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
+      "file_type": "code",
+      "norm_label": "mmss()",
+      "source_file": "src/utils/daily.js",
+      "source_location": "L28"
+    },
+    {
+      "id": "src_utils_daily_todaykey",
+      "label": "todayKey()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
+      "file_type": "code",
+      "norm_label": "todaykey()",
+      "source_file": "src/utils/daily.js",
+      "source_location": "L9"
+    },
+    {
+      "id": "src_utils_daily_yesterdaykey",
+      "label": "yesterdayKey()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
+      "file_type": "code",
+      "norm_label": "yesterdaykey()",
+      "source_file": "src/utils/daily.js",
+      "source_location": "L23"
+    },
+    {
+      "id": "src_utils_format_formatkurus",
+      "label": "formatKurus()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
+      "file_type": "code",
+      "norm_label": "formatkurus()",
+      "source_file": "src/utils/format.js",
+      "source_location": "L2"
     },
     {
       "id": "src_data_transitterms_toentries",
@@ -1534,66 +1714,6 @@
       "norm_label": "applydda()",
       "source_file": "src/utils/dda.js",
       "source_location": "L91"
-    },
-    {
-      "id": "src_utils_dda_detectvolatility",
-      "label": "detectVolatility()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "gameLogic.js",
-      "file_type": "code",
-      "norm_label": "detectvolatility()",
-      "source_file": "src/utils/dda.js",
-      "source_location": "L64"
-    },
-    {
-      "id": "src_utils_dda_mean",
-      "label": "mean()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "gameLogic.js",
-      "file_type": "code",
-      "norm_label": "mean()",
-      "source_file": "src/utils/dda.js",
-      "source_location": "L7"
-    },
-    {
-      "id": "src_utils_dda_runstestz",
-      "label": "runsTestZ()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "gameLogic.js",
-      "file_type": "code",
-      "norm_label": "runstestz()",
-      "source_file": "src/utils/dda.js",
-      "source_location": "L23"
-    },
-    {
-      "id": "src_utils_dda_trendslope",
-      "label": "trendSlope()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "gameLogic.js",
-      "file_type": "code",
-      "norm_label": "trendslope()",
-      "source_file": "src/utils/dda.js",
-      "source_location": "L10"
-    },
-    {
-      "id": "src_utils_dda_variance",
-      "label": "variance()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "gameLogic.js",
-      "file_type": "code",
-      "norm_label": "variance()",
-      "source_file": "src/utils/dda.js",
-      "source_location": "L8"
     },
     {
       "id": "src_utils_gamelogic_buildlayout",
@@ -1896,6 +2016,18 @@
       "source_location": "L78"
     },
     {
+      "id": "src_components_vehiclesprite_vehiclesprite",
+      "label": "VehicleSprite()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 33,
+      "community_name": "VehicleSprite.jsx",
+      "file_type": "code",
+      "norm_label": "vehiclesprite()",
+      "source_file": "src/components/VehicleSprite.jsx",
+      "source_location": "L163"
+    },
+    {
       "id": "src_components_vehiclesprite_wheel",
       "label": "Wheel()",
       "_callable": true,
@@ -1954,6 +2086,42 @@
       "norm_label": "parse_verdict()",
       "source_file": "tests/artemis/run_artemis.py",
       "source_location": "L65"
+    },
+    {
+      "id": "src_utils_adservice_isrewardedadsupported",
+      "label": "isRewardedAdSupported()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "package.json",
+      "file_type": "code",
+      "norm_label": "isrewardedadsupported()",
+      "source_file": "src/utils/adService.js",
+      "source_location": "L21"
+    },
+    {
+      "id": "src_utils_adservice_loadadmob",
+      "label": "loadAdMob()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "package.json",
+      "file_type": "code",
+      "norm_label": "loadadmob()",
+      "source_file": "src/utils/adService.js",
+      "source_location": "L14"
+    },
+    {
+      "id": "src_utils_adservice_showrewardedad",
+      "label": "showRewardedAd()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "package.json",
+      "file_type": "code",
+      "norm_label": "showrewardedad()",
+      "source_file": "src/utils/adService.js",
+      "source_location": "L24"
     },
     {
       "id": "android_app_src_androidtest_java_com_getcapacitor_myapp_exampleinstrumentedtest_exampleinstrumentedtest_useappcontext",
@@ -2092,36 +2260,91 @@
       "source_location": "L129"
     },
     {
-      "id": "src_components_animatedbalance",
-      "label": "AnimatedBalance.jsx",
+      "id": "src_components_akbilscreen",
+      "label": "AkbilScreen.jsx",
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
-      "norm_label": "animatedbalance.jsx",
-      "source_file": "src/components/AnimatedBalance.jsx",
+      "norm_label": "akbilscreen.jsx",
+      "source_file": "src/components/AkbilScreen.jsx",
       "source_location": "L1"
+    },
+    {
+      "id": "src_components_akbilscreen_ad_daily_limit",
+      "label": "AD_DAILY_LIMIT",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "ad_daily_limit",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L15"
+    },
+    {
+      "id": "src_components_akbilscreen_ad_reward",
+      "label": "AD_REWARD",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "ad_reward",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L14"
+    },
+    {
+      "id": "src_components_akbilscreen_card_colors",
+      "label": "CARD_COLORS",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "card_colors",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L18"
+    },
+    {
+      "id": "src_components_akbilscreen_daily_top_up",
+      "label": "DAILY_TOP_UP",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "daily_top_up",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L16"
+    },
+    {
+      "id": "src_components_akbilscreen_patterns",
+      "label": "PATTERNS",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "patterns",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L20"
+    },
+    {
+      "id": "src_components_akbilscreen_top_up_labels",
+      "label": "TOP_UP_LABELS",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "top_up_labels",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L28"
     },
     {
       "id": "src_components_badgesscreen",
       "label": "BadgesScreen.jsx",
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "badgesscreen.jsx",
       "source_file": "src/components/BadgesScreen.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_components_consentsheet",
-      "label": "ConsentSheet.jsx",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "NavigationContainer.jsx",
-      "file_type": "code",
-      "norm_label": "consentsheet.jsx",
-      "source_file": "src/components/ConsentSheet.jsx",
       "source_location": "L1"
     },
     {
@@ -2129,7 +2352,7 @@
       "label": "DictionaryScreen.jsx",
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "dictionaryscreen.jsx",
       "source_file": "src/components/DictionaryScreen.jsx",
@@ -2140,54 +2363,21 @@
       "label": "PROVIDER_THEMES",
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "provider_themes",
       "source_file": "src/components/DictionaryScreen.jsx",
       "source_location": "L5"
     },
     {
-      "id": "src_components_homescreen",
-      "label": "HomeScreen.jsx",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "NavigationContainer.jsx",
-      "file_type": "code",
-      "norm_label": "homescreen.jsx",
-      "source_file": "src/components/HomeScreen.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_components_homescreen_tabs",
-      "label": "TABS",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "NavigationContainer.jsx",
-      "file_type": "code",
-      "norm_label": "tabs",
-      "source_file": "src/components/HomeScreen.jsx",
-      "source_location": "L11"
-    },
-    {
       "id": "src_components_leaderboardscreen",
       "label": "LeaderboardScreen.jsx",
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "leaderboardscreen.jsx",
       "source_file": "src/components/LeaderboardScreen.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_components_levelcomplete",
-      "label": "LevelComplete.jsx",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "NavigationContainer.jsx",
-      "file_type": "code",
-      "norm_label": "levelcomplete.jsx",
-      "source_file": "src/components/LevelComplete.jsx",
       "source_location": "L1"
     },
     {
@@ -2195,7 +2385,7 @@
       "label": "LostItemsScreen.jsx",
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "lostitemsscreen.jsx",
       "source_file": "src/components/LostItemsScreen.jsx",
@@ -2206,7 +2396,7 @@
       "label": "NavigationContainer.jsx",
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "navigationcontainer.jsx",
       "source_file": "src/components/NavigationContainer.jsx",
@@ -2217,7 +2407,7 @@
       "label": "ScreenHeader.jsx",
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "screenheader.jsx",
       "source_file": "src/components/ScreenHeader.jsx",
@@ -2228,7 +2418,7 @@
       "label": "SettingsScreen.jsx",
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "settingsscreen.jsx",
       "source_file": "src/components/SettingsScreen.jsx",
@@ -2239,21 +2429,10 @@
       "label": "StatsScreen.jsx",
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "statsscreen.jsx",
       "source_file": "src/components/StatsScreen.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_components_tipbubble",
-      "label": "TipBubble.jsx",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "NavigationContainer.jsx",
-      "file_type": "code",
-      "norm_label": "tipbubble.jsx",
-      "source_file": "src/components/TipBubble.jsx",
       "source_location": "L1"
     },
     {
@@ -2261,7 +2440,7 @@
       "label": "UsernameModal.jsx",
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "usernamemodal.jsx",
       "source_file": "src/components/UsernameModal.jsx",
@@ -2272,10 +2451,43 @@
       "label": "VaultScreen.jsx",
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "vaultscreen.jsx",
       "source_file": "src/components/VaultScreen.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_data_lostitems",
+      "label": "lostItems.js",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "lostitems.js",
+      "source_file": "src/data/lostItems.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_data_lostitems_lost_items_catalog",
+      "label": "LOST_ITEMS_CATALOG",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "lost_items_catalog",
+      "source_file": "src/data/lostItems.js",
+      "source_location": "L28"
+    },
+    {
+      "id": "src_data_lostitems_lost_items_sets",
+      "label": "LOST_ITEMS_SETS",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "lost_items_sets",
+      "source_file": "src/data/lostItems.js",
       "source_location": "L1"
     },
     {
@@ -2283,42 +2495,64 @@
       "label": "gameStore.js",
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "gamestore.js",
       "source_file": "src/store/gameStore.js",
       "source_location": "L1"
     },
     {
+      "id": "src_store_gamestore_game_storage_key",
+      "label": "GAME_STORAGE_KEY",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "game_storage_key",
+      "source_file": "src/store/gameStore.js",
+      "source_location": "L7"
+    },
+    {
       "id": "src_store_gamestore_max_lives",
       "label": "MAX_LIVES",
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "max_lives",
       "source_file": "src/store/gameStore.js",
-      "source_location": "L9"
+      "source_location": "L10"
     },
     {
       "id": "src_store_gamestore_usegamestore",
       "label": "useGameStore",
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "usegamestore",
       "source_file": "src/store/gameStore.js",
-      "source_location": "L21"
+      "source_location": "L22"
     },
     {
       "id": "src_store_gamestore_vault_reward",
       "label": "VAULT_REWARD",
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "vault_reward",
+      "source_file": "src/store/gameStore.js",
+      "source_location": "L12"
+    },
+    {
+      "id": "src_store_gamestore_vault_size",
+      "label": "VAULT_SIZE",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "vault_size",
       "source_file": "src/store/gameStore.js",
       "source_location": "L11"
     },
@@ -2327,7 +2561,7 @@
       "label": "badges.js",
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "badges.js",
       "source_file": "src/utils/badges.js",
@@ -2338,21 +2572,10 @@
       "label": "BADGES",
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "badges",
       "source_file": "src/utils/badges.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_utils_format",
-      "label": "format.js",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "NavigationContainer.jsx",
-      "file_type": "code",
-      "norm_label": "format.js",
-      "source_file": "src/utils/format.js",
       "source_location": "L1"
     },
     {
@@ -2360,7 +2583,7 @@
       "label": "i18n.js",
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "i18n.js",
       "source_file": "src/utils/i18n.js",
@@ -2371,7 +2594,7 @@
       "label": "translations",
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "translations",
       "source_file": "src/utils/i18n.js",
@@ -2382,7 +2605,7 @@
       "label": "supabaseClient.js",
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "supabaseclient.js",
       "source_file": "src/utils/supabaseClient.js",
@@ -2393,7 +2616,7 @@
       "label": "cloudService",
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "cloudservice",
       "source_file": "src/utils/supabaseClient.js",
@@ -2404,7 +2627,7 @@
       "label": "isCloudConfigured",
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "iscloudconfigured",
       "source_file": "src/utils/supabaseClient.js",
@@ -2415,7 +2638,7 @@
       "label": "supabase",
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "code",
       "norm_label": "supabase",
       "source_file": "src/utils/supabaseClient.js",
@@ -2426,7 +2649,7 @@
       "label": "react",
       "_origin": "ast",
       "community": 0,
-      "community_name": "NavigationContainer.jsx",
+      "community_name": "useGameStore",
       "file_type": "concept",
       "norm_label": "react",
       "source_file": "package.json",
@@ -2499,39 +2722,6 @@
       "source_location": "L1"
     },
     {
-      "id": "src_data_lostitems",
-      "label": "lostItems.js",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "GameContainer.jsx",
-      "file_type": "code",
-      "norm_label": "lostitems.js",
-      "source_file": "src/data/lostItems.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_data_lostitems_lost_items_catalog",
-      "label": "LOST_ITEMS_CATALOG",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "GameContainer.jsx",
-      "file_type": "code",
-      "norm_label": "lost_items_catalog",
-      "source_file": "src/data/lostItems.js",
-      "source_location": "L28"
-    },
-    {
-      "id": "src_data_lostitems_lost_items_sets",
-      "label": "LOST_ITEMS_SETS",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "GameContainer.jsx",
-      "file_type": "code",
-      "norm_label": "lost_items_sets",
-      "source_file": "src/data/lostItems.js",
-      "source_location": "L1"
-    },
-    {
       "id": "src_hooks_usegametimer",
       "label": "useGameTimer.js",
       "_origin": "ast",
@@ -2540,6 +2730,17 @@
       "file_type": "code",
       "norm_label": "usegametimer.js",
       "source_file": "src/hooks/useGameTimer.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_utils_dda",
+      "label": "dda.js",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "GameContainer.jsx",
+      "file_type": "code",
+      "norm_label": "dda.js",
+      "source_file": "src/utils/dda.js",
       "source_location": "L1"
     },
     {
@@ -2675,17 +2876,6 @@
       "source_location": "L1"
     },
     {
-      "id": "src_store_gamestore_game_storage_key",
-      "label": "GAME_STORAGE_KEY",
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "analytics.js",
-      "file_type": "code",
-      "norm_label": "game_storage_key",
-      "source_file": "src/store/gameStore.js",
-      "source_location": "L6"
-    },
-    {
       "id": "src_utils_analytics",
       "label": "analytics.js",
       "_origin": "ast",
@@ -2750,17 +2940,6 @@
       "norm_label": "@capacitor/preferences",
       "source_file": "package.json",
       "source_location": "L22"
-    },
-    {
-      "id": "ref_react_dom",
-      "label": "react-dom",
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "analytics.js",
-      "file_type": "concept",
-      "norm_label": "react-dom",
-      "source_file": "package.json",
-      "source_location": "L27"
     },
     {
       "id": "claude",
@@ -2952,6 +3131,160 @@
       "source_location": "L7"
     },
     {
+      "id": "src_components_animatedbalance",
+      "label": "AnimatedBalance.jsx",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
+      "file_type": "code",
+      "norm_label": "animatedbalance.jsx",
+      "source_file": "src/components/AnimatedBalance.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_components_consentsheet",
+      "label": "ConsentSheet.jsx",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
+      "file_type": "code",
+      "norm_label": "consentsheet.jsx",
+      "source_file": "src/components/ConsentSheet.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_components_dailyscreen",
+      "label": "DailyScreen.jsx",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
+      "file_type": "code",
+      "norm_label": "dailyscreen.jsx",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_components_homescreen",
+      "label": "HomeScreen.jsx",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
+      "file_type": "code",
+      "norm_label": "homescreen.jsx",
+      "source_file": "src/components/HomeScreen.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_components_homescreen_tabs",
+      "label": "TABS",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
+      "file_type": "code",
+      "norm_label": "tabs",
+      "source_file": "src/components/HomeScreen.jsx",
+      "source_location": "L13"
+    },
+    {
+      "id": "src_components_levelcomplete",
+      "label": "LevelComplete.jsx",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
+      "file_type": "code",
+      "norm_label": "levelcomplete.jsx",
+      "source_file": "src/components/LevelComplete.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_components_missionssheet",
+      "label": "MissionsSheet.jsx",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
+      "file_type": "code",
+      "norm_label": "missionssheet.jsx",
+      "source_file": "src/components/MissionsSheet.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_components_tipbubble",
+      "label": "TipBubble.jsx",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
+      "file_type": "code",
+      "norm_label": "tipbubble.jsx",
+      "source_file": "src/components/TipBubble.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_utils_daily",
+      "label": "daily.js",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
+      "file_type": "code",
+      "norm_label": "daily.js",
+      "source_file": "src/utils/daily.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_utils_daily_daily_reward",
+      "label": "DAILY_REWARD",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
+      "file_type": "code",
+      "norm_label": "daily_reward",
+      "source_file": "src/utils/daily.js",
+      "source_location": "L5"
+    },
+    {
+      "id": "src_utils_daily_launch",
+      "label": "LAUNCH",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
+      "file_type": "code",
+      "norm_label": "launch",
+      "source_file": "src/utils/daily.js",
+      "source_location": "L6"
+    },
+    {
+      "id": "src_utils_daily_mission_pool",
+      "label": "MISSION_POOL",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
+      "file_type": "code",
+      "norm_label": "mission_pool",
+      "source_file": "src/utils/daily.js",
+      "source_location": "L38"
+    },
+    {
+      "id": "src_utils_daily_streak_milestones",
+      "label": "STREAK_MILESTONES",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
+      "file_type": "code",
+      "norm_label": "streak_milestones",
+      "source_file": "src/utils/daily.js",
+      "source_location": "L60"
+    },
+    {
+      "id": "src_utils_format",
+      "label": "format.js",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "DailyScreen.jsx",
+      "file_type": "code",
+      "norm_label": "format.js",
+      "source_file": "src/utils/format.js",
+      "source_location": "L1"
+    },
+    {
       "id": "vercel",
       "label": "vercel.json",
       "_origin": "ast",
@@ -3065,149 +3398,6 @@
       "norm_label": "warn()",
       "source_file": "android/gradlew",
       "source_location": "L94"
-    },
-    {
-      "id": "admob",
-      "label": "@capacitor-community/admob",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
-      "confidence": "EXTRACTED",
-      "file_type": "code",
-      "norm_label": "@capacitor-community/admob",
-      "source_file": "@capacitor-community/admob"
-    },
-    {
-      "id": "src_components_akbilscreen",
-      "label": "AkbilScreen.jsx",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "akbilscreen.jsx",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_components_akbilscreen_ad_daily_limit",
-      "label": "AD_DAILY_LIMIT",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "ad_daily_limit",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L15"
-    },
-    {
-      "id": "src_components_akbilscreen_ad_reward",
-      "label": "AD_REWARD",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "ad_reward",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L14"
-    },
-    {
-      "id": "src_components_akbilscreen_card_colors",
-      "label": "CARD_COLORS",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "card_colors",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L18"
-    },
-    {
-      "id": "src_components_akbilscreen_daily_top_up",
-      "label": "DAILY_TOP_UP",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "daily_top_up",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L16"
-    },
-    {
-      "id": "src_components_akbilscreen_patterns",
-      "label": "PATTERNS",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "patterns",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L20"
-    },
-    {
-      "id": "src_components_akbilscreen_top_up_labels",
-      "label": "TOP_UP_LABELS",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "top_up_labels",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L28"
-    },
-    {
-      "id": "src_store_gamestore_vault_size",
-      "label": "VAULT_SIZE",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "vault_size",
-      "source_file": "src/store/gameStore.js",
-      "source_location": "L10"
-    },
-    {
-      "id": "src_utils_adservice",
-      "label": "adService.js",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "adservice.js",
-      "source_file": "src/utils/adService.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_utils_adservice_rewarded_ad_id",
-      "label": "REWARDED_AD_ID",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "rewarded_ad_id",
-      "source_file": "src/utils/adService.js",
-      "source_location": "L7"
-    },
-    {
-      "id": "ref_capacitor_community_admob",
-      "label": "@capacitor-community/admob",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "concept",
-      "norm_label": "@capacitor-community/admob",
-      "source_file": "package.json",
-      "source_location": "L15"
-    },
-    {
-      "id": "ref_capacitor_core",
-      "label": "@capacitor/core",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "concept",
-      "norm_label": "@capacitor/core",
-      "source_file": "package.json",
-      "source_location": "L19"
     },
     {
       "id": "android_app_src_main_java_com_turnike_app_mainactivity",
@@ -3384,17 +3574,6 @@
       "norm_label": "extra_words_tr",
       "source_file": "src/data/turkishWords.js",
       "source_location": "L197"
-    },
-    {
-      "id": "src_utils_dda",
-      "label": "dda.js",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "gameLogic.js",
-      "file_type": "code",
-      "norm_label": "dda.js",
-      "source_file": "src/utils/dda.js",
-      "source_location": "L1"
     },
     {
       "id": "src_utils_gamelogic",
@@ -4132,6 +4311,17 @@
       "source_location": "L1"
     },
     {
+      "id": "admob",
+      "label": "@capacitor-community/admob",
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "package.json",
+      "confidence": "EXTRACTED",
+      "file_type": "code",
+      "norm_label": "@capacitor-community/admob",
+      "source_file": "@capacitor-community/admob"
+    },
+    {
       "id": "eslint_config",
       "label": "eslint.config.js",
       "_origin": "ast",
@@ -4275,6 +4465,28 @@
       "source_location": "L4"
     },
     {
+      "id": "src_utils_adservice",
+      "label": "adService.js",
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "package.json",
+      "file_type": "code",
+      "norm_label": "adservice.js",
+      "source_file": "src/utils/adService.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_utils_adservice_rewarded_ad_id",
+      "label": "REWARDED_AD_ID",
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "package.json",
+      "file_type": "code",
+      "norm_label": "rewarded_ad_id",
+      "source_file": "src/utils/adService.js",
+      "source_location": "L7"
+    },
+    {
       "id": "test_game",
       "label": "test_game.cjs",
       "_origin": "ast",
@@ -4350,6 +4562,28 @@
       "norm_label": "@capacitor/cli",
       "source_file": "package.json",
       "source_location": "L18"
+    },
+    {
+      "id": "ref_capacitor_community_admob",
+      "label": "@capacitor-community/admob",
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "package.json",
+      "file_type": "concept",
+      "norm_label": "@capacitor-community/admob",
+      "source_file": "package.json",
+      "source_location": "L15"
+    },
+    {
+      "id": "ref_capacitor_core",
+      "label": "@capacitor/core",
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "package.json",
+      "file_type": "concept",
+      "norm_label": "@capacitor/core",
+      "source_file": "package.json",
+      "source_location": "L19"
     },
     {
       "id": "ref_capacitor_ios",
@@ -4449,6 +4683,17 @@
       "norm_label": "puppeteer",
       "source_file": "package.json",
       "source_location": "L41"
+    },
+    {
+      "id": "ref_react_dom",
+      "label": "react-dom",
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "package.json",
+      "file_type": "concept",
+      "norm_label": "react-dom",
+      "source_file": "package.json",
+      "source_location": "L27"
     },
     {
       "id": "ref_supabase_supabase_js",
@@ -5912,6 +6157,222 @@
       "weight": 1.0
     },
     {
+      "source": "src_components_dailyscreen_dailyscreen",
+      "target": "src_utils_analytics_track",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L104",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen_dailyscreen",
+      "target": "src_utils_daily_daynumber",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L104",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen_dailyscreen",
+      "target": "src_utils_daily_buildsharetext",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L110",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen_dailyscreen",
+      "target": "src_components_dailyscreen_play",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L132",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen_dailyscreen",
+      "target": "src_components_dailyscreen_mmss",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L139",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen_dailyscreen",
+      "target": "src_components_dailyscreen_untilmidnight",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L147",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen_dailyscreen",
+      "target": "src_utils_format_formatkurus",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L159",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen_dailyscreen",
+      "target": "src_store_gamestore_usegamestore",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L89",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen_dailyscreen",
+      "target": "src_utils_daily_todaykey",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L96",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen_dailyscreen",
+      "target": "src_components_dailyscreen_dailystreak",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L97",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen_dailystreak",
+      "target": "src_utils_daily_todaykey",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen_dailystreak",
+      "target": "src_utils_daily_yesterdaykey",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen_play",
+      "target": "src_utils_daily_dailyseed",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen_play",
+      "target": "src_utils_gamelogic_generateduellevel",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen_play",
+      "target": "src_utils_daily_todaykey",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen_play",
+      "target": "src_components_dailyscreen_mmss",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L70",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen_play",
+      "target": "src_components_grid_grid",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen_play",
+      "target": "src_components_wheel_wheel",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L80",
+      "weight": 1.0
+    },
+    {
       "source": "src_components_dailyspinscreen_dailyspinscreen",
       "target": "src_store_gamestore_usegamestore",
       "relation": "calls",
@@ -6004,7 +6465,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L112",
+      "source_location": "L113",
       "weight": 1.0
     },
     {
@@ -6016,7 +6477,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L134",
+      "source_location": "L135",
       "weight": 1.0
     },
     {
@@ -6028,7 +6489,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L134",
+      "source_location": "L135",
       "weight": 1.0
     },
     {
@@ -6040,7 +6501,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L135",
+      "source_location": "L136",
       "weight": 1.0
     },
     {
@@ -6052,7 +6513,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L138",
+      "source_location": "L139",
       "weight": 1.0
     },
     {
@@ -6064,7 +6525,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L146",
+      "source_location": "L147",
       "weight": 1.0
     },
     {
@@ -6124,7 +6585,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L1009",
+      "source_location": "L1015",
       "weight": 1.0
     },
     {
@@ -6136,7 +6597,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L1024",
+      "source_location": "L1030",
       "weight": 1.0
     },
     {
@@ -6148,7 +6609,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L1085",
+      "source_location": "L1091",
       "weight": 1.0
     },
     {
@@ -6352,7 +6813,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L457",
+      "source_location": "L461",
       "weight": 1.0
     },
     {
@@ -6364,7 +6825,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L476",
+      "source_location": "L480",
       "weight": 1.0
     },
     {
@@ -6376,7 +6837,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L483",
+      "source_location": "L487",
       "weight": 1.0
     },
     {
@@ -6388,7 +6849,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L491",
+      "source_location": "L495",
       "weight": 1.0
     },
     {
@@ -6400,7 +6861,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L592",
+      "source_location": "L598",
       "weight": 1.0
     },
     {
@@ -6412,7 +6873,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L600",
+      "source_location": "L606",
       "weight": 1.0
     },
     {
@@ -6424,19 +6885,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L601",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_gamecontainer_gamecontainer",
-      "target": "src_utils_soundmanager_playturnike",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L628",
+      "source_location": "L607",
       "weight": 1.0
     },
     {
@@ -6453,6 +6902,18 @@
     },
     {
       "source": "src_components_gamecontainer_gamecontainer",
+      "target": "src_utils_soundmanager_playturnike",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/GameContainer.jsx",
+      "source_location": "L634",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_gamecontainer_gamecontainer",
       "target": "src_components_scenebackground_scenebackground",
       "relation": "calls",
       "_origin": "ast",
@@ -6460,7 +6921,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L878",
+      "source_location": "L884",
       "weight": 1.0
     },
     {
@@ -6472,7 +6933,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L881",
+      "source_location": "L887",
       "weight": 1.0
     },
     {
@@ -6484,7 +6945,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L890",
+      "source_location": "L896",
       "weight": 1.0
     },
     {
@@ -6496,7 +6957,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L923",
+      "source_location": "L929",
       "weight": 1.0
     },
     {
@@ -6520,7 +6981,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L964",
+      "source_location": "L970",
       "weight": 1.0
     },
     {
@@ -6532,7 +6993,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L980",
+      "source_location": "L986",
       "weight": 1.0
     },
     {
@@ -6544,12 +7005,12 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L992",
+      "source_location": "L998",
       "weight": 1.0
     },
     {
       "source": "src_components_homescreen_homescreen",
-      "target": "src_components_tipbubble_tipbubble",
+      "target": "src_utils_daily_daynumber",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -6561,6 +7022,30 @@
     },
     {
       "source": "src_components_homescreen_homescreen",
+      "target": "src_components_tipbubble_tipbubble",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/HomeScreen.jsx",
+      "source_location": "L143",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_homescreen_homescreen",
+      "target": "src_components_missionssheet_missionssheet",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/HomeScreen.jsx",
+      "source_location": "L193",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_homescreen_homescreen",
       "target": "src_components_consentsheet_consentsheet",
       "relation": "calls",
       "_origin": "ast",
@@ -6568,7 +7053,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/HomeScreen.jsx",
-      "source_location": "L169",
+      "source_location": "L194",
       "weight": 1.0
     },
     {
@@ -6580,7 +7065,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/HomeScreen.jsx",
-      "source_location": "L20",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -6592,7 +7077,31 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/HomeScreen.jsx",
-      "source_location": "L21",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_homescreen_homescreen",
+      "target": "src_utils_daily_todaykey",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/HomeScreen.jsx",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_homescreen_homescreen",
+      "target": "src_components_missionssheet_usemissionprogress",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/HomeScreen.jsx",
+      "source_location": "L30",
       "weight": 1.0
     },
     {
@@ -6604,7 +7113,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/HomeScreen.jsx",
-      "source_location": "L27",
+      "source_location": "L32",
       "weight": 1.0
     },
     {
@@ -6616,7 +7125,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/HomeScreen.jsx",
-      "source_location": "L40",
+      "source_location": "L45",
       "weight": 1.0
     },
     {
@@ -6628,7 +7137,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/HomeScreen.jsx",
-      "source_location": "L52",
+      "source_location": "L57",
       "weight": 1.0
     },
     {
@@ -6776,195 +7285,87 @@
       "weight": 1.0
     },
     {
-      "source": "src_components_navigationcontainer_navigationcontainer",
-      "target": "src_components_screenheader_screenheader",
+      "source": "src_components_missionssheet_missionssheet",
+      "target": "src_components_missionssheet_usemissionprogress",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
-      "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L100",
+      "source_file": "src/components/MissionsSheet.jsx",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
-      "source": "src_components_navigationcontainer_navigationcontainer",
-      "target": "src_components_mapscreen_mapscreen",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L106",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_navigationcontainer_navigationcontainer",
-      "target": "src_components_networkmap_networkmap",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L114",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_navigationcontainer_navigationcontainer",
-      "target": "src_components_networkscreen_networkscreen",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L115",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_navigationcontainer_navigationcontainer",
-      "target": "src_components_dictionaryscreen_dictionaryscreen",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L141",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_navigationcontainer_navigationcontainer",
-      "target": "src_components_badgesscreen_badgesscreen",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L149",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_navigationcontainer_navigationcontainer",
-      "target": "src_utils_i18n_usetranslation",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L25",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_navigationcontainer_navigationcontainer",
+      "source": "src_components_missionssheet_missionssheet",
       "target": "src_store_gamestore_usegamestore",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
-      "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L30",
+      "source_file": "src/components/MissionsSheet.jsx",
+      "source_location": "L23",
       "weight": 1.0
     },
     {
-      "source": "src_components_navigationcontainer_navigationcontainer",
-      "target": "src_components_akbilscreen_akbilscreen",
+      "source": "src_components_missionssheet_missionssheet",
+      "target": "src_utils_analytics_track",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
-      "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L37",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_navigationcontainer_navigationcontainer",
-      "target": "src_components_vaultscreen_vaultscreen",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L45",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_navigationcontainer_navigationcontainer",
-      "target": "src_components_leaderboardscreen_leaderboardscreen",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L53",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_navigationcontainer_navigationcontainer",
-      "target": "src_components_usernamemodal_usernamemodal",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/NavigationContainer.jsx",
+      "source_file": "src/components/MissionsSheet.jsx",
       "source_location": "L55",
       "weight": 1.0
     },
     {
-      "source": "src_components_navigationcontainer_navigationcontainer",
-      "target": "src_components_lostitemsscreen_lostitemsscreen",
+      "source": "src_components_missionssheet_missionssheet",
+      "target": "src_utils_format_formatkurus",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
-      "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L63",
+      "source_file": "src/components/MissionsSheet.jsx",
+      "source_location": "L58",
       "weight": 1.0
     },
     {
-      "source": "src_components_navigationcontainer_navigationcontainer",
-      "target": "src_components_duelsscreen_duelsscreen",
+      "source": "src_components_missionssheet_usemissionprogress",
+      "target": "src_utils_daily_todaykey",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
-      "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L71",
+      "source_file": "src/components/MissionsSheet.jsx",
+      "source_location": "L11",
       "weight": 1.0
     },
     {
-      "source": "src_components_navigationcontainer_navigationcontainer",
-      "target": "src_components_settingsscreen_settingsscreen",
+      "source": "src_components_missionssheet_usemissionprogress",
+      "target": "src_utils_daily_missionsfor",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
-      "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L79",
+      "source_file": "src/components/MissionsSheet.jsx",
+      "source_location": "L14",
       "weight": 1.0
     },
     {
-      "source": "src_components_navigationcontainer_navigationcontainer",
-      "target": "src_components_statsscreen_statsscreen",
+      "source": "src_components_missionssheet_usemissionprogress",
+      "target": "src_store_gamestore_usegamestore",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
-      "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L87",
+      "source_file": "src/components/MissionsSheet.jsx",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -6976,7 +7377,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L94",
+      "source_location": "L103",
       "weight": 1.0
     },
     {
@@ -6988,7 +7389,211 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L97",
+      "source_location": "L106",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer_navigationcontainer",
+      "target": "src_components_screenheader_screenheader",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L109",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer_navigationcontainer",
+      "target": "src_components_mapscreen_mapscreen",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L115",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer_navigationcontainer",
+      "target": "src_components_networkmap_networkmap",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L123",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer_navigationcontainer",
+      "target": "src_components_networkscreen_networkscreen",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L124",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer_navigationcontainer",
+      "target": "src_components_dictionaryscreen_dictionaryscreen",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L150",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer_navigationcontainer",
+      "target": "src_components_badgesscreen_badgesscreen",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L158",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer_navigationcontainer",
+      "target": "src_utils_i18n_usetranslation",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer_navigationcontainer",
+      "target": "src_store_gamestore_usegamestore",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer_navigationcontainer",
+      "target": "src_components_akbilscreen_akbilscreen",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer_navigationcontainer",
+      "target": "src_components_vaultscreen_vaultscreen",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer_navigationcontainer",
+      "target": "src_components_leaderboardscreen_leaderboardscreen",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L54",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer_navigationcontainer",
+      "target": "src_components_usernamemodal_usernamemodal",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L56",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer_navigationcontainer",
+      "target": "src_components_lostitemsscreen_lostitemsscreen",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L64",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer_navigationcontainer",
+      "target": "src_components_duelsscreen_duelsscreen",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L72",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer_navigationcontainer",
+      "target": "src_components_dailyscreen_dailyscreen",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L80",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer_navigationcontainer",
+      "target": "src_components_settingsscreen_settingsscreen",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L88",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer_navigationcontainer",
+      "target": "src_components_statsscreen_statsscreen",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L96",
       "weight": 1.0
     },
     {
@@ -7516,7 +8121,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/store/gameStore.js",
-      "source_location": "L110",
+      "source_location": "L117",
+      "weight": 1.0
+    },
+    {
+      "source": "src_store_gamestore_usegamestore",
+      "target": "src_utils_daily_todaykey",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/store/gameStore.js",
+      "source_location": "L182",
       "weight": 1.0
     },
     {
@@ -7709,6 +8326,54 @@
       "context": "call",
       "source_file": "src/utils/analytics.js",
       "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_daily_buildsharetext",
+      "target": "src_utils_daily_daynumber",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/utils/daily.js",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_daily_buildsharetext",
+      "target": "src_utils_daily_mmss",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/utils/daily.js",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_daily_missionsfor",
+      "target": "src_utils_daily_dailyseed",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/utils/daily.js",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_daily_yesterdaykey",
+      "target": "src_utils_daily_todaykey",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/utils/daily.js",
+      "source_location": "L25",
       "weight": 1.0
     },
     {
@@ -9693,6 +10358,126 @@
       "weight": 1.0
     },
     {
+      "source": "src_components_dailyscreen",
+      "target": "src_store_gamestore_usegamestore",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen",
+      "target": "src_utils_gamelogic_generateduellevel",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen",
+      "target": "src_utils_format_formatkurus",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen",
+      "target": "src_utils_analytics_track",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen",
+      "target": "src_utils_daily_buildsharetext",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen",
+      "target": "src_utils_daily_daily_reward",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen",
+      "target": "src_utils_daily_dailyseed",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen",
+      "target": "src_utils_daily_daynumber",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen",
+      "target": "src_utils_daily_todaykey",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen",
+      "target": "src_utils_daily_yesterdaykey",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
       "source": "src_components_dailyspinscreen",
       "target": "src_store_gamestore_usegamestore",
       "relation": "imports",
@@ -10426,6 +11211,18 @@
     },
     {
       "source": "src_components_homescreen",
+      "target": "src_utils_transitnetwork_getstationforlevel",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/HomeScreen.jsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_homescreen",
       "target": "src_components_tipbubble_tipbubble",
       "relation": "imports",
       "_origin": "ast",
@@ -10450,6 +11247,54 @@
     },
     {
       "source": "src_components_homescreen",
+      "target": "src_components_missionssheet_missionssheet",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/HomeScreen.jsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_homescreen",
+      "target": "src_components_missionssheet_usemissionprogress",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/HomeScreen.jsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_homescreen",
+      "target": "src_utils_daily_daynumber",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/HomeScreen.jsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_homescreen",
+      "target": "src_utils_daily_todaykey",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/HomeScreen.jsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_homescreen",
       "target": "src_store_gamestore_usegamestore",
       "relation": "imports",
       "_origin": "ast",
@@ -10457,7 +11302,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/HomeScreen.jsx",
-      "source_location": "L6",
+      "source_location": "L8",
       "weight": 1.0
     },
     {
@@ -10469,7 +11314,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/HomeScreen.jsx",
-      "source_location": "L6",
+      "source_location": "L8",
       "weight": 1.0
     },
     {
@@ -10481,19 +11326,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/HomeScreen.jsx",
-      "source_location": "L7",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_homescreen",
-      "target": "src_utils_transitnetwork_getstationforlevel",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/components/HomeScreen.jsx",
-      "source_location": "L8",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -10701,6 +11534,78 @@
       "weight": 1.0
     },
     {
+      "source": "src_components_missionssheet",
+      "target": "src_store_gamestore_usegamestore",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/MissionsSheet.jsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_missionssheet",
+      "target": "src_utils_format_formatkurus",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/MissionsSheet.jsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_missionssheet",
+      "target": "src_utils_analytics_track",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/MissionsSheet.jsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_missionssheet",
+      "target": "src_utils_daily_missionsfor",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/MissionsSheet.jsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_missionssheet",
+      "target": "src_utils_daily_streak_milestones",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/MissionsSheet.jsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_missionssheet",
+      "target": "src_utils_daily_todaykey",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/MissionsSheet.jsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
       "source": "src_components_navigationcontainer",
       "target": "src_components_leaderboardscreen_leaderboardscreen",
       "relation": "imports",
@@ -10750,7 +11655,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_utils_i18n_usetranslation",
+      "target": "src_components_dailyscreen_dailyscreen",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -10762,31 +11667,19 @@
     },
     {
       "source": "src_components_navigationcontainer",
+      "target": "src_utils_i18n_usetranslation",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer",
       "target": "src_store_gamestore_getmaxlives",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L15",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_navigationcontainer",
-      "target": "src_store_gamestore_usegamestore",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L15",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_navigationcontainer",
-      "target": "src_components_usernamemodal_usernamemodal",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -10798,7 +11691,19 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_components_screenheader_screenheader",
+      "target": "src_store_gamestore_usegamestore",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer",
+      "target": "src_components_usernamemodal_usernamemodal",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -10810,7 +11715,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_utils_transitnetwork_getstationforlevel",
+      "target": "src_components_screenheader_screenheader",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -10822,7 +11727,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_utils_supabaseclient_iscloudconfigured",
+      "target": "src_utils_transitnetwork_getstationforlevel",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -10842,6 +11747,18 @@
       "context": "import",
       "source_file": "src/components/NavigationContainer.jsx",
       "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer",
+      "target": "src_utils_supabaseclient_iscloudconfigured",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L20",
       "weight": 1.0
     },
     {
@@ -11386,6 +12303,18 @@
     },
     {
       "source": "src_store_gamestore",
+      "target": "src_utils_daily_todaykey",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/store/gameStore.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "src_store_gamestore",
       "target": "src_utils_supabaseclient_cloudservice",
       "relation": "imports",
       "_origin": "ast",
@@ -11393,7 +12322,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/store/gameStore.js",
-      "source_location": "L3",
+      "source_location": "L4",
       "weight": 1.0
     },
     {
@@ -11405,7 +12334,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/store/gameStore.js",
-      "source_location": "L4",
+      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -12309,6 +13238,102 @@
       "weight": 1.0
     },
     {
+      "source": "src_components_dailyscreen",
+      "target": "ref_react",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen",
+      "target": "src_components_grid",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen",
+      "target": "src_components_wheel",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen",
+      "target": "src_store_gamestore",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen",
+      "target": "src_utils_gamelogic",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen",
+      "target": "src_utils_format",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen",
+      "target": "src_utils_analytics",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen",
+      "target": "src_utils_daily",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
       "source": "src_components_dailyspinscreen",
       "target": "ref_react",
       "relation": "imports_from",
@@ -12838,6 +13863,18 @@
     },
     {
       "source": "src_components_homescreen",
+      "target": "src_utils_transitnetwork",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/HomeScreen.jsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_homescreen",
       "target": "src_components_tipbubble",
       "relation": "imports_from",
       "_origin": "ast",
@@ -12862,7 +13899,7 @@
     },
     {
       "source": "src_components_homescreen",
-      "target": "ref_react",
+      "target": "src_components_missionssheet",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -12874,7 +13911,7 @@
     },
     {
       "source": "src_components_homescreen",
-      "target": "src_components_animatedbalance",
+      "target": "src_utils_daily",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -12886,7 +13923,7 @@
     },
     {
       "source": "src_components_homescreen",
-      "target": "src_store_gamestore",
+      "target": "ref_react",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -12898,7 +13935,7 @@
     },
     {
       "source": "src_components_homescreen",
-      "target": "src_utils_i18n",
+      "target": "src_components_animatedbalance",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -12910,7 +13947,7 @@
     },
     {
       "source": "src_components_homescreen",
-      "target": "src_utils_transitnetwork",
+      "target": "src_store_gamestore",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -12918,6 +13955,18 @@
       "context": "import",
       "source_file": "src/components/HomeScreen.jsx",
       "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_homescreen",
+      "target": "src_utils_i18n",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/HomeScreen.jsx",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -13113,6 +14162,66 @@
       "weight": 1.0
     },
     {
+      "source": "src_components_missionssheet",
+      "target": "ref_react",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/MissionsSheet.jsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_missionssheet",
+      "target": "src_store_gamestore",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/MissionsSheet.jsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_missionssheet",
+      "target": "src_utils_format",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/MissionsSheet.jsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_missionssheet",
+      "target": "src_utils_analytics",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/MissionsSheet.jsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_missionssheet",
+      "target": "src_utils_daily",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/MissionsSheet.jsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
       "source": "src_components_navigationcontainer",
       "target": "ref_react",
       "relation": "imports_from",
@@ -13174,7 +14283,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_utils_i18n",
+      "target": "src_components_dailyscreen",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -13186,7 +14295,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_store_gamestore",
+      "target": "src_utils_i18n",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -13198,7 +14307,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_components_usernamemodal",
+      "target": "src_store_gamestore",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -13210,7 +14319,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_components_screenheader",
+      "target": "src_components_usernamemodal",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -13222,7 +14331,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_utils_transitnetwork",
+      "target": "src_components_screenheader",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -13234,7 +14343,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_utils_supabaseclient",
+      "target": "src_utils_transitnetwork",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -13254,6 +14363,18 @@
       "context": "import",
       "source_file": "src/components/NavigationContainer.jsx",
       "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer",
+      "target": "src_utils_supabaseclient",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L20",
       "weight": 1.0
     },
     {
@@ -13834,7 +14955,7 @@
     },
     {
       "source": "src_store_gamestore",
-      "target": "ref_zustand",
+      "target": "src_utils_daily",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -13846,7 +14967,7 @@
     },
     {
       "source": "src_store_gamestore",
-      "target": "src_utils_supabaseclient",
+      "target": "ref_zustand",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -13858,7 +14979,7 @@
     },
     {
       "source": "src_store_gamestore",
-      "target": "src_utils_persiststorage",
+      "target": "src_utils_supabaseclient",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -13866,6 +14987,18 @@
       "context": "import",
       "source_file": "src/store/gameStore.js",
       "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "src_store_gamestore",
+      "target": "src_utils_persiststorage",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/store/gameStore.js",
+      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -15049,6 +16182,61 @@
       "weight": 1.0
     },
     {
+      "source": "src_components_dailyscreen",
+      "target": "src_components_dailyscreen_mmss",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen",
+      "target": "src_components_dailyscreen_dailystreak",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen",
+      "target": "src_components_dailyscreen_untilmidnight",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen",
+      "target": "src_components_dailyscreen_play",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen",
+      "target": "src_components_dailyscreen_dailyscreen",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L88",
+      "weight": 1.0
+    },
+    {
       "source": "src_components_dailyspinscreen",
       "target": "src_components_dailyspinscreen_dailyspinscreen",
       "relation": "contains",
@@ -15199,7 +16387,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/HomeScreen.jsx",
-      "source_location": "L11",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -15210,7 +16398,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/HomeScreen.jsx",
-      "source_location": "L19",
+      "source_location": "L21",
       "weight": 1.0
     },
     {
@@ -15280,6 +16468,28 @@
       "weight": 1.0
     },
     {
+      "source": "src_components_missionssheet",
+      "target": "src_components_missionssheet_missionssheet",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/components/MissionsSheet.jsx",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_missionssheet",
+      "target": "src_components_missionssheet_usemissionprogress",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/components/MissionsSheet.jsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
       "source": "src_components_navigationcontainer",
       "target": "src_components_navigationcontainer_navigationcontainer",
       "relation": "contains",
@@ -15287,7 +16497,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -15930,7 +17140,7 @@
     },
     {
       "source": "src_store_gamestore",
-      "target": "src_store_gamestore_vault_size",
+      "target": "src_store_gamestore_max_lives",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -15941,7 +17151,7 @@
     },
     {
       "source": "src_store_gamestore",
-      "target": "src_store_gamestore_vault_reward",
+      "target": "src_store_gamestore_vault_size",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -15952,18 +17162,18 @@
     },
     {
       "source": "src_store_gamestore",
-      "target": "src_store_gamestore_getmaxlives",
+      "target": "src_store_gamestore_vault_reward",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/store/gameStore.js",
-      "source_location": "L14",
+      "source_location": "L12",
       "weight": 1.0
     },
     {
       "source": "src_store_gamestore",
-      "target": "src_store_gamestore_gethintcosts",
+      "target": "src_store_gamestore_getmaxlives",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -15974,13 +17184,24 @@
     },
     {
       "source": "src_store_gamestore",
+      "target": "src_store_gamestore_gethintcosts",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/store/gameStore.js",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "src_store_gamestore",
       "target": "src_store_gamestore_getearningsmultiplier",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/store/gameStore.js",
-      "source_location": "L19",
+      "source_location": "L20",
       "weight": 1.0
     },
     {
@@ -15991,7 +17212,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/store/gameStore.js",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -16002,18 +17223,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/store/gameStore.js",
-      "source_location": "L6",
-      "weight": 1.0
-    },
-    {
-      "source": "src_store_gamestore",
-      "target": "src_store_gamestore_max_lives",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/store/gameStore.js",
-      "source_location": "L9",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
@@ -16201,6 +17411,127 @@
       "confidence_score": 1.0,
       "source_file": "src/utils/badges.js",
       "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_daily",
+      "target": "src_utils_daily_daynumber",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/daily.js",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_daily",
+      "target": "src_utils_daily_dailyseed",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/daily.js",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_daily",
+      "target": "src_utils_daily_yesterdaykey",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/daily.js",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_daily",
+      "target": "src_utils_daily_mmss",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/daily.js",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_daily",
+      "target": "src_utils_daily_buildsharetext",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/daily.js",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_daily",
+      "target": "src_utils_daily_mission_pool",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/daily.js",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_daily",
+      "target": "src_utils_daily_missionsfor",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/daily.js",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_daily",
+      "target": "src_utils_daily_daily_reward",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/daily.js",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_daily",
+      "target": "src_utils_daily_launch",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/daily.js",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_daily",
+      "target": "src_utils_daily_streak_milestones",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/daily.js",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_daily",
+      "target": "src_utils_daily_todaykey",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/daily.js",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -17893,5 +19224,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "d9633b36614d2522035fa1d8eb8727b91ff12b90"
+  "built_at_commit": "f7e94a5040161871418fbdc1d4851cc317f8b9fd"
 }

@@ -1,5 +1,5 @@
 {
-  "0": "NavigationContainer.jsx",
+  "0": "useGameStore",
   "1": "GameContainer.jsx",
   "2": "gameLogic.js",
   "3": "run.cjs",
@@ -13,9 +13,9 @@
   "11": "CLAUDE.md",
   "12": "SceneBackground.jsx",
   "13": "DuelsScreen.jsx",
+  "14": "DailyScreen.jsx",
   "15": "vercel.json",
   "16": "gradlew",
-  "18": "AkbilScreen.jsx",
   "19": "MainActivity.java",
   "20": "tailwind.config.js",
   "21": "app/build.gradle",
