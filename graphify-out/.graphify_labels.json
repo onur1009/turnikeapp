@@ -8,12 +8,12 @@
   "6": "devDependencies",
   "7": "dependencies",
   "8": "ExampleInstrumentedTest.java",
-  "9": "adService.js",
+  "9": "transitNetwork.js",
   "10": "league.js",
   "11": "CLAUDE.md",
   "12": "SceneBackground.jsx",
-  "13": "analytics.js",
-  "14": "formatKurus",
+  "13": "main.jsx",
+  "14": "HomeScreen.jsx",
   "15": "vercel.json",
   "16": "gradlew",
   "17": "scripts",
@@ -32,5 +32,6 @@
   "30": "React + Vite",
   "31": "puppeteer",
   "32": "vite.config.js",
-  "33": "VehicleSprite.jsx"
+  "33": "VehicleSprite.jsx",
+  "34": "Google Play mağaza sayfası (Türkçe)"
 }
