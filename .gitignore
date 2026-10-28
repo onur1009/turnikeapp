@@ -36,3 +36,6 @@ graphify-out/.graphify_root
 
 # Claude Code kişisel ayarları (graphify kancası bu bilgisayardaki exe yolunu içerir)
 .claude/settings.local.json
+
+# Derlenen APK kopyaları
+release/
