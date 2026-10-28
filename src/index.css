@@ -881,3 +881,75 @@ body.a11y-contrast .wheel-plate { background: #ffffff; box-shadow: 0 0 0 3px #0f
 body.a11y-contrast .wheel-letter { color: #000000; font-weight: 900; }
 body.a11y-contrast .text-white\/50, body.a11y-contrast .text-white\/55, body.a11y-contrast .text-white\/60 { color: rgba(255,255,255,0.88) !important; }
 body.a11y-contrast .tool-btn, body.a11y-contrast .status-chip, body.a11y-contrast .icon-btn { background: #0b1a33; border-color: rgba(255,255,255,0.6); }
+
+/* ===== Açılış tanıtımı ===== */
+.intro-root { cursor: pointer; animation: introFade 0.6s ease both; }
+@keyframes introFade { from { opacity: 0; } to { opacity: 1; } }
+.intro-vignette { position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: radial-gradient(ellipse 80% 60% at 50% 45%, transparent 30%, rgba(2,6,23,0.75) 100%);
+  animation: introVignette 4.3s ease both; }
+@keyframes introVignette { 0% { background-color: #020617; } 18% { background-color: transparent; } }
+.intro-train { position: absolute; z-index: 2; top: calc(65% - 38px); left: 0; transform: translateX(-110%);
+  animation: introTrain 1.15s cubic-bezier(0.55, 0, 0.35, 1) 0.45s both; }
+@keyframes introTrain { from { transform: translateX(-110%); } to { transform: translateX(130vw); } }
+.intro-streak { position: absolute; right: 96%; top: 40%; width: 60vw; height: 6px; border-radius: 3px;
+  background: linear-gradient(90deg, transparent, rgba(253,230,138,0.85)); }
+.intro-gate { opacity: 0; animation: introPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 1.3s both; }
+.intro-gate-arms { transform-box: view-box; transform-origin: 60px 62px; animation: introArms 0.8s ease-in-out 1.7s both; }
+@keyframes introArms { from { transform: rotate(0deg); } to { transform: rotate(120deg); } }
+.intro-gate-led { animation: introLed 0.8s steps(2) 1.7s both; }
+@keyframes introLed { 0% { fill: #dc2626; } 100% { fill: #22c55e; } }
+@keyframes introPop { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: scale(1); } }
+.intro-tile {
+  width: 42px; height: 46px; display: flex; align-items: center; justify-content: center;
+  border-radius: 9px; background: #ffffff; color: #10263f; font-weight: 900; font-size: 24px;
+  box-shadow: inset 0 -4px 0 rgba(15,23,42,0.15), 0 6px 14px rgba(0,0,0,0.35);
+  opacity: 0; transform: translateY(-60px) rotate(-8deg);
+  animation: introTileDrop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) calc(2.1s + var(--i) * 0.09s) both,
+             introTileColor 0.35s ease calc(2.95s + var(--i) * 0.06s) both;
+}
+@keyframes introTileDrop { to { opacity: 1; transform: translateY(0) rotate(0deg); } }
+@keyframes introTileColor { to { background: var(--c); color: #ffffff; box-shadow: inset 0 -4px 0 rgba(0,0,0,0.22), 0 6px 14px rgba(0,0,0,0.35); } }
+.intro-sub { margin-top: 14px; color: #fde68a; font-weight: 800; font-size: 15px; letter-spacing: 6px; text-transform: uppercase;
+  opacity: 0; animation: introRise 0.5s ease 3.25s both; }
+@keyframes introRise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.intro-lines { display: flex; flex-direction: column; gap: 5px; width: 220px; margin-top: 16px; }
+.intro-lines span { height: 5px; border-radius: 3px; transform-origin: left center; transform: scaleX(0);
+  animation: introLine 0.5s ease calc(3.35s + var(--i) * 0.08s) both; }
+@keyframes introLine { to { transform: scaleX(1); } }
+.intro-skip { position: absolute; z-index: 10; left: 0; right: 0; bottom: calc(env(safe-area-inset-bottom, 0px) + 28px);
+  text-align: center; color: rgba(255,255,255,0.55); font-size: 12px; font-weight: 700; letter-spacing: 1px; }
+@media (max-width: 360px) { .intro-tile { width: 36px; height: 40px; font-size: 21px; } }
+@media (prefers-reduced-motion: reduce) {
+  .intro-root *, .intro-root { animation-duration: 0.01s !important; animation-delay: 0s !important; }
+  .intro-train { display: none; }
+}
+
+/* ===== Turnike Çarkı ===== */
+.spin-root {
+  background:
+    radial-gradient(ellipse 70% 45% at 50% 42%, rgba(253,230,138,0.22), transparent 70%),
+    linear-gradient(180deg, #0e2546 0%, #19476d 60%, #0c2a48 100%);
+}
+.spin-rays {
+  position: absolute; inset: -50%; pointer-events: none; opacity: 0.18;
+  background: repeating-conic-gradient(from 0deg at 50% 46%, #fde68a 0deg 6deg, transparent 6deg 22deg);
+  animation: spinRays 40s linear infinite;
+}
+@keyframes spinRays { to { transform: rotate(360deg); } }
+.spin-eyebrow { color: #fde68a; font-size: 12px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; }
+.spin-ring {
+  background: #10263f; box-shadow: 0 0 0 4px #fde68a, 0 18px 40px rgba(0,0,0,0.45), inset 0 0 0 6px #0b1a33;
+}
+.spin-bulb {
+  position: absolute; left: 50%; top: 50%; width: 9px; height: 9px; margin: -4.5px; border-radius: 9999px;
+  background: #fde68a; box-shadow: 0 0 6px rgba(253,230,138,0.8);
+  transform: rotate(var(--a)) translateY(calc(-1 * min(42vw, 165px) + 10px));
+}
+.spin-bulb.is-chasing { animation: spinBulb 0.5s steps(2) var(--d) infinite; }
+@keyframes spinBulb { 50% { background: #f97316; box-shadow: 0 0 10px rgba(249,115,22,0.9); } }
+.spin-prize {
+  background: #fde68a; border-radius: 22px; padding: 16px 18px; text-align: center;
+  box-shadow: inset 0 -5px 0 rgba(0,0,0,0.12), 0 14px 30px rgba(0,0,0,0.35);
+}
+@media (prefers-reduced-motion: reduce) { .spin-rays, .spin-bulb.is-chasing { animation: none; } }

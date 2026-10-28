@@ -3,6 +3,7 @@ import { generateLevel, VALID_WORDS_TR, VALID_WORDS_EN, WORD_MEANINGS_TR, WORD_M
 import { playCorrect, playWrong, playLevelComplete, playTurnike, playCombo, playBadgeUnlock, playBalanceUp, playTick, playTimeUp, playGameOver } from './utils/soundManager';
 import { useTranslation } from './utils/i18n';
 import DailySpinScreen from './components/DailySpinScreen';
+import IntroScreen from './components/IntroScreen';
 import AnimatedBalance from './components/AnimatedBalance';
 import NavigationContainer from './components/NavigationContainer';
 import GameContainer from './components/GameContainer';
@@ -17,7 +18,6 @@ import './index.css';
 function App() {
   const [screen, setScreen] = useState('loading');
   const [previousScreen, setPreviousScreen] = useState('home');
-  const [loadingProgress, setLoadingProgress] = useState(0);
   const [isAppReady, setIsAppReady] = useState(false);
 
   // Zustand Store — Selector bazlı erişim
@@ -188,47 +188,11 @@ function App() {
     }
   }, []);
 
-  useEffect(() => {
-    if (screen === 'loading') {
-      let progress = 0;
-      const interval = setInterval(() => {
-        progress += Math.random() * 28;
-        if (progress >= 100) { progress = 100; clearInterval(interval); setTimeout(() => setScreen(openDuelOnStart.current ? 'duels' : 'home'), 500); }
-        setLoadingProgress(Math.floor(progress));
-      }, 130);
-      return () => clearInterval(interval);
-    }
-  }, [screen]);
 
 
-  /* ========== LOADING SCREEN ========== */
+  /* ========== AÇILIŞ TANITIMI ========== */
   if (screen === 'loading') {
-    return (
-      <div className="game-bg h-full flex flex-col items-center justify-center fade-in relative z-10">
-        <div className="relative w-28 h-28 mb-8">
-          <div className="absolute inset-0 rounded-full loading-ring"
-            style={{ border: '3px solid transparent', borderTopColor: '#22c55e', borderRightColor: '#22c55e' }} />
-          <div className="absolute inset-3 rounded-full loading-ring"
-            style={{ border: '2px solid transparent', borderBottomColor: '#3b82f6', animationDirection: 'reverse', animationDuration: '0.7s' }} />
-          <div className="absolute inset-0 flex items-center justify-center flex-col">
-            <span aria-hidden="true" className="material-symbols-outlined text-white text-[28px]" style={{ fontVariationSettings: "'FILL' 1" }}>train</span>
-          </div>
-        </div>
-
-        <h2 className="text-white text-2xl font-black tracking-[6px] mb-1">
-          {t('word_journey')}
-        </h2>
-        <p className="text-white/30 text-[11px] tracking-[4px] mb-6 font-bold">TURNİKE</p>
-
-        <div className="relative w-56">
-          <div className="w-full h-2 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.1)' }}>
-            <div className="h-full rounded-full transition-all duration-150"
-              style={{ width: `${loadingProgress}%`, background: 'linear-gradient(90deg, #22c55e, #16a34a)', boxShadow: '0 0 10px rgba(34,197,94,0.5)' }} />
-          </div>
-          <p className="text-center text-white/40 text-[11px] font-bold mt-2 tracking-widest">{loadingProgress}%</p>
-        </div>
-      </div>
-    );
+    return <IntroScreen onDone={() => setScreen(openDuelOnStart.current ? 'duels' : 'home')} />;
   }
 
 

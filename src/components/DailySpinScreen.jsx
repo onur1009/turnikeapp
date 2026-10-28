@@ -1,194 +1,148 @@
 import React, { useState } from 'react';
 import { useGameStore } from '../store/gameStore';
-import { Haptics, NotificationType } from '@capacitor/haptics';
+import { Haptics, ImpactStyle, NotificationType } from '@capacitor/haptics';
+import { formatKurus } from '../utils/format';
+import { playBalanceUp } from '../utils/soundManager';
+import { track } from '../utils/analytics';
 
+// Günlük Turnike Çarkı: hat renklerinde 8 dilim, ibre turnike kapısı. Günde bir kez.
+// Ödüller oyun ekonomisine göre (kuruş): ipucu ₺0,25 olduğu için çark ₺0,25–2,00 arası verir.
+// Çark SVG ile çizilir; yazılar dilim ekseni boyunca, sol yarıda ters dönmesin diye çevrilir.
 const PRIZES = [
-  { label: '100₺', type: 'money', value: 10000, color: '#22c55e', icon: 'payments', line: 'M2' },     // Yeşil
-  { label: '1 Can', type: 'life', value: 1, color: '#ef4444', icon: 'favorite', line: 'M1' },        // Kırmızı
-  { label: '50₺', type: 'money', value: 5000, color: '#eab308', icon: 'toll', line: 'METROBÜS' },    // Sarı
-  { label: 'İpucu', type: 'hint', value: 1, color: '#3b82f6', icon: 'lightbulb', line: 'VAPUR' },    // Mavi
-  { label: '150₺', type: 'money', value: 15000, color: '#1d4ed8', icon: 'diamond', line: 'T1' },      // Lacivert
-  { label: 'Pas', type: 'none', value: 0, color: '#64748b', icon: 'block', line: 'MARMARAY' },       // Gri
+  { label: '₺0,25', type: 'money', value: 25, color: '#16a34a', line: 'M2', weight: 22 },
+  { label: '1 İpucu', type: 'hint', value: 1, color: '#2563eb', line: 'BV', weight: 18 },
+  { label: '₺0,50', type: 'money', value: 50, color: '#eab308', line: '34', weight: 18 },
+  { label: '2 İpucu', type: 'hint', value: 2, color: '#dc2626', line: 'M1A', weight: 9 },
+  { label: '₺1,00', type: 'money', value: 100, color: '#7e22ce', line: 'M5', weight: 12 },
+  { label: '1 İpucu', type: 'hint', value: 1, color: '#0d9488', line: 'TF1', weight: 12 },
+  { label: '₺2,00', type: 'money', value: 200, color: '#f59e0b', line: 'BÜYÜK', weight: 3, jackpot: true },
+  { label: '₺0,50', type: 'money', value: 50, color: '#64748b', line: 'MR', weight: 6 },
 ];
+const SEG = 360 / PRIZES.length;
+const R = 150; // SVG yarıçapı (viewBox 0..300)
+
+const arcPath = (i) => {
+  const a0 = ((i * SEG) - 90) * Math.PI / 180;
+  const a1 = (((i + 1) * SEG) - 90) * Math.PI / 180;
+  const x0 = R + R * Math.cos(a0), y0 = R + R * Math.sin(a0);
+  const x1 = R + R * Math.cos(a1), y1 = R + R * Math.sin(a1);
+  return `M${R} ${R} L${x0.toFixed(2)} ${y0.toFixed(2)} A${R} ${R} 0 0 1 ${x1.toFixed(2)} ${y1.toFixed(2)} Z`;
+};
+
+const pickIndex = () => {
+  const total = PRIZES.reduce((s, p) => s + p.weight, 0);
+  let r = Math.random() * total;
+  for (let i = 0; i < PRIZES.length; i++) { r -= PRIZES[i].weight; if (r <= 0) return i; }
+  return 0;
+};
 
 const DailySpinScreen = ({ onComplete }) => {
-  const [spinning, setSpinning] = useState(false);
+  const [phase, setPhase] = useState('ready'); // ready | spinning | won
   const [rotation, setRotation] = useState(0);
   const [prize, setPrize] = useState(null);
-  
-  const addBalance = useGameStore(state => state.addBalance);
-  const addLives = useGameStore(state => state.addLives);
-  const addHints = useGameStore(state => state.addHints);
-  const setLastSpinDate = useGameStore(state => state.setLastSpinDate);
+  const addBalance = useGameStore(s => s.addBalance);
+  const addHints = useGameStore(s => s.addHints);
+  const soundEnabled = useGameStore(s => s.soundEnabled);
+  const setLastSpinDate = useGameStore(s => s.setLastSpinDate);
 
-  const handleSpin = () => {
-    if (spinning) return;
-    setSpinning(true);
-    Haptics.notification({ type: NotificationType.Warning }).catch(() => {});
-
-    // Rastgele bir ödül seç (pas gelme ihtimali düşük)
-    const weights = [0.15, 0.15, 0.3, 0.2, 0.1, 0.1];
-    let rand = Math.random();
-    let selectedIndex = 0;
-    let sum = 0;
-    for (let i = 0; i < weights.length; i++) {
-      sum += weights[i];
-      if (rand <= sum) {
-        selectedIndex = i;
-        break;
-      }
-    }
-
-    const segments = PRIZES.length;
-    const degreesPerSegment = 360 / segments;
-    // Çarkın ibresi tepede. Seçilen dilimin merkeze gelmesi için hesaplama
-    const targetRotation = (360 * 6) + (360 - (selectedIndex * degreesPerSegment));
-    
-    setRotation(targetRotation);
-
+  const spin = () => {
+    if (phase !== 'ready') return;
+    const idx = pickIndex();
+    // İbre tepede: kazanan dilimin ortası tepeye gelsin (+ 6 tam tur, dilim içinde küçük sapma)
+    const center = idx * SEG + SEG / 2;
+    const jitter = (Math.random() - 0.5) * SEG * 0.5;
+    setRotation(360 * 6 - center + jitter);
+    setPhase('spinning');
+    Haptics.impact({ style: ImpactStyle.Medium }).catch(() => {});
     setTimeout(() => {
-      setSpinning(false);
-      const wonPrize = PRIZES[selectedIndex];
-      setPrize(wonPrize);
-      Haptics.notification({ type: NotificationType.Success }).catch(() => {});
-      
-      // Ödülü ver
-      if (wonPrize.type === 'money') {
-        addBalance(wonPrize.value);
-      } else if (wonPrize.type === 'life') {
-        addLives(wonPrize.value);
-      } else if (wonPrize.type === 'hint') {
-        addHints(wonPrize.value);
-      }
-      
-      // Bugünün tarihini kaydet
+      const won = PRIZES[idx];
+      setPrize(won);
+      setPhase('won');
+      if (won.type === 'money') addBalance(won.value);
+      if (won.type === 'hint') addHints(won.value);
       setLastSpinDate(new Date().toLocaleDateString());
-
-      setTimeout(() => {
-        onComplete();
-      }, 3500);
-    }, 4000); // 4 saniye animasyon süresi
+      if (soundEnabled) playBalanceUp();
+      Haptics.notification({ type: NotificationType.Success }).catch(() => {});
+      track('daily_spin', { prize: won.label });
+    }, 4600);
   };
 
   return (
-    <div className="absolute inset-0 z-[100] flex flex-col items-center justify-center p-6 bg-black/95 backdrop-blur-xl fade-in overflow-hidden">
-      {/* Arka plan ray dekorasyonları */}
-      <div className="absolute inset-0 pointer-events-none opacity-20"
-        style={{
-          backgroundSize: '40px 40px',
-          backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)'
-        }}
-      />
+    <div className="spin-root absolute inset-0 z-[100] flex flex-col items-center justify-center px-6 fade-in overflow-hidden" role="dialog" aria-labelledby="spin-title">
+      <div className="spin-rays" aria-hidden="true" />
 
-      <div className="relative z-10 flex flex-col items-center text-center mb-10">
-        <span aria-hidden="true" className="material-symbols-outlined text-[48px] text-green-400 mb-2 drop-shadow-[0_0_15px_rgba(74,222,128,0.8)]" style={{ fontVariationSettings: "'FILL' 1" }}>change_circle</span>
-        <h1 className="text-white text-4xl font-black tracking-[8px] uppercase mb-1" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.35)' }}>
-          TURNİKE ÇARKI
-        </h1>
-        <p className="text-white/70 font-medium tracking-widest text-sm uppercase">Günün Şanslı Seferini Çek</p>
+      <div className="relative z-10 flex flex-col items-center text-center mb-6">
+        <span className="spin-eyebrow">Günde bir kez</span>
+        <h1 id="spin-title" className="text-white font-black text-[34px] leading-none mt-1">Turnike Çarkı</h1>
+        <p className="text-white/70 text-[14px] font-semibold mt-2">Kapıdan geç, günün ödülünü kap</p>
       </div>
 
-      <div className="relative w-80 h-80 mb-14 drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
-        {/* İbre (Metro Ön Yüzü) */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 -mt-6 z-30 flex flex-col items-center">
-          <div className="w-12 h-14 bg-white rounded-t-xl rounded-b-md flex flex-col items-center justify-center shadow-[0_0_20px_rgba(255,255,255,0.6)] border-b-4 border-gray-300">
-            <div className="w-8 h-4 bg-black rounded-sm mb-1 opacity-80" />
-            <div className="flex gap-1">
-              <div className="w-2 h-2 rounded-full bg-yellow-400" />
-              <div className="w-2 h-2 rounded-full bg-yellow-400" />
-            </div>
-          </div>
-          <div className="w-0 h-0 border-l-[12px] border-l-transparent border-r-[12px] border-r-transparent border-t-[14px] border-t-white mt-1 drop-shadow-lg" />
+      <div className="relative z-10" style={{ width: 'min(84vw, 330px)', aspectRatio: '1 / 1' }}>
+        {/* İbre: turnike kapısı */}
+        <svg className="absolute left-1/2 -translate-x-1/2 -top-7 z-20" width="56" height="64" viewBox="0 0 56 64" aria-hidden="true">
+          <rect x="4" y="2" width="48" height="34" rx="9" fill="#10263f" stroke="#fde68a" strokeWidth="3" />
+          <rect x="12" y="10" width="32" height="8" rx="3" fill={phase === 'won' ? '#22c55e' : '#dc2626'} />
+          <path d="M18 36 L28 60 L38 36 Z" fill="#fde68a" />
+        </svg>
+
+        {/* Dış halka ve ampuller */}
+        <div className="spin-ring absolute inset-0 rounded-full" aria-hidden="true">
+          {Array.from({ length: 16 }, (_, i) => (
+            <span key={i} className={`spin-bulb ${phase === 'spinning' ? 'is-chasing' : ''}`} style={{ '--a': `${i * 22.5}deg`, '--d': `${(i % 2) * 0.25}s` }} />
+          ))}
         </div>
 
-        {/* Çark Dış Çerçevesi */}
-        <div className="absolute inset-0 rounded-full border-[12px] border-[#0f172a] shadow-[0_0_0_2px_rgba(255,255,255,0.1)_inset,0_0_40px_rgba(0,0,0,1)] z-20 pointer-events-none" />
-
-        {/* Çark Gövdesi */}
-        <div 
-          className="w-full h-full rounded-full overflow-hidden transition-transform ease-out relative z-10"
-          style={{
-            transform: `rotate(${rotation}deg)`,
-            transitionDuration: spinning ? '4s' : '0s',
-            // Daha sert çizgiler için conic-gradient
-            background: `conic-gradient(${PRIZES.map((p, i) => {
-              const start = i * (360/PRIZES.length);
-              const end = (i+1) * (360/PRIZES.length);
-              return `${p.color} ${start}deg ${end}deg`;
-            }).join(', ')})`
-          }}
-        >
+        {/* Çark */}
+        <svg className="absolute inset-[7%]" viewBox="0 0 300 300" style={{
+          transform: `rotate(${rotation}deg)`,
+          transition: phase === 'spinning' ? 'transform 4.4s cubic-bezier(0.12, 0.6, 0.1, 1)' : 'none',
+        }} aria-hidden="true">
           {PRIZES.map((p, i) => {
-            const rot = (i * (360/PRIZES.length)) + (360/PRIZES.length)/2;
+            const mid = i * SEG + SEG / 2;
+            // Çark durduğunda sağ yarıda kalan yazılar ters okunmasın: dışa doğru okunacak şekilde çevir
+            const abs = ((mid + rotation) % 360 + 360) % 360;
+            const textTurn = abs > 5 && abs < 175 ? -90 : 90;
             return (
-              <div 
-                key={i}
-                className="absolute top-0 left-1/2 origin-bottom"
-                style={{ 
-                  height: '50%', 
-                  width: '0px', 
-                  transform: `translateX(-50%) rotate(${rot}deg)` 
-                }}
-              >
-                {/* Tek bir yatay konteyner oluşturup onu 90 derece döndürüyoruz */}
-                <div 
-                  className="absolute flex items-center justify-start gap-2"
-                  style={{
-                    top: '100%', 
-                    left: '50%',
-                    transformOrigin: 'center center',
-                    transform: 'translate(-50%, -50%) rotate(-90deg) translateX(70px)',
-                    whiteSpace: 'nowrap'
-                  }}
-                >
-                  {/* Etiket (Siyah stroke ile her renkte okunur) */}
-                  <span 
-                    className="text-white font-black text-[24px] tracking-wide"
-                    style={{ 
-                      textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 4px 8px rgba(0,0,0,0.8)' 
-                    }}
-                  >
+              <g key={i}>
+                <path d={arcPath(i)} fill={p.color} stroke="#0b1a33" strokeWidth="2" />
+                <g transform={`rotate(${mid} ${R} ${R})`}>
+                  <rect x={R - 17} y="22" width="34" height="16" rx="4" fill="rgba(0,0,0,0.35)" />
+                  <text x={R} y="34" textAnchor="middle" fill="#fff" fontSize="10" fontWeight="900" letterSpacing="0.5">{p.line}</text>
+                  <text x={R} y="66" textAnchor="middle" fill="#fff" fontSize={p.jackpot ? 19 : 17} fontWeight="900"
+                    transform={`rotate(${textTurn} ${R} 66)`} style={{ paintOrder: 'stroke', stroke: 'rgba(0,0,0,0.35)', strokeWidth: 3 }}>
                     {p.label}
-                  </span>
-                  
-                  {/* Hat Kodu */}
-                  <div className="px-2 py-1 bg-black/75 rounded-md text-white/90 text-[10px] font-black tracking-widest border border-white/20 shadow-lg">
-                    {p.line}
-                  </div>
-                </div>
-              </div>
+                  </text>
+                </g>
+              </g>
             );
           })}
-          
-          {/* Çark Merkez Göbeği */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-[#0f172a] rounded-full z-20 border-[4px] border-[#1e293b] flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.8)]">
-            <span aria-hidden="true" className="material-symbols-outlined text-white/50 text-[28px] animate-spin-slow">toll</span>
-          </div>
-        </div>
+          <circle cx={R} cy={R} r="34" fill="#10263f" stroke="#fde68a" strokeWidth="4" />
+        </svg>
+
+        {/* Göbek: dokunarak çevir */}
+        <button onClick={spin} disabled={phase !== 'ready'} aria-label="Çarkı çevir"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-[22%] aspect-square rounded-full flex items-center justify-center text-[#fde68a] font-black text-[13px] tracking-wider disabled:opacity-90">
+          {phase === 'ready' ? 'ÇEVİR' : <span aria-hidden="true" className="material-symbols-outlined text-[26px]">toll</span>}
+        </button>
       </div>
 
-      {!prize ? (
-        <button
-          onClick={handleSpin}
-          disabled={spinning}
-          className={`relative group overflow-hidden w-full max-w-xs py-5 rounded-2xl font-black text-xl tracking-[4px] transition-all ${spinning ? 'opacity-50 scale-95' : 'hover:scale-105 active:scale-95'}`}
-          style={{
-            background: 'linear-gradient(135deg, #16a34a, #15803d)',
-            boxShadow: '0 10px 30px rgba(22,163,74,0.4), inset 0 2px 0 rgba(255,255,255,0.2)',
-            textShadow: '0 2px 4px rgba(0,0,0,0.5)'
-          }}
-        >
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+')] opacity-20"></div>
-          <span className="relative z-10 text-white">{spinning ? 'ÇEVRİLİYOR...' : 'ÇARKI ÇEVİR'}</span>
-        </button>
-      ) : (
-        <div className="text-center fade-in bg-white/10 border border-white/20 p-6 rounded-3xl backdrop-blur-md w-full max-w-xs shadow-[0_20px_40px_rgba(0,0,0,0.5)]">
-          <p className="text-white/60 text-xs font-bold tracking-widest uppercase mb-1">KAZANDIĞIN ÖDÜL</p>
-          <div className="text-green-400 font-black text-4xl mb-3 drop-shadow-md">{prize.label}</div>
-          <div className="w-12 h-1 bg-green-500/50 mx-auto rounded-full mb-3" />
-          <p className="text-white/80 text-sm font-medium">Bakiye İstanbulkart'a aktarılıyor...</p>
-        </div>
-      )}
+      <div className="relative z-10 w-full max-w-xs mt-8 min-h-[120px] flex flex-col items-center justify-start">
+        {phase === 'won' && prize ? (
+          <div className="spin-prize scale-in w-full">
+            <p className="text-[#422006]/70 text-[12px] font-black tracking-[2px] uppercase">{prize.jackpot ? 'Büyük ödül!' : 'Günün ödülü'}</p>
+            <p className="text-[#422006] font-black text-[36px] leading-tight">{prize.label}</p>
+            <p className="text-[#422006]/75 text-[13px] font-semibold mb-3">{prize.type === 'money' ? `${formatKurus(prize.value)} kartına yüklendi` : 'İpuçlarına eklendi'}</p>
+            <button onClick={onComplete} className="w-full py-3 rounded-full bg-[#10263f] text-white font-black text-[15px] active:scale-95 transition-transform">Topla</button>
+          </div>
+        ) : (
+          <>
+            <button onClick={spin} disabled={phase !== 'ready'} className="play-btn w-full disabled:opacity-60">
+              {phase === 'spinning' ? 'Dönüyor…' : 'Çarkı çevir'}
+            </button>
+            {phase === 'ready' && <button onClick={onComplete} className="mt-3 text-white/60 font-bold text-[13px] underline underline-offset-4">Sonra</button>}
+          </>
+        )}
+      </div>
     </div>
   );
 };
