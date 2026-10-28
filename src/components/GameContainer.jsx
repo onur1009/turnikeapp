@@ -401,6 +401,10 @@ export default function GameContainer({
       currentVolatilityClass: detectVolatility(recent, zScore)
     });
 
+    const bump = useGameStore.getState().bumpDaily;
+    bump('levels');
+    bump('words', wordsFound.length);
+    if (isFlawless) bump('flawless');
     track('level_complete', { level: levelIndex + 1, seconds: Math.round((Date.now() - levelStartTime) / 1000), mistakes: mistakeCount, hints: hintedLetters.length, express: expressRemaining > 0 });
     setLevelSummary({
       wordPoints: store.levelSessionScore,
@@ -519,6 +523,7 @@ export default function GameContainer({
         } else if (newVaultCount > currentVaultCount) {
           showFeedback('exists', `KASAYA EKLENDİ (${newVaultCount}/10)`);
           track('extra_word', { level: levelIndex + 1 });
+          useGameStore.getState().bumpDaily('extraWords');
           if (hapticEnabled) Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
         } else {
           showFeedback('exists', t('extra_word'));
@@ -561,6 +566,7 @@ export default function GameContainer({
             } else if (newVaultCount > currentVaultCount) {
               showFeedback('exists', `KASAYA EKLENDİ (${newVaultCount}/10)`);
           track('extra_word', { level: levelIndex + 1 });
+          useGameStore.getState().bumpDaily('extraWords');
             }
             
             const meaning = data[0]?.anlamlarListe?.[0]?.anlam || "TDK onaylı kelime.";

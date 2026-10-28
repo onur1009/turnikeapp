@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { todayKey } from '../utils/daily';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { cloudService } from '../utils/supabaseClient';
 import { backedUpStorage } from '../utils/persistStorage';
@@ -77,6 +78,12 @@ export const useGameStore = create(
       // Ölçüm ve ilk oturum
       analyticsConsent: null, // null: henüz sorulmadı, true/false: oyuncunun seçimi
       seenTips: [], // bir kez gösterilen ipucu baloncukları (id listesi)
+
+      // Günlük alışkanlık (B aşaması)
+      dailyResults: {}, // 'YYYY-MM-DD' -> { date, seconds, words, wrong, trail }
+      dailyStats: { date: null }, // bugünkü görev sayaçları: levels, extraWords, flawless, duels, daily, words
+      missionsClaimed: { date: null, ids: [] },
+      streakRewardsClaimed: [], // ödülü alınmış seri günleri (3, 7, 14...)
 
       // Genel İstatistikler
       totalGamesPlayed: 0,
@@ -170,6 +177,37 @@ export const useGameStore = create(
         adRewardDate: today,
         adRewardCount: state.adRewardDate === today ? state.adRewardCount + 1 : 1,
       })),
+      // Günlük görev sayacı: gün değişince sıfırdan başlar
+      bumpDaily: (stat, n = 1) => set((state) => {
+        const today = todayKey();
+        const base = state.dailyStats.date === today ? state.dailyStats : { date: today };
+        return { dailyStats: { ...base, [stat]: (base[stat] || 0) + n } };
+      }),
+      saveDailyResult: (result) => set((state) => {
+        const keys = Object.keys(state.dailyResults).sort().slice(-39);
+        const kept = Object.fromEntries(keys.map(k => [k, state.dailyResults[k]]));
+        return { dailyResults: { ...kept, [result.date]: result } };
+      }),
+      claimMission: (id, reward) => set((state) => {
+        const today = todayKey();
+        const claimed = state.missionsClaimed.date === today ? state.missionsClaimed.ids : [];
+        if (claimed.includes(id)) return state;
+        return {
+          missionsClaimed: { date: today, ids: [...claimed, id] },
+          balance: state.balance + reward,
+          totalBalanceEarned: state.totalBalanceEarned + reward,
+          topUpHistory: [{ type: 'mission', amount: reward, at: Date.now() }, ...state.topUpHistory].slice(0, 30),
+        };
+      }),
+      claimStreakReward: (day, reward) => set((state) => {
+        if (state.streakRewardsClaimed.includes(day)) return state;
+        return {
+          streakRewardsClaimed: [...state.streakRewardsClaimed, day],
+          balance: state.balance + reward,
+          totalBalanceEarned: state.totalBalanceEarned + reward,
+          topUpHistory: [{ type: 'streak', amount: reward, at: Date.now() }, ...state.topUpHistory].slice(0, 30),
+        };
+      }),
       saveDuel: (duel) => set((state) => ({
         duels: [duel, ...state.duels.filter(d => d.code !== duel.code)].slice(0, 20),
       })),

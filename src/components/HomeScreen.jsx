@@ -1,6 +1,8 @@
 import SceneBackground from './SceneBackground';
 import TipBubble from './TipBubble';
 import ConsentSheet from './ConsentSheet';
+import MissionsSheet, { useMissionProgress } from './MissionsSheet';
+import { todayKey, dayNumber } from '../utils/daily';
 import React, { useState } from 'react';
 import AnimatedBalance from './AnimatedBalance';
 import { useGameStore, VAULT_SIZE } from '../store/gameStore';
@@ -23,6 +25,9 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
   const maxUnlockedLevel = useGameStore(state => state.maxUnlockedLevel);
   const vaultCount = useGameStore(state => state.vaultWords.length);
   const [showCollection, setShowCollection] = useState(false);
+  const [showMissions, setShowMissions] = useState(false);
+  const dailySolved = useGameStore(state => !!state.dailyResults[todayKey()]);
+  const { ready: missionsReady, doneCount } = useMissionProgress();
 
   const station = getStationForLevel(maxUnlockedLevel);
 
@@ -109,6 +114,25 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
         <p className="text-white/60 text-[14px] font-semibold mb-5 text-center">{t('subtitle')}</p>
         {/* İki ana eylem: yolculuğa devam ve düello */}
         <div className="w-full max-w-[340px] flex flex-col gap-3">
+          {/* Günlük ritim: Günün Seferi ve görevler */}
+          <div className="grid grid-cols-2 gap-2">
+            <button onClick={() => setScreen('daily')} className="home-chip" aria-label={`Günün Seferi #${dayNumber()}`}>
+              <span aria-hidden="true" className="material-symbols-outlined text-[22px] text-amber-300" style={{ fontVariationSettings: "'FILL' 1" }}>{dailySolved ? 'event_available' : 'today'}</span>
+              <span className="flex flex-col items-start leading-tight min-w-0">
+                <span className="font-black text-[13px]">Günün Seferi</span>
+                <span className="text-[11px] font-bold opacity-75">{dailySolved ? 'Çözüldü ✓' : `#${dayNumber()} hazır`}</span>
+              </span>
+              {!dailySolved && <span className="home-dot" aria-hidden="true" />}
+            </button>
+            <button onClick={() => setShowMissions(true)} className="home-chip">
+              <span aria-hidden="true" className="material-symbols-outlined text-[22px] text-green-300" style={{ fontVariationSettings: "'FILL' 1" }}>task_alt</span>
+              <span className="flex flex-col items-start leading-tight min-w-0">
+                <span className="font-black text-[13px]">Görevler</span>
+                <span className="text-[11px] font-bold opacity-75">{doneCount}/3 tamam</span>
+              </span>
+              {missionsReady > 0 && <span className="home-badge">{missionsReady}</span>}
+            </button>
+          </div>
           <button onClick={onPlay} className="play-btn w-full flex items-center justify-center gap-3">
             <span aria-hidden="true" className="material-symbols-outlined text-[26px]" style={{ fontVariationSettings: "'FILL' 1" }}>play_circle</span>
             <span className="flex flex-col items-start leading-tight">
@@ -166,6 +190,7 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
           </div>
         </div>
       )}
+      {showMissions && <MissionsSheet onClose={() => setShowMissions(false)} />}
       <ConsentSheet />
     </div>
   );

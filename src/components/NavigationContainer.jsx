@@ -11,6 +11,7 @@ import LeaderboardScreen from './LeaderboardScreen';
 import AkbilScreen from './AkbilScreen';
 import LostItemsScreen from './LostItemsScreen';
 import DuelsScreen from './DuelsScreen';
+import DailyScreen from './DailyScreen';
 import { useTranslation } from '../utils/i18n';
 import { useGameStore, getMaxLives } from '../store/gameStore';
 import UsernameModal from './UsernameModal';
@@ -69,6 +70,14 @@ export default function NavigationContainer({
     return (
       <div className="game-bg h-full flex flex-col relative z-10 fade-in overflow-hidden">
         <DuelsScreen onBack={() => setScreen('home')} />
+      </div>
+    );
+  }
+
+  if (screen === 'daily') {
+    return (
+      <div className="game-bg h-full flex flex-col relative z-10 fade-in overflow-hidden">
+        <DailyScreen onBack={() => setScreen('home')} />
       </div>
     );
   }

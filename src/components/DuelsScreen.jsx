@@ -99,6 +99,7 @@ const DuelsScreen = ({ onBack }) => {
       : `${myName} seni Turnike düellosuna çağırıyor: ${l.fromScore.w} kelime, ${l.fromScore.t} sn. Geçebilir misin?`;
     const r = await shareDuel(l, text);
     track('duel_share', { result: r, reply: !!l.toScore });
+    if (r !== 'cancelled') useGameStore.getState().bumpDaily('duels');
     if (r === 'copied') setNote('Bağlantı kopyalandı. WhatsApp\'ta arkadaşına yapıştır.');
   };
 
