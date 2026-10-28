@@ -96,7 +96,9 @@ function App() {
   }, [isAppReady, screen, lastSpinDate, maxUnlockedLevel]);
 
   useEffect(() => {
-    document.body.className = `theme-${theme}`;
+    // Yalnızca tema sınıfını değiştir; erişilebilirlik sınıfları (a11y-*) korunur
+    document.body.classList.remove('theme-dark', 'theme-light', 'theme-retro');
+    document.body.classList.add(`theme-${theme}`);
   }, [theme]);
 
   useEffect(() => {
