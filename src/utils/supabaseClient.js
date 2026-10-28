@@ -5,8 +5,10 @@ import { createClient } from '@supabase/supabase-js';
 //   VITE_SUPABASE_ANON_KEY=<anon key>
 // Veritabanı tarafı: supabase/migrations/0001_players_rls.sql çalıştırılmalı ve
 // Authentication > Sign In / Providers altında "Anonymous sign-ins" açılmalı.
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+// Supabase panelinden kopyalanan NEXT_PUBLIC_* adları da kabul edilir (vite.config envPrefix)
+const env = import.meta.env;
+const supabaseUrl = env.VITE_SUPABASE_URL || env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = env.VITE_SUPABASE_ANON_KEY || env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 // Ayar yoksa istemci hiç oluşturulmaz; eskiden yer tutucu adrese istek atıp hata üretiyordu
 export const isCloudConfigured = Boolean(supabaseUrl && supabaseKey);
