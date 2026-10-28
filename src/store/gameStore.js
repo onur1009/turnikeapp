@@ -86,6 +86,13 @@ export const useGameStore = create(
       streakRewardsClaimed: [], // ödülü alınmış seri günleri (3, 7, 14...)
       eventProgress: { id: null, levels: 0, claimed: [] }, // hafta sonu etkinliği (id = etkinliğin cuması)
       postcards: [], // tamamlanan duraklar: { stationIndex, lineId, name, at }
+      // Aylık Hat Pasosu (utils/pass.js) ve pasodan açılan kart desen/renkleri
+      passState: { season: null, xp: 0, claimed: [] },
+      cardUnlocks: [],
+      // Reklam: A/B grubu ve geçiş reklamı sayacı (utils/adPolicy.js)
+      adGroup: null,
+      levelsSinceInterstitial: 0,
+      lastRewardedAt: 0,
       // Haftalık Hat Ligi (utils/league.js yönetir)
       leagueState: { week: null, tier: 1, points: 0, groupNo: null, cachedGroup: [], userId: null, lastResult: null, seenResult: true },
 

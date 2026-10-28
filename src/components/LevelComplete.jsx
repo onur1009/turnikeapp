@@ -31,7 +31,8 @@ const CountUp = ({ end, duration = 1200, format = (v) => v }) => {
 };
 
 // Durak varış ekranı: hangi durağa gelindi, ne kazanıldı, ne öğrenildi, sıradaki durak
-const LevelComplete = ({ level, station, summary, mistakes, meanings, onNextLevel, onRetry, onHome }) => {
+const LevelComplete = ({ level, station, summary, mistakes, meanings, onNextLevel, onRetry, onHome, onDoubleReward }) => {
+  const [doubleState, setDoubleState] = useState('idle'); // idle | loading | done | failed
   const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
   const words = summary?.words || [];
@@ -142,6 +143,16 @@ const LevelComplete = ({ level, station, summary, mistakes, meanings, onNextLeve
         </div>
 
         <div className="flex flex-col gap-3 w-full mt-auto">
+          {onDoubleReward && total > 0 && doubleState !== 'done' && (
+            <button
+              disabled={doubleState === 'loading'}
+              onClick={async () => { setDoubleState('loading'); setDoubleState((await onDoubleReward(total)) ? 'done' : 'failed'); }}
+              className="w-full mb-2.5 py-3 rounded-full font-black text-[14px] text-white bg-blue-600 active:scale-95 transition-transform flex items-center justify-center gap-2 disabled:opacity-60">
+              <span aria-hidden="true" className="material-symbols-outlined text-[20px]">smart_display</span>
+              {doubleState === 'loading' ? 'Reklam yükleniyor…' : doubleState === 'failed' ? 'Reklam yüklenemedi, tekrar dene' : `Reklam izle, kazancı 2 katına çıkar (+${formatKurus(total)})`}
+            </button>
+          )}
+          {doubleState === 'done' && <p className="text-center text-green-300 font-bold text-[13px] mb-2.5">+{formatKurus(total)} eklendi, kazancın 2 katına çıktı!</p>}
           <button onClick={onNextLevel} className="play-btn w-full flex items-center justify-center gap-2 whitespace-nowrap" style={{ fontSize: 16, letterSpacing: 2, padding: '15px 20px' }}>
             <span aria-hidden="true" className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>directions_railway</span>
             {t('next_station').toLocaleUpperCase('tr-TR')}

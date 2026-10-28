@@ -3,6 +3,7 @@ import { useGameStore } from '../store/gameStore';
 import { formatKurus } from '../utils/format';
 import { track } from '../utils/analytics';
 import { todayKey, missionsFor, STREAK_MILESTONES } from '../utils/daily';
+import { addPassXp, passProgress, seasonName, XP_PER_TIER, PASS_REWARDS } from '../utils/pass';
 
 // Günlük görevler (3 tane, gece yarısı yenilenir) ve giriş serisi ödülleri, tek alt sayfada.
 export const useMissionProgress = () => {
@@ -18,7 +19,9 @@ export const useMissionProgress = () => {
   return { missions, ready: missions.filter(m => m.done && !m.claimed).length, doneCount: missions.filter(m => m.done).length };
 };
 
-export default function MissionsSheet({ onClose }) {
+export default function MissionsSheet({ onClose, onOpenPass }) {
+  useGameStore(s => s.passState);
+  const pass = passProgress();
   const { missions } = useMissionProgress();
   const claimMission = useGameStore(s => s.claimMission);
   const streak = useGameStore(s => s.streak);
@@ -38,6 +41,16 @@ export default function MissionsSheet({ onClose }) {
           </button>
         </div>
 
+        {/* Hat Pasosu özeti */}
+        <button onClick={onOpenPass} className="rounded-2xl p-3.5 flex items-center gap-3 text-left active:scale-[0.98] transition-transform" style={{ background: 'linear-gradient(90deg, #b45309, #7c2d12)' }}>
+          <span aria-hidden="true" className="material-symbols-outlined text-[28px] text-amber-200" style={{ fontVariationSettings: "'FILL' 1" }}>confirmation_number</span>
+          <span className="flex-1 min-w-0">
+            <span className="block text-white font-black text-[14px]">{seasonName(pass.season)} · Basamak {pass.tier}/{PASS_REWARDS.length}</span>
+            <span className="block h-1.5 rounded-full bg-black/25 mt-1.5 overflow-hidden"><span className="block h-full bg-amber-300" style={{ width: `${(pass.intoTier / XP_PER_TIER) * 100}%` }} /></span>
+          </span>
+          <span aria-hidden="true" className="material-symbols-outlined text-white text-[20px]">chevron_right</span>
+        </button>
+
         {missions.map(m => (
           <div key={m.id} className="card-panel !rounded-2xl p-3.5 flex items-center gap-3">
             <span aria-hidden="true" className="material-symbols-outlined text-[24px] shrink-0" style={{ color: m.done ? '#4ade80' : '#fbbf24', fontVariationSettings: "'FILL' 1" }}>{m.done ? 'check_circle' : m.icon}</span>
@@ -52,7 +65,7 @@ export default function MissionsSheet({ onClose }) {
             </div>
             <button
               disabled={!m.done || m.claimed}
-              onClick={() => { claimMission(m.id, m.reward); track('mission_claim', { id: m.id }); }}
+              onClick={() => { claimMission(m.id, m.reward); addPassXp('mission'); track('mission_claim', { id: m.id }); }}
               className="shrink-0 px-3.5 py-2 rounded-full font-black text-[12px] text-white bg-green-600 disabled:bg-white/10 disabled:text-white/50"
             >
               {m.claimed ? 'Alındı' : `+${formatKurus(m.reward)}`}

@@ -23,11 +23,12 @@ import { track } from '../utils/analytics';
 import TipBubble from './TipBubble';
 import { currentEvent, EVENT_MULTIPLIER } from '../utils/events';
 import { addLeaguePoints } from '../utils/league';
+import { isRewardedAdSupported, showRewardedAd, showInterstitialAd } from '../utils/adService';
+import { shouldShowInterstitial, noteInterstitialShown, noteRewardedShown } from '../utils/adPolicy';
 import { VAULT_SIZE, VAULT_REWARD, getMaxLives, getHintCosts, getEarningsMultiplier } from '../store/gameStore';
 import { formatKurus } from '../utils/format';
 import '../index.css';
 
-const SHOW_AD_REWARDS = false;
 
 // Çarkın altındaki güç düğmesi: ikon solda, etiket ve fiyat sağda (alçak, ızgaraya yer bırakır)
 const ToolButton = ({ icon, label, price, affordable, onClick, accent = '#ffffff', active = false }) => (
@@ -261,7 +262,11 @@ export default function GameContainer({
 
 
 
-  const advanceLevel = () => {
+  const advanceLevel = async () => {
+    if (shouldShowInterstitial(levelIndex)) {
+      const shown = await showInterstitialAd();
+      if (shown) { noteInterstitialShown(); track('interstitial_shown', { level: levelIndex + 1 }); }
+    }
     useGameStore.getState().nextLevel();
     setFoundWords([]);
     setHintedLetters([]);
@@ -621,6 +626,34 @@ export default function GameContainer({
   const hintCosts = getHintCosts(completedSets);
   const maxLives = getMaxLives(completedSets);
 
+  // Açılmamış rastgele bir harf; yoksa null
+  const randomHiddenCell = () => {
+    const candidates = [];
+    levelData.words.filter(w => !foundWords.includes(w.word)).forEach(wordObj => {
+      for (let i = 0; i < wordObj.word.length; i++) {
+        const x = wordObj.startX + (wordObj.isHorizontal ? i : 0);
+        const y = wordObj.startY + (wordObj.isHorizontal ? 0 : i);
+        if (!hintedLetters.some(hl => hl.x === x && hl.y === y)) candidates.push({ x, y, char: wordObj.word[i] });
+      }
+    });
+    return candidates.length ? candidates[Math.floor(Math.random() * candidates.length)] : null;
+  };
+
+  // Bakiyesi yetmeyen oyuncuya: reklam izle, ücretsiz harf
+  const [adBusy, setAdBusy] = useState(false);
+  const handleAdLetter = async () => {
+    if (adBusy) return;
+    setAdBusy(true);
+    const ok = await showRewardedAd();
+    setAdBusy(false);
+    track('ad_rewarded', { placement: 'free_letter', completed: ok });
+    if (!ok) { showFeedback('wrong', 'Reklam yüklenemedi'); return; }
+    noteRewardedShown();
+    const pick = randomHiddenCell();
+    if (pick) setHintedLetters(prev => [...prev, pick]);
+    if (soundEnabled) playTurnike();
+  };
+
   const handleLetterHint = () => {
     if (hints > 0 || balance >= hintCosts.letter) {
       const missingWords = levelData.words.filter(w => !foundWords.includes(w.word));
@@ -785,16 +818,18 @@ export default function GameContainer({
         
         <div className="flex flex-col gap-3 w-full max-w-sm mb-6">
           {/* Reklam SDK'sı bağlanana kadar gizli (sahte bekleme yapıyordu) */}
-          {SHOW_AD_REWARDS && (
+          {isRewardedAdSupported() && (
             <button
               disabled={isAdLoading}
-              onClick={() => {
+              onClick={async () => {
                 setIsAdLoading(true);
-                setTimeout(() => {
-                  useGameStore.setState({ lives: 1, gameStatus: 'playing' });
-                  setIsAdLoading(false);
-                  setInternalState('playing');
-                }, 3000);
+                const ok = await showRewardedAd();
+                setIsAdLoading(false);
+                track('ad_rewarded', { placement: 'continue', completed: ok });
+                if (!ok) { showFeedback('wrong', 'Reklam yüklenemedi'); return; }
+                noteRewardedShown();
+                useGameStore.setState({ lives: 1, gameStatus: 'playing' });
+                setInternalState('playing');
               }}
               className={`w-full py-3.5 rounded-xl font-bold text-white text-sm tracking-wide bg-blue-600 hover:bg-blue-500 transition-colors flex items-center justify-center gap-2 ${isAdLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
@@ -1010,6 +1045,12 @@ export default function GameContainer({
 
         {/* Çark ve araçlar */}
         <div className="w-full shrink-0 flex flex-col items-center pb-5 relative z-20">
+          {isRewardedAdSupported() && levelIndex >= 5 && hints === 0 && balance < hintCosts.letter && (
+            <button onClick={handleAdLetter} disabled={adBusy} className="ad-chip mb-2">
+              <span aria-hidden="true" className="material-symbols-outlined text-[18px]">smart_display</span>
+              {adBusy ? 'Reklam yükleniyor…' : 'Reklam izle, ücretsiz harf aç'}
+            </button>
+          )}
           <TipBubble id="tip-pick" when={!pickMode && levelIndex >= 3} className="mb-2 mx-4">
             Yeni: <b>Nokta</b> ipucuyla açmak istediğin kutuyu kendin seç.
           </TipBubble>
@@ -1110,6 +1151,14 @@ export default function GameContainer({
         mistakes={mistakeCount}
         meanings={WORD_MEANINGS}
         onNextLevel={advanceLevel}
+        onDoubleReward={isRewardedAdSupported() ? async (amount) => {
+          const ok = await showRewardedAd();
+          track('ad_rewarded', { placement: 'double_reward', completed: ok });
+          if (!ok) return false;
+          noteRewardedShown();
+          addBalance(amount);
+          return true;
+        } : null}
         onRetry={() => {
           loadLevel(levelIndex);
           setInternalState('playing');

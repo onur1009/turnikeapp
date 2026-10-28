@@ -6,6 +6,7 @@
 import { useGameStore } from '../store/gameStore';
 import { leagueJoin, leagueAddPoints, leagueGroup, currentUserId } from './cloudGame';
 import { track } from './analytics';
+import { addPassXp } from './pass';
 
 export const TIERS = [
   { id: 1, name: 'Tramvay Ligi', color: '#dc2626', icon: 'tram' },
@@ -118,7 +119,9 @@ export const syncLeague = async () => {
 };
 
 // Puan ekle (yerelde hemen, sunucuya arka planda)
+// Aynı eylemler Hat Pasosu XP'si de kazandırır
 export const addLeaguePoints = (kind) => {
+  addPassXp(kind);
   const pts = LEAGUE_POINTS[kind] || 0;
   if (!pts) return;
   const state = ensureLeagueWeek();

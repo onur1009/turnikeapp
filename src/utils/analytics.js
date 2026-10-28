@@ -29,7 +29,7 @@ const hasConsent = () => useGameStore.getState().analyticsConsent === true;
 
 export const track = (event, props = {}) => {
   if (!hasConsent()) return;
-  const item = { event, props, ts: new Date().toISOString(), session: sessionId };
+  const item = { event, props: { ad_group: useGameStore.getState().adGroup, ...props }, ts: new Date().toISOString(), session: sessionId };
   try {
     const buf = JSON.parse(safeGet(BUFFER_KEY) || '[]');
     buf.push(item);

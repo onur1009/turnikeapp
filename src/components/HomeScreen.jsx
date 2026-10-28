@@ -212,7 +212,7 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
           </div>
         </div>
       )}
-      {showMissions && <MissionsSheet onClose={() => setShowMissions(false)} />}
+      {showMissions && <MissionsSheet onClose={() => setShowMissions(false)} onOpenPass={() => setScreen('pass')} />}
       {showEvent && event && <EventSheet event={event} onClose={() => setShowEvent(false)} onPlay={() => { setShowEvent(false); onPlay(); }} />}
       <ConsentSheet />
     </div>

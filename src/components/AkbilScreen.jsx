@@ -16,6 +16,8 @@ export const AD_DAILY_LIMIT = 5;
 export const DAILY_TOP_UP = 30;
 
 const CARD_COLORS = ['#1d4ed8', '#dc2626', '#16a34a', '#ea580c', '#7c3aed', '#0f172a', '#0e7490', '#be185d'];
+// Hat Pasosu ile açılanlar (cardUnlocks'ta yoksa kilitli görünür)
+const PASS_COLORS = ['#a16207', '#0891b2'];
 
 const PATTERNS = [
   { id: 'plain', label: 'Düz' },
@@ -23,9 +25,13 @@ const PATTERNS = [
   { id: 'bosphorus', label: 'Boğaz' },
   { id: 'mosaic', label: 'Çini' },
   { id: 'night', label: 'Gece' },
+  { id: 'lale', label: 'Lale', pass: true },
+  { id: 'vapur', label: 'Vapur', pass: true },
+  { id: 'altin', label: 'Altın varak', pass: true },
+  { id: 'kupa', label: 'Şampiyon', pass: true },
 ];
 
-const TOP_UP_LABELS = { ad: 'Reklam ödülü', daily: 'Günlük yükleme', duel: 'Düello ödülü', puzzle: 'Günün Seferi', mission: 'Günlük görev', streak: 'Seri ödülü', event: 'Hafta sonu etkinliği', league: 'Lig ödülü' };
+const TOP_UP_LABELS = { ad: 'Reklam ödülü', daily: 'Günlük yükleme', duel: 'Düello ödülü', puzzle: 'Günün Seferi', mission: 'Günlük görev', pass: 'Hat Pasosu', streak: 'Seri ödülü', event: 'Hafta sonu etkinliği', league: 'Lig ödülü' };
 
 const todayKey = () => {
   const d = new Date();
@@ -58,6 +64,40 @@ const CardPattern = ({ pattern }) => {
         </pattern>
       </defs>
       <rect width="320" height="200" fill="url(#cini)" />
+    </svg>
+  );
+  if (pattern === 'lale') return (
+    <svg className="absolute inset-0 w-full h-full" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      {[[40, 150], [110, 120], [190, 160], [260, 110], [300, 170]].map(([x, y], i) => (
+        <g key={i} transform={`translate(${x} ${y})`} opacity="0.32" fill="#ffffff">
+          <path d="M0 0 C-10 -8 -10 -24 0 -32 C10 -24 10 -8 0 0 Z" />
+          <path d="M0 0 C-14 -4 -16 -18 -10 -26 C-6 -14 -2 -8 0 0 Z M0 0 C14 -4 16 -18 10 -26 C6 -14 2 -8 0 0 Z" />
+          <rect x="-1" y="0" width="2" height="40" />
+        </g>
+      ))}
+    </svg>
+  );
+  if (pattern === 'vapur') return (
+    <svg className="absolute inset-0 w-full h-full" viewBox="0 0 320 200" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 160 q20 -8 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 V200 H0 Z" fill="#ffffff" opacity="0.16" />
+      <g transform="translate(150 118)" fill="#ffffff" opacity="0.35">
+        <path d="M0 30 H120 L108 44 H10 Z" /><rect x="20" y="16" width="80" height="14" /><rect x="40" y="6" width="40" height="10" />
+        <rect x="70" y="-10" width="10" height="16" fill="#fde047" />
+      </g>
+    </svg>
+  );
+  if (pattern === 'altin') return (
+    <>
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(120deg, rgba(253,224,71,0.55), rgba(161,98,7,0.35) 45%, rgba(253,230,138,0.6) 70%, rgba(120,53,15,0.4))', mixBlendMode: 'overlay' }} />
+      <div className="absolute inset-3 rounded-xl border-2" style={{ borderColor: 'rgba(253,230,138,0.6)' }} />
+    </>
+  );
+  if (pattern === 'kupa') return (
+    <svg className="absolute inset-0 w-full h-full" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      {Array.from({ length: 12 }, (_, i) => <path key={i} d={`M160 210 L${i * 30 - 20} -10 L${i * 30 - 5} -10 Z`} fill="#ffffff" opacity="0.07" />)}
+      <g transform="translate(250 60)" fill="#fde047" opacity="0.55">
+        <path d="M-22 -20 H22 V0 C22 16 10 24 0 24 C-10 24 -22 16 -22 0 Z" /><rect x="-4" y="24" width="8" height="12" /><rect x="-14" y="36" width="28" height="6" rx="2" />
+      </g>
     </svg>
   );
   if (pattern === 'night') return (
@@ -132,6 +172,7 @@ const AkbilScreen = ({ onBack }) => {
   const cardPattern = useGameStore(s => s.cardPattern);
   const cardName = useGameStore(s => s.cardName);
   const cardSticker = useGameStore(s => s.cardSticker);
+  const cardUnlocks = useGameStore(s => s.cardUnlocks);
   const topUpHistory = useGameStore(s => s.topUpHistory);
   const adRewardDate = useGameStore(s => s.adRewardDate);
   const adRewardCount = useGameStore(s => s.adRewardCount);
@@ -194,19 +235,30 @@ const AkbilScreen = ({ onBack }) => {
             <div>
               <h3 className="kart-label">Renk</h3>
               <div className="flex gap-2 flex-wrap">
-                {CARD_COLORS.map(c => (
-                  <button key={c} aria-label={`Renk ${c}`} aria-pressed={cardColor === c} onClick={() => setSettings({ cardColor: c })}
-                    className={`w-9 h-9 rounded-full transition-transform ${cardColor === c ? 'ring-2 ring-white scale-110' : ''}`} style={{ background: c }} />
-                ))}
+                {[...CARD_COLORS, ...PASS_COLORS].map(c => {
+                  const locked = PASS_COLORS.includes(c) && !cardUnlocks.includes(c);
+                  return (
+                    <button key={c} aria-label={locked ? `Renk ${c}, Hat Pasosu ile açılır` : `Renk ${c}`} aria-pressed={cardColor === c} disabled={locked}
+                      onClick={() => setSettings({ cardColor: c })}
+                      className={`w-9 h-9 rounded-full transition-transform flex items-center justify-center ${cardColor === c ? 'ring-2 ring-white scale-110' : ''} ${locked ? 'opacity-40' : ''}`} style={{ background: c }}>
+                      {locked && <span aria-hidden="true" className="material-symbols-outlined text-white text-[16px]">lock</span>}
+                    </button>
+                  );
+                })}
               </div>
             </div>
             <div>
-              <h3 className="kart-label">Desen</h3>
+              <h3 className="kart-label">Desen <span className="normal-case tracking-normal font-semibold text-white/45">· 🔒 olanlar Hat Pasosu'ndan</span></h3>
               <div className="flex gap-2 flex-wrap">
-                {PATTERNS.map(p => (
-                  <button key={p.id} aria-pressed={cardPattern === p.id} onClick={() => setSettings({ cardPattern: p.id })}
-                    className={`kart-chip ${cardPattern === p.id ? 'is-on' : ''}`}>{p.label}</button>
-                ))}
+                {PATTERNS.map(p => {
+                  const locked = p.pass && !cardUnlocks.includes(p.id);
+                  return (
+                    <button key={p.id} aria-pressed={cardPattern === p.id} disabled={locked} onClick={() => setSettings({ cardPattern: p.id })}
+                      className={`kart-chip ${cardPattern === p.id ? 'is-on' : ''} ${locked ? 'opacity-45' : ''}`}>
+                      {locked ? '🔒 ' : ''}{p.label}
+                    </button>
+                  );
+                })}
               </div>
             </div>
             <div>
