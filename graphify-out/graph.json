@@ -17,7 +17,7 @@
       "file_type": "code",
       "norm_label": "errorboundary",
       "source_file": "src/main.jsx",
-      "source_location": "L9"
+      "source_location": "L30"
     },
     {
       "id": "android_app_src_main_java_com_turnike_app_mainactivity_mainactivity",
@@ -70,18 +70,6 @@
       "norm_label": "exampleunittest",
       "source_file": "android/app/src/test/java/com/getcapacitor/myapp/ExampleUnitTest.java",
       "source_location": "L12"
-    },
-    {
-      "id": "src_app_app",
-      "label": "App()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "useGameStore",
-      "file_type": "code",
-      "norm_label": "app()",
-      "source_file": "src/App.jsx",
-      "source_location": "L17"
     },
     {
       "id": "src_components_akbilscreen_akbilscreen",
@@ -156,18 +144,6 @@
       "source_location": "L7"
     },
     {
-      "id": "src_components_dailyspinscreen_dailyspinscreen",
-      "label": "DailySpinScreen()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "useGameStore",
-      "file_type": "code",
-      "norm_label": "dailyspinscreen()",
-      "source_file": "src/components/DailySpinScreen.jsx",
-      "source_location": "L14"
-    },
-    {
       "id": "src_components_dictionaryscreen_dictionaryscreen",
       "label": "DictionaryScreen()",
       "_callable": true,
@@ -216,6 +192,18 @@
       "source_location": "L12"
     },
     {
+      "id": "src_components_mapscreen_mapscreen",
+      "label": "MapScreen()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "mapscreen()",
+      "source_file": "src/components/MapScreen.jsx",
+      "source_location": "L4"
+    },
+    {
       "id": "src_components_navigationcontainer_navigationcontainer",
       "label": "NavigationContainer()",
       "_callable": true,
@@ -226,6 +214,18 @@
       "norm_label": "navigationcontainer()",
       "source_file": "src/components/NavigationContainer.jsx",
       "source_location": "L25"
+    },
+    {
+      "id": "src_components_networkmap_networkmap",
+      "label": "NetworkMap()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "networkmap()",
+      "source_file": "src/components/NetworkMap.jsx",
+      "source_location": "L9"
     },
     {
       "id": "src_components_networkscreen_networkscreen",
@@ -324,16 +324,52 @@
       "source_location": "L6"
     },
     {
-      "id": "src_store_gamestore_getmaxlives",
-      "label": "getMaxLives()",
+      "id": "src_data_networkgeometry_getstationpoints",
+      "label": "getStationPoints()",
       "_callable": true,
       "_origin": "ast",
       "community": 0,
       "community_name": "useGameStore",
       "file_type": "code",
-      "norm_label": "getmaxlives()",
-      "source_file": "src/store/gameStore.js",
-      "source_location": "L15"
+      "norm_label": "getstationpoints()",
+      "source_file": "src/data/networkGeometry.js",
+      "source_location": "L48"
+    },
+    {
+      "id": "src_data_networkgeometry_seglen",
+      "label": "segLen()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "seglen()",
+      "source_file": "src/data/networkGeometry.js",
+      "source_location": "L45"
+    },
+    {
+      "id": "src_data_networkgeometry_topath",
+      "label": "toPath()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "topath()",
+      "source_file": "src/data/networkGeometry.js",
+      "source_location": "L65"
+    },
+    {
+      "id": "src_utils_adservice_isrewardedadsupported",
+      "label": "isRewardedAdSupported()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "isrewardedadsupported()",
+      "source_file": "src/utils/adService.js",
+      "source_location": "L31"
     },
     {
       "id": "src_utils_i18n_usetranslation",
@@ -348,6 +384,30 @@
       "source_location": "L248"
     },
     {
+      "id": "src_utils_transitnetwork_getnetworkprogress",
+      "label": "getNetworkProgress()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "getnetworkprogress()",
+      "source_file": "src/utils/transitNetwork.js",
+      "source_location": "L154"
+    },
+    {
+      "id": "src_utils_transitnetwork_getstationdata",
+      "label": "getStationData()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "getstationdata()",
+      "source_file": "src/utils/transitNetwork.js",
+      "source_location": "L99"
+    },
+    {
       "id": "src_utils_transitnetwork_getstationforlevel",
       "label": "getStationForLevel()",
       "_callable": true,
@@ -358,6 +418,30 @@
       "norm_label": "getstationforlevel()",
       "source_file": "src/utils/transitNetwork.js",
       "source_location": "L113"
+    },
+    {
+      "id": "src_utils_transitnetwork_getstationxposition",
+      "label": "getStationXPosition()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "getstationxposition()",
+      "source_file": "src/utils/transitNetwork.js",
+      "source_location": "L129"
+    },
+    {
+      "id": "src_app_app",
+      "label": "App()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "GameContainer.jsx",
+      "file_type": "code",
+      "norm_label": "app()",
+      "source_file": "src/App.jsx",
+      "source_location": "L17"
     },
     {
       "id": "src_components_bonuslockers_bonuslockers",
@@ -382,6 +466,18 @@
       "norm_label": "generatelockercontents()",
       "source_file": "src/components/BonusLockers.jsx",
       "source_location": "L17"
+    },
+    {
+      "id": "src_components_dailyspinscreen_dailyspinscreen",
+      "label": "DailySpinScreen()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "GameContainer.jsx",
+      "file_type": "code",
+      "norm_label": "dailyspinscreen()",
+      "source_file": "src/components/DailySpinScreen.jsx",
+      "source_location": "L14"
     },
     {
       "id": "src_components_gamecontainer_gamecontainer",
@@ -417,6 +513,30 @@
       "file_type": "code",
       "norm_label": "toolbutton()",
       "source_file": "src/components/GameContainer.jsx",
+      "source_location": "L34"
+    },
+    {
+      "id": "src_components_levelcomplete_countup",
+      "label": "CountUp()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "GameContainer.jsx",
+      "file_type": "code",
+      "norm_label": "countup()",
+      "source_file": "src/components/LevelComplete.jsx",
+      "source_location": "L6"
+    },
+    {
+      "id": "src_components_levelcomplete_levelcomplete",
+      "label": "LevelComplete()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "GameContainer.jsx",
+      "file_type": "code",
+      "norm_label": "levelcomplete()",
+      "source_file": "src/components/LevelComplete.jsx",
       "source_location": "L34"
     },
     {
@@ -480,6 +600,18 @@
       "source_location": "L16"
     },
     {
+      "id": "src_store_gamestore_getmaxlives",
+      "label": "getMaxLives()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "GameContainer.jsx",
+      "file_type": "code",
+      "norm_label": "getmaxlives()",
+      "source_file": "src/store/gameStore.js",
+      "source_location": "L15"
+    },
+    {
       "id": "src_utils_adpolicy_adgroup",
       "label": "adGroup()",
       "_callable": true,
@@ -526,78 +658,6 @@
       "norm_label": "shouldshowinterstitial()",
       "source_file": "src/utils/adPolicy.js",
       "source_location": "L22"
-    },
-    {
-      "id": "src_utils_adservice_ids",
-      "label": "ids()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "GameContainer.jsx",
-      "file_type": "code",
-      "norm_label": "ids()",
-      "source_file": "src/utils/adService.js",
-      "source_location": "L23"
-    },
-    {
-      "id": "src_utils_adservice_isrewardedadsupported",
-      "label": "isRewardedAdSupported()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "GameContainer.jsx",
-      "file_type": "code",
-      "norm_label": "isrewardedadsupported()",
-      "source_file": "src/utils/adService.js",
-      "source_location": "L26"
-    },
-    {
-      "id": "src_utils_adservice_loadadmob",
-      "label": "loadAdMob()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "GameContainer.jsx",
-      "file_type": "code",
-      "norm_label": "loadadmob()",
-      "source_file": "src/utils/adService.js",
-      "source_location": "L17"
-    },
-    {
-      "id": "src_utils_adservice_showinterstitialad",
-      "label": "showInterstitialAd()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "GameContainer.jsx",
-      "file_type": "code",
-      "norm_label": "showinterstitialad()",
-      "source_file": "src/utils/adService.js",
-      "source_location": "L43"
-    },
-    {
-      "id": "src_utils_adservice_showrewardedad",
-      "label": "showRewardedAd()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "GameContainer.jsx",
-      "file_type": "code",
-      "norm_label": "showrewardedad()",
-      "source_file": "src/utils/adService.js",
-      "source_location": "L29"
-    },
-    {
-      "id": "src_utils_adservice_simulate",
-      "label": "simulate()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "GameContainer.jsx",
-      "file_type": "code",
-      "norm_label": "simulate()",
-      "source_file": "src/utils/adService.js",
-      "source_location": "L24"
     },
     {
       "id": "src_utils_dda_computerawsignal",
@@ -970,18 +1030,6 @@
       "norm_label": "leaguescreen()",
       "source_file": "src/components/LeagueScreen.jsx",
       "source_location": "L8"
-    },
-    {
-      "id": "src_components_wheel_wheel",
-      "label": "Wheel()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "league.js",
-      "file_type": "code",
-      "norm_label": "wheel()",
-      "source_file": "src/components/Wheel.jsx",
-      "source_location": "L4"
     },
     {
       "id": "src_utils_cloudgame_call",
@@ -1605,7 +1653,7 @@
       "file_type": "code",
       "norm_label": ".componentdidcatch()",
       "source_file": "src/main.jsx",
-      "source_location": "L17"
+      "source_location": "L38"
     },
     {
       "id": "src_main_errorboundary_constructor",
@@ -1617,7 +1665,7 @@
       "file_type": "code",
       "norm_label": ".constructor()",
       "source_file": "src/main.jsx",
-      "source_location": "L10"
+      "source_location": "L31"
     },
     {
       "id": "src_main_errorboundary_getderivedstatefromerror",
@@ -1629,7 +1677,7 @@
       "file_type": "code",
       "norm_label": ".getderivedstatefromerror()",
       "source_file": "src/main.jsx",
-      "source_location": "L14"
+      "source_location": "L35"
     },
     {
       "id": "src_main_errorboundary_render",
@@ -1641,7 +1689,19 @@
       "file_type": "code",
       "norm_label": ".render()",
       "source_file": "src/main.jsx",
-      "source_location": "L20"
+      "source_location": "L41"
+    },
+    {
+      "id": "src_main_setupserviceworker",
+      "label": "setupServiceWorker()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 13,
+      "community_name": "analytics.js",
+      "file_type": "code",
+      "norm_label": "setupserviceworker()",
+      "source_file": "src/main.jsx",
+      "source_location": "L15"
     },
     {
       "id": "src_main_start",
@@ -1653,7 +1713,7 @@
       "file_type": "code",
       "norm_label": "start()",
       "source_file": "src/main.jsx",
-      "source_location": "L34"
+      "source_location": "L55"
     },
     {
       "id": "src_utils_analytics_anonid",
@@ -1896,30 +1956,6 @@
       "source_location": "L23"
     },
     {
-      "id": "src_components_levelcomplete_countup",
-      "label": "CountUp()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "formatKurus",
-      "file_type": "code",
-      "norm_label": "countup()",
-      "source_file": "src/components/LevelComplete.jsx",
-      "source_location": "L6"
-    },
-    {
-      "id": "src_components_levelcomplete_levelcomplete",
-      "label": "LevelComplete()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "formatKurus",
-      "file_type": "code",
-      "norm_label": "levelcomplete()",
-      "source_file": "src/components/LevelComplete.jsx",
-      "source_location": "L34"
-    },
-    {
       "id": "src_components_missionssheet_missionssheet",
       "label": "MissionsSheet()",
       "_callable": true,
@@ -1990,6 +2026,18 @@
       "norm_label": "tipbubble()",
       "source_file": "src/components/TipBubble.jsx",
       "source_location": "L6"
+    },
+    {
+      "id": "src_components_wheel_wheel",
+      "label": "Wheel()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "formatKurus",
+      "file_type": "code",
+      "norm_label": "wheel()",
+      "source_file": "src/components/Wheel.jsx",
+      "source_location": "L4"
     },
     {
       "id": "src_utils_daily_buildsharetext",
@@ -2704,100 +2752,76 @@
       "source_location": "L14"
     },
     {
-      "id": "src_components_mapscreen_mapscreen",
-      "label": "MapScreen()",
+      "id": "src_utils_adservice_ensureadmob",
+      "label": "ensureAdMob()",
       "_callable": true,
       "_origin": "ast",
       "community": 9,
-      "community_name": "transitNetwork.js",
+      "community_name": "adService.js",
       "file_type": "code",
-      "norm_label": "mapscreen()",
-      "source_file": "src/components/MapScreen.jsx",
-      "source_location": "L4"
+      "norm_label": "ensureadmob()",
+      "source_file": "src/utils/adService.js",
+      "source_location": "L21"
     },
     {
-      "id": "src_components_networkmap_networkmap",
-      "label": "NetworkMap()",
+      "id": "src_utils_adservice_ids",
+      "label": "ids()",
       "_callable": true,
       "_origin": "ast",
       "community": 9,
-      "community_name": "transitNetwork.js",
+      "community_name": "adService.js",
       "file_type": "code",
-      "norm_label": "networkmap()",
-      "source_file": "src/components/NetworkMap.jsx",
-      "source_location": "L9"
+      "norm_label": "ids()",
+      "source_file": "src/utils/adService.js",
+      "source_location": "L28"
     },
     {
-      "id": "src_data_networkgeometry_getstationpoints",
-      "label": "getStationPoints()",
+      "id": "src_utils_adservice_showinterstitialad",
+      "label": "showInterstitialAd()",
       "_callable": true,
       "_origin": "ast",
       "community": 9,
-      "community_name": "transitNetwork.js",
+      "community_name": "adService.js",
       "file_type": "code",
-      "norm_label": "getstationpoints()",
-      "source_file": "src/data/networkGeometry.js",
+      "norm_label": "showinterstitialad()",
+      "source_file": "src/utils/adService.js",
       "source_location": "L48"
     },
     {
-      "id": "src_data_networkgeometry_seglen",
-      "label": "segLen()",
+      "id": "src_utils_adservice_showrewardedad",
+      "label": "showRewardedAd()",
       "_callable": true,
       "_origin": "ast",
       "community": 9,
-      "community_name": "transitNetwork.js",
+      "community_name": "adService.js",
       "file_type": "code",
-      "norm_label": "seglen()",
-      "source_file": "src/data/networkGeometry.js",
-      "source_location": "L45"
+      "norm_label": "showrewardedad()",
+      "source_file": "src/utils/adService.js",
+      "source_location": "L34"
     },
     {
-      "id": "src_data_networkgeometry_topath",
-      "label": "toPath()",
+      "id": "src_utils_adservice_simulate",
+      "label": "simulate()",
       "_callable": true,
       "_origin": "ast",
       "community": 9,
-      "community_name": "transitNetwork.js",
+      "community_name": "adService.js",
       "file_type": "code",
-      "norm_label": "topath()",
-      "source_file": "src/data/networkGeometry.js",
-      "source_location": "L65"
+      "norm_label": "simulate()",
+      "source_file": "src/utils/adService.js",
+      "source_location": "L29"
     },
     {
-      "id": "src_utils_transitnetwork_getnetworkprogress",
-      "label": "getNetworkProgress()",
+      "id": "src_utils_adservice_withtimeout",
+      "label": "withTimeout()",
       "_callable": true,
       "_origin": "ast",
       "community": 9,
-      "community_name": "transitNetwork.js",
+      "community_name": "adService.js",
       "file_type": "code",
-      "norm_label": "getnetworkprogress()",
-      "source_file": "src/utils/transitNetwork.js",
-      "source_location": "L154"
-    },
-    {
-      "id": "src_utils_transitnetwork_getstationdata",
-      "label": "getStationData()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "transitNetwork.js",
-      "file_type": "code",
-      "norm_label": "getstationdata()",
-      "source_file": "src/utils/transitNetwork.js",
-      "source_location": "L99"
-    },
-    {
-      "id": "src_utils_transitnetwork_getstationxposition",
-      "label": "getStationXPosition()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "transitNetwork.js",
-      "file_type": "code",
-      "norm_label": "getstationxposition()",
-      "source_file": "src/utils/transitNetwork.js",
-      "source_location": "L129"
+      "norm_label": "withtimeout()",
+      "source_file": "src/utils/adService.js",
+      "source_location": "L27"
     },
     {
       "id": "src_components_akbilscreen",
@@ -2899,25 +2923,25 @@
       "source_location": "L1"
     },
     {
-      "id": "src_components_dailyspinscreen",
-      "label": "DailySpinScreen.jsx",
+      "id": "src_components_dictionaryscreen",
+      "label": "DictionaryScreen.jsx",
       "_origin": "ast",
       "community": 0,
       "community_name": "useGameStore",
       "file_type": "code",
-      "norm_label": "dailyspinscreen.jsx",
-      "source_file": "src/components/DailySpinScreen.jsx",
+      "norm_label": "dictionaryscreen.jsx",
+      "source_file": "src/components/DictionaryScreen.jsx",
       "source_location": "L1"
     },
     {
-      "id": "src_components_dailyspinscreen_prizes",
-      "label": "PRIZES",
+      "id": "src_components_dictionaryscreen_provider_themes",
+      "label": "PROVIDER_THEMES",
       "_origin": "ast",
       "community": 0,
       "community_name": "useGameStore",
       "file_type": "code",
-      "norm_label": "prizes",
-      "source_file": "src/components/DailySpinScreen.jsx",
+      "norm_label": "provider_themes",
+      "source_file": "src/components/DictionaryScreen.jsx",
       "source_location": "L5"
     },
     {
@@ -2943,6 +2967,17 @@
       "source_location": "L1"
     },
     {
+      "id": "src_components_mapscreen",
+      "label": "MapScreen.jsx",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "mapscreen.jsx",
+      "source_file": "src/components/MapScreen.jsx",
+      "source_location": "L1"
+    },
+    {
       "id": "src_components_navigationcontainer",
       "label": "NavigationContainer.jsx",
       "_origin": "ast",
@@ -2951,6 +2986,50 @@
       "file_type": "code",
       "norm_label": "navigationcontainer.jsx",
       "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_components_networkmap",
+      "label": "NetworkMap.jsx",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "networkmap.jsx",
+      "source_file": "src/components/NetworkMap.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_components_networkmap_zooms",
+      "label": "ZOOMS",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "zooms",
+      "source_file": "src/components/NetworkMap.jsx",
+      "source_location": "L5"
+    },
+    {
+      "id": "src_components_networkscreen",
+      "label": "NetworkScreen.jsx",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "networkscreen.jsx",
+      "source_file": "src/components/NetworkScreen.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_components_postcard",
+      "label": "Postcard.jsx",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "postcard.jsx",
+      "source_file": "src/components/Postcard.jsx",
       "source_location": "L1"
     },
     {
@@ -3029,6 +3108,116 @@
       "norm_label": "vaultscreen.jsx",
       "source_file": "src/components/VaultScreen.jsx",
       "source_location": "L1"
+    },
+    {
+      "id": "src_data_istanbullines",
+      "label": "istanbulLines.js",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "istanbullines.js",
+      "source_file": "src/data/istanbulLines.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_data_istanbullines_extra_station_names",
+      "label": "EXTRA_STATION_NAMES",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "extra_station_names",
+      "source_file": "src/data/istanbulLines.js",
+      "source_location": "L38"
+    },
+    {
+      "id": "src_data_istanbullines_line_defs",
+      "label": "LINE_DEFS",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "line_defs",
+      "source_file": "src/data/istanbulLines.js",
+      "source_location": "L9"
+    },
+    {
+      "id": "src_data_istanbullines_mode_groups",
+      "label": "MODE_GROUPS",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "mode_groups",
+      "source_file": "src/data/istanbulLines.js",
+      "source_location": "L112"
+    },
+    {
+      "id": "src_data_istanbullines_mode_meta",
+      "label": "MODE_META",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "mode_meta",
+      "source_file": "src/data/istanbulLines.js",
+      "source_location": "L101"
+    },
+    {
+      "id": "src_data_networkgeometry",
+      "label": "networkGeometry.js",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "networkgeometry.js",
+      "source_file": "src/data/networkGeometry.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_data_networkgeometry_line_paths",
+      "label": "LINE_PATHS",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "line_paths",
+      "source_file": "src/data/networkGeometry.js",
+      "source_location": "L19"
+    },
+    {
+      "id": "src_data_networkgeometry_map_h",
+      "label": "MAP_H",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "map_h",
+      "source_file": "src/data/networkGeometry.js",
+      "source_location": "L7"
+    },
+    {
+      "id": "src_data_networkgeometry_map_w",
+      "label": "MAP_W",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "map_w",
+      "source_file": "src/data/networkGeometry.js",
+      "source_location": "L6"
+    },
+    {
+      "id": "src_data_networkgeometry_water",
+      "label": "WATER",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "water",
+      "source_file": "src/data/networkGeometry.js",
+      "source_location": "L10"
     },
     {
       "id": "src_store_gamestore",
@@ -3163,6 +3352,94 @@
       "source_location": "L14"
     },
     {
+      "id": "src_utils_transitnetwork",
+      "label": "transitNetwork.js",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "transitnetwork.js",
+      "source_file": "src/utils/transitNetwork.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_utils_transitnetwork_base_station_list",
+      "label": "BASE_STATION_LIST",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "base_station_list",
+      "source_file": "src/utils/transitNetwork.js",
+      "source_location": "L83"
+    },
+    {
+      "id": "src_utils_transitnetwork_levels_per_station",
+      "label": "LEVELS_PER_STATION",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "levels_per_station",
+      "source_file": "src/utils/transitNetwork.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_utils_transitnetwork_line_start",
+      "label": "LINE_START",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "line_start",
+      "source_file": "src/utils/transitNetwork.js",
+      "source_location": "L145"
+    },
+    {
+      "id": "src_utils_transitnetwork_lines",
+      "label": "LINES",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "lines",
+      "source_file": "src/utils/transitNetwork.js",
+      "source_location": "L8"
+    },
+    {
+      "id": "src_utils_transitnetwork_station_info",
+      "label": "STATION_INFO",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "station_info",
+      "source_file": "src/utils/transitNetwork.js",
+      "source_location": "L53"
+    },
+    {
+      "id": "src_utils_transitnetwork_station_names",
+      "label": "STATION_NAMES",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "station_names",
+      "source_file": "src/utils/transitNetwork.js",
+      "source_location": "L14"
+    },
+    {
+      "id": "src_utils_transitnetwork_stationfreq",
+      "label": "stationFreq",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "stationfreq",
+      "source_file": "src/utils/transitNetwork.js",
+      "source_location": "L75"
+    },
+    {
       "id": "ref_react",
       "label": "react",
       "_origin": "ast",
@@ -3172,17 +3449,6 @@
       "norm_label": "react",
       "source_file": "package.json",
       "source_location": "L26"
-    },
-    {
-      "id": "admob",
-      "label": "@capacitor-community/admob",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "GameContainer.jsx",
-      "confidence": "EXTRACTED",
-      "file_type": "code",
-      "norm_label": "@capacitor-community/admob",
-      "source_file": "@capacitor-community/admob"
     },
     {
       "id": "src_app",
@@ -3218,6 +3484,28 @@
       "source_location": "L8"
     },
     {
+      "id": "src_components_dailyspinscreen",
+      "label": "DailySpinScreen.jsx",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "GameContainer.jsx",
+      "file_type": "code",
+      "norm_label": "dailyspinscreen.jsx",
+      "source_file": "src/components/DailySpinScreen.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_components_dailyspinscreen_prizes",
+      "label": "PRIZES",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "GameContainer.jsx",
+      "file_type": "code",
+      "norm_label": "prizes",
+      "source_file": "src/components/DailySpinScreen.jsx",
+      "source_location": "L5"
+    },
+    {
       "id": "src_components_gamecontainer",
       "label": "GameContainer.jsx",
       "_origin": "ast",
@@ -3226,6 +3514,17 @@
       "file_type": "code",
       "norm_label": "gamecontainer.jsx",
       "source_file": "src/components/GameContainer.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_components_levelcomplete",
+      "label": "LevelComplete.jsx",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "GameContainer.jsx",
+      "file_type": "code",
+      "norm_label": "levelcomplete.jsx",
+      "source_file": "src/components/LevelComplete.jsx",
       "source_location": "L1"
     },
     {
@@ -3304,28 +3603,6 @@
       "norm_label": "interstitial_min_level",
       "source_file": "src/utils/adPolicy.js",
       "source_location": "L8"
-    },
-    {
-      "id": "src_utils_adservice",
-      "label": "adService.js",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "GameContainer.jsx",
-      "file_type": "code",
-      "norm_label": "adservice.js",
-      "source_file": "src/utils/adService.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_utils_adservice_ad_ids",
-      "label": "AD_IDS",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "GameContainer.jsx",
-      "file_type": "code",
-      "norm_label": "ad_ids",
-      "source_file": "src/utils/adService.js",
-      "source_location": "L9"
     },
     {
       "id": "src_utils_gamelogic_valid_words_en",
@@ -3493,17 +3770,6 @@
       "source_location": "L1"
     },
     {
-      "id": "src_components_wheel",
-      "label": "Wheel.jsx",
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "league.js",
-      "file_type": "code",
-      "norm_label": "wheel.jsx",
-      "source_file": "src/components/Wheel.jsx",
-      "source_location": "L1"
-    },
-    {
       "id": "src_utils_cloudgame",
       "label": "cloudGame.js",
       "_origin": "ast",
@@ -3667,17 +3933,6 @@
       "norm_label": "supabase",
       "source_file": "src/utils/supabaseClient.js",
       "source_location": "L15"
-    },
-    {
-      "id": "ref_capacitor_core",
-      "label": "@capacitor/core",
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "league.js",
-      "file_type": "concept",
-      "norm_label": "@capacitor/core",
-      "source_file": "package.json",
-      "source_location": "L19"
     },
     {
       "id": "claude",
@@ -3880,6 +4135,17 @@
       "source_location": "L7"
     },
     {
+      "id": "ref_capacitor_core",
+      "label": "@capacitor/core",
+      "_origin": "ast",
+      "community": 13,
+      "community_name": "analytics.js",
+      "file_type": "concept",
+      "norm_label": "@capacitor/core",
+      "source_file": "package.json",
+      "source_location": "L19"
+    },
+    {
       "id": "ref_capacitor_preferences",
       "label": "@capacitor/preferences",
       "_origin": "ast",
@@ -3957,17 +4223,6 @@
       "source_location": "L15"
     },
     {
-      "id": "src_components_levelcomplete",
-      "label": "LevelComplete.jsx",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "formatKurus",
-      "file_type": "code",
-      "norm_label": "levelcomplete.jsx",
-      "source_file": "src/components/LevelComplete.jsx",
-      "source_location": "L1"
-    },
-    {
       "id": "src_components_missionssheet",
       "label": "MissionsSheet.jsx",
       "_origin": "ast",
@@ -3987,6 +4242,17 @@
       "file_type": "code",
       "norm_label": "passscreen.jsx",
       "source_file": "src/components/PassScreen.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_components_wheel",
+      "label": "Wheel.jsx",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "formatKurus",
+      "file_type": "code",
+      "norm_label": "wheel.jsx",
+      "source_file": "src/components/Wheel.jsx",
       "source_location": "L1"
     },
     {
@@ -4433,28 +4699,6 @@
       "norm_label": "com.getcapacitor.bridgeactivity",
       "source_file": "",
       "source_location": ""
-    },
-    {
-      "id": "src_components_dictionaryscreen",
-      "label": "DictionaryScreen.jsx",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "gameLogic.js",
-      "file_type": "code",
-      "norm_label": "dictionaryscreen.jsx",
-      "source_file": "src/components/DictionaryScreen.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_components_dictionaryscreen_provider_themes",
-      "label": "PROVIDER_THEMES",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "gameLogic.js",
-      "file_type": "code",
-      "norm_label": "provider_themes",
-      "source_file": "src/components/DictionaryScreen.jsx",
-      "source_location": "L5"
     },
     {
       "id": "src_data_transitterms",
@@ -5533,17 +5777,6 @@
       "source_location": "L18"
     },
     {
-      "id": "ref_capacitor_community_admob",
-      "label": "@capacitor-community/admob",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "package.json",
-      "file_type": "concept",
-      "norm_label": "@capacitor-community/admob",
-      "source_file": "package.json",
-      "source_location": "L15"
-    },
-    {
       "id": "ref_capacitor_ios",
       "label": "@capacitor/ios",
       "_origin": "ast",
@@ -6017,257 +6250,48 @@
       "source_location": ""
     },
     {
-      "id": "src_components_mapscreen",
-      "label": "MapScreen.jsx",
+      "id": "admob",
+      "label": "@capacitor-community/admob",
       "_origin": "ast",
       "community": 9,
-      "community_name": "transitNetwork.js",
+      "community_name": "adService.js",
+      "confidence": "EXTRACTED",
       "file_type": "code",
-      "norm_label": "mapscreen.jsx",
-      "source_file": "src/components/MapScreen.jsx",
+      "norm_label": "@capacitor-community/admob",
+      "source_file": "@capacitor-community/admob"
+    },
+    {
+      "id": "src_utils_adservice",
+      "label": "adService.js",
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "adService.js",
+      "file_type": "code",
+      "norm_label": "adservice.js",
+      "source_file": "src/utils/adService.js",
       "source_location": "L1"
     },
     {
-      "id": "src_components_networkmap",
-      "label": "NetworkMap.jsx",
+      "id": "src_utils_adservice_ad_ids",
+      "label": "AD_IDS",
       "_origin": "ast",
       "community": 9,
-      "community_name": "transitNetwork.js",
+      "community_name": "adService.js",
       "file_type": "code",
-      "norm_label": "networkmap.jsx",
-      "source_file": "src/components/NetworkMap.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_components_networkmap_zooms",
-      "label": "ZOOMS",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "transitNetwork.js",
-      "file_type": "code",
-      "norm_label": "zooms",
-      "source_file": "src/components/NetworkMap.jsx",
-      "source_location": "L5"
-    },
-    {
-      "id": "src_components_networkscreen",
-      "label": "NetworkScreen.jsx",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "transitNetwork.js",
-      "file_type": "code",
-      "norm_label": "networkscreen.jsx",
-      "source_file": "src/components/NetworkScreen.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_components_postcard",
-      "label": "Postcard.jsx",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "transitNetwork.js",
-      "file_type": "code",
-      "norm_label": "postcard.jsx",
-      "source_file": "src/components/Postcard.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_data_istanbullines",
-      "label": "istanbulLines.js",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "transitNetwork.js",
-      "file_type": "code",
-      "norm_label": "istanbullines.js",
-      "source_file": "src/data/istanbulLines.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_data_istanbullines_extra_station_names",
-      "label": "EXTRA_STATION_NAMES",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "transitNetwork.js",
-      "file_type": "code",
-      "norm_label": "extra_station_names",
-      "source_file": "src/data/istanbulLines.js",
-      "source_location": "L38"
-    },
-    {
-      "id": "src_data_istanbullines_line_defs",
-      "label": "LINE_DEFS",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "transitNetwork.js",
-      "file_type": "code",
-      "norm_label": "line_defs",
-      "source_file": "src/data/istanbulLines.js",
+      "norm_label": "ad_ids",
+      "source_file": "src/utils/adService.js",
       "source_location": "L9"
     },
     {
-      "id": "src_data_istanbullines_mode_groups",
-      "label": "MODE_GROUPS",
+      "id": "ref_capacitor_community_admob",
+      "label": "@capacitor-community/admob",
       "_origin": "ast",
       "community": 9,
-      "community_name": "transitNetwork.js",
-      "file_type": "code",
-      "norm_label": "mode_groups",
-      "source_file": "src/data/istanbulLines.js",
-      "source_location": "L112"
-    },
-    {
-      "id": "src_data_istanbullines_mode_meta",
-      "label": "MODE_META",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "transitNetwork.js",
-      "file_type": "code",
-      "norm_label": "mode_meta",
-      "source_file": "src/data/istanbulLines.js",
-      "source_location": "L101"
-    },
-    {
-      "id": "src_data_networkgeometry",
-      "label": "networkGeometry.js",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "transitNetwork.js",
-      "file_type": "code",
-      "norm_label": "networkgeometry.js",
-      "source_file": "src/data/networkGeometry.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_data_networkgeometry_line_paths",
-      "label": "LINE_PATHS",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "transitNetwork.js",
-      "file_type": "code",
-      "norm_label": "line_paths",
-      "source_file": "src/data/networkGeometry.js",
-      "source_location": "L19"
-    },
-    {
-      "id": "src_data_networkgeometry_map_h",
-      "label": "MAP_H",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "transitNetwork.js",
-      "file_type": "code",
-      "norm_label": "map_h",
-      "source_file": "src/data/networkGeometry.js",
-      "source_location": "L7"
-    },
-    {
-      "id": "src_data_networkgeometry_map_w",
-      "label": "MAP_W",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "transitNetwork.js",
-      "file_type": "code",
-      "norm_label": "map_w",
-      "source_file": "src/data/networkGeometry.js",
-      "source_location": "L6"
-    },
-    {
-      "id": "src_data_networkgeometry_water",
-      "label": "WATER",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "transitNetwork.js",
-      "file_type": "code",
-      "norm_label": "water",
-      "source_file": "src/data/networkGeometry.js",
-      "source_location": "L10"
-    },
-    {
-      "id": "src_utils_transitnetwork",
-      "label": "transitNetwork.js",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "transitNetwork.js",
-      "file_type": "code",
-      "norm_label": "transitnetwork.js",
-      "source_file": "src/utils/transitNetwork.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_utils_transitnetwork_base_station_list",
-      "label": "BASE_STATION_LIST",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "transitNetwork.js",
-      "file_type": "code",
-      "norm_label": "base_station_list",
-      "source_file": "src/utils/transitNetwork.js",
-      "source_location": "L83"
-    },
-    {
-      "id": "src_utils_transitnetwork_levels_per_station",
-      "label": "LEVELS_PER_STATION",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "transitNetwork.js",
-      "file_type": "code",
-      "norm_label": "levels_per_station",
-      "source_file": "src/utils/transitNetwork.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_utils_transitnetwork_line_start",
-      "label": "LINE_START",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "transitNetwork.js",
-      "file_type": "code",
-      "norm_label": "line_start",
-      "source_file": "src/utils/transitNetwork.js",
-      "source_location": "L145"
-    },
-    {
-      "id": "src_utils_transitnetwork_lines",
-      "label": "LINES",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "transitNetwork.js",
-      "file_type": "code",
-      "norm_label": "lines",
-      "source_file": "src/utils/transitNetwork.js",
-      "source_location": "L8"
-    },
-    {
-      "id": "src_utils_transitnetwork_station_info",
-      "label": "STATION_INFO",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "transitNetwork.js",
-      "file_type": "code",
-      "norm_label": "station_info",
-      "source_file": "src/utils/transitNetwork.js",
-      "source_location": "L53"
-    },
-    {
-      "id": "src_utils_transitnetwork_station_names",
-      "label": "STATION_NAMES",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "transitNetwork.js",
-      "file_type": "code",
-      "norm_label": "station_names",
-      "source_file": "src/utils/transitNetwork.js",
-      "source_location": "L14"
-    },
-    {
-      "id": "src_utils_transitnetwork_stationfreq",
-      "label": "stationFreq",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "transitNetwork.js",
-      "file_type": "code",
-      "norm_label": "stationfreq",
-      "source_file": "src/utils/transitNetwork.js",
-      "source_location": "L75"
+      "community_name": "adService.js",
+      "file_type": "concept",
+      "norm_label": "@capacitor-community/admob",
+      "source_file": "package.json",
+      "source_location": "L15"
     },
     {
       "id": "src_index",
@@ -6506,6 +6530,17 @@
       "external": true,
       "file_type": "concept",
       "norm_label": "instrumentationregistry",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "ref_virtual_pwa_register",
+      "label": "ref_virtual_pwa_register",
+      "community": 13,
+      "community_name": "analytics.js",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "ref_virtual_pwa_register",
       "source_file": "",
       "type": "external"
     }
@@ -9484,7 +9519,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.jsx",
-      "source_location": "L18",
+      "source_location": "L39",
       "weight": 1.0
     },
     {
@@ -9496,7 +9531,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.jsx",
-      "source_location": "L35",
+      "source_location": "L56",
       "weight": 1.0
     },
     {
@@ -9508,7 +9543,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.jsx",
-      "source_location": "L37",
+      "source_location": "L58",
       "weight": 1.0
     },
     {
@@ -9520,7 +9555,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.jsx",
-      "source_location": "L38",
+      "source_location": "L59",
       "weight": 1.0
     },
     {
@@ -9532,7 +9567,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.jsx",
-      "source_location": "L40",
+      "source_location": "L61",
       "weight": 1.0
     },
     {
@@ -9544,7 +9579,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/main.jsx",
-      "source_location": "L41",
+      "source_location": "L62",
       "weight": 1.0
     },
     {
@@ -9592,19 +9627,31 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/utils/adService.js",
-      "source_location": "L44",
+      "source_location": "L49",
       "weight": 1.0
     },
     {
       "source": "src_utils_adservice_showinterstitialad",
-      "target": "src_utils_adservice_loadadmob",
+      "target": "src_utils_adservice_ensureadmob",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/utils/adService.js",
-      "source_location": "L47",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_adservice_showinterstitialad",
+      "target": "src_utils_adservice_withtimeout",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/utils/adService.js",
+      "source_location": "L52",
       "weight": 1.0
     },
     {
@@ -9616,7 +9663,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/utils/adService.js",
-      "source_location": "L48",
+      "source_location": "L53",
       "weight": 1.0
     },
     {
@@ -9628,19 +9675,31 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/utils/adService.js",
-      "source_location": "L30",
+      "source_location": "L35",
       "weight": 1.0
     },
     {
       "source": "src_utils_adservice_showrewardedad",
-      "target": "src_utils_adservice_loadadmob",
+      "target": "src_utils_adservice_ensureadmob",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/utils/adService.js",
-      "source_location": "L33",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_adservice_showrewardedad",
+      "target": "src_utils_adservice_withtimeout",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/utils/adService.js",
+      "source_location": "L38",
       "weight": 1.0
     },
     {
@@ -9652,7 +9711,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/utils/adService.js",
-      "source_location": "L34",
+      "source_location": "L39",
       "weight": 1.0
     },
     {
@@ -11144,7 +11203,7 @@
       "weight": 1.0
     },
     {
-      "source": "src_utils_adservice_loadadmob",
+      "source": "src_utils_adservice_ensureadmob",
       "target": "ref_capacitor_community_admob",
       "relation": "imports_from",
       "_origin": "ast",
@@ -11153,7 +11212,7 @@
       "context": "import",
       "deferred": true,
       "source_file": "src/utils/adService.js",
-      "source_location": "L18",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -18165,6 +18224,30 @@
       "weight": 1.0
     },
     {
+      "source": "src_main",
+      "target": "ref_capacitor_core",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/main.jsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "src_main",
+      "target": "ref_virtual_pwa_register",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/main.jsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
       "source": "src_store_gamestore",
       "target": "src_utils_daily",
       "relation": "imports_from",
@@ -20501,13 +20584,13 @@
     },
     {
       "source": "src_main",
-      "target": "src_main_start",
+      "target": "src_main_setupserviceworker",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.jsx",
-      "source_location": "L34",
+      "source_location": "L15",
       "weight": 1.0
     },
     {
@@ -20518,7 +20601,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.jsx",
-      "source_location": "L9",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "src_main",
+      "target": "src_main_start",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/main.jsx",
+      "source_location": "L55",
       "weight": 1.0
     },
     {
@@ -20677,13 +20771,24 @@
     },
     {
       "source": "src_utils_adservice",
-      "target": "src_utils_adservice_loadadmob",
+      "target": "src_utils_adservice_ensureadmob",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/utils/adService.js",
-      "source_location": "L17",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_adservice",
+      "target": "src_utils_adservice_withtimeout",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/adService.js",
+      "source_location": "L27",
       "weight": 1.0
     },
     {
@@ -20694,7 +20799,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/utils/adService.js",
-      "source_location": "L23",
+      "source_location": "L28",
       "weight": 1.0
     },
     {
@@ -20705,7 +20810,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/utils/adService.js",
-      "source_location": "L24",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -20716,7 +20821,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/utils/adService.js",
-      "source_location": "L26",
+      "source_location": "L31",
       "weight": 1.0
     },
     {
@@ -20727,7 +20832,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/utils/adService.js",
-      "source_location": "L29",
+      "source_location": "L34",
       "weight": 1.0
     },
     {
@@ -20738,7 +20843,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/utils/adService.js",
-      "source_location": "L43",
+      "source_location": "L48",
       "weight": 1.0
     },
     {
@@ -22912,7 +23017,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.jsx",
-      "source_location": "L10",
+      "source_location": "L31",
       "weight": 1.0
     },
     {
@@ -22923,7 +23028,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.jsx",
-      "source_location": "L14",
+      "source_location": "L35",
       "weight": 1.0
     },
     {
@@ -22934,7 +23039,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.jsx",
-      "source_location": "L17",
+      "source_location": "L38",
       "weight": 1.0
     },
     {
@@ -22945,7 +23050,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/main.jsx",
-      "source_location": "L20",
+      "source_location": "L41",
       "weight": 1.0
     },
     {
@@ -23223,5 +23328,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "2b7f84752bb2babf1de4d14e0ca831294b1cf8d8"
+  "built_at_commit": "56e1c20b244bf8a1e1eb2fd7b12ace407ab299f1"
 }
