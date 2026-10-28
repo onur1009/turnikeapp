@@ -120,15 +120,15 @@
     "semantic_hash": "89f4fb5a8d8cae2dfb6f2ffc76de64e3"
   },
   "src/App.jsx": {
-    "mtime": 1793173963.2288132,
-    "seen": 1793173970.154593,
-    "ast_hash": "7cdfe23466ad93f25b8a7907c6bd30cc",
+    "mtime": 1793176175.1494832,
+    "seen": 1793176182.5547526,
+    "ast_hash": "da6f17a224937c30dc3c9a6d0bb601eb",
     "semantic_hash": ""
   },
   "src/components/AkbilScreen.jsx": {
-    "mtime": 1793173963.230622,
-    "seen": 1793173970.154593,
-    "ast_hash": "00cda24eca1edc47fa10a514b0e598ae",
+    "mtime": 1793176175.151498,
+    "seen": 1793176182.5547526,
+    "ast_hash": "f8a3389e8139657c28a554813e56725a",
     "semantic_hash": ""
   },
   "src/components/AnimatedBalance.jsx": {
@@ -162,15 +162,15 @@
     "semantic_hash": ""
   },
   "src/components/DuelsScreen.jsx": {
-    "mtime": 1793172904.7124765,
-    "seen": 1793172911.5253007,
-    "ast_hash": "c0189c54640e2770f342bc77eb3fbb84",
+    "mtime": 1793176175.1564965,
+    "seen": 1793176182.5567636,
+    "ast_hash": "87c4b00143dd2a0538c0b660d6fb7c19",
     "semantic_hash": ""
   },
   "src/components/GameContainer.jsx": {
-    "mtime": 1793173963.230622,
-    "seen": 1793173970.1566002,
-    "ast_hash": "4e31ea2bb618250921b9af331eefb8c7",
+    "mtime": 1793176175.1605246,
+    "seen": 1793176182.5567636,
+    "ast_hash": "84ad9d68e43efec7d396fd7e9a4ddb15",
     "semantic_hash": ""
   },
   "src/components/Grid.jsx": {
@@ -210,9 +210,9 @@
     "semantic_hash": ""
   },
   "src/components/NavigationContainer.jsx": {
-    "mtime": 1793173963.230622,
-    "seen": 1793173970.1566002,
-    "ast_hash": "e52f8bfbe67212cb6269f6f6df6878e4",
+    "mtime": 1793176175.1657052,
+    "seen": 1793176182.5587764,
+    "ast_hash": "66944a9caf2e06b33d0101d16b95327e",
     "semantic_hash": ""
   },
   "src/components/ScreenHeader.jsx": {
@@ -276,9 +276,9 @@
     "semantic_hash": ""
   },
   "src/store/gameStore.js": {
-    "mtime": 1793173963.230622,
-    "seen": 1793173970.1606145,
-    "ast_hash": "2c789f2a6313404bb44e800107683317",
+    "mtime": 1793176175.1677198,
+    "seen": 1793176182.5643759,
+    "ast_hash": "c3837310106e4dae75d0e699fed91642",
     "semantic_hash": ""
   },
   "src/utils/badges.js": {
@@ -330,9 +330,9 @@
     "semantic_hash": "ab574ce65ce1d436e299afbf64c6bcaa"
   },
   "src/utils/supabaseClient.js": {
-    "mtime": 1793023071.19737,
-    "seen": 1793023123.2418876,
-    "ast_hash": "db001d1d3f6e35ada44c5fa0a60fa206",
+    "mtime": 1793176175.1732574,
+    "seen": 1793176182.5683992,
+    "ast_hash": "82064438279624717bd6b3e27854b3a6",
     "semantic_hash": ""
   },
   "src/utils/transitNetwork.js": {
@@ -384,10 +384,10 @@
     "semantic_hash": "2e154cc57ea1ad4eb2e82aec029594f0"
   },
   "vite.config.js": {
-    "mtime": 1782284930.1066074,
-    "seen": 1793022710.6167996,
-    "ast_hash": "1e2a68c6f271458daec739d374b9d9a8",
-    "semantic_hash": "1e2a68c6f271458daec739d374b9d9a8"
+    "mtime": 1793176175.1772811,
+    "seen": 1793176182.5704107,
+    "ast_hash": "57b0a21e32d0c1d23f67906c53a19fc6",
+    "semantic_hash": ""
   },
   "supabase/migrations/0001_players_rls.sql": {
     "mtime": 1793023071.1995513,
@@ -654,9 +654,9 @@
     "semantic_hash": ""
   },
   "src/components/DuelGame.jsx": {
-    "mtime": 1793087787.825332,
-    "seen": 1793087795.5133226,
-    "ast_hash": "febd4edcad28f578bc72d64a5012e5a3",
+    "mtime": 1793176175.1544814,
+    "seen": 1793176182.5567636,
+    "ast_hash": "0afb218a1fb1d04436a64c1608918969",
     "semantic_hash": ""
   },
   "src/components/SceneAnimal.jsx": {
@@ -672,9 +672,9 @@
     "semantic_hash": ""
   },
   "src/utils/duel.js": {
-    "mtime": 1793087129.337904,
-    "seen": 1793087136.2104025,
-    "ast_hash": "e7e5ed77e656345a2eb356bffddcbac8",
+    "mtime": 1793176175.169234,
+    "seen": 1793176182.5663865,
+    "ast_hash": "ca32e8a259b34205a176e4087acd066b",
     "semantic_hash": ""
   },
   "src/components/ConsentSheet.jsx": {
@@ -702,9 +702,9 @@
     "semantic_hash": ""
   },
   "src/components/DailyScreen.jsx": {
-    "mtime": 1793172904.7006922,
-    "seen": 1793172911.5253007,
-    "ast_hash": "2f910744c6671c05df7a8c7c5787203b",
+    "mtime": 1793176175.1544814,
+    "seen": 1793176182.5567636,
+    "ast_hash": "6820ea4fe74e59b7476dafad0b7f65e3",
     "semantic_hash": ""
   },
   "src/components/MissionsSheet.jsx": {
@@ -741,6 +741,24 @@
     "mtime": 1793173963.2457566,
     "seen": 1793173970.1647415,
     "ast_hash": "45227e89f53d59dde6b79bffd149e2ae",
+    "semantic_hash": ""
+  },
+  "src/components/LeagueScreen.jsx": {
+    "mtime": 1793176175.162538,
+    "seen": 1793176182.5567636,
+    "ast_hash": "f77e6a8e4ee486b604d497e0adca671a",
+    "semantic_hash": ""
+  },
+  "src/utils/cloudGame.js": {
+    "mtime": 1793176175.169234,
+    "seen": 1793176182.5643759,
+    "ast_hash": "81a656a32ccc8c22ca54213ce5f00cec",
+    "semantic_hash": ""
+  },
+  "src/utils/league.js": {
+    "mtime": 1793176175.1712449,
+    "seen": 1793176182.5663865,
+    "ast_hash": "ec7491e35b996b7d783262252511c254",
     "semantic_hash": ""
   }
 }

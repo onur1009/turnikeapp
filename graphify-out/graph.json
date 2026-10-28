@@ -12,8 +12,8 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 10,
-      "community_name": "analytics.js",
+      "community": 14,
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "errorboundary",
       "source_file": "src/main.jsx",
@@ -72,6 +72,78 @@
       "source_location": "L12"
     },
     {
+      "id": "src_components_akbilscreen_akbilscreen",
+      "label": "AkbilScreen()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "akbilscreen()",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L128"
+    },
+    {
+      "id": "src_components_akbilscreen_cardpattern",
+      "label": "CardPattern()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "cardpattern()",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L36"
+    },
+    {
+      "id": "src_components_akbilscreen_istanbulcard",
+      "label": "IstanbulCard()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "istanbulcard()",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L79"
+    },
+    {
+      "id": "src_components_akbilscreen_module",
+      "label": "Module()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "module()",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L107"
+    },
+    {
+      "id": "src_components_akbilscreen_todaykey",
+      "label": "todayKey()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "todaykey()",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L30"
+    },
+    {
+      "id": "src_components_animatedbalance_animatedbalance",
+      "label": "AnimatedBalance()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "animatedbalance()",
+      "source_file": "src/components/AnimatedBalance.jsx",
+      "source_location": "L5"
+    },
+    {
       "id": "src_components_badgesscreen_badgesscreen",
       "label": "BadgesScreen()",
       "_callable": true,
@@ -120,6 +192,30 @@
       "source_location": "L9"
     },
     {
+      "id": "src_components_levelcomplete_countup",
+      "label": "CountUp()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "countup()",
+      "source_file": "src/components/LevelComplete.jsx",
+      "source_location": "L6"
+    },
+    {
+      "id": "src_components_levelcomplete_levelcomplete",
+      "label": "LevelComplete()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "levelcomplete()",
+      "source_file": "src/components/LevelComplete.jsx",
+      "source_location": "L34"
+    },
+    {
       "id": "src_components_lostitemsscreen_lostitemsscreen",
       "label": "LostItemsScreen()",
       "_callable": true,
@@ -132,6 +228,18 @@
       "source_location": "L12"
     },
     {
+      "id": "src_components_mapscreen_mapscreen",
+      "label": "MapScreen()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "mapscreen()",
+      "source_file": "src/components/MapScreen.jsx",
+      "source_location": "L4"
+    },
+    {
       "id": "src_components_navigationcontainer_navigationcontainer",
       "label": "NavigationContainer()",
       "_callable": true,
@@ -141,7 +249,19 @@
       "file_type": "code",
       "norm_label": "navigationcontainer()",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L23"
+      "source_location": "L24"
+    },
+    {
+      "id": "src_components_networkscreen_networkscreen",
+      "label": "NetworkScreen()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "networkscreen()",
+      "source_file": "src/components/NetworkScreen.jsx",
+      "source_location": "L5"
     },
     {
       "id": "src_components_postcard_postcard",
@@ -228,6 +348,54 @@
       "source_location": "L6"
     },
     {
+      "id": "src_utils_adservice_isrewardedadsupported",
+      "label": "isRewardedAdSupported()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "isrewardedadsupported()",
+      "source_file": "src/utils/adService.js",
+      "source_location": "L21"
+    },
+    {
+      "id": "src_utils_adservice_loadadmob",
+      "label": "loadAdMob()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "loadadmob()",
+      "source_file": "src/utils/adService.js",
+      "source_location": "L14"
+    },
+    {
+      "id": "src_utils_adservice_showrewardedad",
+      "label": "showRewardedAd()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "showrewardedad()",
+      "source_file": "src/utils/adService.js",
+      "source_location": "L24"
+    },
+    {
+      "id": "src_utils_format_formatkurus",
+      "label": "formatKurus()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "formatkurus()",
+      "source_file": "src/utils/format.js",
+      "source_location": "L2"
+    },
+    {
       "id": "src_utils_i18n_usetranslation",
       "label": "useTranslation()",
       "_callable": true,
@@ -240,16 +408,28 @@
       "source_location": "L248"
     },
     {
-      "id": "src_utils_supabaseclient_ensuresession",
-      "label": "ensureSession()",
+      "id": "src_utils_transitnetwork_getstationdata",
+      "label": "getStationData()",
       "_callable": true,
       "_origin": "ast",
       "community": 0,
       "community_name": "useGameStore",
       "file_type": "code",
-      "norm_label": "ensuresession()",
-      "source_file": "src/utils/supabaseClient.js",
-      "source_location": "L18"
+      "norm_label": "getstationdata()",
+      "source_file": "src/utils/transitNetwork.js",
+      "source_location": "L99"
+    },
+    {
+      "id": "src_utils_transitnetwork_getstationforlevel",
+      "label": "getStationForLevel()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "getstationforlevel()",
+      "source_file": "src/utils/transitNetwork.js",
+      "source_location": "L113"
     },
     {
       "id": "src_app_app",
@@ -309,7 +489,7 @@
       "file_type": "code",
       "norm_label": "gamecontainer()",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L55"
+      "source_location": "L56"
     },
     {
       "id": "src_components_gamecontainer_gridrows",
@@ -321,7 +501,7 @@
       "file_type": "code",
       "norm_label": "gridrows()",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L43"
+      "source_location": "L44"
     },
     {
       "id": "src_components_gamecontainer_toolbutton",
@@ -333,7 +513,7 @@
       "file_type": "code",
       "norm_label": "toolbutton()",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L32"
+      "source_location": "L33"
     },
     {
       "id": "src_components_vehiclesprite_vehiclesprite",
@@ -408,6 +588,18 @@
       "source_location": "L15"
     },
     {
+      "id": "src_utils_dda_applydda",
+      "label": "applyDDA()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "GameContainer.jsx",
+      "file_type": "code",
+      "norm_label": "applydda()",
+      "source_file": "src/utils/dda.js",
+      "source_location": "L91"
+    },
+    {
       "id": "src_utils_dda_computerawsignal",
       "label": "computeRawSignal()",
       "_callable": true,
@@ -418,6 +610,18 @@
       "norm_label": "computerawsignal()",
       "source_file": "src/utils/dda.js",
       "source_location": "L38"
+    },
+    {
+      "id": "src_utils_dda_detectvolatility",
+      "label": "detectVolatility()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "GameContainer.jsx",
+      "file_type": "code",
+      "norm_label": "detectvolatility()",
+      "source_file": "src/utils/dda.js",
+      "source_location": "L64"
     },
     {
       "id": "src_utils_dda_getalpha",
@@ -432,6 +636,42 @@
       "source_location": "L58"
     },
     {
+      "id": "src_utils_dda_mean",
+      "label": "mean()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "GameContainer.jsx",
+      "file_type": "code",
+      "norm_label": "mean()",
+      "source_file": "src/utils/dda.js",
+      "source_location": "L7"
+    },
+    {
+      "id": "src_utils_dda_runstestz",
+      "label": "runsTestZ()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "GameContainer.jsx",
+      "file_type": "code",
+      "norm_label": "runstestz()",
+      "source_file": "src/utils/dda.js",
+      "source_location": "L23"
+    },
+    {
+      "id": "src_utils_dda_trendslope",
+      "label": "trendSlope()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "GameContainer.jsx",
+      "file_type": "code",
+      "norm_label": "trendslope()",
+      "source_file": "src/utils/dda.js",
+      "source_location": "L10"
+    },
+    {
       "id": "src_utils_dda_updateewmvandzscore",
       "label": "updateEwmvAndZScore()",
       "_callable": true,
@@ -442,6 +682,18 @@
       "norm_label": "updateewmvandzscore()",
       "source_file": "src/utils/dda.js",
       "source_location": "L50"
+    },
+    {
+      "id": "src_utils_dda_variance",
+      "label": "variance()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "GameContainer.jsx",
+      "file_type": "code",
+      "norm_label": "variance()",
+      "source_file": "src/utils/dda.js",
+      "source_location": "L8"
     },
     {
       "id": "src_utils_gamelogic_gettimeforlevel",
@@ -684,220 +936,256 @@
       "source_location": "L14"
     },
     {
-      "id": "src_components_consentsheet_consentsheet",
-      "label": "ConsentSheet()",
+      "id": "src_components_leaguescreen_leaguescreen",
+      "label": "LeagueScreen()",
       "_callable": true,
       "_origin": "ast",
       "community": 10,
-      "community_name": "analytics.js",
+      "community_name": "league.js",
       "file_type": "code",
-      "norm_label": "consentsheet()",
-      "source_file": "src/components/ConsentSheet.jsx",
-      "source_location": "L7"
+      "norm_label": "leaguescreen()",
+      "source_file": "src/components/LeagueScreen.jsx",
+      "source_location": "L8"
     },
     {
-      "id": "src_main_errorboundary_componentdidcatch",
-      "label": ".componentDidCatch()",
+      "id": "src_utils_cloudgame_call",
+      "label": "call()",
       "_callable": true,
       "_origin": "ast",
       "community": 10,
-      "community_name": "analytics.js",
+      "community_name": "league.js",
       "file_type": "code",
-      "norm_label": ".componentdidcatch()",
-      "source_file": "src/main.jsx",
-      "source_location": "L17"
+      "norm_label": "call()",
+      "source_file": "src/utils/cloudGame.js",
+      "source_location": "L6"
     },
     {
-      "id": "src_main_errorboundary_constructor",
-      "label": ".constructor()",
+      "id": "src_utils_cloudgame_currentuserid",
+      "label": "currentUserId()",
       "_callable": true,
       "_origin": "ast",
       "community": 10,
-      "community_name": "analytics.js",
+      "community_name": "league.js",
       "file_type": "code",
-      "norm_label": ".constructor()",
-      "source_file": "src/main.jsx",
-      "source_location": "L10"
+      "norm_label": "currentuserid()",
+      "source_file": "src/utils/cloudGame.js",
+      "source_location": "L58"
     },
     {
-      "id": "src_main_errorboundary_getderivedstatefromerror",
-      "label": ".getDerivedStateFromError()",
+      "id": "src_utils_cloudgame_fetchrun",
+      "label": "fetchRun()",
       "_callable": true,
       "_origin": "ast",
       "community": 10,
-      "community_name": "analytics.js",
+      "community_name": "league.js",
       "file_type": "code",
-      "norm_label": ".getderivedstatefromerror()",
-      "source_file": "src/main.jsx",
-      "source_location": "L14"
+      "norm_label": "fetchrun()",
+      "source_file": "src/utils/cloudGame.js",
+      "source_location": "L26"
     },
     {
-      "id": "src_main_errorboundary_render",
-      "label": ".render()",
+      "id": "src_utils_cloudgame_leagueaddpoints",
+      "label": "leagueAddPoints()",
       "_callable": true,
       "_origin": "ast",
       "community": 10,
-      "community_name": "analytics.js",
+      "community_name": "league.js",
       "file_type": "code",
-      "norm_label": ".render()",
-      "source_file": "src/main.jsx",
-      "source_location": "L20"
+      "norm_label": "leagueaddpoints()",
+      "source_file": "src/utils/cloudGame.js",
+      "source_location": "L44"
     },
     {
-      "id": "src_main_start",
-      "label": "start()",
+      "id": "src_utils_cloudgame_leaguegroup",
+      "label": "leagueGroup()",
       "_callable": true,
       "_origin": "ast",
       "community": 10,
-      "community_name": "analytics.js",
+      "community_name": "league.js",
       "file_type": "code",
-      "norm_label": "start()",
-      "source_file": "src/main.jsx",
-      "source_location": "L34"
-    },
-    {
-      "id": "src_utils_analytics_anonid",
-      "label": "anonId()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "analytics.js",
-      "file_type": "code",
-      "norm_label": "anonid()",
-      "source_file": "src/utils/analytics.js",
-      "source_location": "L16"
-    },
-    {
-      "id": "src_utils_analytics_clearlocalevents",
-      "label": "clearLocalEvents()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "analytics.js",
-      "file_type": "code",
-      "norm_label": "clearlocalevents()",
-      "source_file": "src/utils/analytics.js",
-      "source_location": "L43"
-    },
-    {
-      "id": "src_utils_analytics_flush",
-      "label": "flush()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "analytics.js",
-      "file_type": "code",
-      "norm_label": "flush()",
-      "source_file": "src/utils/analytics.js",
+      "norm_label": "leaguegroup()",
+      "source_file": "src/utils/cloudGame.js",
       "source_location": "L50"
     },
     {
-      "id": "src_utils_analytics_getlocalevents",
-      "label": "getLocalEvents()",
+      "id": "src_utils_cloudgame_leaguejoin",
+      "label": "leagueJoin()",
       "_callable": true,
       "_origin": "ast",
       "community": 10,
-      "community_name": "analytics.js",
+      "community_name": "league.js",
       "file_type": "code",
-      "norm_label": "getlocalevents()",
-      "source_file": "src/utils/analytics.js",
-      "source_location": "L42"
+      "norm_label": "leaguejoin()",
+      "source_file": "src/utils/cloudGame.js",
+      "source_location": "L38"
     },
     {
-      "id": "src_utils_analytics_hasconsent",
-      "label": "hasConsent()",
+      "id": "src_utils_cloudgame_randomghost",
+      "label": "randomGhost()",
       "_callable": true,
       "_origin": "ast",
       "community": 10,
-      "community_name": "analytics.js",
+      "community_name": "league.js",
       "file_type": "code",
-      "norm_label": "hasconsent()",
-      "source_file": "src/utils/analytics.js",
-      "source_location": "L28"
+      "norm_label": "randomghost()",
+      "source_file": "src/utils/cloudGame.js",
+      "source_location": "L32"
     },
     {
-      "id": "src_utils_analytics_initanalytics",
-      "label": "initAnalytics()",
+      "id": "src_utils_cloudgame_submitrun",
+      "label": "submitRun()",
       "_callable": true,
       "_origin": "ast",
       "community": 10,
-      "community_name": "analytics.js",
+      "community_name": "league.js",
       "file_type": "code",
-      "norm_label": "initanalytics()",
-      "source_file": "src/utils/analytics.js",
-      "source_location": "L63"
+      "norm_label": "submitrun()",
+      "source_file": "src/utils/cloudGame.js",
+      "source_location": "L18"
     },
     {
-      "id": "src_utils_analytics_payload",
-      "label": "payload()",
+      "id": "src_utils_league_addleaguepoints",
+      "label": "addLeaguePoints()",
       "_callable": true,
       "_origin": "ast",
       "community": 10,
-      "community_name": "analytics.js",
+      "community_name": "league.js",
       "file_type": "code",
-      "norm_label": "payload()",
-      "source_file": "src/utils/analytics.js",
-      "source_location": "L45"
+      "norm_label": "addleaguepoints()",
+      "source_file": "src/utils/league.js",
+      "source_location": "L121"
     },
     {
-      "id": "src_utils_analytics_safeget",
-      "label": "safeGet()",
+      "id": "src_utils_league_botsfor",
+      "label": "botsFor()",
       "_callable": true,
       "_origin": "ast",
       "community": 10,
-      "community_name": "analytics.js",
+      "community_name": "league.js",
       "file_type": "code",
-      "norm_label": "safeget()",
-      "source_file": "src/utils/analytics.js",
-      "source_location": "L13"
+      "norm_label": "botsfor()",
+      "source_file": "src/utils/league.js",
+      "source_location": "L59"
     },
     {
-      "id": "src_utils_analytics_safeset",
-      "label": "safeSet()",
+      "id": "src_utils_league_ensureleagueweek",
+      "label": "ensureLeagueWeek()",
       "_callable": true,
       "_origin": "ast",
       "community": 10,
-      "community_name": "analytics.js",
+      "community_name": "league.js",
       "file_type": "code",
-      "norm_label": "safeset()",
-      "source_file": "src/utils/analytics.js",
-      "source_location": "L14"
+      "norm_label": "ensureleagueweek()",
+      "source_file": "src/utils/league.js",
+      "source_location": "L85"
     },
     {
-      "id": "src_utils_analytics_setanalyticsconsent",
-      "label": "setAnalyticsConsent()",
+      "id": "src_utils_league_hash",
+      "label": "hash()",
       "_callable": true,
       "_origin": "ast",
       "community": 10,
-      "community_name": "analytics.js",
+      "community_name": "league.js",
       "file_type": "code",
-      "norm_label": "setanalyticsconsent()",
-      "source_file": "src/utils/analytics.js",
-      "source_location": "L77"
+      "norm_label": "hash()",
+      "source_file": "src/utils/league.js",
+      "source_location": "L56"
     },
     {
-      "id": "src_utils_analytics_track",
-      "label": "track()",
+      "id": "src_utils_league_playername",
+      "label": "playerName()",
       "_callable": true,
       "_origin": "ast",
       "community": 10,
-      "community_name": "analytics.js",
+      "community_name": "league.js",
       "file_type": "code",
-      "norm_label": "track()",
-      "source_file": "src/utils/analytics.js",
-      "source_location": "L30"
+      "norm_label": "playername()",
+      "source_file": "src/utils/league.js",
+      "source_location": "L79"
     },
     {
-      "id": "src_utils_persiststorage_restorefrombackup",
-      "label": "restoreFromBackup()",
+      "id": "src_utils_league_rng",
+      "label": "rng()",
       "_callable": true,
       "_origin": "ast",
       "community": 10,
-      "community_name": "analytics.js",
+      "community_name": "league.js",
       "file_type": "code",
-      "norm_label": "restorefrombackup()",
-      "source_file": "src/utils/persistStorage.js",
-      "source_location": "L22"
+      "norm_label": "rng()",
+      "source_file": "src/utils/league.js",
+      "source_location": "L52"
+    },
+    {
+      "id": "src_utils_league_standings",
+      "label": "standings()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "league.js",
+      "file_type": "code",
+      "norm_label": "standings()",
+      "source_file": "src/utils/league.js",
+      "source_location": "L70"
+    },
+    {
+      "id": "src_utils_league_syncleague",
+      "label": "syncLeague()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "league.js",
+      "file_type": "code",
+      "norm_label": "syncleague()",
+      "source_file": "src/utils/league.js",
+      "source_location": "L108"
+    },
+    {
+      "id": "src_utils_league_weekendsin",
+      "label": "weekEndsIn()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "league.js",
+      "file_type": "code",
+      "norm_label": "weekendsin()",
+      "source_file": "src/utils/league.js",
+      "source_location": "L39"
+    },
+    {
+      "id": "src_utils_league_weekkey",
+      "label": "weekKey()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "league.js",
+      "file_type": "code",
+      "norm_label": "weekkey()",
+      "source_file": "src/utils/league.js",
+      "source_location": "L24"
+    },
+    {
+      "id": "src_utils_league_weekprogress",
+      "label": "weekProgress()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "league.js",
+      "file_type": "code",
+      "norm_label": "weekprogress()",
+      "source_file": "src/utils/league.js",
+      "source_location": "L34"
+    },
+    {
+      "id": "src_utils_supabaseclient_ensuresession",
+      "label": "ensureSession()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "league.js",
+      "file_type": "code",
+      "norm_label": "ensuresession()",
+      "source_file": "src/utils/supabaseClient.js",
+      "source_location": "L20"
     },
     {
       "id": "src_components_sceneanimal_cat",
@@ -1149,7 +1437,7 @@
       "file_type": "code",
       "norm_label": "avatar()",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L16"
+      "source_location": "L19"
     },
     {
       "id": "src_components_duelsscreen_duelsscreen",
@@ -1161,7 +1449,7 @@
       "file_type": "code",
       "norm_label": "duelsscreen()",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L38"
+      "source_location": "L41"
     },
     {
       "id": "src_components_duelsscreen_initials",
@@ -1173,7 +1461,7 @@
       "file_type": "code",
       "norm_label": "initials()",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L14"
+      "source_location": "L17"
     },
     {
       "id": "src_components_duelsscreen_score",
@@ -1185,7 +1473,7 @@
       "file_type": "code",
       "norm_label": "score()",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L34"
+      "source_location": "L37"
     },
     {
       "id": "src_components_duelsscreen_vsbadge",
@@ -1197,7 +1485,7 @@
       "file_type": "code",
       "norm_label": "vsbadge()",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L29"
+      "source_location": "L32"
     },
     {
       "id": "src_components_grid_grid",
@@ -1210,6 +1498,18 @@
       "norm_label": "grid()",
       "source_file": "src/components/Grid.jsx",
       "source_location": "L4"
+    },
+    {
+      "id": "src_utils_duel_botghost",
+      "label": "botGhost()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 13,
+      "community_name": "DuelsScreen.jsx",
+      "file_type": "code",
+      "norm_label": "botghost()",
+      "source_file": "src/utils/duel.js",
+      "source_location": "L73"
     },
     {
       "id": "src_utils_duel_cleanname",
@@ -1245,7 +1545,7 @@
       "file_type": "code",
       "norm_label": "comparescores()",
       "source_file": "src/utils/duel.js",
-      "source_location": "L51"
+      "source_location": "L55"
     },
     {
       "id": "src_utils_duel_decodeduel",
@@ -1257,7 +1557,7 @@
       "file_type": "code",
       "norm_label": "decodeduel()",
       "source_file": "src/utils/duel.js",
-      "source_location": "L25"
+      "source_location": "L27"
     },
     {
       "id": "src_utils_duel_duellink",
@@ -1269,7 +1569,7 @@
       "file_type": "code",
       "norm_label": "duellink()",
       "source_file": "src/utils/duel.js",
-      "source_location": "L45"
+      "source_location": "L49"
     },
     {
       "id": "src_utils_duel_encodeduel",
@@ -1281,7 +1581,7 @@
       "file_type": "code",
       "norm_label": "encodeduel()",
       "source_file": "src/utils/duel.js",
-      "source_location": "L21"
+      "source_location": "L23"
     },
     {
       "id": "src_utils_duel_fromb64url",
@@ -1317,7 +1617,7 @@
       "file_type": "code",
       "norm_label": "shareduel()",
       "source_file": "src/utils/duel.js",
-      "source_location": "L57"
+      "source_location": "L61"
     },
     {
       "id": "src_utils_duel_tob64url",
@@ -1332,16 +1632,16 @@
       "source_location": "L10"
     },
     {
-      "id": "src_components_animatedbalance_animatedbalance",
-      "label": "AnimatedBalance()",
+      "id": "src_components_consentsheet_consentsheet",
+      "label": "ConsentSheet()",
       "_callable": true,
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
-      "norm_label": "animatedbalance()",
-      "source_file": "src/components/AnimatedBalance.jsx",
-      "source_location": "L5"
+      "norm_label": "consentsheet()",
+      "source_file": "src/components/ConsentSheet.jsx",
+      "source_location": "L7"
     },
     {
       "id": "src_components_dailyscreen_dailyscreen",
@@ -1349,11 +1649,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "dailyscreen()",
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L88"
+      "source_location": "L89"
     },
     {
       "id": "src_components_dailyscreen_dailystreak",
@@ -1361,11 +1661,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "dailystreak()",
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L16"
+      "source_location": "L17"
     },
     {
       "id": "src_components_dailyscreen_mmss",
@@ -1373,11 +1673,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "mmss()",
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L13"
+      "source_location": "L14"
     },
     {
       "id": "src_components_dailyscreen_play",
@@ -1385,11 +1685,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "play()",
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L30"
+      "source_location": "L31"
     },
     {
       "id": "src_components_dailyscreen_untilmidnight",
@@ -1397,11 +1697,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "untilmidnight()",
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L23"
+      "source_location": "L24"
     },
     {
       "id": "src_components_eventsheet_eventsheet",
@@ -1409,7 +1709,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "eventsheet()",
       "source_file": "src/components/EventSheet.jsx",
@@ -1421,35 +1721,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "homescreen()",
       "source_file": "src/components/HomeScreen.jsx",
       "source_location": "L23"
-    },
-    {
-      "id": "src_components_levelcomplete_countup",
-      "label": "CountUp()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "HomeScreen.jsx",
-      "file_type": "code",
-      "norm_label": "countup()",
-      "source_file": "src/components/LevelComplete.jsx",
-      "source_location": "L6"
-    },
-    {
-      "id": "src_components_levelcomplete_levelcomplete",
-      "label": "LevelComplete()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "HomeScreen.jsx",
-      "file_type": "code",
-      "norm_label": "levelcomplete()",
-      "source_file": "src/components/LevelComplete.jsx",
-      "source_location": "L34"
     },
     {
       "id": "src_components_missionssheet_missionssheet",
@@ -1457,7 +1733,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "missionssheet()",
       "source_file": "src/components/MissionsSheet.jsx",
@@ -1469,7 +1745,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "usemissionprogress()",
       "source_file": "src/components/MissionsSheet.jsx",
@@ -1481,7 +1757,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "tipbubble()",
       "source_file": "src/components/TipBubble.jsx",
@@ -1493,11 +1769,203 @@
       "_callable": true,
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "wheel()",
       "source_file": "src/components/Wheel.jsx",
       "source_location": "L4"
+    },
+    {
+      "id": "src_main_errorboundary_componentdidcatch",
+      "label": ".componentDidCatch()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "gameStore.js",
+      "file_type": "code",
+      "norm_label": ".componentdidcatch()",
+      "source_file": "src/main.jsx",
+      "source_location": "L17"
+    },
+    {
+      "id": "src_main_errorboundary_constructor",
+      "label": ".constructor()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "gameStore.js",
+      "file_type": "code",
+      "norm_label": ".constructor()",
+      "source_file": "src/main.jsx",
+      "source_location": "L10"
+    },
+    {
+      "id": "src_main_errorboundary_getderivedstatefromerror",
+      "label": ".getDerivedStateFromError()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "gameStore.js",
+      "file_type": "code",
+      "norm_label": ".getderivedstatefromerror()",
+      "source_file": "src/main.jsx",
+      "source_location": "L14"
+    },
+    {
+      "id": "src_main_errorboundary_render",
+      "label": ".render()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "gameStore.js",
+      "file_type": "code",
+      "norm_label": ".render()",
+      "source_file": "src/main.jsx",
+      "source_location": "L20"
+    },
+    {
+      "id": "src_main_start",
+      "label": "start()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "gameStore.js",
+      "file_type": "code",
+      "norm_label": "start()",
+      "source_file": "src/main.jsx",
+      "source_location": "L34"
+    },
+    {
+      "id": "src_utils_analytics_anonid",
+      "label": "anonId()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "gameStore.js",
+      "file_type": "code",
+      "norm_label": "anonid()",
+      "source_file": "src/utils/analytics.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "src_utils_analytics_clearlocalevents",
+      "label": "clearLocalEvents()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "gameStore.js",
+      "file_type": "code",
+      "norm_label": "clearlocalevents()",
+      "source_file": "src/utils/analytics.js",
+      "source_location": "L43"
+    },
+    {
+      "id": "src_utils_analytics_flush",
+      "label": "flush()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "gameStore.js",
+      "file_type": "code",
+      "norm_label": "flush()",
+      "source_file": "src/utils/analytics.js",
+      "source_location": "L50"
+    },
+    {
+      "id": "src_utils_analytics_getlocalevents",
+      "label": "getLocalEvents()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "gameStore.js",
+      "file_type": "code",
+      "norm_label": "getlocalevents()",
+      "source_file": "src/utils/analytics.js",
+      "source_location": "L42"
+    },
+    {
+      "id": "src_utils_analytics_hasconsent",
+      "label": "hasConsent()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "gameStore.js",
+      "file_type": "code",
+      "norm_label": "hasconsent()",
+      "source_file": "src/utils/analytics.js",
+      "source_location": "L28"
+    },
+    {
+      "id": "src_utils_analytics_initanalytics",
+      "label": "initAnalytics()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "gameStore.js",
+      "file_type": "code",
+      "norm_label": "initanalytics()",
+      "source_file": "src/utils/analytics.js",
+      "source_location": "L63"
+    },
+    {
+      "id": "src_utils_analytics_payload",
+      "label": "payload()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "gameStore.js",
+      "file_type": "code",
+      "norm_label": "payload()",
+      "source_file": "src/utils/analytics.js",
+      "source_location": "L45"
+    },
+    {
+      "id": "src_utils_analytics_safeget",
+      "label": "safeGet()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "gameStore.js",
+      "file_type": "code",
+      "norm_label": "safeget()",
+      "source_file": "src/utils/analytics.js",
+      "source_location": "L13"
+    },
+    {
+      "id": "src_utils_analytics_safeset",
+      "label": "safeSet()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "gameStore.js",
+      "file_type": "code",
+      "norm_label": "safeset()",
+      "source_file": "src/utils/analytics.js",
+      "source_location": "L14"
+    },
+    {
+      "id": "src_utils_analytics_setanalyticsconsent",
+      "label": "setAnalyticsConsent()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "gameStore.js",
+      "file_type": "code",
+      "norm_label": "setanalyticsconsent()",
+      "source_file": "src/utils/analytics.js",
+      "source_location": "L77"
+    },
+    {
+      "id": "src_utils_analytics_track",
+      "label": "track()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "gameStore.js",
+      "file_type": "code",
+      "norm_label": "track()",
+      "source_file": "src/utils/analytics.js",
+      "source_location": "L30"
     },
     {
       "id": "src_utils_daily_buildsharetext",
@@ -1505,7 +1973,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "buildsharetext()",
       "source_file": "src/utils/daily.js",
@@ -1517,7 +1985,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "dailyseed()",
       "source_file": "src/utils/daily.js",
@@ -1529,7 +1997,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "daynumber()",
       "source_file": "src/utils/daily.js",
@@ -1541,7 +2009,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "missionsfor()",
       "source_file": "src/utils/daily.js",
@@ -1553,7 +2021,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "mmss()",
       "source_file": "src/utils/daily.js",
@@ -1565,7 +2033,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "todaykey()",
       "source_file": "src/utils/daily.js",
@@ -1577,7 +2045,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "yesterdaykey()",
       "source_file": "src/utils/daily.js",
@@ -1589,7 +2057,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "currentevent()",
       "source_file": "src/utils/events.js",
@@ -1601,7 +2069,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "fridayof()",
       "source_file": "src/utils/events.js",
@@ -1613,7 +2081,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "previewon()",
       "source_file": "src/utils/events.js",
@@ -1625,119 +2093,23 @@
       "_callable": true,
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "timeleft()",
       "source_file": "src/utils/events.js",
       "source_location": "L42"
     },
     {
-      "id": "src_utils_format_formatkurus",
-      "label": "formatKurus()",
+      "id": "src_utils_persiststorage_restorefrombackup",
+      "label": "restoreFromBackup()",
       "_callable": true,
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
-      "norm_label": "formatkurus()",
-      "source_file": "src/utils/format.js",
-      "source_location": "L2"
-    },
-    {
-      "id": "src_components_akbilscreen_akbilscreen",
-      "label": "AkbilScreen()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "akbilscreen()",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L128"
-    },
-    {
-      "id": "src_components_akbilscreen_cardpattern",
-      "label": "CardPattern()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "cardpattern()",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L36"
-    },
-    {
-      "id": "src_components_akbilscreen_istanbulcard",
-      "label": "IstanbulCard()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "istanbulcard()",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L79"
-    },
-    {
-      "id": "src_components_akbilscreen_module",
-      "label": "Module()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "module()",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L107"
-    },
-    {
-      "id": "src_components_akbilscreen_todaykey",
-      "label": "todayKey()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "todaykey()",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L30"
-    },
-    {
-      "id": "src_utils_adservice_isrewardedadsupported",
-      "label": "isRewardedAdSupported()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "isrewardedadsupported()",
-      "source_file": "src/utils/adService.js",
-      "source_location": "L21"
-    },
-    {
-      "id": "src_utils_adservice_loadadmob",
-      "label": "loadAdMob()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "loadadmob()",
-      "source_file": "src/utils/adService.js",
-      "source_location": "L14"
-    },
-    {
-      "id": "src_utils_adservice_showrewardedad",
-      "label": "showRewardedAd()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "showrewardedad()",
-      "source_file": "src/utils/adService.js",
-      "source_location": "L24"
+      "norm_label": "restorefrombackup()",
+      "source_file": "src/utils/persistStorage.js",
+      "source_location": "L22"
     },
     {
       "id": "src_data_transitterms_toentries",
@@ -1750,78 +2122,6 @@
       "norm_label": "toentries()",
       "source_file": "src/data/transitTerms.js",
       "source_location": "L315"
-    },
-    {
-      "id": "src_utils_dda_applydda",
-      "label": "applyDDA()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "gameLogic.js",
-      "file_type": "code",
-      "norm_label": "applydda()",
-      "source_file": "src/utils/dda.js",
-      "source_location": "L91"
-    },
-    {
-      "id": "src_utils_dda_detectvolatility",
-      "label": "detectVolatility()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "gameLogic.js",
-      "file_type": "code",
-      "norm_label": "detectvolatility()",
-      "source_file": "src/utils/dda.js",
-      "source_location": "L64"
-    },
-    {
-      "id": "src_utils_dda_mean",
-      "label": "mean()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "gameLogic.js",
-      "file_type": "code",
-      "norm_label": "mean()",
-      "source_file": "src/utils/dda.js",
-      "source_location": "L7"
-    },
-    {
-      "id": "src_utils_dda_runstestz",
-      "label": "runsTestZ()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "gameLogic.js",
-      "file_type": "code",
-      "norm_label": "runstestz()",
-      "source_file": "src/utils/dda.js",
-      "source_location": "L23"
-    },
-    {
-      "id": "src_utils_dda_trendslope",
-      "label": "trendSlope()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "gameLogic.js",
-      "file_type": "code",
-      "norm_label": "trendslope()",
-      "source_file": "src/utils/dda.js",
-      "source_location": "L10"
-    },
-    {
-      "id": "src_utils_dda_variance",
-      "label": "variance()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "gameLogic.js",
-      "file_type": "code",
-      "norm_label": "variance()",
-      "source_file": "src/utils/dda.js",
-      "source_location": "L8"
     },
     {
       "id": "src_utils_gamelogic_buildlayout",
@@ -2224,18 +2524,6 @@
       "source_location": "L14"
     },
     {
-      "id": "src_components_mapscreen_mapscreen",
-      "label": "MapScreen()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "transitNetwork.js",
-      "file_type": "code",
-      "norm_label": "mapscreen()",
-      "source_file": "src/components/MapScreen.jsx",
-      "source_location": "L4"
-    },
-    {
       "id": "src_components_networkmap_networkmap",
       "label": "NetworkMap()",
       "_callable": true,
@@ -2246,18 +2534,6 @@
       "norm_label": "networkmap()",
       "source_file": "src/components/NetworkMap.jsx",
       "source_location": "L9"
-    },
-    {
-      "id": "src_components_networkscreen_networkscreen",
-      "label": "NetworkScreen()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "transitNetwork.js",
-      "file_type": "code",
-      "norm_label": "networkscreen()",
-      "source_file": "src/components/NetworkScreen.jsx",
-      "source_location": "L5"
     },
     {
       "id": "src_data_networkgeometry_getstationpoints",
@@ -2308,30 +2584,6 @@
       "source_location": "L154"
     },
     {
-      "id": "src_utils_transitnetwork_getstationdata",
-      "label": "getStationData()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "transitNetwork.js",
-      "file_type": "code",
-      "norm_label": "getstationdata()",
-      "source_file": "src/utils/transitNetwork.js",
-      "source_location": "L99"
-    },
-    {
-      "id": "src_utils_transitnetwork_getstationforlevel",
-      "label": "getStationForLevel()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "transitNetwork.js",
-      "file_type": "code",
-      "norm_label": "getstationforlevel()",
-      "source_file": "src/utils/transitNetwork.js",
-      "source_location": "L113"
-    },
-    {
       "id": "src_utils_transitnetwork_getstationxposition",
       "label": "getStationXPosition()",
       "_callable": true,
@@ -2342,6 +2594,105 @@
       "norm_label": "getstationxposition()",
       "source_file": "src/utils/transitNetwork.js",
       "source_location": "L129"
+    },
+    {
+      "id": "admob",
+      "label": "@capacitor-community/admob",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "confidence": "EXTRACTED",
+      "file_type": "code",
+      "norm_label": "@capacitor-community/admob",
+      "source_file": "@capacitor-community/admob"
+    },
+    {
+      "id": "src_components_akbilscreen",
+      "label": "AkbilScreen.jsx",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "akbilscreen.jsx",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_components_akbilscreen_ad_daily_limit",
+      "label": "AD_DAILY_LIMIT",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "ad_daily_limit",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L15"
+    },
+    {
+      "id": "src_components_akbilscreen_ad_reward",
+      "label": "AD_REWARD",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "ad_reward",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L14"
+    },
+    {
+      "id": "src_components_akbilscreen_card_colors",
+      "label": "CARD_COLORS",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "card_colors",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L18"
+    },
+    {
+      "id": "src_components_akbilscreen_daily_top_up",
+      "label": "DAILY_TOP_UP",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "daily_top_up",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L16"
+    },
+    {
+      "id": "src_components_akbilscreen_patterns",
+      "label": "PATTERNS",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "patterns",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L20"
+    },
+    {
+      "id": "src_components_akbilscreen_top_up_labels",
+      "label": "TOP_UP_LABELS",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "top_up_labels",
+      "source_file": "src/components/AkbilScreen.jsx",
+      "source_location": "L28"
+    },
+    {
+      "id": "src_components_animatedbalance",
+      "label": "AnimatedBalance.jsx",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "animatedbalance.jsx",
+      "source_file": "src/components/AnimatedBalance.jsx",
+      "source_location": "L1"
     },
     {
       "id": "src_components_badgesscreen",
@@ -2385,6 +2736,17 @@
       "file_type": "code",
       "norm_label": "leaderboardscreen.jsx",
       "source_file": "src/components/LeaderboardScreen.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_components_levelcomplete",
+      "label": "LevelComplete.jsx",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "levelcomplete.jsx",
+      "source_file": "src/components/LevelComplete.jsx",
       "source_location": "L1"
     },
     {
@@ -2454,17 +2816,6 @@
       "source_location": "L1"
     },
     {
-      "id": "src_components_tipbubble",
-      "label": "TipBubble.jsx",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "useGameStore",
-      "file_type": "code",
-      "norm_label": "tipbubble.jsx",
-      "source_file": "src/components/TipBubble.jsx",
-      "source_location": "L1"
-    },
-    {
       "id": "src_components_usernamemodal",
       "label": "UsernameModal.jsx",
       "_origin": "ast",
@@ -2485,28 +2836,6 @@
       "norm_label": "vaultscreen.jsx",
       "source_file": "src/components/VaultScreen.jsx",
       "source_location": "L1"
-    },
-    {
-      "id": "src_store_gamestore",
-      "label": "gameStore.js",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "useGameStore",
-      "file_type": "code",
-      "norm_label": "gamestore.js",
-      "source_file": "src/store/gameStore.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_store_gamestore_max_lives",
-      "label": "MAX_LIVES",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "useGameStore",
-      "file_type": "code",
-      "norm_label": "max_lives",
-      "source_file": "src/store/gameStore.js",
-      "source_location": "L10"
     },
     {
       "id": "src_store_gamestore_usegamestore",
@@ -2531,6 +2860,28 @@
       "source_location": "L12"
     },
     {
+      "id": "src_utils_adservice",
+      "label": "adService.js",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "adservice.js",
+      "source_file": "src/utils/adService.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_utils_adservice_rewarded_ad_id",
+      "label": "REWARDED_AD_ID",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "rewarded_ad_id",
+      "source_file": "src/utils/adService.js",
+      "source_location": "L7"
+    },
+    {
       "id": "src_utils_badges",
       "label": "badges.js",
       "_origin": "ast",
@@ -2550,6 +2901,17 @@
       "file_type": "code",
       "norm_label": "badges",
       "source_file": "src/utils/badges.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_utils_format",
+      "label": "format.js",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "useGameStore",
+      "file_type": "code",
+      "norm_label": "format.js",
+      "source_file": "src/utils/format.js",
       "source_location": "L1"
     },
     {
@@ -2575,48 +2937,15 @@
       "source_location": "L3"
     },
     {
-      "id": "src_utils_supabaseclient",
-      "label": "supabaseClient.js",
+      "id": "ref_capacitor_community_admob",
+      "label": "@capacitor-community/admob",
       "_origin": "ast",
       "community": 0,
       "community_name": "useGameStore",
-      "file_type": "code",
-      "norm_label": "supabaseclient.js",
-      "source_file": "src/utils/supabaseClient.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_utils_supabaseclient_cloudservice",
-      "label": "cloudService",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "useGameStore",
-      "file_type": "code",
-      "norm_label": "cloudservice",
-      "source_file": "src/utils/supabaseClient.js",
-      "source_location": "L26"
-    },
-    {
-      "id": "src_utils_supabaseclient_iscloudconfigured",
-      "label": "isCloudConfigured",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "useGameStore",
-      "file_type": "code",
-      "norm_label": "iscloudconfigured",
-      "source_file": "src/utils/supabaseClient.js",
-      "source_location": "L12"
-    },
-    {
-      "id": "src_utils_supabaseclient_supabase",
-      "label": "supabase",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "useGameStore",
-      "file_type": "code",
-      "norm_label": "supabase",
-      "source_file": "src/utils/supabaseClient.js",
-      "source_location": "L13"
+      "file_type": "concept",
+      "norm_label": "@capacitor-community/admob",
+      "source_file": "package.json",
+      "source_location": "L15"
     },
     {
       "id": "ref_react",
@@ -2737,6 +3066,17 @@
       "file_type": "code",
       "norm_label": "usegametimer.js",
       "source_file": "src/hooks/useGameTimer.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_utils_dda",
+      "label": "dda.js",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "GameContainer.jsx",
+      "file_type": "code",
+      "norm_label": "dda.js",
+      "source_file": "src/utils/dda.js",
       "source_location": "L1"
     },
     {
@@ -2861,103 +3201,169 @@
       "source_location": "L23"
     },
     {
-      "id": "src_components_consentsheet",
-      "label": "ConsentSheet.jsx",
+      "id": "src_components_leaguescreen",
+      "label": "LeagueScreen.jsx",
       "_origin": "ast",
       "community": 10,
-      "community_name": "analytics.js",
+      "community_name": "league.js",
       "file_type": "code",
-      "norm_label": "consentsheet.jsx",
-      "source_file": "src/components/ConsentSheet.jsx",
+      "norm_label": "leaguescreen.jsx",
+      "source_file": "src/components/LeagueScreen.jsx",
       "source_location": "L1"
     },
     {
-      "id": "src_main",
-      "label": "main.jsx",
+      "id": "src_utils_cloudgame",
+      "label": "cloudGame.js",
       "_origin": "ast",
       "community": 10,
-      "community_name": "analytics.js",
+      "community_name": "league.js",
       "file_type": "code",
-      "norm_label": "main.jsx",
-      "source_file": "src/main.jsx",
+      "norm_label": "cloudgame.js",
+      "source_file": "src/utils/cloudGame.js",
       "source_location": "L1"
     },
     {
-      "id": "src_store_gamestore_game_storage_key",
-      "label": "GAME_STORAGE_KEY",
+      "id": "src_utils_league",
+      "label": "league.js",
       "_origin": "ast",
       "community": 10,
-      "community_name": "analytics.js",
+      "community_name": "league.js",
       "file_type": "code",
-      "norm_label": "game_storage_key",
-      "source_file": "src/store/gameStore.js",
-      "source_location": "L7"
-    },
-    {
-      "id": "src_utils_analytics",
-      "label": "analytics.js",
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "analytics.js",
-      "file_type": "code",
-      "norm_label": "analytics.js",
-      "source_file": "src/utils/analytics.js",
+      "norm_label": "league.js",
+      "source_file": "src/utils/league.js",
       "source_location": "L1"
     },
     {
-      "id": "src_utils_analytics_queue",
-      "label": "queue",
+      "id": "src_utils_league_bot_names",
+      "label": "BOT_NAMES",
       "_origin": "ast",
       "community": 10,
-      "community_name": "analytics.js",
+      "community_name": "league.js",
       "file_type": "code",
-      "norm_label": "queue",
-      "source_file": "src/utils/analytics.js",
-      "source_location": "L26"
+      "norm_label": "bot_names",
+      "source_file": "src/utils/league.js",
+      "source_location": "L47"
     },
     {
-      "id": "src_utils_persiststorage",
-      "label": "persistStorage.js",
+      "id": "src_utils_league_demote",
+      "label": "DEMOTE",
       "_origin": "ast",
       "community": 10,
-      "community_name": "analytics.js",
+      "community_name": "league.js",
       "file_type": "code",
-      "norm_label": "persiststorage.js",
-      "source_file": "src/utils/persistStorage.js",
+      "norm_label": "demote",
+      "source_file": "src/utils/league.js",
+      "source_location": "L20"
+    },
+    {
+      "id": "src_utils_league_group_size",
+      "label": "GROUP_SIZE",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "league.js",
+      "file_type": "code",
+      "norm_label": "group_size",
+      "source_file": "src/utils/league.js",
+      "source_location": "L18"
+    },
+    {
+      "id": "src_utils_league_league_points",
+      "label": "LEAGUE_POINTS",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "league.js",
+      "file_type": "code",
+      "norm_label": "league_points",
+      "source_file": "src/utils/league.js",
+      "source_location": "L17"
+    },
+    {
+      "id": "src_utils_league_promote",
+      "label": "PROMOTE",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "league.js",
+      "file_type": "code",
+      "norm_label": "promote",
+      "source_file": "src/utils/league.js",
+      "source_location": "L19"
+    },
+    {
+      "id": "src_utils_league_rank_rewards",
+      "label": "RANK_REWARDS",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "league.js",
+      "file_type": "code",
+      "norm_label": "rank_rewards",
+      "source_file": "src/utils/league.js",
+      "source_location": "L21"
+    },
+    {
+      "id": "src_utils_league_suffix",
+      "label": "SUFFIX",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "league.js",
+      "file_type": "code",
+      "norm_label": "suffix",
+      "source_file": "src/utils/league.js",
+      "source_location": "L50"
+    },
+    {
+      "id": "src_utils_league_tiers",
+      "label": "TIERS",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "league.js",
+      "file_type": "code",
+      "norm_label": "tiers",
+      "source_file": "src/utils/league.js",
+      "source_location": "L10"
+    },
+    {
+      "id": "src_utils_supabaseclient",
+      "label": "supabaseClient.js",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "league.js",
+      "file_type": "code",
+      "norm_label": "supabaseclient.js",
+      "source_file": "src/utils/supabaseClient.js",
       "source_location": "L1"
     },
     {
-      "id": "src_utils_persiststorage_backedupstorage",
-      "label": "backedUpStorage",
+      "id": "src_utils_supabaseclient_cloudservice",
+      "label": "cloudService",
       "_origin": "ast",
       "community": 10,
-      "community_name": "analytics.js",
+      "community_name": "league.js",
       "file_type": "code",
-      "norm_label": "backedupstorage",
-      "source_file": "src/utils/persistStorage.js",
-      "source_location": "L9"
+      "norm_label": "cloudservice",
+      "source_file": "src/utils/supabaseClient.js",
+      "source_location": "L28"
     },
     {
-      "id": "src_utils_persiststorage_isnative",
-      "label": "isNative",
+      "id": "src_utils_supabaseclient_iscloudconfigured",
+      "label": "isCloudConfigured",
       "_origin": "ast",
       "community": 10,
-      "community_name": "analytics.js",
+      "community_name": "league.js",
       "file_type": "code",
-      "norm_label": "isnative",
-      "source_file": "src/utils/persistStorage.js",
-      "source_location": "L7"
+      "norm_label": "iscloudconfigured",
+      "source_file": "src/utils/supabaseClient.js",
+      "source_location": "L14"
     },
     {
-      "id": "ref_capacitor_preferences",
-      "label": "@capacitor/preferences",
+      "id": "src_utils_supabaseclient_supabase",
+      "label": "supabase",
       "_origin": "ast",
       "community": 10,
-      "community_name": "analytics.js",
-      "file_type": "concept",
-      "norm_label": "@capacitor/preferences",
-      "source_file": "package.json",
-      "source_location": "L22"
+      "community_name": "league.js",
+      "file_type": "code",
+      "norm_label": "supabase",
+      "source_file": "src/utils/supabaseClient.js",
+      "source_location": "L15"
     },
     {
       "id": "claude",
@@ -3138,14 +3544,25 @@
       "source_location": "L7"
     },
     {
-      "id": "src_components_animatedbalance",
-      "label": "AnimatedBalance.jsx",
+      "id": "src_utils_duel_ghost_names",
+      "label": "GHOST_NAMES",
+      "_origin": "ast",
+      "community": 13,
+      "community_name": "DuelsScreen.jsx",
+      "file_type": "code",
+      "norm_label": "ghost_names",
+      "source_file": "src/utils/duel.js",
+      "source_location": "L72"
+    },
+    {
+      "id": "src_components_consentsheet",
+      "label": "ConsentSheet.jsx",
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
-      "norm_label": "animatedbalance.jsx",
-      "source_file": "src/components/AnimatedBalance.jsx",
+      "norm_label": "consentsheet.jsx",
+      "source_file": "src/components/ConsentSheet.jsx",
       "source_location": "L1"
     },
     {
@@ -3153,7 +3570,7 @@
       "label": "DailyScreen.jsx",
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "dailyscreen.jsx",
       "source_file": "src/components/DailyScreen.jsx",
@@ -3164,7 +3581,7 @@
       "label": "EventSheet.jsx",
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "eventsheet.jsx",
       "source_file": "src/components/EventSheet.jsx",
@@ -3175,7 +3592,7 @@
       "label": "HomeScreen.jsx",
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "homescreen.jsx",
       "source_file": "src/components/HomeScreen.jsx",
@@ -3186,32 +3603,32 @@
       "label": "TABS",
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "tabs",
       "source_file": "src/components/HomeScreen.jsx",
       "source_location": "L15"
     },
     {
-      "id": "src_components_levelcomplete",
-      "label": "LevelComplete.jsx",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "HomeScreen.jsx",
-      "file_type": "code",
-      "norm_label": "levelcomplete.jsx",
-      "source_file": "src/components/LevelComplete.jsx",
-      "source_location": "L1"
-    },
-    {
       "id": "src_components_missionssheet",
       "label": "MissionsSheet.jsx",
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "missionssheet.jsx",
       "source_file": "src/components/MissionsSheet.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_components_tipbubble",
+      "label": "TipBubble.jsx",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "gameStore.js",
+      "file_type": "code",
+      "norm_label": "tipbubble.jsx",
+      "source_file": "src/components/TipBubble.jsx",
       "source_location": "L1"
     },
     {
@@ -3219,18 +3636,95 @@
       "label": "Wheel.jsx",
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "wheel.jsx",
       "source_file": "src/components/Wheel.jsx",
       "source_location": "L1"
     },
     {
+      "id": "src_main",
+      "label": "main.jsx",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "gameStore.js",
+      "file_type": "code",
+      "norm_label": "main.jsx",
+      "source_file": "src/main.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_store_gamestore",
+      "label": "gameStore.js",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "gameStore.js",
+      "file_type": "code",
+      "norm_label": "gamestore.js",
+      "source_file": "src/store/gameStore.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_store_gamestore_game_storage_key",
+      "label": "GAME_STORAGE_KEY",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "gameStore.js",
+      "file_type": "code",
+      "norm_label": "game_storage_key",
+      "source_file": "src/store/gameStore.js",
+      "source_location": "L7"
+    },
+    {
+      "id": "src_store_gamestore_max_lives",
+      "label": "MAX_LIVES",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "gameStore.js",
+      "file_type": "code",
+      "norm_label": "max_lives",
+      "source_file": "src/store/gameStore.js",
+      "source_location": "L10"
+    },
+    {
+      "id": "src_store_gamestore_vault_size",
+      "label": "VAULT_SIZE",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "gameStore.js",
+      "file_type": "code",
+      "norm_label": "vault_size",
+      "source_file": "src/store/gameStore.js",
+      "source_location": "L11"
+    },
+    {
+      "id": "src_utils_analytics",
+      "label": "analytics.js",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "gameStore.js",
+      "file_type": "code",
+      "norm_label": "analytics.js",
+      "source_file": "src/utils/analytics.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_utils_analytics_queue",
+      "label": "queue",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "gameStore.js",
+      "file_type": "code",
+      "norm_label": "queue",
+      "source_file": "src/utils/analytics.js",
+      "source_location": "L26"
+    },
+    {
       "id": "src_utils_daily",
       "label": "daily.js",
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "daily.js",
       "source_file": "src/utils/daily.js",
@@ -3241,7 +3735,7 @@
       "label": "DAILY_REWARD",
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "daily_reward",
       "source_file": "src/utils/daily.js",
@@ -3252,7 +3746,7 @@
       "label": "LAUNCH",
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "launch",
       "source_file": "src/utils/daily.js",
@@ -3263,7 +3757,7 @@
       "label": "MISSION_POOL",
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "mission_pool",
       "source_file": "src/utils/daily.js",
@@ -3274,7 +3768,7 @@
       "label": "STREAK_MILESTONES",
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "streak_milestones",
       "source_file": "src/utils/daily.js",
@@ -3285,7 +3779,7 @@
       "label": "events.js",
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "events.js",
       "source_file": "src/utils/events.js",
@@ -3296,7 +3790,7 @@
       "label": "EVENT_MULTIPLIER",
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "event_multiplier",
       "source_file": "src/utils/events.js",
@@ -3307,7 +3801,7 @@
       "label": "EVENT_THEMES",
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "event_themes",
       "source_file": "src/utils/events.js",
@@ -3318,22 +3812,66 @@
       "label": "EVENT_TIERS",
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
       "norm_label": "event_tiers",
       "source_file": "src/utils/events.js",
       "source_location": "L14"
     },
     {
-      "id": "src_utils_format",
-      "label": "format.js",
+      "id": "src_utils_persiststorage",
+      "label": "persistStorage.js",
       "_origin": "ast",
       "community": 14,
-      "community_name": "HomeScreen.jsx",
+      "community_name": "gameStore.js",
       "file_type": "code",
-      "norm_label": "format.js",
-      "source_file": "src/utils/format.js",
+      "norm_label": "persiststorage.js",
+      "source_file": "src/utils/persistStorage.js",
       "source_location": "L1"
+    },
+    {
+      "id": "src_utils_persiststorage_backedupstorage",
+      "label": "backedUpStorage",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "gameStore.js",
+      "file_type": "code",
+      "norm_label": "backedupstorage",
+      "source_file": "src/utils/persistStorage.js",
+      "source_location": "L9"
+    },
+    {
+      "id": "src_utils_persiststorage_isnative",
+      "label": "isNative",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "gameStore.js",
+      "file_type": "code",
+      "norm_label": "isnative",
+      "source_file": "src/utils/persistStorage.js",
+      "source_location": "L7"
+    },
+    {
+      "id": "ref_capacitor_core",
+      "label": "@capacitor/core",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "gameStore.js",
+      "file_type": "concept",
+      "norm_label": "@capacitor/core",
+      "source_file": "package.json",
+      "source_location": "L19"
+    },
+    {
+      "id": "ref_capacitor_preferences",
+      "label": "@capacitor/preferences",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "gameStore.js",
+      "file_type": "concept",
+      "norm_label": "@capacitor/preferences",
+      "source_file": "package.json",
+      "source_location": "L22"
     },
     {
       "id": "vercel",
@@ -3451,147 +3989,147 @@
       "source_location": "L94"
     },
     {
-      "id": "admob",
-      "label": "@capacitor-community/admob",
+      "id": "package_scripts",
+      "label": "scripts",
       "_origin": "ast",
       "community": 17,
-      "community_name": "AkbilScreen.jsx",
-      "confidence": "EXTRACTED",
+      "community_name": "scripts",
       "file_type": "code",
-      "norm_label": "@capacitor-community/admob",
-      "source_file": "@capacitor-community/admob"
+      "norm_label": "scripts",
+      "source_file": "package.json",
+      "source_location": "L6"
     },
     {
-      "id": "src_components_akbilscreen",
-      "label": "AkbilScreen.jsx",
+      "id": "package_scripts_android_apk",
+      "label": "android:apk",
       "_origin": "ast",
       "community": 17,
-      "community_name": "AkbilScreen.jsx",
+      "community_name": "scripts",
       "file_type": "code",
-      "norm_label": "akbilscreen.jsx",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_components_akbilscreen_ad_daily_limit",
-      "label": "AD_DAILY_LIMIT",
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "ad_daily_limit",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L15"
-    },
-    {
-      "id": "src_components_akbilscreen_ad_reward",
-      "label": "AD_REWARD",
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "ad_reward",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L14"
-    },
-    {
-      "id": "src_components_akbilscreen_card_colors",
-      "label": "CARD_COLORS",
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "card_colors",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L18"
-    },
-    {
-      "id": "src_components_akbilscreen_daily_top_up",
-      "label": "DAILY_TOP_UP",
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "daily_top_up",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L16"
-    },
-    {
-      "id": "src_components_akbilscreen_patterns",
-      "label": "PATTERNS",
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "patterns",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L20"
-    },
-    {
-      "id": "src_components_akbilscreen_top_up_labels",
-      "label": "TOP_UP_LABELS",
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "top_up_labels",
-      "source_file": "src/components/AkbilScreen.jsx",
-      "source_location": "L28"
-    },
-    {
-      "id": "src_store_gamestore_vault_size",
-      "label": "VAULT_SIZE",
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "code",
-      "norm_label": "vault_size",
-      "source_file": "src/store/gameStore.js",
+      "norm_label": "android:apk",
+      "source_file": "package.json",
       "source_location": "L11"
     },
     {
-      "id": "src_utils_adservice",
-      "label": "adService.js",
+      "id": "package_scripts_build",
+      "label": "build",
       "_origin": "ast",
       "community": 17,
-      "community_name": "AkbilScreen.jsx",
+      "community_name": "scripts",
       "file_type": "code",
-      "norm_label": "adservice.js",
-      "source_file": "src/utils/adService.js",
-      "source_location": "L1"
+      "norm_label": "build",
+      "source_file": "package.json",
+      "source_location": "L8"
     },
     {
-      "id": "src_utils_adservice_rewarded_ad_id",
-      "label": "REWARDED_AD_ID",
+      "id": "package_scripts_dev",
+      "label": "dev",
       "_origin": "ast",
       "community": 17,
-      "community_name": "AkbilScreen.jsx",
+      "community_name": "scripts",
       "file_type": "code",
-      "norm_label": "rewarded_ad_id",
-      "source_file": "src/utils/adService.js",
+      "norm_label": "dev",
+      "source_file": "package.json",
       "source_location": "L7"
     },
     {
-      "id": "ref_capacitor_community_admob",
-      "label": "@capacitor-community/admob",
+      "id": "package_scripts_lint",
+      "label": "lint",
       "_origin": "ast",
       "community": 17,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "concept",
-      "norm_label": "@capacitor-community/admob",
+      "community_name": "scripts",
+      "file_type": "code",
+      "norm_label": "lint",
       "source_file": "package.json",
-      "source_location": "L15"
+      "source_location": "L9"
     },
     {
-      "id": "ref_capacitor_core",
-      "label": "@capacitor/core",
+      "id": "package_scripts_preview",
+      "label": "preview",
       "_origin": "ast",
       "community": 17,
-      "community_name": "AkbilScreen.jsx",
-      "file_type": "concept",
-      "norm_label": "@capacitor/core",
+      "community_name": "scripts",
+      "file_type": "code",
+      "norm_label": "preview",
       "source_file": "package.json",
-      "source_location": "L19"
+      "source_location": "L10"
+    },
+    {
+      "id": "package_scripts_test_mobile",
+      "label": "test:mobile",
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "scripts",
+      "file_type": "code",
+      "norm_label": "test:mobile",
+      "source_file": "package.json",
+      "source_location": "L12"
+    },
+    {
+      "id": "eslint_config",
+      "label": "eslint.config.js",
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "eslint.config.js",
+      "file_type": "code",
+      "norm_label": "eslint.config.js",
+      "source_file": "eslint.config.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "ref_eslint",
+      "label": "eslint",
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "eslint.config.js",
+      "file_type": "concept",
+      "norm_label": "eslint",
+      "source_file": "package.json",
+      "source_location": "L36"
+    },
+    {
+      "id": "ref_eslint_js",
+      "label": "@eslint/js",
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "eslint.config.js",
+      "file_type": "concept",
+      "norm_label": "@eslint/js",
+      "source_file": "package.json",
+      "source_location": "L31"
+    },
+    {
+      "id": "ref_eslint_plugin_react_hooks",
+      "label": "eslint-plugin-react-hooks",
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "eslint.config.js",
+      "file_type": "concept",
+      "norm_label": "eslint-plugin-react-hooks",
+      "source_file": "package.json",
+      "source_location": "L37"
+    },
+    {
+      "id": "ref_eslint_plugin_react_refresh",
+      "label": "eslint-plugin-react-refresh",
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "eslint.config.js",
+      "file_type": "concept",
+      "norm_label": "eslint-plugin-react-refresh",
+      "source_file": "package.json",
+      "source_location": "L38"
+    },
+    {
+      "id": "ref_globals",
+      "label": "globals",
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "eslint.config.js",
+      "file_type": "concept",
+      "norm_label": "globals",
+      "source_file": "package.json",
+      "source_location": "L39"
     },
     {
       "id": "android_app_src_main_java_com_turnike_app_mainactivity",
@@ -3768,17 +4306,6 @@
       "norm_label": "extra_words_tr",
       "source_file": "src/data/turkishWords.js",
       "source_location": "L197"
-    },
-    {
-      "id": "src_utils_dda",
-      "label": "dda.js",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "gameLogic.js",
-      "file_type": "code",
-      "norm_label": "dda.js",
-      "source_file": "src/utils/dda.js",
-      "source_location": "L1"
     },
     {
       "id": "src_utils_gamelogic",
@@ -4439,6 +4966,94 @@
       "source_location": "L1"
     },
     {
+      "id": "test_game",
+      "label": "test_game.cjs",
+      "_origin": "ast",
+      "community": 31,
+      "community_name": "puppeteer",
+      "file_type": "code",
+      "norm_label": "test_game.cjs",
+      "source_file": "test_game.cjs",
+      "source_location": "L1"
+    },
+    {
+      "id": "test_game_puppeteer",
+      "label": "puppeteer",
+      "_origin": "ast",
+      "community": 31,
+      "community_name": "puppeteer",
+      "file_type": "code",
+      "norm_label": "puppeteer",
+      "source_file": "test_game.cjs",
+      "source_location": "L1"
+    },
+    {
+      "id": "test_js_test",
+      "label": "test.js",
+      "_origin": "ast",
+      "community": 31,
+      "community_name": "puppeteer",
+      "file_type": "code",
+      "norm_label": "test.js",
+      "source_file": "test.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "ref_puppeteer",
+      "label": "puppeteer",
+      "_origin": "ast",
+      "community": 31,
+      "community_name": "puppeteer",
+      "file_type": "concept",
+      "norm_label": "puppeteer",
+      "source_file": "package.json",
+      "source_location": "L41"
+    },
+    {
+      "id": "vite_config",
+      "label": "vite.config.js",
+      "_origin": "ast",
+      "community": 32,
+      "community_name": "vite.config.js",
+      "file_type": "code",
+      "norm_label": "vite.config.js",
+      "source_file": "vite.config.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "ref_vite",
+      "label": "vite",
+      "_origin": "ast",
+      "community": 32,
+      "community_name": "vite.config.js",
+      "file_type": "concept",
+      "norm_label": "vite",
+      "source_file": "package.json",
+      "source_location": "L43"
+    },
+    {
+      "id": "ref_vite_plugin_pwa",
+      "label": "vite-plugin-pwa",
+      "_origin": "ast",
+      "community": 32,
+      "community_name": "vite.config.js",
+      "file_type": "concept",
+      "norm_label": "vite-plugin-pwa",
+      "source_file": "package.json",
+      "source_location": "L44"
+    },
+    {
+      "id": "ref_vitejs_plugin_react",
+      "label": "@vitejs/plugin-react",
+      "_origin": "ast",
+      "community": 32,
+      "community_name": "vite.config.js",
+      "file_type": "concept",
+      "norm_label": "@vitejs/plugin-react",
+      "source_file": "package.json",
+      "source_location": "L34"
+    },
+    {
       "id": "src_components_vehiclesprite",
       "label": "VehicleSprite.jsx",
       "_origin": "ast",
@@ -4516,17 +5131,6 @@
       "source_location": "L1"
     },
     {
-      "id": "eslint_config",
-      "label": "eslint.config.js",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "package.json",
-      "file_type": "code",
-      "norm_label": "eslint.config.js",
-      "source_file": "eslint.config.js",
-      "source_location": "L1"
-    },
-    {
       "id": "package",
       "label": "package.json",
       "_origin": "ast",
@@ -4560,83 +5164,6 @@
       "source_location": "L3"
     },
     {
-      "id": "package_scripts",
-      "label": "scripts",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "package.json",
-      "file_type": "code",
-      "norm_label": "scripts",
-      "source_file": "package.json",
-      "source_location": "L6"
-    },
-    {
-      "id": "package_scripts_android_apk",
-      "label": "android:apk",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "package.json",
-      "file_type": "code",
-      "norm_label": "android:apk",
-      "source_file": "package.json",
-      "source_location": "L11"
-    },
-    {
-      "id": "package_scripts_build",
-      "label": "build",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "package.json",
-      "file_type": "code",
-      "norm_label": "build",
-      "source_file": "package.json",
-      "source_location": "L8"
-    },
-    {
-      "id": "package_scripts_dev",
-      "label": "dev",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "package.json",
-      "file_type": "code",
-      "norm_label": "dev",
-      "source_file": "package.json",
-      "source_location": "L7"
-    },
-    {
-      "id": "package_scripts_lint",
-      "label": "lint",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "package.json",
-      "file_type": "code",
-      "norm_label": "lint",
-      "source_file": "package.json",
-      "source_location": "L9"
-    },
-    {
-      "id": "package_scripts_preview",
-      "label": "preview",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "package.json",
-      "file_type": "code",
-      "norm_label": "preview",
-      "source_file": "package.json",
-      "source_location": "L10"
-    },
-    {
-      "id": "package_scripts_test_mobile",
-      "label": "test:mobile",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "package.json",
-      "file_type": "code",
-      "norm_label": "test:mobile",
-      "source_file": "package.json",
-      "source_location": "L12"
-    },
-    {
       "id": "package_type",
       "label": "type",
       "_origin": "ast",
@@ -4657,50 +5184,6 @@
       "norm_label": "version",
       "source_file": "package.json",
       "source_location": "L4"
-    },
-    {
-      "id": "test_game",
-      "label": "test_game.cjs",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "package.json",
-      "file_type": "code",
-      "norm_label": "test_game.cjs",
-      "source_file": "test_game.cjs",
-      "source_location": "L1"
-    },
-    {
-      "id": "test_game_puppeteer",
-      "label": "puppeteer",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "package.json",
-      "file_type": "code",
-      "norm_label": "puppeteer",
-      "source_file": "test_game.cjs",
-      "source_location": "L1"
-    },
-    {
-      "id": "test_js_test",
-      "label": "test.js",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "package.json",
-      "file_type": "code",
-      "norm_label": "test.js",
-      "source_file": "test.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "vite_config",
-      "label": "vite.config.js",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "package.json",
-      "file_type": "code",
-      "norm_label": "vite.config.js",
-      "source_file": "vite.config.js",
-      "source_location": "L1"
     },
     {
       "id": "ref_autoprefixer",
@@ -4747,61 +5230,6 @@
       "source_location": "L21"
     },
     {
-      "id": "ref_eslint",
-      "label": "eslint",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "package.json",
-      "file_type": "concept",
-      "norm_label": "eslint",
-      "source_file": "package.json",
-      "source_location": "L36"
-    },
-    {
-      "id": "ref_eslint_js",
-      "label": "@eslint/js",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "package.json",
-      "file_type": "concept",
-      "norm_label": "@eslint/js",
-      "source_file": "package.json",
-      "source_location": "L31"
-    },
-    {
-      "id": "ref_eslint_plugin_react_hooks",
-      "label": "eslint-plugin-react-hooks",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "package.json",
-      "file_type": "concept",
-      "norm_label": "eslint-plugin-react-hooks",
-      "source_file": "package.json",
-      "source_location": "L37"
-    },
-    {
-      "id": "ref_eslint_plugin_react_refresh",
-      "label": "eslint-plugin-react-refresh",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "package.json",
-      "file_type": "concept",
-      "norm_label": "eslint-plugin-react-refresh",
-      "source_file": "package.json",
-      "source_location": "L38"
-    },
-    {
-      "id": "ref_globals",
-      "label": "globals",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "package.json",
-      "file_type": "concept",
-      "norm_label": "globals",
-      "source_file": "package.json",
-      "source_location": "L39"
-    },
-    {
       "id": "ref_lucide_react",
       "label": "lucide-react",
       "_origin": "ast",
@@ -4822,17 +5250,6 @@
       "norm_label": "postcss",
       "source_file": "package.json",
       "source_location": "L40"
-    },
-    {
-      "id": "ref_puppeteer",
-      "label": "puppeteer",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "package.json",
-      "file_type": "concept",
-      "norm_label": "puppeteer",
-      "source_file": "package.json",
-      "source_location": "L41"
     },
     {
       "id": "ref_react_dom",
@@ -4888,39 +5305,6 @@
       "norm_label": "@types/react-dom",
       "source_file": "package.json",
       "source_location": "L33"
-    },
-    {
-      "id": "ref_vite",
-      "label": "vite",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "package.json",
-      "file_type": "concept",
-      "norm_label": "vite",
-      "source_file": "package.json",
-      "source_location": "L43"
-    },
-    {
-      "id": "ref_vite_plugin_pwa",
-      "label": "vite-plugin-pwa",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "package.json",
-      "file_type": "concept",
-      "norm_label": "vite-plugin-pwa",
-      "source_file": "package.json",
-      "source_location": "L44"
-    },
-    {
-      "id": "ref_vitejs_plugin_react",
-      "label": "@vitejs/plugin-react",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "package.json",
-      "file_type": "concept",
-      "norm_label": "@vitejs/plugin-react",
-      "source_file": "package.json",
-      "source_location": "L34"
     },
     {
       "id": "ref_zustand",
@@ -6319,6 +6703,18 @@
     },
     {
       "source": "src_components_dailyscreen_dailyscreen",
+      "target": "src_utils_league_addleaguepoints",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L105",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen_dailyscreen",
       "target": "src_utils_analytics_track",
       "relation": "calls",
       "_origin": "ast",
@@ -6326,7 +6722,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L104",
+      "source_location": "L106",
       "weight": 1.0
     },
     {
@@ -6338,7 +6734,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L104",
+      "source_location": "L106",
       "weight": 1.0
     },
     {
@@ -6350,7 +6746,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L110",
+      "source_location": "L112",
       "weight": 1.0
     },
     {
@@ -6362,7 +6758,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L132",
+      "source_location": "L134",
       "weight": 1.0
     },
     {
@@ -6374,7 +6770,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L139",
+      "source_location": "L141",
       "weight": 1.0
     },
     {
@@ -6386,7 +6782,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L147",
+      "source_location": "L149",
       "weight": 1.0
     },
     {
@@ -6398,7 +6794,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L159",
+      "source_location": "L161",
       "weight": 1.0
     },
     {
@@ -6410,7 +6806,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L89",
+      "source_location": "L90",
       "weight": 1.0
     },
     {
@@ -6422,7 +6818,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L96",
+      "source_location": "L97",
       "weight": 1.0
     },
     {
@@ -6434,7 +6830,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L97",
+      "source_location": "L98",
       "weight": 1.0
     },
     {
@@ -6446,7 +6842,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0
     },
     {
@@ -6458,7 +6854,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0
     },
     {
@@ -6470,7 +6866,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L31",
+      "source_location": "L32",
       "weight": 1.0
     },
     {
@@ -6482,7 +6878,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L31",
+      "source_location": "L32",
       "weight": 1.0
     },
     {
@@ -6494,7 +6890,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L49",
+      "source_location": "L50",
       "weight": 1.0
     },
     {
@@ -6506,7 +6902,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L70",
+      "source_location": "L71",
       "weight": 1.0
     },
     {
@@ -6518,7 +6914,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L74",
+      "source_location": "L75",
       "weight": 1.0
     },
     {
@@ -6530,7 +6926,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L80",
+      "source_location": "L81",
       "weight": 1.0
     },
     {
@@ -6559,14 +6955,14 @@
     },
     {
       "source": "src_components_duelgame_duelgame",
-      "target": "src_components_wheel_wheel",
+      "target": "src_components_grid_grid",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DuelGame.jsx",
-      "source_location": "L104",
+      "source_location": "L103",
       "weight": 1.0
     },
     {
@@ -6583,14 +6979,14 @@
     },
     {
       "source": "src_components_duelgame_duelgame",
-      "target": "src_components_grid_grid",
+      "target": "src_components_wheel_wheel",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DuelGame.jsx",
-      "source_location": "L97",
+      "source_location": "L110",
       "weight": 1.0
     },
     {
@@ -6602,79 +6998,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L22",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_duelsscreen_duelsscreen",
-      "target": "src_utils_duel_shareduel",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L100",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_duelsscreen_duelsscreen",
-      "target": "src_components_duelgame_duelgame",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L113",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_duelsscreen_duelsscreen",
-      "target": "src_components_duelsscreen_avatar",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L135",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_duelsscreen_duelsscreen",
-      "target": "src_components_duelsscreen_score",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L135",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_duelsscreen_duelsscreen",
-      "target": "src_components_duelsscreen_vsbadge",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L136",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_duelsscreen_duelsscreen",
-      "target": "src_utils_format_formatkurus",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L139",
+      "source_location": "L25",
       "weight": 1.0
     },
     {
@@ -6686,7 +7010,115 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L147",
+      "source_location": "L104",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_duelsscreen_duelsscreen",
+      "target": "src_utils_gamelogic_generateduellevel",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DuelsScreen.jsx",
+      "source_location": "L105",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_duelsscreen_duelsscreen",
+      "target": "src_utils_duel_botghost",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DuelsScreen.jsx",
+      "source_location": "L106",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_duelsscreen_duelsscreen",
+      "target": "src_utils_cloudgame_submitrun",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DuelsScreen.jsx",
+      "source_location": "L111",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_duelsscreen_duelsscreen",
+      "target": "src_utils_duel_shareduel",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DuelsScreen.jsx",
+      "source_location": "L146",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_duelsscreen_duelsscreen",
+      "target": "src_components_duelgame_duelgame",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DuelsScreen.jsx",
+      "source_location": "L159",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_duelsscreen_duelsscreen",
+      "target": "src_components_duelsscreen_avatar",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DuelsScreen.jsx",
+      "source_location": "L181",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_duelsscreen_duelsscreen",
+      "target": "src_components_duelsscreen_score",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DuelsScreen.jsx",
+      "source_location": "L181",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_duelsscreen_duelsscreen",
+      "target": "src_components_duelsscreen_vsbadge",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DuelsScreen.jsx",
+      "source_location": "L182",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_duelsscreen_duelsscreen",
+      "target": "src_utils_format_formatkurus",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DuelsScreen.jsx",
+      "source_location": "L185",
       "weight": 1.0
     },
     {
@@ -6698,7 +7130,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L39",
+      "source_location": "L42",
       "weight": 1.0
     },
     {
@@ -6710,7 +7142,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L55",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_duelsscreen_duelsscreen",
+      "target": "src_utils_cloudgame_fetchrun",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DuelsScreen.jsx",
+      "source_location": "L63",
       "weight": 1.0
     },
     {
@@ -6722,7 +7166,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L58",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_duelsscreen_duelsscreen",
+      "target": "src_utils_league_addleaguepoints",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DuelsScreen.jsx",
+      "source_location": "L81",
       "weight": 1.0
     },
     {
@@ -6734,7 +7190,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L76",
+      "source_location": "L93",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_duelsscreen_duelsscreen",
+      "target": "src_utils_cloudgame_randomghost",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/DuelsScreen.jsx",
+      "source_location": "L98",
       "weight": 1.0
     },
     {
@@ -6787,6 +7255,18 @@
     },
     {
       "source": "src_components_gamecontainer_gamecontainer",
+      "target": "src_components_grid_grid",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/GameContainer.jsx",
+      "source_location": "L1001",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_gamecontainer_gamecontainer",
       "target": "src_components_tipbubble_tipbubble",
       "relation": "calls",
       "_origin": "ast",
@@ -6794,7 +7274,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L1011",
+      "source_location": "L1013",
       "weight": 1.0
     },
     {
@@ -6806,7 +7286,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L1028",
+      "source_location": "L1030",
       "weight": 1.0
     },
     {
@@ -6818,7 +7298,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L1043",
+      "source_location": "L1045",
       "weight": 1.0
     },
     {
@@ -6830,7 +7310,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L1104",
+      "source_location": "L1106",
       "weight": 1.0
     },
     {
@@ -6842,7 +7322,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L167",
+      "source_location": "L168",
       "weight": 1.0
     },
     {
@@ -6854,7 +7334,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L237",
+      "source_location": "L238",
       "weight": 1.0
     },
     {
@@ -6866,7 +7346,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L276",
+      "source_location": "L277",
       "weight": 1.0
     },
     {
@@ -6878,7 +7358,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L277",
+      "source_location": "L278",
       "weight": 1.0
     },
     {
@@ -6890,7 +7370,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L284",
+      "source_location": "L285",
       "weight": 1.0
     },
     {
@@ -6902,7 +7382,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L290",
+      "source_location": "L291",
       "weight": 1.0
     },
     {
@@ -6914,7 +7394,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L300",
+      "source_location": "L301",
       "weight": 1.0
     },
     {
@@ -6926,7 +7406,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L303",
+      "source_location": "L304",
       "weight": 1.0
     },
     {
@@ -6938,7 +7418,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L326",
+      "source_location": "L327",
       "weight": 1.0
     },
     {
@@ -6950,7 +7430,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L372",
+      "source_location": "L373",
       "weight": 1.0
     },
     {
@@ -6962,7 +7442,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L381",
+      "source_location": "L382",
       "weight": 1.0
     },
     {
@@ -6974,7 +7454,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L385",
+      "source_location": "L386",
       "weight": 1.0
     },
     {
@@ -6986,7 +7466,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L391",
+      "source_location": "L392",
       "weight": 1.0
     },
     {
@@ -6998,7 +7478,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L403",
+      "source_location": "L404",
       "weight": 1.0
     },
     {
@@ -7010,7 +7490,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L404",
+      "source_location": "L405",
       "weight": 1.0
     },
     {
@@ -7022,7 +7502,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L405",
+      "source_location": "L406",
       "weight": 1.0
     },
     {
@@ -7034,7 +7514,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L411",
+      "source_location": "L412",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_gamecontainer_gamecontainer",
+      "target": "src_utils_league_addleaguepoints",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/GameContainer.jsx",
+      "source_location": "L417",
       "weight": 1.0
     },
     {
@@ -7046,7 +7538,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L474",
+      "source_location": "L476",
       "weight": 1.0
     },
     {
@@ -7058,7 +7550,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L493",
+      "source_location": "L495",
       "weight": 1.0
     },
     {
@@ -7070,7 +7562,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L500",
+      "source_location": "L502",
       "weight": 1.0
     },
     {
@@ -7082,7 +7574,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L508",
+      "source_location": "L510",
       "weight": 1.0
     },
     {
@@ -7094,7 +7586,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L611",
+      "source_location": "L613",
       "weight": 1.0
     },
     {
@@ -7106,7 +7598,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L619",
+      "source_location": "L621",
       "weight": 1.0
     },
     {
@@ -7118,19 +7610,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L620",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_gamecontainer_gamecontainer",
-      "target": "src_store_gamestore_usegamestore",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L64",
+      "source_location": "L622",
       "weight": 1.0
     },
     {
@@ -7142,7 +7622,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L647",
+      "source_location": "L649",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_gamecontainer_gamecontainer",
+      "target": "src_store_gamestore_usegamestore",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/GameContainer.jsx",
+      "source_location": "L65",
       "weight": 1.0
     },
     {
@@ -7154,7 +7646,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L897",
+      "source_location": "L899",
       "weight": 1.0
     },
     {
@@ -7166,7 +7658,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L900",
+      "source_location": "L902",
       "weight": 1.0
     },
     {
@@ -7178,7 +7670,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L909",
+      "source_location": "L911",
       "weight": 1.0
     },
     {
@@ -7190,7 +7682,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L942",
+      "source_location": "L944",
       "weight": 1.0
     },
     {
@@ -7202,7 +7694,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L97",
+      "source_location": "L98",
       "weight": 1.0
     },
     {
@@ -7214,19 +7706,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L983",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_gamecontainer_gamecontainer",
-      "target": "src_components_grid_grid",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L999",
+      "source_location": "L985",
       "weight": 1.0
     },
     {
@@ -7434,6 +7914,78 @@
       "weight": 1.0
     },
     {
+      "source": "src_components_leaguescreen_leaguescreen",
+      "target": "src_utils_league_ensureleagueweek",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/LeagueScreen.jsx",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_leaguescreen_leaguescreen",
+      "target": "src_utils_league_syncleague",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/LeagueScreen.jsx",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_leaguescreen_leaguescreen",
+      "target": "src_utils_league_standings",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/LeagueScreen.jsx",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_leaguescreen_leaguescreen",
+      "target": "src_utils_league_weekendsin",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/LeagueScreen.jsx",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_leaguescreen_leaguescreen",
+      "target": "src_utils_format_formatkurus",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/LeagueScreen.jsx",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_leaguescreen_leaguescreen",
+      "target": "src_store_gamestore_usegamestore",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/LeagueScreen.jsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
       "source": "src_components_levelcomplete_levelcomplete",
       "target": "src_components_levelcomplete_countup",
       "relation": "calls",
@@ -7627,31 +8179,19 @@
     },
     {
       "source": "src_components_navigationcontainer_navigationcontainer",
+      "target": "src_components_settingsscreen_settingsscreen",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L107",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer_navigationcontainer",
       "target": "src_components_statsscreen_statsscreen",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L105",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_navigationcontainer_navigationcontainer",
-      "target": "src_store_gamestore_getmaxlives",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L112",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_navigationcontainer_navigationcontainer",
-      "target": "src_utils_transitnetwork_getstationforlevel",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -7663,6 +8203,30 @@
     },
     {
       "source": "src_components_navigationcontainer_navigationcontainer",
+      "target": "src_store_gamestore_getmaxlives",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L122",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer_navigationcontainer",
+      "target": "src_utils_transitnetwork_getstationforlevel",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L125",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer_navigationcontainer",
       "target": "src_components_screenheader_screenheader",
       "relation": "calls",
       "_origin": "ast",
@@ -7670,7 +8234,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L118",
+      "source_location": "L128",
       "weight": 1.0
     },
     {
@@ -7682,7 +8246,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L124",
+      "source_location": "L134",
       "weight": 1.0
     },
     {
@@ -7694,7 +8258,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L132",
+      "source_location": "L142",
       "weight": 1.0
     },
     {
@@ -7706,7 +8270,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L133",
+      "source_location": "L143",
       "weight": 1.0
     },
     {
@@ -7718,7 +8282,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L159",
+      "source_location": "L169",
       "weight": 1.0
     },
     {
@@ -7730,7 +8294,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L167",
+      "source_location": "L177",
       "weight": 1.0
     },
     {
@@ -7742,7 +8306,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L27",
+      "source_location": "L28",
       "weight": 1.0
     },
     {
@@ -7754,7 +8318,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L32",
+      "source_location": "L33",
       "weight": 1.0
     },
     {
@@ -7766,7 +8330,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L39",
+      "source_location": "L40",
       "weight": 1.0
     },
     {
@@ -7778,24 +8342,12 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L47",
+      "source_location": "L48",
       "weight": 1.0
     },
     {
       "source": "src_components_navigationcontainer_navigationcontainer",
-      "target": "src_components_leaderboardscreen_leaderboardscreen",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L55",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_navigationcontainer_navigationcontainer",
-      "target": "src_components_usernamemodal_usernamemodal",
+      "target": "src_components_leaguescreen_leaguescreen",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -7807,7 +8359,7 @@
     },
     {
       "source": "src_components_navigationcontainer_navigationcontainer",
-      "target": "src_components_lostitemsscreen_lostitemsscreen",
+      "target": "src_components_leaderboardscreen_leaderboardscreen",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -7819,6 +8371,30 @@
     },
     {
       "source": "src_components_navigationcontainer_navigationcontainer",
+      "target": "src_components_usernamemodal_usernamemodal",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L67",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer_navigationcontainer",
+      "target": "src_components_lostitemsscreen_lostitemsscreen",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L75",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer_navigationcontainer",
       "target": "src_components_duelsscreen_duelsscreen",
       "relation": "calls",
       "_origin": "ast",
@@ -7826,7 +8402,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L73",
+      "source_location": "L83",
       "weight": 1.0
     },
     {
@@ -7838,7 +8414,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L81",
+      "source_location": "L91",
       "weight": 1.0
     },
     {
@@ -7850,19 +8426,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L89",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_navigationcontainer_navigationcontainer",
-      "target": "src_components_settingsscreen_settingsscreen",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L97",
+      "source_location": "L99",
       "weight": 1.0
     },
     {
@@ -8438,7 +9002,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/store/gameStore.js",
-      "source_location": "L119",
+      "source_location": "L121",
       "weight": 1.0
     },
     {
@@ -8450,7 +9014,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/store/gameStore.js",
-      "source_location": "L184",
+      "source_location": "L186",
       "weight": 1.0
     },
     {
@@ -8646,6 +9210,114 @@
       "weight": 1.0
     },
     {
+      "source": "src_utils_cloudgame_call",
+      "target": "src_utils_supabaseclient_ensuresession",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/utils/cloudGame.js",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_cloudgame_currentuserid",
+      "target": "src_utils_cloudgame_call",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/utils/cloudGame.js",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_cloudgame_currentuserid",
+      "target": "src_utils_supabaseclient_ensuresession",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/utils/cloudGame.js",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_cloudgame_fetchrun",
+      "target": "src_utils_cloudgame_call",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/utils/cloudGame.js",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_cloudgame_leagueaddpoints",
+      "target": "src_utils_cloudgame_call",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/utils/cloudGame.js",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_cloudgame_leaguegroup",
+      "target": "src_utils_cloudgame_call",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/utils/cloudGame.js",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_cloudgame_leaguejoin",
+      "target": "src_utils_cloudgame_call",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/utils/cloudGame.js",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_cloudgame_randomghost",
+      "target": "src_utils_cloudgame_call",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/utils/cloudGame.js",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_cloudgame_submitrun",
+      "target": "src_utils_cloudgame_call",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/utils/cloudGame.js",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
       "source": "src_utils_daily_buildsharetext",
       "target": "src_utils_daily_daynumber",
       "relation": "calls",
@@ -8762,7 +9434,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/utils/duel.js",
-      "source_location": "L29",
+      "source_location": "L31",
       "weight": 1.0
     },
     {
@@ -8774,7 +9446,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/utils/duel.js",
-      "source_location": "L31",
+      "source_location": "L33",
       "weight": 1.0
     },
     {
@@ -8786,7 +9458,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/utils/duel.js",
-      "source_location": "L35",
+      "source_location": "L37",
       "weight": 1.0
     },
     {
@@ -8798,7 +9470,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/utils/duel.js",
-      "source_location": "L47",
+      "source_location": "L51",
       "weight": 1.0
     },
     {
@@ -8810,7 +9482,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/utils/duel.js",
-      "source_location": "L21",
+      "source_location": "L23",
       "weight": 1.0
     },
     {
@@ -8822,7 +9494,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/utils/duel.js",
-      "source_location": "L58",
+      "source_location": "L62",
       "weight": 1.0
     },
     {
@@ -9183,6 +9855,162 @@
       "context": "call",
       "source_file": "src/utils/i18n.js",
       "source_location": "L249",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league_addleaguepoints",
+      "target": "src_utils_league_ensureleagueweek",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/utils/league.js",
+      "source_location": "L124",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league_addleaguepoints",
+      "target": "src_utils_cloudgame_leagueaddpoints",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/utils/league.js",
+      "source_location": "L126",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league_botsfor",
+      "target": "src_utils_league_rng",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/utils/league.js",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league_ensureleagueweek",
+      "target": "src_utils_analytics_track",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/utils/league.js",
+      "source_location": "L100",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league_ensureleagueweek",
+      "target": "src_utils_league_weekkey",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/utils/league.js",
+      "source_location": "L88",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league_ensureleagueweek",
+      "target": "src_utils_league_playername",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/utils/league.js",
+      "source_location": "L93",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league_ensureleagueweek",
+      "target": "src_utils_league_standings",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/utils/league.js",
+      "source_location": "L93",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league_standings",
+      "target": "src_utils_league_botsfor",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/utils/league.js",
+      "source_location": "L73",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league_syncleague",
+      "target": "src_utils_league_ensureleagueweek",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/utils/league.js",
+      "source_location": "L109",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league_syncleague",
+      "target": "src_utils_cloudgame_leaguejoin",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/utils/league.js",
+      "source_location": "L110",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league_syncleague",
+      "target": "src_utils_league_playername",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/utils/league.js",
+      "source_location": "L110",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league_syncleague",
+      "target": "src_utils_cloudgame_currentuserid",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/utils/league.js",
+      "source_location": "L112",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league_syncleague",
+      "target": "src_utils_cloudgame_leaguegroup",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/utils/league.js",
+      "source_location": "L113",
       "weight": 1.0
     },
     {
@@ -10748,7 +11576,7 @@
     },
     {
       "source": "src_components_dailyscreen",
-      "target": "src_utils_daily_buildsharetext",
+      "target": "src_utils_league_addleaguepoints",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -10756,6 +11584,18 @@
       "context": "import",
       "source_file": "src/components/DailyScreen.jsx",
       "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen",
+      "target": "src_utils_daily_buildsharetext",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -10767,7 +11607,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L8",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -10779,7 +11619,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L8",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -10791,7 +11631,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L8",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -10803,7 +11643,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L8",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -10815,7 +11655,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L8",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -10964,6 +11804,18 @@
     },
     {
       "source": "src_components_duelsscreen",
+      "target": "src_utils_duel_botghost",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/DuelsScreen.jsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_duelsscreen",
       "target": "src_utils_duel_comparescores",
       "relation": "imports",
       "_origin": "ast",
@@ -11032,6 +11884,66 @@
       "context": "import",
       "source_file": "src/components/DuelsScreen.jsx",
       "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_duelsscreen",
+      "target": "src_utils_cloudgame_fetchrun",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/DuelsScreen.jsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_duelsscreen",
+      "target": "src_utils_cloudgame_randomghost",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/DuelsScreen.jsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_duelsscreen",
+      "target": "src_utils_cloudgame_submitrun",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/DuelsScreen.jsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_duelsscreen",
+      "target": "src_utils_gamelogic_generateduellevel",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/DuelsScreen.jsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_duelsscreen",
+      "target": "src_utils_league_addleaguepoints",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/DuelsScreen.jsx",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -11396,7 +12308,7 @@
     },
     {
       "source": "src_components_gamecontainer",
-      "target": "src_store_gamestore_getearningsmultiplier",
+      "target": "src_utils_league_addleaguepoints",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -11404,6 +12316,18 @@
       "context": "import",
       "source_file": "src/components/GameContainer.jsx",
       "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_gamecontainer",
+      "target": "src_store_gamestore_getearningsmultiplier",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/GameContainer.jsx",
+      "source_location": "L26",
       "weight": 1.0
     },
     {
@@ -11415,7 +12339,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L25",
+      "source_location": "L26",
       "weight": 1.0
     },
     {
@@ -11427,7 +12351,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L25",
+      "source_location": "L26",
       "weight": 1.0
     },
     {
@@ -11439,7 +12363,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L25",
+      "source_location": "L26",
       "weight": 1.0
     },
     {
@@ -11451,7 +12375,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L25",
+      "source_location": "L26",
       "weight": 1.0
     },
     {
@@ -11463,7 +12387,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L26",
+      "source_location": "L27",
       "weight": 1.0
     },
     {
@@ -11839,6 +12763,162 @@
       "weight": 1.0
     },
     {
+      "source": "src_components_leaguescreen",
+      "target": "src_store_gamestore_usegamestore",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/LeagueScreen.jsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_leaguescreen",
+      "target": "src_utils_format_formatkurus",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/LeagueScreen.jsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_leaguescreen",
+      "target": "src_utils_supabaseclient_iscloudconfigured",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/LeagueScreen.jsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_leaguescreen",
+      "target": "src_utils_league_demote",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/LeagueScreen.jsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_leaguescreen",
+      "target": "src_utils_league_ensureleagueweek",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/LeagueScreen.jsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_leaguescreen",
+      "target": "src_utils_league_group_size",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/LeagueScreen.jsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_leaguescreen",
+      "target": "src_utils_league_league_points",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/LeagueScreen.jsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_leaguescreen",
+      "target": "src_utils_league_promote",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/LeagueScreen.jsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_leaguescreen",
+      "target": "src_utils_league_rank_rewards",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/LeagueScreen.jsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_leaguescreen",
+      "target": "src_utils_league_standings",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/LeagueScreen.jsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_leaguescreen",
+      "target": "src_utils_league_syncleague",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/LeagueScreen.jsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_leaguescreen",
+      "target": "src_utils_league_tiers",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/LeagueScreen.jsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_leaguescreen",
+      "target": "src_utils_league_weekendsin",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/LeagueScreen.jsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
       "source": "src_components_levelcomplete",
       "target": "src_utils_i18n_usetranslation",
       "relation": "imports",
@@ -12140,7 +13220,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_utils_i18n_usetranslation",
+      "target": "src_components_leaguescreen_leaguescreen",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -12152,31 +13232,19 @@
     },
     {
       "source": "src_components_navigationcontainer",
+      "target": "src_utils_i18n_usetranslation",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer",
       "target": "src_store_gamestore_getmaxlives",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L17",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_navigationcontainer",
-      "target": "src_store_gamestore_usegamestore",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L17",
-      "weight": 1.0
-    },
-    {
-      "source": "src_components_navigationcontainer",
-      "target": "src_components_usernamemodal_usernamemodal",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -12188,7 +13256,19 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_components_screenheader_screenheader",
+      "target": "src_store_gamestore_usegamestore",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer",
+      "target": "src_components_usernamemodal_usernamemodal",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -12212,7 +13292,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_utils_transitnetwork_getstationforlevel",
+      "target": "src_components_screenheader_screenheader",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -12224,7 +13304,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_utils_supabaseclient_iscloudconfigured",
+      "target": "src_utils_transitnetwork_getstationforlevel",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -12232,6 +13312,18 @@
       "context": "import",
       "source_file": "src/components/NavigationContainer.jsx",
       "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer",
+      "target": "src_utils_supabaseclient_iscloudconfigured",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -12919,6 +14011,42 @@
       "weight": 1.0
     },
     {
+      "source": "src_utils_cloudgame",
+      "target": "src_utils_supabaseclient_ensuresession",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/utils/cloudGame.js",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_cloudgame",
+      "target": "src_utils_supabaseclient_iscloudconfigured",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/utils/cloudGame.js",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_cloudgame",
+      "target": "src_utils_supabaseclient_supabase",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/utils/cloudGame.js",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
       "source": "src_utils_gamelogic",
       "target": "src_data_turkishwords_everyday_roots_tr",
       "relation": "imports",
@@ -13060,6 +14188,78 @@
       "context": "import",
       "source_file": "src/utils/i18n.js",
       "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league",
+      "target": "src_store_gamestore_usegamestore",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/utils/league.js",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league",
+      "target": "src_utils_cloudgame_currentuserid",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/utils/league.js",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league",
+      "target": "src_utils_cloudgame_leagueaddpoints",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/utils/league.js",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league",
+      "target": "src_utils_cloudgame_leaguegroup",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/utils/league.js",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league",
+      "target": "src_utils_cloudgame_leaguejoin",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/utils/league.js",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league",
+      "target": "src_utils_analytics_track",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/utils/league.js",
+      "source_location": "L8",
       "weight": 1.0
     },
     {
@@ -13892,7 +15092,7 @@
     },
     {
       "source": "src_components_dailyscreen",
-      "target": "src_utils_daily",
+      "target": "src_utils_league",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -13900,6 +15100,18 @@
       "context": "import",
       "source_file": "src/components/DailyScreen.jsx",
       "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_dailyscreen",
+      "target": "src_utils_daily",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/DailyScreen.jsx",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -14104,6 +15316,42 @@
       "context": "import",
       "source_file": "src/components/DuelsScreen.jsx",
       "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_duelsscreen",
+      "target": "src_utils_cloudgame",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/DuelsScreen.jsx",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_duelsscreen",
+      "target": "src_utils_gamelogic",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/DuelsScreen.jsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_duelsscreen",
+      "target": "src_utils_league",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/DuelsScreen.jsx",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -14360,7 +15608,7 @@
     },
     {
       "source": "src_components_gamecontainer",
-      "target": "src_store_gamestore",
+      "target": "src_utils_league",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -14372,7 +15620,7 @@
     },
     {
       "source": "src_components_gamecontainer",
-      "target": "src_utils_format",
+      "target": "src_store_gamestore",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -14384,7 +15632,7 @@
     },
     {
       "source": "src_components_gamecontainer",
-      "target": "src_index",
+      "target": "src_utils_format",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -14392,6 +15640,18 @@
       "context": "import",
       "source_file": "src/components/GameContainer.jsx",
       "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_gamecontainer",
+      "target": "src_index",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/GameContainer.jsx",
+      "source_location": "L28",
       "weight": 1.0
     },
     {
@@ -14680,6 +15940,66 @@
       "context": "import",
       "source_file": "src/components/LeaderboardScreen.jsx",
       "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_leaguescreen",
+      "target": "ref_react",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/LeagueScreen.jsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_leaguescreen",
+      "target": "src_store_gamestore",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/LeagueScreen.jsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_leaguescreen",
+      "target": "src_utils_format",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/LeagueScreen.jsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_leaguescreen",
+      "target": "src_utils_supabaseclient",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/LeagueScreen.jsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_leaguescreen",
+      "target": "src_utils_league",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/LeagueScreen.jsx",
+      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -14972,7 +16292,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_utils_i18n",
+      "target": "src_components_leaguescreen",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -14984,7 +16304,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_store_gamestore",
+      "target": "src_utils_i18n",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -14996,7 +16316,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_components_usernamemodal",
+      "target": "src_store_gamestore",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -15008,7 +16328,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_components_screenheader",
+      "target": "src_components_usernamemodal",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -15032,7 +16352,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_utils_transitnetwork",
+      "target": "src_components_screenheader",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -15044,7 +16364,7 @@
     },
     {
       "source": "src_components_navigationcontainer",
-      "target": "src_utils_supabaseclient",
+      "target": "src_utils_transitnetwork",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -15052,6 +16372,18 @@
       "context": "import",
       "source_file": "src/components/NavigationContainer.jsx",
       "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_navigationcontainer",
+      "target": "src_utils_supabaseclient",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/components/NavigationContainer.jsx",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -15799,6 +17131,18 @@
       "weight": 1.0
     },
     {
+      "source": "src_utils_cloudgame",
+      "target": "src_utils_supabaseclient",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/utils/cloudGame.js",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
       "source": "src_utils_duel",
       "target": "ref_capacitor_core",
       "relation": "imports_from",
@@ -15868,6 +17212,42 @@
       "context": "import",
       "source_file": "src/utils/i18n.js",
       "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league",
+      "target": "src_store_gamestore",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/utils/league.js",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league",
+      "target": "src_utils_cloudgame",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/utils/league.js",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league",
+      "target": "src_utils_analytics",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/utils/league.js",
+      "source_location": "L8",
       "weight": 1.0
     },
     {
@@ -16962,7 +18342,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L13",
+      "source_location": "L14",
       "weight": 1.0
     },
     {
@@ -16973,7 +18353,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L16",
+      "source_location": "L17",
       "weight": 1.0
     },
     {
@@ -16984,7 +18364,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L23",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
@@ -16995,7 +18375,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L30",
+      "source_location": "L31",
       "weight": 1.0
     },
     {
@@ -17006,7 +18386,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/DailyScreen.jsx",
-      "source_location": "L88",
+      "source_location": "L89",
       "weight": 1.0
     },
     {
@@ -17072,7 +18452,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L14",
+      "source_location": "L17",
       "weight": 1.0
     },
     {
@@ -17083,7 +18463,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L16",
+      "source_location": "L19",
       "weight": 1.0
     },
     {
@@ -17094,7 +18474,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L29",
+      "source_location": "L32",
       "weight": 1.0
     },
     {
@@ -17105,7 +18485,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L34",
+      "source_location": "L37",
       "weight": 1.0
     },
     {
@@ -17116,7 +18496,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/DuelsScreen.jsx",
-      "source_location": "L38",
+      "source_location": "L41",
       "weight": 1.0
     },
     {
@@ -17138,7 +18518,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L32",
+      "source_location": "L33",
       "weight": 1.0
     },
     {
@@ -17149,7 +18529,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L43",
+      "source_location": "L44",
       "weight": 1.0
     },
     {
@@ -17160,7 +18540,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/GameContainer.jsx",
-      "source_location": "L55",
+      "source_location": "L56",
       "weight": 1.0
     },
     {
@@ -17205,6 +18585,17 @@
       "confidence_score": 1.0,
       "source_file": "src/components/LeaderboardScreen.jsx",
       "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "src_components_leaguescreen",
+      "target": "src_components_leaguescreen_leaguescreen",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/components/LeagueScreen.jsx",
+      "source_location": "L8",
       "weight": 1.0
     },
     {
@@ -17281,7 +18672,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/components/NavigationContainer.jsx",
-      "source_location": "L23",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
@@ -18220,6 +19611,94 @@
       "weight": 1.0
     },
     {
+      "source": "src_utils_cloudgame",
+      "target": "src_utils_cloudgame_submitrun",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/cloudGame.js",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_cloudgame",
+      "target": "src_utils_cloudgame_fetchrun",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/cloudGame.js",
+      "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_cloudgame",
+      "target": "src_utils_cloudgame_randomghost",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/cloudGame.js",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_cloudgame",
+      "target": "src_utils_cloudgame_leaguejoin",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/cloudGame.js",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_cloudgame",
+      "target": "src_utils_cloudgame_leagueaddpoints",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/cloudGame.js",
+      "source_location": "L44",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_cloudgame",
+      "target": "src_utils_cloudgame_leaguegroup",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/cloudGame.js",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_cloudgame",
+      "target": "src_utils_cloudgame_currentuserid",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/cloudGame.js",
+      "source_location": "L58",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_cloudgame",
+      "target": "src_utils_cloudgame_call",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/cloudGame.js",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
       "source": "src_utils_daily",
       "target": "src_utils_daily_daynumber",
       "relation": "contains",
@@ -18502,7 +19981,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/utils/duel.js",
-      "source_location": "L21",
+      "source_location": "L23",
       "weight": 1.0
     },
     {
@@ -18513,7 +19992,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/utils/duel.js",
-      "source_location": "L25",
+      "source_location": "L27",
       "weight": 1.0
     },
     {
@@ -18524,7 +20003,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/utils/duel.js",
-      "source_location": "L45",
+      "source_location": "L49",
       "weight": 1.0
     },
     {
@@ -18535,18 +20014,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/utils/duel.js",
-      "source_location": "L51",
-      "weight": 1.0
-    },
-    {
-      "source": "src_utils_duel",
-      "target": "src_utils_duel_shareduel",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/utils/duel.js",
-      "source_location": "L57",
+      "source_location": "L55",
       "weight": 1.0
     },
     {
@@ -18562,6 +20030,17 @@
     },
     {
       "source": "src_utils_duel",
+      "target": "src_utils_duel_shareduel",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/duel.js",
+      "source_location": "L61",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_duel",
       "target": "src_utils_duel_duel_win_reward",
       "relation": "contains",
       "_origin": "ast",
@@ -18569,6 +20048,28 @@
       "confidence_score": 1.0,
       "source_file": "src/utils/duel.js",
       "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_duel",
+      "target": "src_utils_duel_ghost_names",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/duel.js",
+      "source_location": "L72",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_duel",
+      "target": "src_utils_duel_botghost",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/duel.js",
+      "source_location": "L73",
       "weight": 1.0
     },
     {
@@ -19089,6 +20590,215 @@
       "weight": 1.0
     },
     {
+      "source": "src_utils_league",
+      "target": "src_utils_league_tiers",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/league.js",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league",
+      "target": "src_utils_league_syncleague",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/league.js",
+      "source_location": "L108",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league",
+      "target": "src_utils_league_addleaguepoints",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/league.js",
+      "source_location": "L121",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league",
+      "target": "src_utils_league_league_points",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/league.js",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league",
+      "target": "src_utils_league_group_size",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/league.js",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league",
+      "target": "src_utils_league_promote",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/league.js",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league",
+      "target": "src_utils_league_demote",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/league.js",
+      "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league",
+      "target": "src_utils_league_rank_rewards",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/league.js",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league",
+      "target": "src_utils_league_weekkey",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/league.js",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league",
+      "target": "src_utils_league_weekprogress",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/league.js",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league",
+      "target": "src_utils_league_weekendsin",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/league.js",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league",
+      "target": "src_utils_league_bot_names",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/league.js",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league",
+      "target": "src_utils_league_suffix",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/league.js",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league",
+      "target": "src_utils_league_rng",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/league.js",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league",
+      "target": "src_utils_league_hash",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/league.js",
+      "source_location": "L56",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league",
+      "target": "src_utils_league_botsfor",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/league.js",
+      "source_location": "L59",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league",
+      "target": "src_utils_league_standings",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/league.js",
+      "source_location": "L70",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league",
+      "target": "src_utils_league_playername",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/league.js",
+      "source_location": "L79",
+      "weight": 1.0
+    },
+    {
+      "source": "src_utils_league",
+      "target": "src_utils_league_ensureleagueweek",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/utils/league.js",
+      "source_location": "L85",
+      "weight": 1.0
+    },
+    {
       "source": "src_utils_persiststorage",
       "target": "src_utils_persiststorage_restorefrombackup",
       "relation": "contains",
@@ -19360,7 +21070,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/utils/supabaseClient.js",
-      "source_location": "L12",
+      "source_location": "L14",
       "weight": 1.0
     },
     {
@@ -19371,7 +21081,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/utils/supabaseClient.js",
-      "source_location": "L13",
+      "source_location": "L15",
       "weight": 1.0
     },
     {
@@ -19382,7 +21092,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/utils/supabaseClient.js",
-      "source_location": "L18",
+      "source_location": "L20",
       "weight": 1.0
     },
     {
@@ -19393,7 +21103,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/utils/supabaseClient.js",
-      "source_location": "L26",
+      "source_location": "L28",
       "weight": 1.0
     },
     {
@@ -20107,5 +21817,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "d4b221b674df9dfb8340c9a184b0d688ea24923f"
+  "built_at_commit": "0711cbe43566748d27b1ecfeec2a9473972f91bd"
 }
