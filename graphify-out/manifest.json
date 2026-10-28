@@ -6,8 +6,8 @@
     "semantic_hash": "81b97e05c43fe78e7387ad23265a9a45"
   },
   "android/app/capacitor.build.gradle": {
-    "mtime": 1793178294.5437942,
-    "seen": 1793179465.0979855,
+    "mtime": 1793180519.8806515,
+    "seen": 1793180583.5090196,
     "ast_hash": "cd1cd54758a21c78f6de223f35a1afae",
     "semantic_hash": ""
   },
@@ -36,8 +36,8 @@
     "semantic_hash": "682315a426653617c6a74fc12bef55b6"
   },
   "android/capacitor.settings.gradle": {
-    "mtime": 1793178294.547087,
-    "seen": 1793179465.0989876,
+    "mtime": 1793180519.8806515,
+    "seen": 1793180583.5100188,
     "ast_hash": "3f09d897be5fcea8f5fec54c538764e5",
     "semantic_hash": ""
   },
@@ -120,9 +120,9 @@
     "semantic_hash": "89f4fb5a8d8cae2dfb6f2ffc76de64e3"
   },
   "src/App.jsx": {
-    "mtime": 1793179456.9527512,
-    "seen": 1793179465.1049917,
-    "ast_hash": "97fd45a474a79f2811399a4ec0242d9c",
+    "mtime": 1793180575.7253377,
+    "seen": 1793180583.5130188,
+    "ast_hash": "39a636501c08950368e346b59827f205",
     "semantic_hash": ""
   },
   "src/components/AkbilScreen.jsx": {
@@ -150,9 +150,9 @@
     "semantic_hash": ""
   },
   "src/components/DailySpinScreen.jsx": {
-    "mtime": 1793083016.16162,
-    "seen": 1793083022.6522737,
-    "ast_hash": "20a6214260dfd7bb2096b94b2ed0301c",
+    "mtime": 1793180575.7263637,
+    "seen": 1793180583.5161548,
+    "ast_hash": "58d8074194a469d5b21951463b23d311",
     "semantic_hash": ""
   },
   "src/components/DictionaryScreen.jsx": {
@@ -813,6 +813,12 @@
     "mtime": 1793179456.9502308,
     "seen": 1793179465.1296234,
     "ast_hash": "a504929219621888434347e8a72b9c2c",
+    "semantic_hash": ""
+  },
+  "src/components/IntroScreen.jsx": {
+    "mtime": 1793180575.7276087,
+    "seen": 1793180583.518291,
+    "ast_hash": "13cab0ad2e8623af92085e2671983c2a",
     "semantic_hash": ""
   }
 }

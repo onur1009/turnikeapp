@@ -12,8 +12,8 @@
   "10": "league.js",
   "11": "CLAUDE.md",
   "12": "SceneBackground.jsx",
-  "13": "main.jsx",
-  "14": "HomeScreen.jsx",
+  "13": "analytics.js",
+  "14": "formatKurus",
   "15": "vercel.json",
   "16": "gradlew",
   "17": "scripts",
@@ -32,6 +32,6 @@
   "30": "React + Vite",
   "31": "puppeteer",
   "32": "vite.config.js",
-  "33": "VehicleSprite.jsx",
+  "33": "adService.js",
   "34": "Google Play mağaza sayfası (Türkçe)"
 }
