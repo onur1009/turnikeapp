@@ -156,7 +156,7 @@ export default function NavigationContainer({
         {/* Bulunduğun durak: haritadan doğrudan yolculuğa dön */}
         <div className="shrink-0 px-4 pt-3 pb-5" style={{ background: 'rgba(5,10,24,0.92)', borderTop: '1px solid var(--border)' }}>
           <div className="flex items-center gap-3">
-            <span className="line-badge" style={{ background: station.color }}>{station.id}</span>
+            <span className="line-badge" style={{ background: station.color }}>{station.code}</span>
             <div className="flex-1 min-w-0">
               <p className="text-white font-extrabold text-[15px] truncate">{station.displayName}</p>
               <p className="text-white/55 text-[12px] font-semibold">{t('leg')} {station.leg}/{station.legsPerStation} · {t('level_short')} {maxUnlockedLevel + 1}</p>

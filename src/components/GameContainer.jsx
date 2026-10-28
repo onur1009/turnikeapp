@@ -21,6 +21,7 @@ import VehicleSprite from './VehicleSprite';
 import SceneBackground from './SceneBackground';
 import { track } from '../utils/analytics';
 import TipBubble from './TipBubble';
+import StationAnnouncement from './StationAnnouncement';
 import { currentEvent, EVENT_MULTIPLIER } from '../utils/events';
 import { addLeaguePoints } from '../utils/league';
 import { isRewardedAdSupported, showRewardedAd, showInterstitialAd } from '../utils/adService';
@@ -932,6 +933,7 @@ export default function GameContainer({
     return (
       <div className={`game-bg scenic h-full w-screen overflow-hidden flex flex-col relative z-10 fade-in ${shake ? 'animate-shake' : ''}`} style={{ '--accent': station.color }}>
         <SceneBackground station={station} />
+        <StationAnnouncement station={station} levelKey={`${levelIndex}-${levelData.technicalTerm}`} />
         {showBonus && (
           <div className="absolute inset-0 z-[100] flex flex-col fade-in" style={{ backgroundColor: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(8px)' }}>
             <BonusLockers onComplete={() => { setShowBonus(false); setInternalState('levelComplete'); }} />

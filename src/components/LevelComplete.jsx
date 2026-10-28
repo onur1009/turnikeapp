@@ -72,7 +72,7 @@ const LevelComplete = ({ level, station, summary, mistakes, meanings, onNextLeve
         {/* Durak tabelası */}
         <div className="w-full rounded-2xl overflow-hidden mb-4" style={{ border: `1.5px solid ${station.color}`, boxShadow: `0 0 30px ${station.color}33` }}>
           <div className="flex items-center gap-2 px-4 py-2" style={{ background: station.color }}>
-            <span className="text-white font-black text-[13px] tracking-wide">{station.id}</span>
+            <span className="text-white font-black text-[13px] tracking-wide">{station.code}</span>
             <span className="text-white/85 text-[12px] font-semibold truncate">{station.name}</span>
           </div>
           <div className="px-4 py-3 text-center" style={{ background: 'var(--surface-strong)' }}>

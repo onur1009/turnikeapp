@@ -79,7 +79,7 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
         <div className="ybs-display">
           <div className="flex items-center justify-between px-3 py-2" style={{ borderBottom: '1px solid rgba(255,255,255,0.12)', borderLeft: `4px solid ${station.color}` }}>
             <div className="flex items-center gap-2 min-w-0">
-              <span className="line-badge" style={{ background: station.color, fontFamily: 'inherit' }}>{station.id}</span>
+              <span className="line-badge" style={{ background: station.color, fontFamily: 'inherit' }}>{station.code}</span>
               <span className="ybs-led text-[11px] font-black tracking-[1px] truncate">{station.name.toLocaleUpperCase('tr-TR')}</span>
             </div>
             <div className="flex items-center gap-1 shrink-0">

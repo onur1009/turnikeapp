@@ -61,6 +61,9 @@ export const useGameStore = create(
       theme: 'dark', // 'dark' | 'light' | 'retro'
       language: 'tr', // 'tr' | 'en'
       cardColor: '#1d4ed8', // Akbil kart rengi
+      announceEnabled: true, // durağın ilk bölümünde durak anonsu
+      largeText: false, // erişilebilirlik: ızgara ve çark harfleri büyük
+      highContrast: false, // erişilebilirlik: yüksek kontrast taşlar ve yazılar
       cardPattern: 'plain', // Kart deseni: plain | lines | bosphorus | mosaic | night
       cardName: '', // Kartın üstüne basılan isim
       cardSticker: null, // Karta yapıştırılan hat rozeti (hat id)

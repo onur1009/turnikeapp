@@ -4,9 +4,29 @@ import { useGameStore } from '../store/gameStore';
 import { useTranslation } from '../utils/i18n';
 import ScreenHeader from './ScreenHeader';
 
+// Ayar satırı ve anahtar: bileşen dışında tanımlı ki her çizimde yeniden oluşup odak kaybolmasın
+const Toggle = ({ on, onClick, label }) => (
+  <button aria-pressed={on} aria-label={label} onClick={onClick}
+    className={`w-12 h-6 shrink-0 rounded-full transition-colors relative ${on ? 'bg-green-500' : 'bg-gray-600'}`}>
+    <div className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform ${on ? 'translate-x-7' : 'translate-x-1'}`} />
+  </button>
+);
+const Row = ({ icon, color, title, hint, on, onClick }) => (
+  <div className="flex justify-between items-center mt-4 gap-3">
+    <span className="text-white font-bold flex items-center gap-2 min-w-0">
+      <span aria-hidden="true" className={`material-symbols-outlined ${color}`}>{icon}</span>
+      <span className="flex flex-col"><span>{title}</span><span className="text-white/50 text-[11px] font-semibold">{hint}</span></span>
+    </span>
+    <Toggle on={on} onClick={onClick} label={title} />
+  </div>
+);
+
 const SettingsScreen = ({ onBack }) => {
   const soundEnabled = useGameStore(state => state.soundEnabled);
   const analyticsConsent = useGameStore(state => state.analyticsConsent);
+  const announceEnabled = useGameStore(state => state.announceEnabled);
+  const largeText = useGameStore(state => state.largeText);
+  const highContrast = useGameStore(state => state.highContrast);
   const hapticEnabled = useGameStore(state => state.hapticEnabled);
   const theme = useGameStore(state => state.theme);
   const language = useGameStore(state => state.language);
@@ -45,6 +65,13 @@ const SettingsScreen = ({ onBack }) => {
                 <div className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform ${hapticEnabled ? 'translate-x-7' : 'translate-x-1'}`} />
               </button>
             </div>
+
+            <Row icon="campaign" color="text-amber-300" title="Durak anonsu" hint="Yeni durakta tabela ve sesli anons"
+              on={announceEnabled} onClick={() => setSettings({ announceEnabled: !announceEnabled })} />
+            <Row icon="format_size" color="text-sky-300" title="Büyük harfler" hint="Izgara ve çarktaki harfler büyür"
+              on={largeText} onClick={() => setSettings({ largeText: !largeText })} />
+            <Row icon="contrast" color="text-white" title="Yüksek kontrast" hint="Taşlar ve yazılar daha belirgin"
+              on={highContrast} onClick={() => setSettings({ highContrast: !highContrast })} />
 
             {/* KVKK: anonim kullanım verisi rızası */}
             <div className="flex justify-between items-center mt-4 gap-3">

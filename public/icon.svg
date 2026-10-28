@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Turnike uygulama simgesi: gece mavisi zemin, hat renklerinde raylar, ortada beyaz harf taşı "T" -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1d416c"/>
+      <stop offset="1" stop-color="#0e2546"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#sky)"/>
+  <g stroke-linecap="round" fill="none" stroke-width="22">
+    <path d="M-20 392 C120 360 200 420 532 352" stroke="#16a34a"/>
+    <path d="M-20 430 C140 396 230 456 532 392" stroke="#dc2626"/>
+    <path d="M-20 468 C150 434 250 492 532 432" stroke="#eab308"/>
+  </g>
+  <rect x="136" y="96" width="240" height="240" rx="44" fill="#ffffff"/>
+  <rect x="136" y="300" width="240" height="36" rx="18" fill="#d6dde8"/>
+  <path d="M184 140 H328 V188 H280 V300 H232 V188 H184 Z" fill="#10263f"/>
+  <circle cx="376" cy="96" r="30" fill="#f5b041"/>
+</svg>

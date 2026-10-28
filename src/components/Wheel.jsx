@@ -1,7 +1,10 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
 
+import { useGameStore } from '../store/gameStore';
+
 const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger, isTutorial, tutorialWord, eliminatedLetters }) => {
+  const largeText = useGameStore(s => s.largeText);
   const containerRef = useRef(null);
   const [selectedIndices, setSelectedIndices] = useState([]);
   const [isSwiping, setIsSwiping] = useState(false);
@@ -391,7 +394,7 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
         const isEliminated = eliminatedLetters?.includes(letters[i]);
         const n = letters.length;
         const nodeSize = Math.round((n <= 5 ? 74 : n === 6 ? 64 : n === 7 ? 56 : 48) * wheelScale);
-        const fontSize = Math.round((n <= 5 ? 26 : n === 6 ? 24 : n === 7 ? 21 : 19) * Math.max(0.85, wheelScale));
+        const fontSize = Math.round((n <= 5 ? 26 : n === 6 ? 24 : n === 7 ? 21 : 19) * Math.max(0.85, wheelScale) * (largeText ? 1.25 : 1));
         const half = nodeSize / 2;
         return (
           <div

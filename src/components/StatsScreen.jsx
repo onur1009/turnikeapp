@@ -23,7 +23,7 @@ const StatsScreen = ({ onBack }) => {
 
         {/* Yolculuk özeti */}
         <div className="rounded-2xl p-4 mb-4 flex items-center gap-3" style={{ background: 'var(--surface)', border: `1px solid ${station.color}55` }}>
-          <span className="line-badge" style={{ background: station.color }}>{station.id}</span>
+          <span className="line-badge" style={{ background: station.color }}>{station.code}</span>
           <div className="flex-1 min-w-0">
             <p className="text-white/50 text-[11px] font-bold uppercase tracking-wider">{t('next_stop')}</p>
             <p className="text-white font-extrabold text-[16px] truncate">{station.displayName}</p>

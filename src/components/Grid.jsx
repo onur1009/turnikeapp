@@ -1,4 +1,5 @@
 import React, { useMemo, useEffect, useState } from 'react';
+import { useGameStore } from '../store/gameStore';
 
 // pickMode: "Nokta" ipucu açıkken boş kutular dokunulabilir olur, seçilen kutu onCellPick ile bildirilir
 const Grid = ({ words, foundWords, hintedLetters = [], onIntersectionFound, accent, pickMode = false, onCellPick }) => {
@@ -111,7 +112,8 @@ const Grid = ({ words, foundWords, hintedLetters = [], onIntersectionFound, acce
   const fitW = bounds ? Math.floor((containerSize.w - 16 - (bounds.cols - 1) * GAP) / bounds.cols) : MAX_CELL;
   const fitH = bounds ? Math.floor((containerSize.h - 8 - (bounds.rows - 1) * GAP) / bounds.rows) : MAX_CELL;
   const CELL = Math.max(24, Math.min(MAX_CELL, fitW, fitH));
-  const fontSize = Math.round(CELL * 0.46);
+  const largeText = useGameStore(st => st.largeText);
+  const fontSize = Math.round(CELL * (largeText ? 0.58 : 0.46));
 
   if (!bounds) return <div ref={containerRef} className="w-full h-full" />;
 

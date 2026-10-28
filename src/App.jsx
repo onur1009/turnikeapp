@@ -46,6 +46,13 @@ function App() {
   const resetGame = useGameStore(state => state.resetGame);
   const unlockBadge = useGameStore(state => state.unlockBadge);
   const checkStreak = useGameStore(state => state.checkStreak);
+  const highContrast = useGameStore(state => state.highContrast);
+  const largeText = useGameStore(state => state.largeText);
+  // Erişilebilirlik ayarları tüm ekranlara body sınıfıyla uygulanır
+  useEffect(() => {
+    document.body.classList.toggle('a11y-contrast', !!highContrast);
+    document.body.classList.toggle('a11y-large', !!largeText);
+  }, [highContrast, largeText]);
   const incrementTotalGames = useGameStore(state => state.incrementTotalGames);
   const incrementTotalWords = useGameStore(state => state.incrementTotalWords);
   const { t } = useTranslation();

@@ -23,17 +23,11 @@ export default defineConfig({
         background_color: '#051424',
         display: 'standalone',
         orientation: 'portrait',
+        // Kendi simgemiz (public/icon.svg'den üretildi); eskiden dış bir siteden çekiliyordu
         icons: [
-          {
-            src: 'https://cdn-icons-png.flaticon.com/512/3063/3063822.png',
-            sizes: '192x192',
-            type: 'image/png'
-          },
-          {
-            src: 'https://cdn-icons-png.flaticon.com/512/3063/3063822.png',
-            sizes: '512x512',
-            type: 'image/png'
-          }
+          { src: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+          { src: '/icon-512.png', sizes: '512x512', type: 'image/png' },
+          { src: '/icon-maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }
         ]
       }
     })
