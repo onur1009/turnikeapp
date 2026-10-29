@@ -717,9 +717,12 @@ const ONBOARDING_EN = [
   "TERMINAL", "COMMUTER", "CARRIAGE", "WATERLOO", "VICTORIA" // 26-30
 ];
 
-// Son 100 seviyede kullanılan kökleri takip eder (tekrarı önler)
-// Sıralı kök geçmişi (en yeni sonda); en fazla 100 kayıt
-const usedRootsHistory = [];
+// Kök sırası yalnızca seviye numarasına bağlı: N. seviyenin kökü, 30..N-1 seviyelerinin kökleri geçmiş
+// sayılarak seçilir ve dile göre önbelleğe alınır. Eskiden geçmiş, o oturumda üretilen seviyelerden
+// oluşuyordu; uygulama her açılışta sıfırlandığı için kökler kısa aralıkla dönüyor, aynı seviye de
+// farklı bulmaca verebiliyordu.
+const rootSchedule = { tr: { terms: [], roots: [] }, en: { terms: [], roots: [] } };
+const extraWordCounts = new Map();
 
 const chooseTechnicalRoot = (levelIndex, language) => {
   // 1-30 Seviyeleri için özel onboarding akışı
@@ -728,7 +731,16 @@ const chooseTechnicalRoot = (levelIndex, language) => {
     const provider = language === "en" ? (PROVIDER_MAP_EN[rootName] || "Metro") : (PROVIDER_MAP_TR[rootName] || "Metro Istanbul");
     return { root: rootName, provider, category: "Genel" };
   }
+  const { terms, roots } = rootSchedule[language === "en" ? "en" : "tr"];
+  for (let lv = 30 + terms.length; lv <= levelIndex; lv++) {
+    const term = pickRoot(lv, language, roots);
+    terms.push(term);
+    roots.push(term.root);
+  }
+  return terms[levelIndex - 30];
+};
 
+const pickRoot = (levelIndex, language, usedRootsHistory) => {
   const { techTerms, validWords, formableCache, rareWords } = getPools(language);
   const difficulty = getDifficulty(levelIndex);
 
@@ -764,8 +776,11 @@ const chooseTechnicalRoot = (levelIndex, language) => {
   // hatlarda (vapur, metrobüs) aynı kök birkaç seviye sonra dönebilir ama art arda gelmez; o hatta
   // taze terim kalmazsa diğer terimlere geçilir. Diğer terimler son 250 kök boyunca tekrar etmez.
   const onThemeCount = orderedPool.filter(t => t.provider === desiredProvider).length;
-  const onThemeWindow = Math.max(3, Math.floor(onThemeCount * 0.85));
-  const pickFresh = (onThemeBlock, otherBlock) => {
+  // Hattın havuzu küçükse (metroda birkaç düzine kök) kısa pencere aynı kökü ~10 seviyede geri getiriyordu;
+  // en az 25 seviye bekletilir, o arada diğer hatların terimleri kullanılır
+  const onThemeWindow = Math.max(25, Math.floor(onThemeCount * 0.85));
+  // minExtra: kök dışında en az bu kadar kelime (2 kelimelik çok kısa bulmacalar çıkmasın)
+  const pickFresh = (onThemeBlock, otherBlock, minExtra = 2) => {
     const recentOnTheme = new Set(usedRootsHistory.slice(-onThemeBlock));
     const recentOther = new Set(usedRootsHistory.slice(-otherBlock));
     let pick = null;
@@ -773,9 +788,15 @@ const chooseTechnicalRoot = (levelIndex, language) => {
     for (const term of orderedPool) {
       const blocked = term.provider === desiredProvider ? recentOnTheme.has(term.root) : recentOther.has(term.root);
       if (blocked) continue;
-      const count = (formableCache.get(term.root) || [...validWords].filter(w => canFormNormalizedWord(w, term.root)))
-        .filter(w => w.length >= minLen && w !== term.root && !rareWords.has(w)).length;
-      if (count < 1) continue;
+      // Sayım yalnızca köke ve minLen'e bağlı; önbelleksiz her seviye tüm sözlüğü tarıyordu (10.000. seviye 78 sn)
+      const countKey = `${language}|${term.root}|${minLen}`;
+      let count = extraWordCounts.get(countKey);
+      if (count === undefined) {
+        count = (formableCache.get(term.root) || [...validWords].filter(w => canFormNormalizedWord(w, term.root)))
+          .filter(w => w.length >= minLen && w !== term.root && !rareWords.has(w)).length;
+        extraWordCounts.set(countKey, count);
+      }
+      if (count < minExtra) continue;
       const providerBonus = term.provider === desiredProvider ? 3 : 0;
       const score = Math.min(count, difficulty.targetWords + 2) * 10 + term.root.length + providerBonus;
       if (score > bestScore) { pick = term; bestScore = score; }
@@ -785,15 +806,12 @@ const chooseTechnicalRoot = (levelIndex, language) => {
   };
 
   // Bu banttaki kökler tükendiyse yasak pencereleri daraltılır (eskiden 2. geçiş hep aynı kökü seçiyordu)
-  let best = pickFresh(onThemeWindow, 250) || pickFresh(3, 15) || pickFresh(1, 1);
+  let best = pickFresh(onThemeWindow, 150) || pickFresh(25, 60) || pickFresh(8, 25, 1) || pickFresh(1, 1, 1);
 
   // Güvenlik amaçlı fallback
   if (!best) {
     best = { root: language === "en" ? "TRAIN" : "TRAMVAY", provider: language === "en" ? "Metro" : "Metro Istanbul", category: "Genel" };
   }
-
-  usedRootsHistory.push(best.root);
-  if (usedRootsHistory.length > 300) usedRootsHistory.shift();
 
   return best;
 };
