@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useGameStore } from '../store/gameStore';
 import { Haptics, ImpactStyle, NotificationType } from '@capacitor/haptics';
 import { formatKurus } from '../utils/format';
-import { playBalanceUp } from '../utils/soundManager';
+import { playSpin, playPrize } from '../utils/soundManager';
 import { track } from '../utils/analytics';
 
 // Günlük Turnike Çarkı: hat renklerinde 8 dilim, ibre turnike kapısı. Günde bir kez.
@@ -42,7 +42,6 @@ const DailySpinScreen = ({ onComplete }) => {
   const [prize, setPrize] = useState(null);
   const addBalance = useGameStore(s => s.addBalance);
   const addHints = useGameStore(s => s.addHints);
-  const soundEnabled = useGameStore(s => s.soundEnabled);
   const setLastSpinDate = useGameStore(s => s.setLastSpinDate);
 
   const spin = () => {
@@ -53,6 +52,7 @@ const DailySpinScreen = ({ onComplete }) => {
     const jitter = (Math.random() - 0.5) * SEG * 0.5;
     setRotation(360 * 6 - center + jitter);
     setPhase('spinning');
+    playSpin();
     Haptics.impact({ style: ImpactStyle.Medium }).catch(() => {});
     setTimeout(() => {
       const won = PRIZES[idx];
@@ -61,7 +61,7 @@ const DailySpinScreen = ({ onComplete }) => {
       if (won.type === 'money') addBalance(won.value);
       if (won.type === 'hint') addHints(won.value);
       setLastSpinDate(new Date().toLocaleDateString());
-      if (soundEnabled) playBalanceUp();
+      playPrize(!!won.jackpot);
       Haptics.notification({ type: NotificationType.Success }).catch(() => {});
       track('daily_spin', { prize: won.label });
     }, 4600);

@@ -7,6 +7,7 @@ import { restoreFromBackup } from './utils/persistStorage'
 import { initAnalytics, track } from './utils/analytics'
 import { Capacitor } from '@capacitor/core'
 import { registerSW } from 'virtual:pwa-register'
+import { initMusic } from './utils/soundManager'
 
 // Çevrimdışı önbellek (PWA) yalnızca web'de. Android uygulamasında dosyalar zaten APK'nın
 // içinde; servis çalışanı orada eski sürümün kodunu sunup yeni APK'yı bozuyordu
@@ -56,6 +57,7 @@ const start = async () => {
   await restoreFromBackup([GAME_STORAGE_KEY]);
   await useGameStore.persist.rehydrate();
   initAnalytics();
+  initMusic();
   createRoot(document.getElementById('root')).render(
     <StrictMode>
       <ErrorBoundary>

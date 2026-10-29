@@ -2,11 +2,18 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
 
 import { useGameStore } from '../store/gameStore';
+import { playLetterSelect, playShuffle } from '../utils/soundManager';
 
 const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger, isTutorial, tutorialWord, eliminatedLetters }) => {
   const largeText = useGameStore(s => s.largeText);
   const containerRef = useRef(null);
   const [selectedIndices, setSelectedIndices] = useState([]);
+  // Seçim zinciri uzadıkça yükselen nota (hangi harfte olduğun duyulsun)
+  const prevSelLen = useRef(0);
+  useEffect(() => {
+    if (selectedIndices.length > prevSelLen.current) playLetterSelect(selectedIndices.length - 1);
+    prevSelLen.current = selectedIndices.length;
+  }, [selectedIndices.length]);
   const [isSwiping, setIsSwiping] = useState(false);
   const [currentMousePos, setCurrentMousePos] = useState(null);
   const [nodePositions, setNodePositions] = useState([]);
@@ -285,6 +292,7 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
           e.stopPropagation();
           if (isShuffling) return;
           setIsShuffling(true);
+          playShuffle();
           setTimeout(() => { onShuffle(); setTimeout(() => setIsShuffling(false), 100); }, 300);
         }}
         className="absolute top-1/2 left-1/2 w-[52px] h-[52px] rounded-full flex items-center justify-center z-10"

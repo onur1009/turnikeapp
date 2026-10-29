@@ -1,5 +1,6 @@
 import SceneBackground from './SceneBackground';
 import TipBubble from './TipBubble';
+import HomeTrain from './HomeTrain';
 import ConsentSheet from './ConsentSheet';
 import MissionsSheet, { useMissionProgress } from './MissionsSheet';
 import { todayKey, dayNumber } from '../utils/daily';
@@ -112,11 +113,8 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
 
       {/* Ortada tek ana eylem */}
       <div className="flex-1 flex flex-col items-center justify-center px-6 min-h-0">
-        <div className="relative w-24 h-24 mb-5 rounded-full flex items-center justify-center"
-          style={{ animation: 'homeFloat 3s ease-in-out infinite', background: `radial-gradient(circle, ${station.color}26, transparent 70%)`, border: `1px solid ${station.color}55` }}>
-          <span aria-hidden="true" className="material-symbols-outlined text-[52px]" style={{ color: station.color, fontVariationSettings: "'FILL' 1" }}>{station.icon}</span>
-        </div>
-        <p className="text-white/60 text-[14px] font-semibold mb-5 text-center">{t('subtitle')}</p>
+        <HomeTrain station={station} />
+        <p className="text-white/75 text-[14px] font-semibold mb-5 text-center" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>{t('subtitle')}</p>
         {/* İki ana eylem: yolculuğa devam ve düello */}
         <div className="w-full max-w-[340px] flex flex-col gap-3">
           {event && (

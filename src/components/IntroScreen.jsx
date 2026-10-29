@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import SceneBackground from './SceneBackground';
 import VehicleSprite from './VehicleSprite';
+import { playTrainWhoosh, playGateClick, playTileDrop, playIntroChord } from '../utils/soundManager';
 
 // Açılış tanıtımı (~4 sn, dokununca geçilir):
 // 1) Gece İstanbul silueti belirir  2) Metro treni hızla geçer
@@ -18,7 +19,14 @@ export default function IntroScreen({ onDone }) {
   useEffect(() => {
     const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
     const id = setTimeout(finish, reduce ? 1200 : 4300);
-    return () => clearTimeout(id);
+    // Sesler animasyon anlarına bağlı (tren 0,45 sn, turnike 1,7 sn, taşlar 2,1 sn'den itibaren)
+    const cues = reduce ? [] : [
+      setTimeout(playTrainWhoosh, 450),
+      setTimeout(playGateClick, 1750),
+      ...LETTERS.map((_, i) => setTimeout(() => playTileDrop(i), 2150 + i * 90)),
+      setTimeout(playIntroChord, 3000),
+    ];
+    return () => { clearTimeout(id); cues.forEach(clearTimeout); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

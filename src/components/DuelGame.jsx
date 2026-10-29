@@ -3,6 +3,7 @@ import Grid from './Grid';
 import Wheel from './Wheel';
 import { generateDuelLevel } from '../utils/gameLogic';
 import { DUEL_SECONDS } from '../utils/duel';
+import { playCountdown, playTick, playTimeUp } from '../utils/soundManager';
 
 // Düello turu: 3-2-1 sayımı, sonra seed'den gelen aynı bulmaca ve DUEL_SECONDS süre.
 // Üstte skor tabelası (sen / rakip), süre çubuğunda rakibin bitirdiği an işaretli.
@@ -29,6 +30,7 @@ export default function DuelGame({ seed, me, opponent, onFinish, onQuit }) {
 
   // 3-2-1, ardından süre
   useEffect(() => {
+    playCountdown(countdown);
     if (countdown > 0) {
       const id = setTimeout(() => setCountdown(c => c - 1), 800);
       return () => clearTimeout(id);
@@ -36,7 +38,12 @@ export default function DuelGame({ seed, me, opponent, onFinish, onQuit }) {
     startRef.current = Date.now();
     const id = setInterval(() => {
       const remaining = DUEL_SECONDS - Math.floor((Date.now() - startRef.current) / 1000);
-      setLeft(Math.max(0, remaining));
+      setLeft(prev => {
+        const next = Math.max(0, remaining);
+        if (next !== prev && next > 0 && next <= 10) playTick(next);
+        if (next === 0 && prev > 0) playTimeUp();
+        return next;
+      });
       if (remaining <= 0) { clearInterval(id); finish(); }
     }, 250);
     return () => clearInterval(id);

@@ -25,6 +25,8 @@ const SettingsScreen = ({ onBack }) => {
   const soundEnabled = useGameStore(state => state.soundEnabled);
   const analyticsConsent = useGameStore(state => state.analyticsConsent);
   const announceEnabled = useGameStore(state => state.announceEnabled);
+  const musicEnabled = useGameStore(state => state.musicEnabled);
+  const musicVolume = useGameStore(state => state.musicVolume);
   const largeText = useGameStore(state => state.largeText);
   const highContrast = useGameStore(state => state.highContrast);
   const hapticEnabled = useGameStore(state => state.hapticEnabled);
@@ -43,7 +45,7 @@ const SettingsScreen = ({ onBack }) => {
             <div className="flex justify-between items-center mb-4">
               <span className="text-white font-bold flex items-center gap-2">
                 <span aria-hidden="true" className="material-symbols-outlined text-blue-400">volume_up</span>
-                {t('sound')}
+                Ses efektleri
               </span>
               <button 
                 onClick={() => setSettings({ soundEnabled: !soundEnabled })}
@@ -66,6 +68,15 @@ const SettingsScreen = ({ onBack }) => {
               </button>
             </div>
 
+            <Row icon="music_note" color="text-pink-300" title="Müzik" hint="Arka plan müziği"
+              on={musicEnabled} onClick={() => setSettings({ musicEnabled: !musicEnabled })} />
+            {musicEnabled && (
+              <label className="flex items-center gap-3 mt-3 text-white/70 text-[12px] font-bold">
+                <span className="shrink-0">Müzik seviyesi</span>
+                <input type="range" min="0" max="1" step="0.05" value={musicVolume ?? 0.5} aria-label="Müzik seviyesi"
+                  onChange={e => setSettings({ musicVolume: Number(e.target.value) })} className="flex-1 accent-pink-400" />
+              </label>
+            )}
             <Row icon="campaign" color="text-amber-300" title="Durak anonsu" hint="Yeni durakta tabela ve sesli anons"
               on={announceEnabled} onClick={() => setSettings({ announceEnabled: !announceEnabled })} />
             <Row icon="format_size" color="text-sky-300" title="Büyük harfler" hint="Izgara ve çarktaki harfler büyür"

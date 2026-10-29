@@ -56,7 +56,9 @@ export const useGameStore = create(
       dailyItemDate: null,
       
       // Ayarlar ve Tema
-      soundEnabled: true,
+      soundEnabled: true, // ses efektleri
+      musicEnabled: true, // arka plan müziği (ayrı anahtar)
+      musicVolume: 0.5,
       hapticEnabled: true,
       theme: 'dark', // 'dark' | 'light' | 'retro'
       language: 'tr', // 'tr' | 'en'

@@ -953,3 +953,45 @@ body.a11y-contrast .tool-btn, body.a11y-contrast .status-chip, body.a11y-contras
   box-shadow: inset 0 -5px 0 rgba(0,0,0,0.12), 0 14px 30px rgba(0,0,0,0.35);
 }
 @media (prefers-reduced-motion: reduce) { .spin-rays, .spin-bulb.is-chasing { animation: none; } }
+
+/* ===== Treni kaçırdın ===== */
+.missed-scene { position: relative; width: min(92vw, 380px); height: 170px; margin-bottom: 18px; overflow: hidden;
+  border-radius: 18px; background: linear-gradient(180deg, #0b1a33 0%, #10263f 70%); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08); }
+.missed-sign { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 8px;
+  padding: 4px 12px; border-radius: 8px; background: #000; color: #f5b041; font-size: 11px; font-weight: 900; letter-spacing: 2px;
+  animation: missedSignOff 0.3s ease 2.6s both; }
+.missed-led { width: 8px; height: 8px; border-radius: 9999px; background: #dc2626; animation: missedBlink 0.3s steps(2) 0s 8; }
+@keyframes missedBlink { 50% { background: #450a0a; } }
+@keyframes missedSignOff { to { opacity: 0.35; } }
+.missed-track { position: absolute; left: 0; right: 0; top: 52px; height: 76px; }
+.missed-train { position: absolute; left: 50%; top: 0; transform: translateX(-50%);
+  animation: missedDepart 2.2s cubic-bezier(0.6, 0, 0.9, 0.4) 1.35s both; }
+@keyframes missedDepart { to { transform: translateX(110vw); } }
+.missed-door { position: absolute; top: 28%; width: 7%; height: 46%; background: rgba(253,230,138,0.75); }
+.missed-door.d1 { left: 33%; animation: missedDoor 0.35s ease 0.95s both; }
+.missed-door.d2 { left: 64%; animation: missedDoor 0.35s ease 0.95s both; }
+@keyframes missedDoor { to { transform: scaleX(0); opacity: 0; } }
+.missed-platform { position: absolute; left: 0; right: 0; bottom: 0; height: 42px; background: #64748b; }
+.missed-edge { position: absolute; left: 0; right: 0; top: 0; height: 5px;
+  background: repeating-linear-gradient(90deg, #facc15 0 14px, #1e293b 14px 28px); }
+.missed-person { position: absolute; left: 18%; bottom: 10px; }
+.missed-arm { transform-box: fill-box; transform-origin: left bottom; animation: missedWave 0.4s ease-in-out 1.6s 5 alternate; }
+@keyframes missedWave { to { transform: rotate(-35deg); } }
+.missed-title { animation: missedShake 0.5s ease 3.4s both; }
+@keyframes missedShake { 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
+@media (prefers-reduced-motion: reduce) { .missed-scene *, .missed-title { animation: none !important; } .missed-train { transform: translateX(110vw); } }
+.station-announce.is-leg { border-left-color: rgba(255,255,255,0.35); animation-duration: 2s; }
+.station-announce.is-leg .station-announce-name { font-size: 18px; }
+
+/* ===== Ana ekran: ayaklı hatta yanaşan araç ===== */
+.home-train { position: relative; width: 100%; max-width: 380px; height: 96px; margin-bottom: 14px; }
+.home-train-deck { position: absolute; left: -10%; right: -10%; top: 66px; height: 6px; background: #10263f; border-radius: 3px;
+  box-shadow: 0 2px 0 rgba(0,0,0,0.25); }
+.home-train-pillars { position: absolute; left: -10%; right: -10%; top: 72px; height: 24px; display: flex; justify-content: space-around; }
+.home-train-pillars span { width: 7px; height: 100%; background: linear-gradient(180deg, #10263f, rgba(16,38,63,0)); }
+.home-train-vehicle { position: absolute; left: 50%; top: 0; transform: translateX(-50%);
+  animation: homeTrainArrive 1.8s cubic-bezier(0.15, 0.7, 0.25, 1) 0.2s both; }
+@keyframes homeTrainArrive { from { transform: translateX(-160vw); } to { transform: translateX(-50%); } }
+.home-train-stop { position: absolute; right: 2%; top: -6px; display: flex; flex-direction: column; align-items: center; }
+.home-train-pole { width: 3px; height: 50px; background: #10263f; }
+@media (prefers-reduced-motion: reduce) { .home-train-vehicle { animation: none; } }

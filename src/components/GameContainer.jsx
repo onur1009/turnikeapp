@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { generateLevel, VALID_WORDS_TR, VALID_WORDS_EN, WORD_MEANINGS_TR, WORD_MEANINGS_EN, getTimeForLevel } from '../utils/gameLogic';
-import { playCorrect, playWrong, playLevelComplete, playTurnike, playCombo, playBadgeUnlock, playBalanceUp, playTick, playTimeUp, playGameOver } from '../utils/soundManager';
+import { playCorrect, playWrong, playLevelComplete, playTurnike, playCombo, playBadgeUnlock, playBalanceUp, playTick, playTimeUp } from '../utils/soundManager';
 import { useTranslation } from '../utils/i18n';
 import Grid from './Grid';
 import Wheel from './Wheel';
@@ -22,6 +22,7 @@ import SceneBackground from './SceneBackground';
 import { track } from '../utils/analytics';
 import TipBubble from './TipBubble';
 import StationAnnouncement from './StationAnnouncement';
+import MissedTrain from './MissedTrain';
 import { currentEvent, EVENT_MULTIPLIER } from '../utils/events';
 import { addLeaguePoints } from '../utils/league';
 import { isRewardedAdSupported, showRewardedAd, showInterstitialAd } from '../utils/adService';
@@ -217,6 +218,7 @@ export default function GameContainer({
   const [isExpressOver, setIsExpressOver] = useState(false);
   const handleTimeExpire = useCallback(() => {
     setIsExpressOver(true);
+    playTimeUp();
   }, []);
 
   const trainRef = useRef(null);
@@ -281,7 +283,6 @@ export default function GameContainer({
       stopTimer();
       setInternalState('gameover');
       track('level_fail', { level: useGameStore.getState().levelIndex + 1 });
-      if (useGameStore.getState().soundEnabled) playGameOver();
       if (hapticEnabled) Haptics.notification({ type: NotificationType.Error }).catch(()=>{});
     }
   }, [lives, internalState, stopTimer, hapticEnabled]);
@@ -293,7 +294,7 @@ export default function GameContainer({
 
   // Ekspres penceresinin son saniyeleri: hafif tik sesi (ceza yok, sadece bonus hatırlatması)
   useEffect(() => {
-    if (internalState === 'playing' && levelData && timeLeft > 0 && timeLeft <= 5) {
+    if (internalState === 'playing' && levelData && timeLeft > 0 && timeLeft <= 10) {
       if (useGameStore.getState().soundEnabled) playTick(timeLeft);
     }
   }, [timeLeft, levelData, internalState]);
@@ -813,8 +814,8 @@ export default function GameContainer({
   if (internalState === 'gameover') {
     return (
       <div className="game-bg min-h-full flex flex-col items-center justify-center relative z-10 fade-in px-6 text-center">
-        <span aria-hidden="true" className="material-symbols-outlined text-red-500 text-6xl mb-4" style={{ fontVariationSettings: "'FILL' 1" }}>directions_run</span>
-        <h1 className="text-white text-3xl font-black mb-2">{t('game_over')}</h1>
+        <MissedTrain color={getStationForLevel(levelIndex).color} mode={getStationForLevel(levelIndex).mode} />
+        <h1 className="text-white text-3xl font-black mb-2 missed-title">{t('game_over')}</h1>
         <p className="text-white/60 mb-8">{t('game_over_desc')}</p>
         
         <div className="flex flex-col gap-3 w-full max-w-sm mb-6">
