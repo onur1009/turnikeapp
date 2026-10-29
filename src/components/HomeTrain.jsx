@@ -11,7 +11,7 @@ export default function HomeTrain({ station }) {
         <span className="home-train-pole" />
       </div>
       <div className="home-train-vehicle">
-        <VehicleSprite mode={station.mode} color={station.color} width={230} />
+        <VehicleSprite mode={station.mode} color={station.color} width={230} facing="right" />
       </div>
       <div className="home-train-deck" />
       <div className="home-train-pillars">

@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import SceneBackground from './SceneBackground';
 import VehicleSprite from './VehicleSprite';
+import { useGameStore } from '../store/gameStore';
+import { getStationForLevel } from '../utils/transitNetwork';
 import { playTrainWhoosh, playGateClick, playTileDrop, playIntroChord } from '../utils/soundManager';
 
 // Açılış tanıtımı (~4 sn, dokununca geçilir):
@@ -13,6 +15,8 @@ const LINE_COLORS = ['#16a34a', '#dc2626', '#eab308', '#2563eb', '#7e22ce', '#0d
 const NIGHT = { id: 'VAPUR', mode: 'ferry', color: '#2563eb', displayName: 'Karaköy', leg: 5, stationIndex: 3 };
 
 export default function IntroScreen({ onDone }) {
+  // Açılışta oyuncunun bulunduğu hattın aracı geçer (metro, tramvay, vapur, Marmaray, metrobüs…)
+  const line = getStationForLevel(useGameStore.getState().maxUnlockedLevel);
   const doneRef = useRef(false);
   const finish = () => { if (!doneRef.current) { doneRef.current = true; onDone(); } };
 
@@ -39,7 +43,7 @@ export default function IntroScreen({ onDone }) {
       {/* Hızla geçen tren */}
       <div className="intro-train" aria-hidden="true">
         <span className="intro-streak" />
-        <VehicleSprite mode="metro" color="#16a34a" width={300} night />
+        <VehicleSprite mode={line.mode} color={line.color} width={300} night facing="right" />
       </div>
 
       <div className="absolute inset-0 flex flex-col items-center justify-center px-6 z-10">

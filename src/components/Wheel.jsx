@@ -7,6 +7,7 @@ import { playLetterSelect, playShuffle } from '../utils/soundManager';
 const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger, isTutorial, tutorialWord, eliminatedLetters }) => {
   const largeText = useGameStore(s => s.largeText);
   const containerRef = useRef(null);
+  const hitRadiusRef = useRef(40);
   const [selectedIndices, setSelectedIndices] = useState([]);
   // Seçim zinciri uzadıkça yükselen nota (hangi harfte olduğun duyulsun)
   const prevSelLen = useRef(0);
@@ -96,6 +97,8 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
       };
     });
     setNodePositions(positions);
+    // Dokunma alanı komşu harfle çakışmasın: iki harf arası mesafenin ~%40'ı (en fazla 40 px)
+    hitRadiusRef.current = Math.min(40, radius * Math.sin(Math.PI / n) * 0.8);
     setWheelScale(Math.max(0.72, Math.min(1, Math.min(width, height) / 296)));
   }, [letters]);
 
@@ -105,28 +108,26 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
     return { x: e.clientX - rect.left, y: e.clientY - rect.top };
   };
 
+  // WoW gibi: yalnızca en yakın harf, yalnızca çekirdek alanına girilince sayılır. Seçili bir
+  // harfin üstünden geçmek kelimeyi kesmez; sadece bir önceki harfe dönmek son harfi geri alır.
   const checkNodeHit = (pos) => {
     if (!pos) return;
-    for (let i = 0; i < nodePositions.length; i++) {
-      const dist = Math.hypot(nodePositions[i].x - pos.x, nodePositions[i].y - pos.y);
-      if (dist < 42) {
-        const prev = gestureRef.current.selectedIndices;
-        let next = prev;
-        const index = prev.indexOf(i);
-        if (index === -1) {
-          Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
-          next = [...prev, i];
-        } else if (index < prev.length - 1) {
-          Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
-          next = prev.slice(0, index + 1);
-        }
-        
-        if (next !== prev) {
-          gestureRef.current.selectedIndices = next;
-          setSelectedIndices(next);
-        }
-        break;
-      }
+    let hit = -1;
+    let best = hitRadiusRef.current;
+    nodePositions.forEach((p, i) => {
+      if (eliminatedLetters?.includes(letters[i])) return;
+      const d = Math.hypot(p.x - pos.x, p.y - pos.y);
+      if (d < best) { best = d; hit = i; }
+    });
+    if (hit === -1) return;
+    const prev = gestureRef.current.selectedIndices;
+    let next = prev;
+    if (!prev.includes(hit)) next = [...prev, hit];
+    else if (prev.length > 1 && prev[prev.length - 2] === hit) next = prev.slice(0, -1);
+    if (next !== prev) {
+      Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
+      gestureRef.current.selectedIndices = next;
+      setSelectedIndices(next);
     }
   };
 
@@ -155,7 +156,8 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
     
     const lastPos = gestureRef.current.lastPos;
     if (lastPos) {
-      const steps = 3;
+      // Hızlı kaydırmada harf atlanmasın: her ~6 px'te bir örnek
+      const steps = Math.max(1, Math.ceil(Math.hypot(pos.x - lastPos.x, pos.y - lastPos.y) / 6));
       for (let s = 1; s <= steps; s++) {
         checkNodeHit({
           x: lastPos.x + (pos.x - lastPos.x) * (s / steps),
@@ -168,7 +170,7 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
     
     gestureRef.current.lastPos = pos;
     setCurrentMousePos(pos);
-  }, [nodePositions]);
+  }, [nodePositions, letters, eliminatedLetters]);
 
   const callbacksRef = useRef({ onWordSubmit, letters });
   useEffect(() => {
@@ -189,12 +191,9 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
       setIsAwaiting(true);
       gestureRef.current.isAwaitingResult = true;
       
-      let isCorrect = false;
       try {
-        isCorrect = await callbacksRef.current.onWordSubmit(word);
-      } catch(e) {
-        isCorrect = false;
-      }
+        await callbacksRef.current.onWordSubmit(word);
+      } catch { /* hata olsa da seçim aşağıda sıfırlanır */ }
       
       setIsAwaiting(false);
       gestureRef.current.isAwaitingResult = false;
@@ -247,7 +246,7 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
           gestureRef.current.isAwaitingResult = true;
           try {
             await callbacksRef.current.onWordSubmit(word);
-          } catch(err) {}
+          } catch { /* hata olsa da seçim aşağıda sıfırlanır */ }
           setIsAwaiting(false);
           gestureRef.current.isAwaitingResult = false;
         }

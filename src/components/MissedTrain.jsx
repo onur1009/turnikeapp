@@ -15,7 +15,7 @@ export default function MissedTrain({ color = '#16a34a', mode = 'metro' }) {
       </div>
       <div className="missed-track">
         <div className="missed-train">
-          <VehicleSprite mode={mode} color={color} width={260} night />
+          <VehicleSprite mode={mode} color={color} width={260} night facing="right" />
           <span className="missed-door d1" />
           <span className="missed-door d2" />
         </div>

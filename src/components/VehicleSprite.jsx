@@ -158,14 +158,34 @@ const CableCar = ({ color, win }) => (
   </>
 );
 
-const SPRITES = { metro: Metro, marmaray: Marmaray, tram: Tram, funicular: Funicular, cablecar: CableCar, metrobus: Metrobus, ferry: Ferry };
+// Busforus: üstü açık çift katlı tur otobüsü
+const DoubleDecker = ({ color, win }) => (
+  <g className="veh-body">
+    <path d="M10 2 H88 Q92 2 92 5 V22 H6 Q3 22 3 19 V8 Q3 2 10 2 Z" fill={color} />
+    <rect x="5" y="2" width="87" height="1.4" fill="#f8fafc" />
+    {[14, 26, 38, 50, 62, 74, 84].map(x => <rect key={x} x={x} y="0" width="1" height="2" fill="#f8fafc" />)}
+    <path d="M4.2 8 Q4.4 4.5 9 4.5 V10 H4.2 Z" fill={win} />
+    {[12, 22, 32, 42, 52, 62, 72, 82].map(x => <rect key={x} x={x} y="4.5" width="7.5" height="5" rx="0.8" fill={win} />)}
+    <path d="M4 13 Q4 12 6 12 H10 V19 H4 Z" fill={win} />
+    {[14, 24, 34, 50, 60, 70, 80].map(x => <rect key={x} x={x} y="12.5" width="7" height="5" rx="0.8" fill={win} />)}
+    <rect x="42" y="12" width="6" height="10" fill="#334155" />
+    <rect x="3" y="18.5" width="89" height="1.4" fill="#f8fafc" opacity="0.8" />
+    <circle cx="4" cy="20.5" r="0.9" fill="#fef08a" />
+    {[16, 76].map(x => <Wheel key={x} cx={x} cy={23.5} r={3} />)}
+  </g>
+);
 
-export default function VehicleSprite({ mode = 'metro', color = '#3b82f6', width = 96, night = false, animated = true }) {
+const SPRITES = { metro: Metro, marmaray: Marmaray, tram: Tram, funicular: Funicular, cablecar: CableCar, metrobus: Metrobus, ferry: Ferry, busforus: DoubleDecker };
+
+// Çizimlerin önü solda; sağa giden sahnelerde facing="right" ile aynalanır (tren geri geri gitmesin)
+export default function VehicleSprite({ mode = 'metro', color = '#3b82f6', width = 96, night = false, animated = true, facing = 'left' }) {
   const Sprite = SPRITES[mode] || Metro;
   return (
     <svg width={width} height={width * 28 / 96} viewBox="0 0 96 28" fill="none" xmlns="http://www.w3.org/2000/svg"
       className={animated ? 'vehicle-anim' : undefined} style={{ overflow: 'visible' }} aria-hidden="true">
-      <Sprite color={color} win={night ? LIT : GLASS} />
+      <g transform={facing === 'right' ? 'matrix(-1 0 0 1 96 0)' : undefined}>
+        <Sprite color={color} win={night ? LIT : GLASS} />
+      </g>
     </svg>
   );
 }
