@@ -380,7 +380,7 @@ export default function GameContainer({
     if (soundEnabled) playLevelComplete();
 
     const isFlawless = mistakeCount === 0;
-    const perfectBonus = isFlawless ? 50 : 0;
+    const perfectBonus = isFlawless ? 20 : 0;
     if (isFlawless) {
       setTimeout(() => showFeedback('correct', t('perfect')), 800);
       unlockBadge('flawless');
@@ -758,7 +758,8 @@ export default function GameContainer({
     // Aynı kesişim için tekrar bonus vermemek adına bir Set kullanılabilir, 
     // ama basitçe her çağrıldığında bakiye artışı ve UI geri bildirimi sağlayabiliriz.
     addBalance(10);
-    showFeedback('correct', t('transfer_bonus') || 'Aktarma Bonusu! +10 ₺');
+    // Etiket eskiden "+10 ₺" diyordu; eklenen 10 kuruş
+    showFeedback('correct', `Aktarma Bonusu! +${formatKurus(10)}`);
     if (soundEnabled) playBalanceUp();
   }, [addBalance, showFeedback, soundEnabled, t]);
 

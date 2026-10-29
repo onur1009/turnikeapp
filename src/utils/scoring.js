@@ -12,6 +12,8 @@
  * @param {number} totalTime - Seviyenin toplam süresi (le() çıktısı)
  * @returns {{points: number, breakdown: object}}
  */
+export const KURUS_PER_POINT = 0.08;
+
 export function calculateWordScore(word, comboCount, remainingTime, totalTime) {
   const length = word.length;
 
@@ -27,7 +29,9 @@ export function calculateWordScore(word, comboCount, remainingTime, totalTime) {
   const timeRatio = totalTime > 0 ? Math.max(0, remainingTime / totalTime) : 0;
   const speedBonus = 1 + timeRatio * 0.5;
 
-  const points = Math.round(basePoints * comboMultiplier * speedBonus);
+  // Puan kuruşa KURUS_PER_POINT ile çevrilir: eskiden 1 puan = 1 kuruştu, bir bölüm ₺10-20 getiriyor ve
+  // ₺0,25'lik ipuçlarını anlamsızlaştırıyordu. Şimdi bölüm ortalama ~₺1.
+  const points = Math.max(1, Math.round(basePoints * comboMultiplier * speedBonus * KURUS_PER_POINT));
 
   return {
     points,
@@ -47,7 +51,7 @@ export function calculateWordScore(word, comboCount, remainingTime, totalTime) {
  */
 export function calculateLevelCompletionBonus(sumOfWordScores, allWordsFoundBeforeTimeUp, remainingTime) {
   // Seviye "perfect clear" bonusu: kalan her saniye için +5 puan
-  const perfectClearBonus = allWordsFoundBeforeTimeUp ? Math.round(remainingTime * 5) : 0;
+  const perfectClearBonus = allWordsFoundBeforeTimeUp ? Math.round(remainingTime * 5 * KURUS_PER_POINT) : 0;
   return {
     total: sumOfWordScores + perfectClearBonus,
     perfectClearBonus,

@@ -5,9 +5,10 @@ import { useTranslation } from '../utils/i18n';
 import ScreenHeader from './ScreenHeader';
 
 // Ayar satırı ve anahtar: bileşen dışında tanımlı ki her çizimde yeniden oluşup odak kaybolmasın
+// Anahtar 48x24 görünür; before: katmanı dokunma alanını 56x48'e genişletir
 const Toggle = ({ on, onClick, label }) => (
   <button aria-pressed={on} aria-label={label} onClick={onClick}
-    className={`w-12 h-6 shrink-0 rounded-full transition-colors relative ${on ? 'bg-green-500' : 'bg-gray-600'}`}>
+    className={`w-12 h-6 shrink-0 rounded-full transition-colors relative before:content-[''] before:absolute before:-inset-x-1 before:-inset-y-3 ${on ? 'bg-green-500' : 'bg-gray-600'}`}>
     <div className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform ${on ? 'translate-x-7' : 'translate-x-1'}`} />
   </button>
 );
@@ -47,12 +48,7 @@ const SettingsScreen = ({ onBack }) => {
                 <span aria-hidden="true" className="material-symbols-outlined text-blue-400">volume_up</span>
                 Ses efektleri
               </span>
-              <button 
-                onClick={() => setSettings({ soundEnabled: !soundEnabled })}
-                className={`w-12 h-6 rounded-full transition-colors relative ${soundEnabled ? 'bg-green-500' : 'bg-gray-600'}`}
-              >
-                <div className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform ${soundEnabled ? 'translate-x-7' : 'translate-x-1'}`} />
-              </button>
+              <Toggle on={soundEnabled} onClick={() => setSettings({ soundEnabled: !soundEnabled })} label="Ses efektleri" />
             </div>
             
             <div className="flex justify-between items-center">
@@ -60,12 +56,7 @@ const SettingsScreen = ({ onBack }) => {
                 <span aria-hidden="true" className="material-symbols-outlined text-orange-400">vibration</span>
                 {t('haptic')}
               </span>
-              <button 
-                onClick={() => setSettings({ hapticEnabled: !hapticEnabled })}
-                className={`w-12 h-6 rounded-full transition-colors relative ${hapticEnabled ? 'bg-green-500' : 'bg-gray-600'}`}
-              >
-                <div className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform ${hapticEnabled ? 'translate-x-7' : 'translate-x-1'}`} />
-              </button>
+              <Toggle on={hapticEnabled} onClick={() => setSettings({ hapticEnabled: !hapticEnabled })} label={t('haptic')} />
             </div>
 
             <Row icon="music_note" color="text-pink-300" title="Müzik" hint="Arka plan müziği"
@@ -90,14 +81,7 @@ const SettingsScreen = ({ onBack }) => {
                 <span aria-hidden="true" className="material-symbols-outlined text-teal-400">insights</span>
                 <span className="flex flex-col"><span>Anonim kullanım verisi</span><span className="text-white/50 text-[11px] font-semibold">Ad, e-posta, konum toplanmaz</span></span>
               </span>
-              <button
-                aria-pressed={analyticsConsent === true}
-                aria-label="Anonim kullanım verisi"
-                onClick={() => setAnalyticsConsent(analyticsConsent !== true)}
-                className={`w-12 h-6 shrink-0 rounded-full transition-colors relative ${analyticsConsent === true ? 'bg-green-500' : 'bg-gray-600'}`}
-              >
-                <div className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform ${analyticsConsent === true ? 'translate-x-7' : 'translate-x-1'}`} />
-              </button>
+              <Toggle on={analyticsConsent === true} onClick={() => setAnalyticsConsent(analyticsConsent !== true)} label="Anonim kullanım verisi" />
             </div>
           </div>
 

@@ -6,8 +6,9 @@ import { Haptics, ImpactStyle, NotificationType } from '@capacitor/haptics';
 import { playCorrect, playWrong, playBalanceUp, playBadgeUnlock } from '../utils/soundManager';
 
 const REWARD_TYPES = [
-  { type: 'cash_small', id: 'istanbulkart', value: 1000 /* kuruş */, label: 'Unutulmuş\nİstanbulkart\n(+₺10)', icon: 'credit_card', color: '#22c55e', chance: 35 },
-  { type: 'cash_big', id: 'cuzdan', value: 5000 /* kuruş */, label: 'Dolu Cüzdan\n(+₺50)', icon: 'account_balance_wallet', color: '#fbbf24', chance: 15 },
+  // Durak başına ortalama ~₺1,5 (eskiden ₺10/₺50 ile durak başına ~₺33 veriyordu, ekonomiyi şişiriyordu)
+  { type: 'cash_small', id: 'istanbulkart', value: 50 /* kuruş */, label: 'Unutulmuş\nİstanbulkart\n(+₺0,50)', icon: 'credit_card', color: '#22c55e', chance: 35 },
+  { type: 'cash_big', id: 'cuzdan', value: 200 /* kuruş */, label: 'Dolu Cüzdan\n(+₺2)', icon: 'account_balance_wallet', color: '#fbbf24', chance: 15 },
   { type: 'hints', id: 'gozluk', value: 2, label: 'Gözlük\n(+2 İpucu)', icon: 'eyeglasses', color: '#3b82f6', chance: 20 },
   { type: 'life', id: 'semsiye', value: 1, label: 'Şemsiye\n(+1 Can)', icon: 'umbrella', color: '#ec4899', chance: 15 },
   { type: 'empty', id: 'takmadis', value: 0, label: 'Takma Diş\n(Boş)', icon: 'dentistry', color: '#94a3b8', chance: 10 },

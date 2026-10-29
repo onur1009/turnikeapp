@@ -70,7 +70,7 @@ export const BADGES = [
     id: 'rich',
     title: 'Aylık Akbil',
     titleEn: 'Monthly Pass',
-    description: 'Bakiyeni 50.00₺ üzerine çıkar.',
+    description: 'Bakiyeni ₺50,00 üzerine çıkar.',
     descriptionEn: 'Reach a balance above ₺50.00.',
     icon: 'payments',
     color: '#14b8a6'

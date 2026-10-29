@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "android:apk": "vite build && npx cap sync android && cd android && gradlew assembleDebug -I ../scripts/gradle-build-outside.gradle",
-    "test:mobile": "node tests/artemis/run.cjs"
+    "test:mobile": "node tests/artemis/run.cjs",
+    "check:levels": "node scripts/check-levels.mjs"
   },
   "dependencies": {
     "@capacitor-community/admob": "^8.2.1",

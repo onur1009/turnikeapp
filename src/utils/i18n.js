@@ -62,7 +62,7 @@ export const translations = {
     card_color: 'Kart Rengi',
 
     // İstatistik
-    games_played: 'Oynanan Oyun',
+    games_played: 'Oyun Oturumu',
     words_found: 'Bulunan Kelime',
     max_combo: 'Maksimum Kombo',
     daily_streak: 'Günlük Seri',
@@ -185,7 +185,7 @@ export const translations = {
     card_color: 'Card Color',
 
     // Stats
-    games_played: 'Games Played',
+    games_played: 'Sessions',
     words_found: 'Words Found',
     max_combo: 'Max Combo',
     daily_streak: 'Daily Streak',

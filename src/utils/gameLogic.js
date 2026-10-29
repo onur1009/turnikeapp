@@ -438,7 +438,6 @@ export const WORD_MEANINGS_EN = {
   "PANCRAS": "St Pancras, London's terminal for Eurostar trains.",
   "LIVERPOOL": "Liverpool Street, a busy London station.",
   "LONDON": "The UK capital, home to the world's oldest underground railway.",
-  "BRIDGE": "A structure that carries a road or railway over water or a valley.",
   "BAKER": "Baker Street, one of the first London Underground stations.",
   "BOND": "Bond Street, a London shopping street and Tube station.",
   "OXFORD": "Oxford Circus, a busy London Tube interchange.",
