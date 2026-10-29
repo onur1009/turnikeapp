@@ -1,0 +1,162 @@
+<title>Turnike Oyun Denetimi</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Düzen: tek sütun rapor; önce özet şeridi, sonra önceliğe göre bulgular (öncelik = renkli etiket) */
+:root {
+  --bg: #f4f6f9; --surface: #ffffff; --fg: #10263f; --muted: #52637a; --line: #d7dee8;
+  --p1: #b91c1c; --p2: #a14a06; --p3: #1d4ed8; --ok: #15803d; --chip: #e8edf4;
+  --display: "Archivo", "Segoe UI", sans-serif; --body: "Atkinson Hyperlegible", "Segoe UI", sans-serif; --mono: "JetBrains Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #0b1726; --surface: #12233a; --fg: #e6edf6; --muted: #9aabc2; --line: #24384f; --p1: #f87171; --p2: #fbbf24; --p3: #60a5fa; --ok: #4ade80; --chip: #1b304b; color-scheme: dark } }
+:root[data-theme="dark"] { --bg: #0b1726; --surface: #12233a; --fg: #e6edf6; --muted: #9aabc2; --line: #24384f; --p1: #f87171; --p2: #fbbf24; --p3: #60a5fa; --ok: #4ade80; --chip: #1b304b; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font: 16px/1.6 var(--body); }
+.wrap { max-width: 860px; margin: 0 auto; padding-block: 32px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; flex-direction: column; gap: 28px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; line-height: 1.2; }
+h1 { font-size: clamp(28px, 6vw, 40px); font-weight: 800; }
+h2 { font-size: 22px; font-weight: 800; }
+h3 { font-size: 17px; font-weight: 600; }
+p { margin: 0; max-width: 68ch; }
+.eyebrow { font: 600 12px/1 var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.lede { color: var(--muted); }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 2px; }
+.stat b { font: 800 26px/1.1 var(--display); font-variant-numeric: tabular-nums; }
+.stat span { color: var(--muted); font-size: 14px; }
+section { display: flex; flex-direction: column; gap: 14px; }
+.finding { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.finding.p1 { --sev: var(--p1) } .finding.p2 { --sev: var(--p2) } .finding.p3 { --sev: var(--p3) } .finding.ok { --sev: var(--ok) }
+.head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 10px; }
+.tag { font: 600 11px/1 var(--display); letter-spacing: .08em; text-transform: uppercase; color: var(--sev); border: 1px solid var(--sev); border-radius: 999px; padding: 6px 12px; }
+.kv { display: grid; grid-template-columns: 7.5em 1fr; gap: 4px 12px; font-size: 15px; }
+.kv dt { color: var(--muted); } .kv dd { margin: 0; min-width: 0; }
+code { font: 500 13px var(--mono); background: var(--chip); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 15px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font: 600 12px var(--display); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+tr:last-child td { border-bottom: 0; }
+.st { font-weight: 700; } .st.ok { color: var(--ok) } .st.mid { color: var(--p2) } .st.bad { color: var(--p1) }
+ol.order { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 6px; }
+.note { font-size: 14px; color: var(--muted); }
+</style>
+
+<main class="wrap">
+  <header style="display:flex;flex-direction:column;gap:10px">
+    <span class="eyebrow">Turnike: Sözcük Seferi · 30 Ekim 2026</span>
+    <h1>Oyun denetimi ve iyileştirme raporu</h1>
+    <p class="lede">Oyunun tüm seviyeleri kodda üretilip doğrulandı. Gerçek telefonda (Xiaomi, debug APK) 15 bölüm, yani üç durak, otomatik oyuncuyla oynandı ve 13 ekran gezildi. Test bitince telefondaki kayıt eski hâline döndürüldü. Testler sırasında Supabase'e ve sözlük servisine istek gitmedi.</p>
+  </header>
+
+  <div class="stats" aria-label="Özet">
+    <div class="stat"><b>10.000 / 10.000</b><span>seviye geçerli, hata yok</span></div>
+    <div class="stat"><b>15</b><span>bölüm telefonda bitirildi</span></div>
+    <div class="stat"><b>0</b><span>çalışma zamanı hatası</span></div>
+    <div class="stat"><b>4</b><span>yüksek öncelikli sorun</span></div>
+  </div>
+
+  <section>
+    <span class="eyebrow">Sağlam olanlar</span>
+    <article class="finding ok">
+      <div class="head"><h3>Bulmaca üretici güvenilir</h3><span class="tag">İyi</span></div>
+      <p>10.000 seviyenin hiçbirinde hücre çakışması, çarktaki harflerle kurulamayan kelime, sözlükte olmayan kelime ya da kopuk ızgara yok. Ortalama 5,4 kelime, ızgara en fazla 8×8. En yavaş seviye 54 ms'de üretildi. Telefonda 15 bölüm ve 13 ekranda konsola hata düşmedi.</p>
+    </article>
+  </section>
+
+  <section>
+    <span class="eyebrow">Öncelik 1 · oyuncunun her gün göreceği</span>
+
+    <article class="finding p1">
+      <div class="head"><h3>1. Günlük çark ana ekrana her dönüşte yeniden açılıyor</h3><span class="tag">Yüksek</span></div>
+      <p>"Sonra"ya basınca bu karar hiçbir yere kaydedilmiyor. O gün çark çevrilmediyse herhangi bir menüden ana ekrana dönen oyuncu pencereyle yeniden karşılaşıyor. Testte Görevler, Koleksiyon ve Gece Seferi bu pencerenin arkasında kaldı.</p>
+      <dl class="kv"><dt>Kaynak</dt><dd><code>src/App.jsx:88</code></dd><dt>Öneri</dt><dd>Pencere oturum başına bir kez açılsın ya da "Sonra" o günün tarihini kaydetsin. Ana ekrandaki "Çarkı çevir" kısayolu kalsın.</dd><dt>Efor</dt><dd>Küçük (birkaç satır)</dd></dl>
+    </article>
+
+    <article class="finding p1">
+      <div class="head"><h3>2. Ekonomi çok hızlı şişiyor</h3><span class="tag">Yüksek</span></div>
+      <p>15 bölümde bakiye ₺277'den ₺1.177'ye çıktı, yani bölüm başına yaklaşık ₺60. Örneğin tek bir bölüm sonu ₺22,61 verdi (kelime puanı ₺10,28 ve Gece Seferi 2× ile ₺10,28 daha). Bu hızda ₺3'lük gizemli kutu, ₺0,50'lik terim ipucu ve reklam karşılığı yüklenen ₺0,50 anlamını yitiriyor. Oyuncunun reklam izlemesi ya da ödül toplaması için bir neden kalmıyor.</p>
+      <dl class="kv"><dt>Öneri</dt><dd>Bölüm ödülünü ₺1–3 bandına çekmek, 2× çarpanı yalnızca kelime puanına uygulamak ve parayı harcayacak yerleri artırmak (kart temaları, ipuçları, durak koleksiyonu). Sayılar senin kararın; birkaç senaryoyu tablo hâlinde hazırlayabilirim.</dd><dt>Efor</dt><dd>Orta (denge kararı + sabitler)</dd></dl>
+    </article>
+
+    <article class="finding p1">
+      <div class="head"><h3>3. Kök kelimeler kısa aralıkla tekrar ediyor</h3><span class="tag">Yüksek</span></div>
+      <p>10.000 seviyede yalnızca 191 farklı kök kelime var; her kök ortalama 52 kez geliyor. Telefonda TRAVERS 10 bölüm arayla iki kez, TURNİKE 15 bölüm içinde iki kez çıktı. Words of Wonders tarzı oyunlarda oyuncu tekrarı hemen fark ediyor ve "aynı bulmaca" hissi en çok bırakılan şikâyetlerden biri.</p>
+      <dl class="kv"><dt>Kaynak</dt><dd><code>chooseTechnicalRoot</code> (<code>src/utils/gameLogic.js</code>)</dd><dt>Öneri</dt><dd>Son 40–50 seviyede kullanılan kökler seçilmesin (deterministik pencere) ve <code>EVERYDAY_ROOTS_TR</code> havuzu 400+ köke büyütülsün.</dd><dt>Efor</dt><dd>Orta</dd></dl>
+    </article>
+
+    <article class="finding p1">
+      <div class="head"><h3>4. Bölüm sonu ekranı yanlış durak bilgisi veriyor</h3><span class="tag">Yüksek</span></div>
+      <p>Durağın ara bölümlerinde ekran "Sanayi Mahallesi durağına vardın · Bölüm 4/5" yazıyor. Altında "Sonraki durak: Sanayi Mahallesi · Bölüm 5/5" var, yani sonraki durak olarak aynı durak gösteriliyor. Düğme de "SONRAKİ DURAK" diyor, oysa oyuncu hâlâ aynı durakta.</p>
+      <dl class="kv"><dt>Kaynak</dt><dd><code>src/components/LevelComplete.jsx:147, 168</code></dd><dt>Öneri</dt><dd>Ara bölümlerde "Bölüm 4/5 tamam · Sıradaki: Bölüm 5/5" ve "DEVAM ET"; "durağına vardın" ile "SONRAKİ DURAK" yalnızca 5/5'te.</dd><dt>Efor</dt><dd>Küçük</dd></dl>
+    </article>
+  </section>
+
+  <section>
+    <span class="eyebrow">Öncelik 2 · cila ve güven</span>
+
+    <article class="finding p2">
+      <div class="head"><h3>5. Ligde aynı bot ismi iki kez görünüyor</h3><span class="tag">Orta</span></div>
+      <p>Tramvay Ligi'nde "Eren_ist" hem 10. hem 13. sırada. Tekrarlanan bir isim, rakiplerin sahte olduğunu hemen belli ediyor.</p>
+      <dl class="kv"><dt>Kaynak</dt><dd><code>src/utils/league.js:63</code> (ad + son ek rastgele, tekrar kontrolü yok)</dd><dt>Öneri</dt><dd>Grupta kullanılmış isimleri atlayıp yeniden seçmek.</dd></dl>
+    </article>
+
+    <article class="finding p2">
+      <div class="head"><h3>6. Kayıp Eşya Bürosu dolapları dokunmatik dışında kullanılamıyor</h3><span class="tag">Orta</span></div>
+      <p>Durak sonundaki 9 dolap <code>div</code> olarak yapılmış, düğme değil. Klavye, ekran okuyucu ve TalkBack bunlara ulaşamıyor. Üçüncü seçimden sonra da 4,5 saniyelik atlanamayan bir bekleme var. Ayrıca bu mini oyun "Kayıp Eşya Bürosu", koleksiyon ekranı ise "Kayıp Eşya Ofisi" adını taşıyor; iki farklı şeyin adı neredeyse aynı.</p>
+      <dl class="kv"><dt>Kaynak</dt><dd><code>src/components/BonusLockers.jsx:83, 118</code></dd><dt>Öneri</dt><dd>Dolapları <code>button</code> yapıp numaralı <code>aria-label</code> vermek, beklemeyi dokununca geçilebilir yapmak, mini oyunun adını "Emanet Dolapları" yapmak.</dd></dl>
+    </article>
+
+    <article class="finding p2">
+      <div class="head"><h3>7. 97 seviyede yalnızca 2 kelime var</h3><span class="tag">Orta</span></div>
+      <p>Kelime sayısı dağılımı: 2 kelime 97, 3 kelime 1.040, 4 kelime 1.552, 5 kelime 2.565, 6 kelime 1.709, 7 kelime 3.037 seviye. İki kelimelik bir seviye birkaç saniyede biter ve ödülü hak edilmemiş hissettirir.</p>
+      <dl class="kv"><dt>Öneri</dt><dd>3 kelimenin altına düşen kökler o seviyede kullanılmasın; doğrulama betiği bunu yakalıyor.</dd></dl>
+    </article>
+
+    <article class="finding p2">
+      <div class="head"><h3>8. Küçük tutarsızlıklar</h3><span class="tag">Orta</span></div>
+      <p>"Aylık Akbil" rozeti tutarı "50.00₺" yazıyor, oyunun geri kalanı "₺50,00". İstatistik ekranında 36 seviyeye karşılık "8 oynanan oyun" yazıyor ve bu sayının neyi saydığı belirsiz. Ayarlar ekranında etiketsiz 2 düğme ve 40 px'ten küçük 7 dokunma alanı var; Sözlük'te 5, ana ekranda 2 küçük dokunma alanı var.</p>
+      <dl class="kv"><dt>Öneri</dt><dd>Para her yerde <code>formatKurus</code> ile yazılsın, sayaç "oturum" diye adlandırılsın, dokunma alanları en az 44 px olsun.</dd></dl>
+    </article>
+  </section>
+
+  <section>
+    <span class="eyebrow">Öncelik 3 · kod sağlığı</span>
+    <article class="finding p3">
+      <div class="head"><h3>9. Otomatik test yok; birkaç ölü dosya</h3><span class="tag">Düşük</span></div>
+      <p>Projede test komutu yok. Bu denetim için yazdığım seviye doğrulayıcı (10.000 seviye, yaklaşık 2 dakika) <code>npm run check:levels</code> olarak projeye eklenebilir; her yayından önce çalışır. Lint'te çökme yaratacak hata yok; 111 uyarının çoğu kullanılmayan <code>React</code> importu. <code>src/App_backup.jsx</code> kullanılmıyor, sözlükte <code>BRIDGE</code> iki kez tanımlı.</p>
+    </article>
+  </section>
+
+  <section>
+    <h2>Rakiple karşılaştırma</h2>
+    <p class="note">Karşılaştırma Words of Wonders'ın oyundan bilinen tasarımına göre yapıldı.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Özellik</th><th>Words of Wonders</th><th>Turnike bugün</th></tr></thead>
+        <tbody>
+          <tr><td>Harf çarkı seçimi</td><td>En yakın harf; yalnızca bir önceki harfe dönmek siler</td><td><span class="st ok">Aynı</span> (29 Ekim düzeltmesi)</td></tr>
+          <tr><td>Bulmaca çeşitliliği</td><td>Binlerce farklı kök, kısa aralıkta tekrar yok</td><td><span class="st bad">Zayıf</span> 191 kök, 10 bölümde tekrar</td></tr>
+          <tr><td>Ekonomi</td><td>Coin yavaş birikir, ipucu değerlidir</td><td><span class="st bad">Şişkin</span> bölüm başı ~₺60</td></tr>
+          <tr><td>Bölüm sonu ödülü</td><td>Sahne sonunda tek hediye kutusu</td><td><span class="st ok">Var</span> Emanet dolapları</td></tr>
+          <tr><td>Ekstra kelime kavanozu</td><td>Var</td><td><span class="st ok">Var</span> 10 kelimede ödül</td></tr>
+          <tr><td>Günlük bulmaca ve etkinlik</td><td>Var</td><td><span class="st ok">Var</span> Günün Seferi, Gece Seferi</td></tr>
+          <tr><td>İlerleme haritası</td><td>Dünya harikaları</td><td><span class="st ok">Güçlü</span> gerçek İstanbul ağı, hat hat</td></tr>
+          <tr><td>Rekabet</td><td>Takım ve turnuvalar</td><td><span class="st mid">Kısmen</span> düello ve lig; bot isimleri tekrar ediyor</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Önerilen sıra</h2>
+    <ol class="order">
+      <li>Günlük çarkın tekrar açılması ve bölüm sonu metni (1, 4): küçük değişiklik, her oturumu etkiliyor.</li>
+      <li>Bot isimleri ve dolap erişilebilirliği (5, 6).</li>
+      <li>Kök tekrarını önleyen pencere ve havuzun büyütülmesi (3, 7).</li>
+      <li>Ekonomi dengesi (2): önce senin vereceğin hedef sayılarla.</li>
+      <li>Seviye doğrulayıcının projeye eklenmesi (9).</li>
+    </ol>
+  </section>
+
+  <p class="note">Test yöntemi: ARTEMIS sunucusunda yapay zekâ anahtarı tanımlı olmadığı için telefon USB üzerinden Chrome geliştirici protokolüyle sürüldü. Otomatik oyuncu, çarktaki harflerden kurulabilen sözlük kelimelerini sırayla gönderdi; elle kaydırma hissini ölçmedi. Sesli durak anonsu bu testte dinlenmedi.</p>
+</main>

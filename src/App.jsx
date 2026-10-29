@@ -62,6 +62,7 @@ function App() {
   const WORD_MEANINGS = language === 'en' ? WORD_MEANINGS_EN : WORD_MEANINGS_TR;
 
   const [showDailySpin, setShowDailySpin] = useState(false);
+  const spinOffered = useRef(false);
   const [flashBalance, setFlashBalance] = useState(false);
   const [feedback, setFeedback] = useState(null);
 
@@ -89,7 +90,9 @@ function App() {
     // Yeni oyuncu önce oynasın: günlük çark ilk seviye bitince devreye girer
     if (isAppReady && screen === 'home' && maxUnlockedLevel >= 1) {
       const today = new Date().toLocaleDateString();
-      if (lastSpinDate !== today) {
+      // Oturumda bir kez: "Sonra" deyip menülerden dönen oyuncunun önü tekrar kesilmesin
+      if (lastSpinDate !== today && !spinOffered.current) {
+        spinOffered.current = true;
         setShowDailySpin(true);
       }
     }

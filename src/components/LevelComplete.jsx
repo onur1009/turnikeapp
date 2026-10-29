@@ -88,7 +88,7 @@ const LevelComplete = ({ level, station, summary, mistakes, meanings, onNextLeve
               ))}
             </div>
             <h1 className="text-white text-[24px] font-black leading-tight">{station.displayName}</h1>
-            <p className="text-white/60 text-[13px] font-semibold mt-0.5">{t('arrived_at')} · {t('leg')} {station.leg}/{station.legsPerStation}</p>
+            <p className="text-white/60 text-[13px] font-semibold mt-0.5">{station.isLastLeg ? `${t('arrived_at')} · ${t('leg')} ${station.leg}/${station.legsPerStation}` : `${t('leg')} ${station.leg}/${station.legsPerStation} ${t('leg_done')}`}</p>
             <p className="text-white/70 text-[13px] leading-relaxed mt-3">{station.stationInfo}</p>
           </div>
         </div>
@@ -144,7 +144,7 @@ const LevelComplete = ({ level, station, summary, mistakes, meanings, onNextLeve
           </span>
           <div className="min-w-0">
             <p className="text-[11px] font-bold text-white/50 uppercase tracking-wider">
-              {station.isLastLeg && station.isLineChange ? t('line_change') : t('next_station')}
+              {!station.isLastLeg ? t('next_leg') : station.isLineChange ? t('line_change') : t('next_station')}
             </p>
             <p className="text-white font-extrabold text-[15px] truncate">
               {station.isLastLeg ? nextName : `${nextName} · ${t('leg')} ${station.leg + 1}/${station.legsPerStation}`}
@@ -165,7 +165,7 @@ const LevelComplete = ({ level, station, summary, mistakes, meanings, onNextLeve
           {doubleState === 'done' && <p className="text-center text-green-300 font-bold text-[13px] mb-2.5">+{formatKurus(total)} eklendi, kazancın 2 katına çıktı!</p>}
           <button onClick={onNextLevel} className="play-btn w-full flex items-center justify-center gap-2 whitespace-nowrap" style={{ fontSize: 16, letterSpacing: 2, padding: '15px 20px' }}>
             <span aria-hidden="true" className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>directions_railway</span>
-            {t('next_station').toLocaleUpperCase('tr-TR')}
+            {station.isLastLeg ? t('next_station').toLocaleUpperCase('tr-TR') : t('continue_journey')}
           </button>
           <div className="flex gap-3">
             <button onClick={onHome} className="flex-1 py-3.5 rounded-full font-bold text-white/70 text-[13px] tracking-wider uppercase active:scale-95 transition-transform flex items-center justify-center gap-1.5" style={{ border: '1px solid var(--border)' }}>
