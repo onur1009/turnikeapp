@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { formatKurus } from '../utils/format';
 import { useGameStore } from '../store/gameStore';
 import { useTranslation } from '../utils/i18n';
@@ -80,11 +80,20 @@ const BonusLockers = ({ onComplete }) => {
 
     if (picksLeft - 1 === 0) {
       setIsFinishing(true);
-      setTimeout(() => {
-        onComplete();
-      }, 4500);
+      finishTimer.current = setTimeout(finish, 6000);
     }
   };
+
+  // Özet görünür olunca oyuncu beklemeden geçebilir; süre dolarsa kendiliğinden devam eder
+  const finishTimer = useRef(null);
+  const finished = useRef(false);
+  const finish = () => {
+    if (finished.current) return;
+    finished.current = true;
+    clearTimeout(finishTimer.current);
+    onComplete();
+  };
+  useEffect(() => () => clearTimeout(finishTimer.current), []);
 
   return (
     <main className="flex-grow flex flex-col items-center justify-center p-4 relative z-10 fade-in">
@@ -93,7 +102,7 @@ const BonusLockers = ({ onComplete }) => {
         <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-3" style={{ background: 'rgba(245, 158, 11, 0.15)', border: '2px solid rgba(245, 158, 11, 0.4)' }}>
           <span aria-hidden="true" className="material-symbols-outlined text-[32px] text-amber-500">luggage</span>
         </div>
-        <h1 className="text-white text-2xl font-black mb-1 uppercase tracking-widest">Kayıp Eşya Bürosu</h1>
+        <h1 className="text-white text-2xl font-black mb-1 uppercase tracking-widest">Emanet Dolapları</h1>
         <p className="text-white/60 text-sm font-semibold max-w-xs mx-auto">İETT ve Metro'da unutulan eşyalar arasında şansını dene!</p>
       </div>
 
@@ -105,7 +114,7 @@ const BonusLockers = ({ onComplete }) => {
         }}
       >
         <span aria-hidden="true" className="material-symbols-outlined text-[18px]" style={{ color: picksLeft > 0 ? '#4ade80' : '#f87171' }}>key</span>
-        <span className="font-bold text-sm" style={{ color: picksLeft > 0 ? '#4ade80' : '#f87171' }}>{picksLeft} HAKKIN KALDI</span>
+        <span className="font-bold text-sm" role="status" aria-live="polite" style={{ color: picksLeft > 0 ? '#4ade80' : '#f87171' }}>{picksLeft} HAKKIN KALDI</span>
       </div>
 
       {/* Lockers Grid */}
@@ -116,10 +125,13 @@ const BonusLockers = ({ onComplete }) => {
           const showFront = !isOpened && !isRevealed;
 
           return (
-            <div 
-              key={i} 
-              className="relative aspect-square cursor-pointer group"
+            <button
+              type="button"
+              key={i}
+              className="relative aspect-square cursor-pointer group p-0 border-0 bg-transparent rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-400 focus-visible:outline-offset-2"
               onClick={() => handleOpenLocker(i)}
+              disabled={!showFront || picksLeft <= 0}
+              aria-label={showFront ? `Dolap ${i + 1}` : `Dolap ${i + 1}: ${reward.label.replace(/\n/g, ' ')}`}
             >
               <div 
                 className="w-full h-full transition-transform duration-700 relative preserve-3d"
@@ -162,7 +174,7 @@ const BonusLockers = ({ onComplete }) => {
                   </span>
                 </div>
               </div>
-            </div>
+            </button>
           );
         })}
       </div>
@@ -178,6 +190,11 @@ const BonusLockers = ({ onComplete }) => {
             {totalWon.cash === 0 && totalWon.hints === 0 && totalWon.lives === 0 && <span className="text-slate-400 font-bold bg-slate-500/10 px-3 py-1.5 rounded-lg border border-slate-500/30">Maalesef boş çektin...</span>}
           </div>
         </div>
+        {isFinishing && (
+          <button type="button" onClick={finish} className="play-btn mt-4 px-10" style={{ fontSize: 15, letterSpacing: 2, padding: '13px 40px' }}>
+            DEVAM ET
+          </button>
+        )}
       </div>
     </main>
   );

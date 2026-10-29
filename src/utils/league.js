@@ -59,8 +59,11 @@ const hash = (str) => { let h = 2166136261; for (const c of str) { h ^= c.charCo
 // Gruptaki botlar: haftaya, lige ve gruba göre sabit; puanları hafta ilerledikçe artar
 export const botsFor = (week, tier, groupKey, count, progress = weekProgress()) => {
   const r = rng(hash(`${week}|${tier}|${groupKey}`));
+  // Her ad grupta bir kez: aynı ismin iki kez görünmesi botları ele veriyordu (36 ad ≥ 29 bot)
+  const pool = [...BOT_NAMES];
   return Array.from({ length: count }, (_, i) => {
-    const name = BOT_NAMES[Math.floor(r() * BOT_NAMES.length)] + SUFFIX[Math.floor(r() * SUFFIX.length)];
+    const base = pool.length ? pool.splice(Math.floor(r() * pool.length), 1)[0] : BOT_NAMES[i % BOT_NAMES.length];
+    const name = base + SUFFIX[Math.floor(r() * SUFFIX.length)];
     const target = Math.round((60 + r() * 380) * (0.8 + tier * 0.15)); // üst liglerde daha güçlü
     const pace = 0.7 + r() * 0.6; // kimi hafta başında, kimi sonunda hızlanır
     return { id: `bot-${i}`, name, points: Math.round(target * Math.min(1, Math.pow(progress, pace))), bot: true };
