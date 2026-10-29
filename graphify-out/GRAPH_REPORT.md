@@ -1,23 +1,23 @@
 # Graph Report - TurnikeApp  (2026-10-29)
 
 ## Corpus Check
-- 105 files · ~128,243 words
+- 105 files · ~128,552 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 24 file(s) not represented in the graph (top: .xml 10, (none) 5, .properties 2)
 
 ## Summary
-- 624 nodes · 1650 edges · 34 communities (20 shown, 14 thin omitted)
-- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 24 edges (avg confidence: 0.85)
+- 625 nodes · 1657 edges · 35 communities (21 shown, 14 thin omitted)
+- Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 25 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `89de1e0c`
+- Built from commit: `1521aae8`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - useGameStore
-- GameContainer.jsx
+- soundManager.js
 - gameLogic.js
 - run.cjs
 - run_artemis.py
@@ -29,7 +29,7 @@
 - league.js
 - CLAUDE.md
 - SceneBackground.jsx
-- main.jsx
+- analytics.js
 - DailyScreen.jsx
 - vercel.json
 - scripts
@@ -38,11 +38,12 @@
 - Turnike mobil testleri (Artemis)
 - React + Vite
 - puppeteer
+- GameContainer.jsx
 - vite.config.js
 - Google Play mağaza sayfası (Türkçe)
 
 ## God Nodes (most connected - your core abstractions)
-1. `useGameStore` - 64 edges
+1. `useGameStore` - 65 edges
 2. `GameContainer()` - 49 edges
 3. `react` - 45 edges
 4. `formatKurus()` - 34 edges
@@ -54,33 +55,33 @@
 10. `DuelsScreen()` - 21 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `App()` --calls--> `DailySpinScreen()`  [EXTRACTED]
-  src/App.jsx → src/components/DailySpinScreen.jsx
-- `App()` --calls--> `GameContainer()`  [EXTRACTED]
-  src/App.jsx → src/components/GameContainer.jsx
 - `App()` --calls--> `HomeScreen()`  [EXTRACTED]
   src/App.jsx → src/components/HomeScreen.jsx
 - `App()` --calls--> `IntroScreen()`  [EXTRACTED]
   src/App.jsx → src/components/IntroScreen.jsx
-- `App()` --calls--> `playBadgeUnlock()`  [EXTRACTED]
-  src/App.jsx → src/utils/soundManager.js
+- `App()` --calls--> `NavigationContainer()`  [EXTRACTED]
+  src/App.jsx → src/components/NavigationContainer.jsx
+- `App()` --calls--> `useGameStore`  [EXTRACTED]
+  src/App.jsx → src/store/gameStore.js
+- `App()` --calls--> `useTranslation()`  [EXTRACTED]
+  src/App.jsx → src/utils/i18n.js
 
 ## Import Cycles
 - None detected.
 
-## Communities (34 total, 14 thin omitted)
+## Communities (35 total, 14 thin omitted)
 
 ### Community 0 - "useGameStore"
-Cohesion: 0.10
-Nodes (46): react, App(), AD_DAILY_LIMIT, AD_REWARD, AkbilScreen(), CARD_COLORS, CardPattern(), DAILY_TOP_UP (+38 more)
+Cohesion: 0.12
+Nodes (39): react, AD_DAILY_LIMIT, AD_REWARD, AkbilScreen(), CARD_COLORS, CardPattern(), DAILY_TOP_UP, IstanbulCard() (+31 more)
 
-### Community 1 - "GameContainer.jsx"
-Cohesion: 0.06
-Nodes (86): @capacitor/app, @capacitor-community/text-to-speech, @capacitor/haptics, @capacitor/status-bar, BonusLockers(), generateLockerContents(), REWARD_TYPES, arcPath() (+78 more)
+### Community 1 - "soundManager.js"
+Cohesion: 0.10
+Nodes (45): DuelGame(), IntroScreen(), LETTERS, LINE_COLORS, NIGHT, MissedTrain(), StationAnnouncement(), VehicleSprite() (+37 more)
 
 ### Community 2 - "gameLogic.js"
-Cohesion: 0.06
-Nodes (49): COMMON_WORDS_EN, COMMON_WORDS_TR, PROVIDERS_EN, PROVIDERS_TR, TERMS_EN, TERMS_TR, TRANSIT_MEANINGS_EN, TRANSIT_MEANINGS_TR (+41 more)
+Cohesion: 0.07
+Nodes (44): COMMON_WORDS_EN, COMMON_WORDS_TR, PROVIDERS_EN, PROVIDERS_TR, TERMS_EN, TERMS_TR, TRANSIT_MEANINGS_EN, TRANSIT_MEANINGS_TR (+36 more)
 
 ### Community 3 - "run.cjs"
 Cohesion: 0.08
@@ -91,8 +92,8 @@ Cohesion: 0.13
 Nodes (5): adb(), find_adb(), main(), parse_verdict(), Scenario
 
 ### Community 5 - "package.json"
-Cohesion: 0.11
-Nodes (20): name, private, type, version, autoprefixer, @capacitor/android, @capacitor/cli, @capacitor/ios (+12 more)
+Cohesion: 0.10
+Nodes (21): name, private, type, version, autoprefixer, @capacitor/android, @capacitor/cli, @capacitor-community/text-to-speech (+13 more)
 
 ### Community 6 - "devDependencies"
 Cohesion: 0.13
@@ -103,24 +104,24 @@ Cohesion: 0.12
 Nodes (16): dependencies, @capacitor/android, @capacitor/app, @capacitor/cli, @capacitor-community/admob, @capacitor-community/text-to-speech, @capacitor/core, @capacitor/haptics (+8 more)
 
 ### Community 9 - "transitNetwork.js"
-Cohesion: 0.14
-Nodes (23): MapScreen(), NetworkMap(), ZOOMS, EXTRA_STATION_NAMES, LINE_DEFS, MODE_GROUPS, MODE_META, getStationPoints() (+15 more)
+Cohesion: 0.09
+Nodes (34): MapScreen(), NetworkMap(), ZOOMS, NetworkScreen(), Postcard(), EXTRA_STATION_NAMES, LINE_DEFS, MODE_GROUPS (+26 more)
 
 ### Community 10 - "league.js"
 Cohesion: 0.08
 Nodes (51): DuelResult(), gapText(), initials(), Avatar(), DuelsScreen(), initials(), Score(), VsBadge() (+43 more)
 
 ### Community 12 - "SceneBackground.jsx"
-Cohesion: 0.09
-Nodes (19): Postcard(), Cat(), Gull(), Owl(), pickAnimal(), SceneAnimal(), FarCity(), LANDMARKS (+11 more)
+Cohesion: 0.14
+Nodes (9): Cat(), Gull(), Owl(), pickAnimal(), SceneAnimal(), FarCity(), LANDMARKS, rng() (+1 more)
 
-### Community 13 - "main.jsx"
-Cohesion: 0.11
-Nodes (17): @capacitor-community/admob, @capacitor/core, @capacitor/preferences, react-dom, ErrorBoundary, start(), GAME_STORAGE_KEY, AD_IDS (+9 more)
+### Community 13 - "analytics.js"
+Cohesion: 0.12
+Nodes (21): @capacitor/core, @capacitor/preferences, react-dom, ErrorBoundary, start(), GAME_STORAGE_KEY, anonId(), clearLocalEvents() (+13 more)
 
 ### Community 14 - "DailyScreen.jsx"
-Cohesion: 0.08
-Nodes (56): ConsentSheet(), DailyScreen(), dailyStreak(), mmss(), Play(), untilMidnight(), EventSheet(), HomeScreen() (+48 more)
+Cohesion: 0.09
+Nodes (44): ConsentSheet(), DailyScreen(), dailyStreak(), mmss(), Play(), untilMidnight(), EventSheet(), HomeScreen() (+36 more)
 
 ### Community 15 - "vercel.json"
 Cohesion: 0.40
@@ -131,8 +132,8 @@ Cohesion: 0.29
 Nodes (7): scripts, android:apk, build, dev, lint, preview, test:mobile
 
 ### Community 18 - "VehicleSprite.jsx"
-Cohesion: 0.29
-Nodes (9): Bogie(), Funicular(), Marmaray(), Metro(), Metrobus(), RailCar(), SPRITES, Tram() (+1 more)
+Cohesion: 0.27
+Nodes (10): Bogie(), DoubleDecker(), Funicular(), Marmaray(), Metro(), Metrobus(), RailCar(), SPRITES (+2 more)
 
 ### Community 29 - "Turnike mobil testleri (Artemis)"
 Cohesion: 0.40
@@ -142,7 +143,11 @@ Nodes (4): Senaryolar (`scenarios.py`), Turnike mobil testleri (Artemis), Yeni s
 Cohesion: 0.50
 Nodes (3): Expanding the ESLint configuration, React Compiler, React + Vite
 
-### Community 32 - "vite.config.js"
+### Community 32 - "GameContainer.jsx"
+Cohesion: 0.07
+Nodes (59): @capacitor/app, @capacitor-community/admob, @capacitor/haptics, @capacitor/status-bar, App(), AnimatedBalance(), BonusLockers(), generateLockerContents() (+51 more)
+
+### Community 33 - "vite.config.js"
 Cohesion: 0.50
 Nodes (3): vite, vite-plugin-pwa, @vitejs/plugin-react
 
@@ -158,17 +163,17 @@ Nodes (8): Anahtar kelimeler (açıklamada doğal geçenler), Ekran görüntüs�
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `react` connect `useGameStore` to `GameContainer.jsx`, `package.json`, `transitNetwork.js`, `league.js`, `SceneBackground.jsx`, `main.jsx`, `DailyScreen.jsx`, `VehicleSprite.jsx`?**
-  _High betweenness centrality (0.166) - this node is a cross-community bridge._
+- **Why does `react` connect `useGameStore` to `GameContainer.jsx`, `soundManager.js`, `package.json`, `transitNetwork.js`, `league.js`, `SceneBackground.jsx`, `analytics.js`, `DailyScreen.jsx`, `VehicleSprite.jsx`?**
+  _High betweenness centrality (0.163) - this node is a cross-community bridge._
 - **What connects `fs`, `content`, `fs` to the rest of the system?**
   _145 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `useGameStore` be split into smaller, more focused modules?**
-  _Cohesion score 0.1044776119402985 - nodes in this community are weakly interconnected._
-- **Why does `useGameStore` connect `useGameStore` to `GameContainer.jsx`, `league.js`, `main.jsx`, `DailyScreen.jsx`?**
-  _High betweenness centrality (0.048) - this node is a cross-community bridge._
-- **Should `GameContainer.jsx` be split into smaller, more focused modules?**
-  _Cohesion score 0.0563487530934704 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.11796733212341198 - nodes in this community are weakly interconnected._
+- **Why does `useGameStore` connect `useGameStore` to `GameContainer.jsx`, `soundManager.js`, `league.js`, `analytics.js`, `DailyScreen.jsx`?**
+  _High betweenness centrality (0.050) - this node is a cross-community bridge._
+- **Should `soundManager.js` be split into smaller, more focused modules?**
+  _Cohesion score 0.09869375907111756 - nodes in this community are weakly interconnected._
 - **Why does `dependencies` connect `dependencies` to `package.json`?**
   _High betweenness centrality (0.040) - this node is a cross-community bridge._
 - **Should `gameLogic.js` be split into smaller, more focused modules?**
-  _Cohesion score 0.06262626262626263 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.06887755102040816 - nodes in this community are weakly interconnected._

@@ -1,6 +1,6 @@
 {
   "0": "useGameStore",
-  "1": "GameContainer.jsx",
+  "1": "soundManager.js",
   "2": "gameLogic.js",
   "3": "run.cjs",
   "4": "run_artemis.py",
@@ -12,7 +12,7 @@
   "10": "league.js",
   "11": "CLAUDE.md",
   "12": "SceneBackground.jsx",
-  "13": "main.jsx",
+  "13": "analytics.js",
   "14": "DailyScreen.jsx",
   "15": "vercel.json",
   "16": "gradlew",
@@ -31,6 +31,7 @@
   "29": "Turnike mobil testleri (Artemis)",
   "30": "React + Vite",
   "31": "puppeteer",
-  "32": "vite.config.js",
+  "32": "GameContainer.jsx",
+  "33": "vite.config.js",
   "34": "Google Play mağaza sayfası (Türkçe)"
 }

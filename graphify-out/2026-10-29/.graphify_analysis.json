@@ -1,0 +1,578 @@
+{
+  "communities": {
+    "0": [
+      "ref_react",
+      "ref_supabase_supabase_js",
+      "src_app_app",
+      "src_components_akbilscreen",
+      "src_components_akbilscreen_akbilscreen",
+      "src_components_akbilscreen_balance_packs",
+      "src_components_akbilscreen_card_colors",
+      "src_components_animatedbalance",
+      "src_components_animatedbalance_animatedbalance",
+      "src_components_badgesscreen",
+      "src_components_badgesscreen_badgesscreen",
+      "src_components_dailyspinscreen",
+      "src_components_dailyspinscreen_dailyspinscreen",
+      "src_components_dailyspinscreen_prizes",
+      "src_components_dictionaryscreen_dictionaryscreen",
+      "src_components_duelsscreen",
+      "src_components_duelsscreen_duelsscreen",
+      "src_components_homescreen",
+      "src_components_homescreen_homescreen",
+      "src_components_homescreen_tabs",
+      "src_components_leaderboardscreen",
+      "src_components_leaderboardscreen_leaderboardscreen",
+      "src_components_leaderboardscreen_withtimeout",
+      "src_components_levelcomplete",
+      "src_components_levelcomplete_countup",
+      "src_components_levelcomplete_levelcomplete",
+      "src_components_lostitemsscreen",
+      "src_components_lostitemsscreen_lostitemsscreen",
+      "src_components_navigationcontainer",
+      "src_components_navigationcontainer_navigationcontainer",
+      "src_components_screenheader",
+      "src_components_screenheader_screenheader",
+      "src_components_settingsscreen",
+      "src_components_settingsscreen_settingsscreen",
+      "src_components_statsscreen",
+      "src_components_statsscreen_statsscreen",
+      "src_components_usernamemodal",
+      "src_components_usernamemodal_usernamemodal",
+      "src_components_vaultscreen",
+      "src_components_vaultscreen_vaultscreen",
+      "src_data_lostitems",
+      "src_data_lostitems_getrandomitem",
+      "src_data_lostitems_lost_items_catalog",
+      "src_data_lostitems_lost_items_sets",
+      "src_store_gamestore",
+      "src_store_gamestore_getmaxlives",
+      "src_store_gamestore_max_lives",
+      "src_store_gamestore_usegamestore",
+      "src_store_gamestore_vault_reward",
+      "src_store_gamestore_vault_size",
+      "src_utils_badges",
+      "src_utils_badges_badges",
+      "src_utils_format",
+      "src_utils_format_formatkurus",
+      "src_utils_i18n",
+      "src_utils_i18n_translations",
+      "src_utils_i18n_usetranslation",
+      "src_utils_supabaseclient",
+      "src_utils_supabaseclient_cloudservice",
+      "src_utils_supabaseclient_ensuresession",
+      "src_utils_supabaseclient_iscloudconfigured",
+      "src_utils_supabaseclient_supabase",
+      "src_utils_transitnetwork_getstationforlevel"
+    ],
+    "1": [
+      "ref_capacitor_app",
+      "ref_capacitor_haptics",
+      "ref_capacitor_status_bar",
+      "src_app",
+      "src_components_bonuslockers",
+      "src_components_bonuslockers_bonuslockers",
+      "src_components_bonuslockers_generatelockercontents",
+      "src_components_bonuslockers_reward_types",
+      "src_components_gamecontainer",
+      "src_components_gamecontainer_gamecontainer",
+      "src_components_gamecontainer_toolbutton",
+      "src_components_grid",
+      "src_components_grid_grid",
+      "src_components_wheel",
+      "src_components_wheel_wheel",
+      "src_hooks_usegametimer",
+      "src_hooks_usegametimer_usegametimer",
+      "src_index",
+      "src_store_gamestore_getearningsmultiplier",
+      "src_store_gamestore_gethintcosts",
+      "src_utils_dda_computerawsignal",
+      "src_utils_dda_getalpha",
+      "src_utils_dda_updateewmvandzscore",
+      "src_utils_gamelogic_gettimeforlevel",
+      "src_utils_gamelogic_valid_words_en",
+      "src_utils_gamelogic_valid_words_tr",
+      "src_utils_gamelogic_word_meanings_en",
+      "src_utils_gamelogic_word_meanings_tr",
+      "src_utils_scoring",
+      "src_utils_scoring_calculatelevelcompletionbonus",
+      "src_utils_scoring_calculatewordscore",
+      "src_utils_soundmanager",
+      "src_utils_soundmanager_activetimeouts",
+      "src_utils_soundmanager_announcementqueue",
+      "src_utils_soundmanager_cancelallsounds",
+      "src_utils_soundmanager_getaudiocontext",
+      "src_utils_soundmanager_playbadgeunlock",
+      "src_utils_soundmanager_playbalanceup",
+      "src_utils_soundmanager_playcombo",
+      "src_utils_soundmanager_playcorrect",
+      "src_utils_soundmanager_playgameover",
+      "src_utils_soundmanager_playlevelcomplete",
+      "src_utils_soundmanager_playspin",
+      "src_utils_soundmanager_playstationannouncement",
+      "src_utils_soundmanager_playtick",
+      "src_utils_soundmanager_playtimeup",
+      "src_utils_soundmanager_playtone",
+      "src_utils_soundmanager_playturnike",
+      "src_utils_soundmanager_playwrong",
+      "src_utils_soundmanager_processannouncementqueue",
+      "src_utils_soundmanager_safetimeout"
+    ],
+    "2": [
+      "src_components_dictionaryscreen",
+      "src_components_dictionaryscreen_provider_themes",
+      "src_data_transitterms",
+      "src_data_transitterms_common_words_en",
+      "src_data_transitterms_common_words_tr",
+      "src_data_transitterms_providers_en",
+      "src_data_transitterms_providers_tr",
+      "src_data_transitterms_terms_en",
+      "src_data_transitterms_terms_tr",
+      "src_data_transitterms_toentries",
+      "src_data_transitterms_transit_meanings_en",
+      "src_data_transitterms_transit_meanings_tr",
+      "src_data_transitterms_transit_providers_en",
+      "src_data_transitterms_transit_providers_tr",
+      "src_utils_gamelogic",
+      "src_utils_gamelogic_buildtechpool",
+      "src_utils_gamelogic_canformnormalizedword",
+      "src_utils_gamelogic_canformword",
+      "src_utils_gamelogic_choosetechnicalroot",
+      "src_utils_gamelogic_formable_en",
+      "src_utils_gamelogic_formable_tr",
+      "src_utils_gamelogic_generatelevel",
+      "src_utils_gamelogic_getcandidatewords",
+      "src_utils_gamelogic_getdifficulty",
+      "src_utils_gamelogic_getmissioninfo",
+      "src_utils_gamelogic_getpools",
+      "src_utils_gamelogic_mergeterms",
+      "src_utils_gamelogic_misspelled_tr",
+      "src_utils_gamelogic_normalizeterm",
+      "src_utils_gamelogic_onboarding_en",
+      "src_utils_gamelogic_onboarding_tr",
+      "src_utils_gamelogic_placepuzzlewords",
+      "src_utils_gamelogic_provider_map_en",
+      "src_utils_gamelogic_provider_map_tr",
+      "src_utils_gamelogic_puzzle_sets_en",
+      "src_utils_gamelogic_puzzle_sets_tr",
+      "src_utils_gamelogic_rare_words_en",
+      "src_utils_gamelogic_rare_words_tr",
+      "src_utils_gamelogic_seededrandom",
+      "src_utils_gamelogic_shufflewith",
+      "src_utils_gamelogic_tech_en",
+      "src_utils_gamelogic_tech_tr",
+      "src_utils_gamelogic_usedrootshistory",
+      "src_utils_gamelogic_valid_words",
+      "src_utils_gamelogic_word_meanings"
+    ],
+    "3": [
+      "cleanup_app",
+      "cleanup_app_content",
+      "cleanup_app_fs",
+      "compile_project_cjs_compile_project",
+      "compile_project_cjs_compile_project_filestoinclude",
+      "compile_project_cjs_compile_project_fs",
+      "compile_project_cjs_compile_project_outputfile",
+      "compile_project_cjs_compile_project_path",
+      "compile_project_js_compile_project",
+      "compile_project_js_compile_project_filestoinclude",
+      "compile_project_js_compile_project_fs",
+      "compile_project_js_compile_project_outputfile",
+      "compile_project_js_compile_project_path",
+      "ref_child_process",
+      "ref_fs",
+      "ref_path",
+      "refactor_app",
+      "refactor_app_content",
+      "refactor_app_finalreturn",
+      "refactor_app_fs",
+      "refactor_app_levelcompletestart",
+      "tests_artemis_run",
+      "tests_artemis_run_fs",
+      "tests_artemis_run_path",
+      "tests_artemis_run_result",
+      "tests_artemis_run_spawnsync"
+    ],
+    "4": [
+      "argparse",
+      "artemis_client",
+      "asyncio",
+      "dataclasses",
+      "json",
+      "os",
+      "pathlib",
+      "re",
+      "shutil",
+      "subprocess",
+      "sys",
+      "tempfile",
+      "tests_artemis_run_artemis",
+      "tests_artemis_run_artemis_adb",
+      "tests_artemis_run_artemis_find_adb",
+      "tests_artemis_run_artemis_main",
+      "tests_artemis_run_artemis_parse_verdict",
+      "tests_artemis_run_artemis_rationale_1",
+      "tests_artemis_run_artemis_rationale_66",
+      "tests_artemis_scenarios",
+      "tests_artemis_scenarios_rationale_1",
+      "tests_artemis_scenarios_scenario",
+      "time"
+    ],
+    "5": [
+      "package",
+      "package_name",
+      "package_private",
+      "package_type",
+      "package_version",
+      "ref_autoprefixer",
+      "ref_capacitor_android",
+      "ref_capacitor_cli",
+      "ref_capacitor_ios",
+      "ref_lucide_react",
+      "ref_postcss",
+      "ref_tailwindcss",
+      "ref_types_react",
+      "ref_types_react_dom",
+      "ref_zustand"
+    ],
+    "6": [
+      "package_devdependencies",
+      "package_devdependencies_autoprefixer",
+      "package_devdependencies_eslint",
+      "package_devdependencies_eslint_js",
+      "package_devdependencies_eslint_plugin_react_hooks",
+      "package_devdependencies_eslint_plugin_react_refresh",
+      "package_devdependencies_globals",
+      "package_devdependencies_postcss",
+      "package_devdependencies_puppeteer",
+      "package_devdependencies_tailwindcss",
+      "package_devdependencies_types_react",
+      "package_devdependencies_types_react_dom",
+      "package_devdependencies_vite",
+      "package_devdependencies_vite_plugin_pwa",
+      "package_devdependencies_vitejs_plugin_react"
+    ],
+    "7": [
+      "package_dependencies",
+      "package_dependencies_capacitor_android",
+      "package_dependencies_capacitor_app",
+      "package_dependencies_capacitor_cli",
+      "package_dependencies_capacitor_core",
+      "package_dependencies_capacitor_haptics",
+      "package_dependencies_capacitor_ios",
+      "package_dependencies_capacitor_preferences",
+      "package_dependencies_capacitor_status_bar",
+      "package_dependencies_lucide_react",
+      "package_dependencies_react",
+      "package_dependencies_react_dom",
+      "package_dependencies_supabase_supabase_js",
+      "package_dependencies_zustand"
+    ],
+    "8": [
+      "android_app_src_androidtest_java_com_getcapacitor_myapp_exampleinstrumentedtest",
+      "android_app_src_androidtest_java_com_getcapacitor_myapp_exampleinstrumentedtest_exampleinstrumentedtest",
+      "android_app_src_androidtest_java_com_getcapacitor_myapp_exampleinstrumentedtest_exampleinstrumentedtest_useappcontext",
+      "android_app_src_test_java_com_getcapacitor_myapp_exampleunittest",
+      "android_app_src_test_java_com_getcapacitor_myapp_exampleunittest_exampleunittest",
+      "android_app_src_test_java_com_getcapacitor_myapp_exampleunittest_exampleunittest_addition_iscorrect",
+      "androidx_test_ext_junit_runners_androidjunit4",
+      "assert",
+      "context",
+      "instrumentationregistry",
+      "org_junit_runner_runwith",
+      "org_junit_test"
+    ],
+    "9": [
+      "src_components_mapscreen",
+      "src_components_mapscreen_mapscreen",
+      "src_utils_transitnetwork",
+      "src_utils_transitnetwork_base_station_list",
+      "src_utils_transitnetwork_getstationdata",
+      "src_utils_transitnetwork_getstationxposition",
+      "src_utils_transitnetwork_levels_per_station",
+      "src_utils_transitnetwork_lines",
+      "src_utils_transitnetwork_station_info",
+      "src_utils_transitnetwork_station_names",
+      "src_utils_transitnetwork_stationfreq"
+    ],
+    "10": [
+      "ref_react_dom",
+      "src_main",
+      "src_main_errorboundary",
+      "src_main_errorboundary_constructor",
+      "src_main_errorboundary_getderivedstatefromerror",
+      "src_main_errorboundary_render",
+      "src_main_start",
+      "src_store_gamestore_game_storage_key",
+      "src_utils_persiststorage_restorefrombackup"
+    ],
+    "11": [
+      "package_scripts",
+      "package_scripts_android_apk",
+      "package_scripts_build",
+      "package_scripts_dev",
+      "package_scripts_lint",
+      "package_scripts_preview",
+      "package_scripts_test_mobile"
+    ],
+    "12": [
+      "src_utils_dda",
+      "src_utils_dda_applydda",
+      "src_utils_dda_detectvolatility",
+      "src_utils_dda_mean",
+      "src_utils_dda_runstestz",
+      "src_utils_dda_trendslope",
+      "src_utils_dda_variance"
+    ],
+    "13": [
+      "eslint_config",
+      "ref_eslint",
+      "ref_eslint_js",
+      "ref_eslint_plugin_react_hooks",
+      "ref_eslint_plugin_react_refresh",
+      "ref_globals"
+    ],
+    "14": [
+      "ref_capacitor_core",
+      "ref_capacitor_preferences",
+      "src_utils_persiststorage",
+      "src_utils_persiststorage_backedupstorage",
+      "src_utils_persiststorage_isnative"
+    ],
+    "15": [
+      "vercel",
+      "vercel_buildcommand",
+      "vercel_framework",
+      "vercel_outputdirectory",
+      "vercel_rewrites"
+    ],
+    "16": [
+      "android_gradlew",
+      "android_gradlew__entry",
+      "android_gradlew_die",
+      "android_gradlew_warn"
+    ],
+    "17": [
+      "ref_puppeteer",
+      "test_game",
+      "test_game_puppeteer",
+      "test_js_test"
+    ],
+    "18": [
+      "ref_vite",
+      "ref_vite_plugin_pwa",
+      "ref_vitejs_plugin_react",
+      "vite_config"
+    ],
+    "19": [
+      "android_app_src_main_java_com_turnike_app_mainactivity",
+      "android_app_src_main_java_com_turnike_app_mainactivity_mainactivity",
+      "com_getcapacitor_bridgeactivity"
+    ],
+    "20": [
+      "tailwind_config",
+      "tailwindcss"
+    ],
+    "21": [
+      "android_app_build"
+    ],
+    "22": [
+      "android_app_capacitor_build"
+    ],
+    "23": [
+      "android_build"
+    ],
+    "24": [
+      "android_capacitor_settings"
+    ],
+    "25": [
+      "android_settings"
+    ],
+    "26": [
+      "android_variables"
+    ],
+    "27": [
+      "postcss_config"
+    ],
+    "28": [
+      "scripts_gradle_build_outside"
+    ]
+  },
+  "cohesion": {
+    "0": 0.11418330773169483,
+    "1": 0.11372549019607843,
+    "2": 0.0707070707070707,
+    "3": 0.08307692307692308,
+    "4": 0.13043478260869565,
+    "5": 0.13333333333333333,
+    "6": 0.13333333333333333,
+    "7": 0.14285714285714285,
+    "8": 0.24242424242424243,
+    "9": 0.3090909090909091,
+    "10": 0.3055555555555556,
+    "11": 0.2857142857142857,
+    "12": 0.5238095238095238,
+    "13": 0.3333333333333333,
+    "14": 0.4,
+    "15": 0.4,
+    "16": 0.8333333333333334,
+    "17": 0.5,
+    "18": 0.5,
+    "19": 1.0,
+    "20": 1.0,
+    "21": 1.0,
+    "22": 1.0,
+    "23": 1.0,
+    "24": 1.0,
+    "25": 1.0,
+    "26": 1.0,
+    "27": 1.0,
+    "28": 1.0
+  },
+  "gods": [
+    {
+      "id": "src_components_gamecontainer_gamecontainer",
+      "label": "GameContainer()",
+      "degree": 35
+    },
+    {
+      "id": "src_store_gamestore_usegamestore",
+      "label": "useGameStore",
+      "degree": 35
+    },
+    {
+      "id": "src_utils_i18n_usetranslation",
+      "label": "useTranslation()",
+      "degree": 26
+    },
+    {
+      "id": "ref_react",
+      "label": "react",
+      "degree": 25
+    },
+    {
+      "id": "src_components_navigationcontainer_navigationcontainer",
+      "label": "NavigationContainer()",
+      "degree": 19
+    },
+    {
+      "id": "src_components_screenheader_screenheader",
+      "label": "ScreenHeader()",
+      "degree": 18
+    },
+    {
+      "id": "src_utils_format_formatkurus",
+      "label": "formatKurus()",
+      "degree": 17
+    },
+    {
+      "id": "src_utils_soundmanager_playtone",
+      "label": "playTone()",
+      "degree": 14
+    },
+    {
+      "id": "src_utils_gamelogic_generatelevel",
+      "label": "generateLevel()",
+      "degree": 13
+    },
+    {
+      "id": "src_app_app",
+      "label": "App()",
+      "degree": 11
+    }
+  ],
+  "surprises": [
+    {
+      "source": "App()",
+      "target": "GameContainer()",
+      "source_files": [
+        "src/App.jsx",
+        "src/components/GameContainer.jsx"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "App()",
+      "target": "playBadgeUnlock()",
+      "source_files": [
+        "src/App.jsx",
+        "src/utils/soundManager.js"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "start()",
+      "target": "App()",
+      "source_files": [
+        "src/main.jsx",
+        "src/App.jsx"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "GameContainer()",
+      "target": "AnimatedBalance()",
+      "source_files": [
+        "src/components/GameContainer.jsx",
+        "src/components/AnimatedBalance.jsx"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "GameContainer()",
+      "target": "LevelComplete()",
+      "source_files": [
+        "src/components/GameContainer.jsx",
+        "src/components/LevelComplete.jsx"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    }
+  ],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `react` connect `Community 0` to `Community 1`, `Community 2`, `Community 5`, `Community 9`, `Community 10`?",
+      "why": "High betweenness centrality (0.119) - this node is a cross-community bridge."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `Scenario`, `BALANCE_PACKS`, `CARD_COLORS` to the rest of the system?",
+      "why": "103 weakly-connected nodes found - possible documentation gaps or missing edges."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Community 0` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.11418330773169483 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `devDependencies` connect `Community 6` to `Community 5`?",
+      "why": "High betweenness centrality (0.061) - this node is a cross-community bridge."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Community 1` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.11372549019607843 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `dependencies` connect `Community 7` to `Community 5`?",
+      "why": "High betweenness centrality (0.057) - this node is a cross-community bridge."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Community 2` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.0707070707070707 - nodes in this community are weakly interconnected."
+    }
+  ]
+}
