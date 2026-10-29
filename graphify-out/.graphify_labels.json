@@ -12,12 +12,12 @@
   "10": "league.js",
   "11": "CLAUDE.md",
   "12": "SceneBackground.jsx",
-  "13": "analytics.js",
-  "14": "formatKurus",
+  "13": "main.jsx",
+  "14": "DailyScreen.jsx",
   "15": "vercel.json",
   "16": "gradlew",
   "17": "scripts",
-  "18": "eslint.config.js",
+  "18": "VehicleSprite.jsx",
   "19": "MainActivity.java",
   "20": "tailwind.config.js",
   "21": "app/build.gradle",
@@ -32,6 +32,5 @@
   "30": "React + Vite",
   "31": "puppeteer",
   "32": "vite.config.js",
-  "33": "adService.js",
   "34": "Google Play mağaza sayfası (Türkçe)"
 }

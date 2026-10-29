@@ -6,9 +6,9 @@
     "semantic_hash": "81b97e05c43fe78e7387ad23265a9a45"
   },
   "android/app/capacitor.build.gradle": {
-    "mtime": 1793180519.8806515,
-    "seen": 1793180583.5090196,
-    "ast_hash": "cd1cd54758a21c78f6de223f35a1afae",
+    "mtime": 1793262917.9719841,
+    "seen": 1793262927.9768887,
+    "ast_hash": "24c2012ee568e19230e001a2f1dc989f",
     "semantic_hash": ""
   },
   "android/app/src/androidTest/java/com/getcapacitor/myapp/ExampleInstrumentedTest.java": {
@@ -36,9 +36,9 @@
     "semantic_hash": "682315a426653617c6a74fc12bef55b6"
   },
   "android/capacitor.settings.gradle": {
-    "mtime": 1793180519.8806515,
-    "seen": 1793180583.5100188,
-    "ast_hash": "3f09d897be5fcea8f5fec54c538764e5",
+    "mtime": 1793262917.9731462,
+    "seen": 1793262927.977678,
+    "ast_hash": "743aa186cfa5a868fa7aff2ab1ed48f7",
     "semantic_hash": ""
   },
   "android/gradlew": {
@@ -90,9 +90,9 @@
     "semantic_hash": "3aa4b57d7f08181d86bde52a4dcb7f22"
   },
   "package.json": {
-    "mtime": 1793087129.3164835,
-    "seen": 1793087136.203123,
-    "ast_hash": "53e95717fd4d0c6bb25c6a435b8c28be",
+    "mtime": 1793262917.9798913,
+    "seen": 1793262927.9788835,
+    "ast_hash": "0b38961f4084acbac583cb560b9f0b30",
     "semantic_hash": ""
   },
   "postcss.config.js": {
@@ -150,9 +150,9 @@
     "semantic_hash": ""
   },
   "src/components/DailySpinScreen.jsx": {
-    "mtime": 1793180575.7263637,
-    "seen": 1793180583.5161548,
-    "ast_hash": "58d8074194a469d5b21951463b23d311",
+    "mtime": 1793262918.0420313,
+    "seen": 1793262927.980475,
+    "ast_hash": "40d003e4b6d2aa48006354d88f1f2bf9",
     "semantic_hash": ""
   },
   "src/components/DictionaryScreen.jsx": {
@@ -162,15 +162,15 @@
     "semantic_hash": ""
   },
   "src/components/DuelsScreen.jsx": {
-    "mtime": 1793176175.1564965,
-    "seen": 1793176182.5567636,
-    "ast_hash": "87c4b00143dd2a0538c0b660d6fb7c19",
+    "mtime": 1793262918.0420313,
+    "seen": 1793262927.9806435,
+    "ast_hash": "02cce5cea020b088e7afaaecd44c7d08",
     "semantic_hash": ""
   },
   "src/components/GameContainer.jsx": {
-    "mtime": 1793179456.955525,
-    "seen": 1793179465.1079931,
-    "ast_hash": "6a2deb4680cabde01ff0772229c92d41",
+    "mtime": 1793262918.0489178,
+    "seen": 1793262927.980812,
+    "ast_hash": "496d5852cf78986e5431b0b6392309ba",
     "semantic_hash": ""
   },
   "src/components/Grid.jsx": {
@@ -180,9 +180,9 @@
     "semantic_hash": ""
   },
   "src/components/HomeScreen.jsx": {
-    "mtime": 1793179456.959928,
-    "seen": 1793179465.1079931,
-    "ast_hash": "d5a50b105087bbbc2c2a5471bf4618ed",
+    "mtime": 1793262918.0489178,
+    "seen": 1793262927.980977,
+    "ast_hash": "6c3f8cbfbb4a71b49e34242db82a5282",
     "semantic_hash": ""
   },
   "src/components/LeaderboardScreen.jsx": {
@@ -192,15 +192,15 @@
     "semantic_hash": ""
   },
   "src/components/LevelComplete.jsx": {
-    "mtime": 1793179456.9615169,
-    "seen": 1793179465.1089933,
-    "ast_hash": "2230215801f14f216ffec9ea1e1b341c",
+    "mtime": 1793262918.0489178,
+    "seen": 1793262927.9813273,
+    "ast_hash": "11581d050997506ce2e0b61eabb7bac0",
     "semantic_hash": ""
   },
   "src/components/LostItemsScreen.jsx": {
-    "mtime": 1793082700.8917265,
-    "seen": 1793082926.1195166,
-    "ast_hash": "669c22d42e69d81f7f3b038029205e43",
+    "mtime": 1793262918.056306,
+    "seen": 1793262927.9813297,
+    "ast_hash": "5705c33955e44d993f7198b350131689",
     "semantic_hash": ""
   },
   "src/components/MapScreen.jsx": {
@@ -210,9 +210,9 @@
     "semantic_hash": ""
   },
   "src/components/NavigationContainer.jsx": {
-    "mtime": 1793179456.9625838,
-    "seen": 1793179465.109991,
-    "ast_hash": "8319647a683c24e537ebf704a667cb7d",
+    "mtime": 1793262918.056306,
+    "seen": 1793262927.9816618,
+    "ast_hash": "541d95b84a9140af1ce24c60bedac0a6",
     "semantic_hash": ""
   },
   "src/components/ScreenHeader.jsx": {
@@ -222,9 +222,9 @@
     "semantic_hash": ""
   },
   "src/components/SettingsScreen.jsx": {
-    "mtime": 1793179456.964601,
-    "seen": 1793179465.1109905,
-    "ast_hash": "782b39be6b4eab158f41097e1bce498a",
+    "mtime": 1793262918.0604937,
+    "seen": 1793262927.9826415,
+    "ast_hash": "fd285462a49ce1f7721424909faf9fc7",
     "semantic_hash": ""
   },
   "src/components/StatsScreen.jsx": {
@@ -246,9 +246,9 @@
     "semantic_hash": ""
   },
   "src/components/Wheel.jsx": {
-    "mtime": 1793179456.9679441,
-    "seen": 1793179465.1119902,
-    "ast_hash": "0a6fd1c487e1ae422af242726826a3ab",
+    "mtime": 1793262918.0604937,
+    "seen": 1793262927.9834433,
+    "ast_hash": "36f358b0b33caf96d295a5c8b860cb29",
     "semantic_hash": ""
   },
   "src/data/lostItems.js": {
@@ -270,15 +270,15 @@
     "semantic_hash": "8b682daf983de35a27bd76bbc7a2995a"
   },
   "src/main.jsx": {
-    "mtime": 1793178252.0539825,
-    "seen": 1793178259.2239401,
-    "ast_hash": "c94b5f710bf0820f84e10cd4d48ef26f",
+    "mtime": 1793262918.0702546,
+    "seen": 1793262927.984606,
+    "ast_hash": "09d9f7ac494251bc57618d691f94e194",
     "semantic_hash": ""
   },
   "src/store/gameStore.js": {
-    "mtime": 1793179456.971944,
-    "seen": 1793179465.1139903,
-    "ast_hash": "af0d26baef213ddbe4f3953c53120e13",
+    "mtime": 1793262918.0738163,
+    "seen": 1793262927.984608,
+    "ast_hash": "053c0e42a9ffcc08fc45544a380d524b",
     "semantic_hash": ""
   },
   "src/utils/badges.js": {
@@ -324,10 +324,10 @@
     "semantic_hash": "180f6be88a4410293f20e83b20b2824f"
   },
   "src/utils/soundManager.js": {
-    "mtime": 1782883693.7708216,
-    "seen": 1793022710.6167996,
-    "ast_hash": "ab574ce65ce1d436e299afbf64c6bcaa",
-    "semantic_hash": "ab574ce65ce1d436e299afbf64c6bcaa"
+    "mtime": 1793262918.0738163,
+    "seen": 1793262927.9871097,
+    "ast_hash": "fbaa050b994e02cb0ccf59eae9ebfbff",
+    "semantic_hash": ""
   },
   "src/utils/supabaseClient.js": {
     "mtime": 1793176175.1732574,
@@ -624,9 +624,9 @@
     "semantic_hash": ""
   },
   "src/components/NetworkMap.jsx": {
-    "mtime": 1793085506.6133242,
-    "seen": 1793085513.4288998,
-    "ast_hash": "13df7503c86ac6b6a6ab98a773ea1029",
+    "mtime": 1793262918.0604937,
+    "seen": 1793262927.9816642,
+    "ast_hash": "a520ff2aa5f13e13a4160c954ca9b7e8",
     "semantic_hash": ""
   },
   "src/components/SceneBackground.jsx": {
@@ -648,9 +648,9 @@
     "semantic_hash": ""
   },
   "src/components/DuelGame.jsx": {
-    "mtime": 1793176175.1544814,
-    "seen": 1793176182.5567636,
-    "ast_hash": "0afb218a1fb1d04436a64c1608918969",
+    "mtime": 1793262918.0420313,
+    "seen": 1793262927.980637,
+    "ast_hash": "a2b91dfcd05f16d2a3d6921a580c8e0f",
     "semantic_hash": ""
   },
   "src/components/SceneAnimal.jsx": {
@@ -696,9 +696,9 @@
     "semantic_hash": ""
   },
   "src/components/DailyScreen.jsx": {
-    "mtime": 1793176175.1544814,
-    "seen": 1793176182.5567636,
-    "ast_hash": "6820ea4fe74e59b7476dafad0b7f65e3",
+    "mtime": 1793262918.0397239,
+    "seen": 1793262927.9804714,
+    "ast_hash": "b143c29a27dbbc1719b08cce43a7b5e6",
     "semantic_hash": ""
   },
   "src/components/MissionsSheet.jsx": {
@@ -720,9 +720,9 @@
     "semantic_hash": ""
   },
   "src/components/Postcard.jsx": {
-    "mtime": 1793173963.230622,
-    "seen": 1793173970.1566002,
-    "ast_hash": "e10984501e7a198f295b0c78b471f91b",
+    "mtime": 1793262918.0604937,
+    "seen": 1793262927.9820063,
+    "ast_hash": "56e9e4049e082ddb8860042e4c5f2e8f",
     "semantic_hash": ""
   },
   "src/components/PostcardsScreen.jsx": {
@@ -774,9 +774,9 @@
     "semantic_hash": ""
   },
   "src/components/StationAnnouncement.jsx": {
-    "mtime": 1793179456.964601,
-    "seen": 1793179465.1109905,
-    "ast_hash": "f5fa5fa268c222fe2565e0cf2d71a0cf",
+    "mtime": 1793262918.0604937,
+    "seen": 1793262927.9826434,
+    "ast_hash": "d69ae133173e23b6f9e2c3dcb0a8df60",
     "semantic_hash": ""
   },
   "docs/store-listing.md": {
@@ -816,9 +816,135 @@
     "semantic_hash": ""
   },
   "src/components/IntroScreen.jsx": {
-    "mtime": 1793180575.7276087,
-    "seen": 1793180583.518291,
-    "ast_hash": "13cab0ad2e8623af92085e2671983c2a",
+    "mtime": 1793262918.0489178,
+    "seen": 1793262927.980982,
+    "ast_hash": "c33cc91d01545e724bf9d993225e46c1",
+    "semantic_hash": ""
+  },
+  "src/components/DuelResult.jsx": {
+    "mtime": 1793262918.0420313,
+    "seen": 1793262927.9806406,
+    "ast_hash": "d3993d0ffdf6ede90fe85842d32e5f0f",
+    "semantic_hash": ""
+  },
+  "src/components/HomeTrain.jsx": {
+    "mtime": 1793262918.0489178,
+    "seen": 1793262927.9809792,
+    "ast_hash": "132883f41b9b16c08041def7dbd6950c",
+    "semantic_hash": ""
+  },
+  "src/components/MissedTrain.jsx": {
+    "mtime": 1793262918.056306,
+    "seen": 1793262927.9814942,
+    "ast_hash": "c3e6ed5c89e1f2646706a85750ad0335",
+    "semantic_hash": ""
+  },
+  "src/data/postcardPhotos.js": {
+    "mtime": 1793262918.0604937,
+    "seen": 1793262927.9839501,
+    "ast_hash": "fb610e1a44072bf01a20639f0a1668c2",
+    "semantic_hash": ""
+  },
+  "public/postcards/ayasofya.webp": {
+    "mtime": 1793262918.0156798,
+    "seen": 1793262927.9979947,
+    "ast_hash": "62c1d7ce8679209cbfe570281acc5b3c",
+    "semantic_hash": ""
+  },
+  "public/postcards/buyukada.webp": {
+    "mtime": 1793262918.01668,
+    "seen": 1793262927.997998,
+    "ast_hash": "0ac5c71e8dbc5d6dbeab60574e8ecbbb",
+    "semantic_hash": ""
+  },
+  "public/postcards/camlica.webp": {
+    "mtime": 1793262918.0176802,
+    "seen": 1793262927.9980001,
+    "ast_hash": "bbebd19b8fc4451dfb31e09d49607ac8",
+    "semantic_hash": ""
+  },
+  "public/postcards/galata.webp": {
+    "mtime": 1793262918.0191777,
+    "seen": 1793262927.9980023,
+    "ast_hash": "a4fa09cf02f3cd367a6cf49a86e4453a",
+    "semantic_hash": ""
+  },
+  "public/postcards/halic.webp": {
+    "mtime": 1793262918.0191777,
+    "seen": 1793262927.9980042,
+    "ast_hash": "e44166b383fda3aee94d78709c8bc5b2",
+    "semantic_hash": ""
+  },
+  "public/postcards/havalimani.webp": {
+    "mtime": 1793262918.0235019,
+    "seen": 1793262927.998006,
+    "ast_hash": "811d40faef3b4bd2537b9a3c7d36aa78",
+    "semantic_hash": ""
+  },
+  "public/postcards/haydarpasa.webp": {
+    "mtime": 1793262918.0245004,
+    "seen": 1793262927.9980078,
+    "ast_hash": "36996e042dd878c9882b86bd1d3637f0",
+    "semantic_hash": ""
+  },
+  "public/postcards/kadikoy.webp": {
+    "mtime": 1793262918.0269647,
+    "seen": 1793262927.9980102,
+    "ast_hash": "c1fd22b0419e7fbbde0c5719e556e7f7",
+    "semantic_hash": ""
+  },
+  "public/postcards/kizkulesi.webp": {
+    "mtime": 1793262918.0269647,
+    "seen": 1793262927.9980118,
+    "ast_hash": "674edd083ae34a00951924384dcc81a2",
+    "semantic_hash": ""
+  },
+  "public/postcards/kopru.webp": {
+    "mtime": 1793262918.0269647,
+    "seen": 1793262927.9980137,
+    "ast_hash": "2d618477ee8983e89924d07bfc5610f3",
+    "semantic_hash": ""
+  },
+  "public/postcards/levent.webp": {
+    "mtime": 1793262918.0269647,
+    "seen": 1793262927.998016,
+    "ast_hash": "86f5b3bba3b92dce61328bedb06a53de",
+    "semantic_hash": ""
+  },
+  "public/postcards/ortakoy.webp": {
+    "mtime": 1793262918.0269647,
+    "seen": 1793262927.998018,
+    "ast_hash": "a523f091ef02e91928dafbe72e2e557d",
+    "semantic_hash": ""
+  },
+  "public/postcards/rumelihisari.webp": {
+    "mtime": 1793262918.0269647,
+    "seen": 1793262927.99802,
+    "ast_hash": "faad4ff2fc84811c070acd29c4ba61b3",
+    "semantic_hash": ""
+  },
+  "public/postcards/sirkeci.webp": {
+    "mtime": 1793262918.0353017,
+    "seen": 1793262927.9980218,
+    "ast_hash": "9d29388848f80b76567ee224b6e2762d",
+    "semantic_hash": ""
+  },
+  "public/postcards/sultanahmet.webp": {
+    "mtime": 1793262918.0353017,
+    "seen": 1793262927.9980235,
+    "ast_hash": "cda097e7f07bad1ca6284697c425cade",
+    "semantic_hash": ""
+  },
+  "public/postcards/vapur.webp": {
+    "mtime": 1793262918.03719,
+    "seen": 1793262927.9980252,
+    "ast_hash": "1af676f268026f86477d0f236d3b3b16",
+    "semantic_hash": ""
+  },
+  "public/audio/music-cozy.mp3": {
+    "mtime": 1793262918.013346,
+    "seen": 1793262927.9985807,
+    "ast_hash": "9215536b679bdfeba3792cad3514fe4b",
     "semantic_hash": ""
   }
 }
