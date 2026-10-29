@@ -600,6 +600,7 @@ const LAYOUT_ATTEMPTS = 36;
 const buildLayout = (root, order, targetWords) => {
   const selectedWords = [];
   const gridLetters = new Map();
+  const cellDirs = new Map(); // hücreyi hangi yöndeki kelimeler kullanıyor ('H', 'V', 'HV')
   let minX = 0, maxX = root.length - 1, minY = 0, maxY = 0, crossings = 0;
 
   const placeWord = (word, startX, startY, isHorizontal) => {
@@ -608,6 +609,7 @@ const buildLayout = (root, order, targetWords) => {
       const x = startX + (isHorizontal ? i : 0);
       const y = startY + (isHorizontal ? 0 : i);
       gridLetters.set(`${x},${y}`, word[i]);
+      cellDirs.set(`${x},${y}`, (cellDirs.get(`${x},${y}`) || '') + (isHorizontal ? 'H' : 'V'));
       if (x < minX) minX = x; if (x > maxX) maxX = x;
       if (y < minY) minY = y; if (y > maxY) maxY = y;
     }
@@ -625,6 +627,9 @@ const buildLayout = (root, order, targetWords) => {
       const key = `${x},${y}`;
       if (gridLetters.has(key)) {
         if (gridLetters.get(key) !== word[i]) return -1;
+        // Yalnızca dik kesişim: aynı yöndeki kelimeyle hücre paylaşmak onu içine alır
+        // (KAYIK, önceden konmuş AYI'nın üstüne binip AYI bulununca ortası açılıyordu)
+        if (cellDirs.get(key).includes(isHorizontal ? 'H' : 'V')) return -1;
         hits++;
         continue;
       }
