@@ -1071,3 +1071,23 @@ body.a11y-contrast .tool-btn, body.a11y-contrast .status-chip, body.a11y-contras
   animation: duelConfetti 1.8s ease-in var(--d) both; }
 @keyframes duelConfetti { to { transform: translateY(420px) rotate(540deg); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .duel-bg::after, .duel-confetti, .duel-intro * { animation: none !important; } }
+
+/* ===== Harita: çizilerek gelen hatlar, dalga, araçlar ===== */
+.map-line-draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: mapDraw 1.4s ease-out 0.1s forwards; }
+@keyframes mapDraw { to { stroke-dashoffset: 0; } }
+.map-waves { animation: mapWaves 6s linear infinite; }
+@keyframes mapWaves { from { transform: translateX(0); } to { transform: translateX(-46px); } }
+.map-line-glow { filter: drop-shadow(0 0 6px var(--c)); }
+.map-vehicle { pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { .map-line-draw { animation: none; stroke-dashoffset: 0; } .map-waves { animation: none; } .map-vehicle { display: none; } }
+/* Kartpostal: gerçek fotoğraf, hafif eğim, hat renginde pul */
+.postcard { transform: rotate(var(--tilt, 0deg)); transition: transform 0.2s; }
+.postcard-media { position: absolute; inset: 0; }
+.postcard-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.postcard-media::after { content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,0.55) 100%); }
+.postcard-caption { z-index: 1; }
+.postcard.is-large { min-height: 0; aspect-ratio: auto; display: block; }
+.postcard.is-large .postcard-media { position: relative; aspect-ratio: 3 / 2; }
+.postcard.is-large .postcard-caption { position: absolute; left: 12px; bottom: 12px; padding: 0; }
+.postcard-stamp { z-index: 2; background: var(--stamp, rgba(16,38,63,0.35)); border-color: #fdf6e3; }

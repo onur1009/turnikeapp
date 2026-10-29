@@ -403,7 +403,16 @@ export default function GameContainer({
     if (finishedStation.isLastLeg) {
       store.addPostcard({ stationIndex: finishedStation.stationIndex, lineId: finishedStation.id, name: finishedStation.stationName || finishedStation.displayName });
     }
-    addBalance(perfectBonus + expressBonus + setBonus + stationBonus + eventBonus);
+    // Kayıp eşya: eskiden yalnızca hiç atanmayan "gizli kelime" ile düşüyordu, ofis hep boş kalıyordu
+    let lostItem = null;
+    if (finishedStation.isLastLeg || Math.random() < 0.15) {
+      const itemId = getRandomItem();
+      const isDaily = itemId === store.dailyItemTarget;
+      store.addLostItem(itemId);
+      lostItem = { ...LOST_ITEMS_CATALOG[itemId], isDaily };
+    }
+    const lostBonus = lostItem?.isDaily ? 150 : 0;
+    addBalance(perfectBonus + expressBonus + setBonus + stationBonus + eventBonus + lostBonus);
 
     // DDA: başarı sinyali (bitirme süresi / ekspres süresi)
     const timeLimit = totalTimeMsRef.current / 1000;
@@ -434,6 +443,8 @@ export default function GameContainer({
       eventBonus,
       eventName: event?.name,
       postcard: finishedStation.isLastLeg,
+      lostItem,
+      lostBonus,
       words: wordsFound,
       timeSpent: Math.round((Date.now() - levelStartTime) / 1000)
     });

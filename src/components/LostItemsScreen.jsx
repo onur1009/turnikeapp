@@ -5,9 +5,9 @@ import { Haptics, ImpactStyle } from '@capacitor/haptics';
 import ScreenHeader from './ScreenHeader';
 import { formatKurus } from '../utils/format';
 
-// Sürpriz kutu fiyatı kuruş cinsinden (eskiden 200 kuruş = ₺2 çekiyordu; eşyalar ₺15-300'e
-// satılabildiği için sınırsız para kazandırıyordu)
-const MYSTERY_BOX_PRICE = 20000;
+// Sürpriz kutu ₺3 (kuruş). Eşyaların satış değeri `value` kuruştur (₺0,15-3,00), ortalaması kutu
+// fiyatının altında kalır; kutu açıp satarak para basılamaz. Eskiden kutu ₺200, satış ₺15-300'dü.
+const MYSTERY_BOX_PRICE = 300;
 
 const LostItemsScreen = ({ onBack }) => {
   const [activeTab, setActiveTab] = useState('raflar'); // 'raflar', 'kutu', 'pazar'
@@ -45,14 +45,22 @@ const LostItemsScreen = ({ onBack }) => {
 
       {/* Tabs */}
       <div className="flex w-full max-w-sm bg-white/5 p-1 rounded-full mb-6">
-        <button onClick={() => setActiveTab('raflar')} className={`flex-1 py-2 rounded-full font-bold text-sm transition-all ${activeTab === 'raflar' ? 'bg-green-600 text-white shadow-[0_0_10px_rgba(22,163,74,0.5)]' : 'text-white/50 hover:text-white/80'}`}>Raflar</button>
-        <button onClick={() => setActiveTab('kutu')} className={`flex-1 py-2 rounded-full font-bold text-sm transition-all ${activeTab === 'kutu' ? 'bg-green-600 text-white shadow-[0_0_10px_rgba(22,163,74,0.5)]' : 'text-white/50 hover:text-white/80'}`}>Sürpriz Kutu</button>
-        <button onClick={() => setActiveTab('pazar')} className={`flex-1 py-2 rounded-full font-bold text-sm transition-all ${activeTab === 'pazar' ? 'bg-green-600 text-white shadow-[0_0_10px_rgba(22,163,74,0.5)]' : 'text-white/50 hover:text-white/80'}`}>Pazar</button>
+        <button onClick={() => setActiveTab('raflar')} className={`flex-1 py-2 rounded-full font-bold text-sm transition-all ${activeTab === 'raflar' ? 'bg-green-600 text-white' : 'text-white/50 hover:text-white/80'}`}>Raflar</button>
+        <button onClick={() => setActiveTab('kutu')} className={`flex-1 py-2 rounded-full font-bold text-sm transition-all ${activeTab === 'kutu' ? 'bg-green-600 text-white' : 'text-white/50 hover:text-white/80'}`}>Sürpriz Kutu</button>
+        <button onClick={() => setActiveTab('pazar')} className={`flex-1 py-2 rounded-full font-bold text-sm transition-all ${activeTab === 'pazar' ? 'bg-green-600 text-white' : 'text-white/50 hover:text-white/80'}`}>Pazar</button>
       </div>
 
       {/* TAB CONTENT: RAFLAR */}
       {activeTab === 'raflar' && (
         <div className="flex-1 w-full max-w-sm overflow-y-auto no-scrollbar pb-10">
+          <div className="card-panel !rounded-2xl p-4 mb-5 flex items-center gap-3">
+            <span aria-hidden="true" className="material-symbols-outlined text-[30px] text-sky-300" style={{ fontVariationSettings: "'FILL' 1" }}>{dailyItemTarget ? LOST_ITEMS_CATALOG[dailyItemTarget].icon : 'search'}</span>
+            <div className="flex-1 min-w-0">
+              <p className="text-white font-black text-[14px]">Bugün aranan: {dailyItemTarget ? LOST_ITEMS_CATALOG[dailyItemTarget].name : '—'}</p>
+              <p className="text-white/60 text-[12px] font-semibold">Eşyalar bölüm sonlarında bulunur; bir durağı bitirince kesin bir eşya çıkar. Aranan eşya +₺1,50.</p>
+              <p className="text-white/80 text-[12px] font-bold mt-1">{Object.values(inventory).filter(c => c > 0).length}/{itemsList.length} eşya · {completedSets.length}/{LOST_ITEMS_SETS.length} set</p>
+            </div>
+          </div>
           {LOST_ITEMS_SETS.map(setInfo => {
             const isCompleted = completedSets.includes(setInfo.id);
             return (
@@ -69,7 +77,7 @@ const LostItemsScreen = ({ onBack }) => {
                     const unlocked = count > 0;
                     return (
                       <div key={itemId} onClick={() => unlocked && setSelectedItem(item)}
-                        className={`relative p-3 rounded-xl border-b-4 flex flex-col items-center text-center transition-all ${unlocked ? 'bg-green-900/20 border-green-500/50 shadow-[0_0_15px_rgba(74,222,128,0.2)] cursor-pointer active:scale-95' : 'bg-white/5 border-black/20 opacity-60'}`}>
+                        className={`relative p-3 rounded-xl border-b-4 flex flex-col items-center text-center transition-all ${unlocked ? 'bg-green-900/20 border-green-500/50 cursor-pointer active:scale-95' : 'bg-white/5 border-black/20 opacity-60'}`}>
                         {count > 1 && <div className="absolute -top-2 -right-2 bg-blue-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full border-2 border-[#0a0f0d]">{count}x</div>}
                         <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-2 shadow-inner ${unlocked ? 'bg-gradient-to-br from-green-400/20 to-green-600/20' : 'bg-white/5'}`}>
                           <span aria-hidden="true" className={`material-symbols-outlined text-[24px] ${unlocked ? 'text-green-300' : 'text-white/20'}`}>{unlocked ? item.icon : 'lock'}</span>
@@ -92,7 +100,7 @@ const LostItemsScreen = ({ onBack }) => {
             {isOpeningBox ? (
               <div className="absolute inset-0 animate-spin" style={{ background: 'conic-gradient(from 0deg, transparent, rgba(74,222,128,0.2), transparent)', borderRadius: '50%' }}></div>
             ) : null}
-            <div className={`w-32 h-32 rounded-3xl bg-gradient-to-br from-green-500/20 to-blue-500/20 border border-green-500/30 flex items-center justify-center shadow-[0_0_30px_rgba(74,222,128,0.2)] ${isOpeningBox ? 'animate-bounce' : ''}`}>
+            <div className={`w-32 h-32 rounded-3xl bg-gradient-to-br from-green-500/20 to-blue-500/20 border border-green-500/30 flex items-center justify-center ${isOpeningBox ? 'animate-bounce' : ''}`}>
               {boxResult ? (
                 <span aria-hidden="true" className="material-symbols-outlined text-6xl text-green-400">{boxResult.icon}</span>
               ) : (
@@ -114,7 +122,7 @@ const LostItemsScreen = ({ onBack }) => {
           )}
 
           <button onClick={handleOpenBox} disabled={isOpeningBox || balance < MYSTERY_BOX_PRICE}
-            className={`px-8 py-4 rounded-full font-black text-lg shadow-[0_0_20px_rgba(74,222,128,0.4)] transition-all ${isOpeningBox || balance < MYSTERY_BOX_PRICE ? 'bg-white/10 text-white/30' : 'bg-green-600 text-white active:scale-95'}`}>
+            className={`px-8 py-4 rounded-full font-black text-lg transition-all ${isOpeningBox || balance < MYSTERY_BOX_PRICE ? 'bg-white/10 text-white/30' : 'bg-green-600 text-white active:scale-95'}`}>
             {isOpeningBox ? 'KUTU AÇILIYOR...' : `KUTU AÇ (${formatKurus(MYSTERY_BOX_PRICE)})`}
           </button>
         </div>
@@ -125,7 +133,7 @@ const LostItemsScreen = ({ onBack }) => {
         <div className="flex-1 w-full max-w-sm overflow-y-auto no-scrollbar pb-10">
           <div className="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-4 mb-6 text-center">
             <h3 className="text-blue-400 font-bold text-sm mb-1 uppercase tracking-wider">Günün Aranan Eşyası</h3>
-            <p className="text-white/70 text-xs mb-3">Bu eşyayı bugün seferlerde bulursan 3x ödül kazanırsın!</p>
+            <p className="text-white/70 text-xs mb-3">Bu eşyayı bugün bölüm sonunda bulursan +₺1,50 kazanırsın.</p>
             {dailyItemTarget ? (
               <div className="inline-flex items-center gap-2 bg-blue-500/20 px-4 py-2 rounded-xl">
                 <span aria-hidden="true" className="material-symbols-outlined text-blue-300">{LOST_ITEMS_CATALOG[dailyItemTarget].icon}</span>
@@ -153,10 +161,10 @@ const LostItemsScreen = ({ onBack }) => {
                     </div>
                   </div>
                   <button onClick={() => {
-                    sellItem(item.id, item.value * 100);
+                    sellItem(item.id, item.value);
                     if (useGameStore.getState().hapticEnabled) Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
                   }} className="bg-green-600/20 text-green-400 border border-green-500/30 px-3 py-1.5 rounded-lg text-xs font-bold active:scale-95 transition-all">
-                    SAT (+{formatKurus(item.value * 100)})
+                    SAT (+{formatKurus(item.value)})
                   </button>
                 </div>
               );
@@ -175,7 +183,7 @@ const LostItemsScreen = ({ onBack }) => {
             <button onClick={() => setSelectedItem(null)} className="absolute top-4 right-4 text-white/50 hover:text-white">
               <span aria-hidden="true" className="material-symbols-outlined">close</span>
             </button>
-            <div className="w-20 h-20 rounded-2xl bg-green-500/20 flex items-center justify-center mx-auto mb-4 border border-green-400/30 shadow-[0_0_30px_rgba(74,222,128,0.2)]">
+            <div className="w-20 h-20 rounded-2xl bg-green-500/20 flex items-center justify-center mx-auto mb-4 border border-green-400/30">
               <span aria-hidden="true" className="material-symbols-outlined text-4xl text-green-400">{selectedItem.icon}</span>
             </div>
             <h2 className="text-2xl font-black text-white text-center mb-1">{selectedItem.name}</h2>

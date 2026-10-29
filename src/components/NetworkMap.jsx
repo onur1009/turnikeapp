@@ -54,12 +54,44 @@ export default function NetworkMap({ currentLevel, onOpenLine }) {
           role="img"
           aria-label="İstanbul raylı sistem ve deniz hatları haritası"
         >
-          <rect width={MAP_W} height={MAP_H} fill="#e9e4d8" />
-          <path d={WATER.blackSea} fill="#9cc7e4" />
-          <path d={WATER.marmara} fill="#9cc7e4" />
-          <path d={WATER.bosphorus} fill="#9cc7e4" />
-          <path d={WATER.goldenHorn} fill="#9cc7e4" />
-          {WATER.islands.map(([cx, cy, rx, ry], i) => <ellipse key={i} cx={cx} cy={cy} rx={rx} ry={ry} fill="#e9e4d8" />)}
+          <defs>
+            <linearGradient id="map-land" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stopColor="#efe9dc" /><stop offset="1" stopColor="#e2dccb" />
+            </linearGradient>
+            <linearGradient id="map-sea" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stopColor="#8fc1e3" /><stop offset="1" stopColor="#5f9ccc" />
+            </linearGradient>
+            <pattern id="map-waves" width="46" height="18" patternUnits="userSpaceOnUse">
+              <path d="M0 10 q11.5 -6 23 0 t23 0" fill="none" stroke="#ffffff" strokeOpacity="0.35" strokeWidth="1.6" />
+            </pattern>
+            <filter id="map-coast" x="-5%" y="-5%" width="110%" height="110%">
+              <feMorphology operator="dilate" radius="3" in="SourceAlpha" result="d" />
+              <feFlood floodColor="#ffffff" floodOpacity="0.55" /><feComposite in2="d" operator="in" result="c" />
+              <feMerge><feMergeNode in="c" /><feMergeNode in="SourceGraphic" /></feMerge>
+            </filter>
+          </defs>
+          <rect width={MAP_W} height={MAP_H} fill="url(#map-land)" />
+          {/* Şehir dokusu: mahalle blokları */}
+          <g fill="#d8d1bf" opacity="0.6">
+            {Array.from({ length: 60 }, (_, i) => <rect key={i} x={(i * 97) % 960 + 10} y={(i * 53) % 440 + 60} width={18 + (i % 4) * 6} height={12 + (i % 3) * 5} rx="3" />)}
+          </g>
+          <g filter="url(#map-coast)">
+            {[WATER.blackSea, WATER.marmara, WATER.bosphorus, WATER.goldenHorn].map((d, i) => <path key={i} d={d} fill="url(#map-sea)" />)}
+          </g>
+          {[WATER.blackSea, WATER.marmara, WATER.bosphorus].map((d, i) => <path key={i} d={d} fill="url(#map-waves)" className="map-waves" />)}
+          {WATER.islands.map(([cx, cy, rx, ry], i) => <ellipse key={i} cx={cx} cy={cy} rx={rx} ry={ry} fill="#e9e4d8" stroke="#ffffff" strokeWidth="2" />)}
+          {/* Simge yapılar */}
+          <g className="map-landmarks" fill="#8a7f66">
+            <g transform="translate(520 404)"><rect x="-4" y="-18" width="8" height="18" /><path d="M-5 -18 L0 -27 L5 -18 Z" /></g>
+            <g transform="translate(606 446)"><rect x="-3" y="-12" width="6" height="12" /><path d="M-4 -12 L0 -19 L4 -12 Z" /><ellipse cx="0" cy="1" rx="8" ry="2" fill="#5f9ccc" /></g>
+            <g transform="translate(498 458)"><path d="M-14 0 Q0 -16 14 0 Z" /><rect x="-18" y="-14" width="2" height="14" /><rect x="16" y="-14" width="2" height="14" /></g>
+            {[[604, 300], [628, 172]].map(([x, y]) => (
+              <g key={x} transform={`translate(${x} ${y})`} stroke="#8a7f66" strokeWidth="2" fill="none">
+                <path d="M-26 0 Q0 -10 26 0" /><line x1="-26" y1="0" x2="26" y2="0" />
+              </g>
+            ))}
+            <g transform="translate(395 58) rotate(-20)"><path d="M-12 0 L12 0 L16 -2 L12 -4 L-12 -4 Z M-2 -4 L4 -14 L7 -14 L3 -4 Z" /></g>
+          </g>
           <text x="200" y="600" className="map-water-label">Marmara Denizi</text>
           <text x="640" y="200" className="map-water-label" transform="rotate(-72 640 200)">İstanbul Boğazı</text>
           <text x="150" y="160" className="map-side-label">AVRUPA</text>
@@ -78,6 +110,8 @@ export default function NetworkMap({ currentLevel, onOpenLine }) {
                 <path d={toPath(pts)} stroke="transparent" strokeWidth="26" fill="none" strokeLinecap="round" />
                 <path
                   d={toPath(pts)}
+                  pathLength="1"
+                  className={s.locked || isFerry ? undefined : 'map-line-draw'}
                   stroke={s.locked ? '#9ca3af' : line.color}
                   strokeOpacity={s.locked ? 0.7 : 0.35}
                   strokeWidth={width}
@@ -86,7 +120,17 @@ export default function NetworkMap({ currentLevel, onOpenLine }) {
                 />
                 {!s.locked && donePts.length > 1 && (
                   <path d={toPath(donePts)} stroke={line.color} strokeWidth={width} strokeDasharray={isFerry ? '10 7' : undefined}
-                    fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                    fill="none" strokeLinecap="round" strokeLinejoin="round" className={isSel ? 'map-line-glow' : undefined} style={{ '--c': line.color }} />
+                )}
+                {/* Açık hatlarda gidip gelen araç (vapurda tekne) */}
+                {!s.locked && pts.length > 1 && (
+                  <g className="map-vehicle">
+                    {isFerry
+                      ? <path d="M-6 -2 H6 L4 3 H-4 Z" fill="#ffffff" stroke={line.color} strokeWidth="1.5" />
+                      : <rect x="-6" y="-3.5" width="12" height="7" rx="3" fill="#ffffff" stroke={line.color} strokeWidth="2" />}
+                    <animateMotion dur={`${Math.max(6, pts.length * 0.9)}s`} repeatCount="indefinite" rotate="auto"
+                      keyPoints="0;1;0" keyTimes="0;0.5;1" calcMode="linear" path={toPath(pts)} />
+                  </g>
                 )}
                 {(zoom > 1 || isSel) && pts.map((p, i) => (
                   <circle key={i} cx={p[0]} cy={p[1]} r={isSel ? 4.5 : 3.2}

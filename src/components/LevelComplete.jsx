@@ -45,6 +45,7 @@ const LevelComplete = ({ level, station, summary, mistakes, meanings, onNextLeve
     ...(summary?.setBonus ? [{ label: t('set_bonus'), value: summary.setBonus }] : []),
     ...(summary?.stationBonus ? [{ label: t('station_bonus'), value: summary.stationBonus }] : []),
     ...(summary?.eventBonus ? [{ label: `${summary.eventName} (2x)`, value: summary.eventBonus }] : []),
+    ...(summary?.lostBonus ? [{ label: 'Günün aranan eşyası', value: summary.lostBonus }] : []),
   ];
   const total = earnings.reduce((sum, e) => sum + e.value, 0);
   const learned = words.filter(w => meanings[w]);
@@ -109,6 +110,15 @@ const LevelComplete = ({ level, station, summary, mistakes, meanings, onNextLeve
         </div>
 
         {/* Öğrenilen terimler */}
+        {summary?.lostItem && (
+          <div className="w-full rounded-2xl p-3 mb-3 flex items-center gap-3 fade-in" style={{ background: 'rgba(96,165,250,0.15)', border: '1px solid rgba(96,165,250,0.45)' }}>
+            <span aria-hidden="true" className="material-symbols-outlined text-[28px] text-sky-300" style={{ fontVariationSettings: "'FILL' 1" }}>{summary.lostItem.icon}</span>
+            <span className="text-white text-[13px] font-semibold">
+              <b>Kayıp eşya bulundu: {summary.lostItem.name}</b>{summary.lostItem.isDaily ? ' · Günün aranan eşyası!' : ''}<br />
+              <span className="text-white/65">Kayıp Eşya Ofisi'ndeki rafına kondu.</span>
+            </span>
+          </div>
+        )}
         {summary?.postcard && (
           <div className="w-full rounded-2xl p-3 mb-4 flex items-center gap-3 fade-in" style={{ background: 'rgba(251,191,36,0.15)', border: '1px solid rgba(251,191,36,0.45)' }}>
             <span aria-hidden="true" className="material-symbols-outlined text-[28px] text-amber-300" style={{ fontVariationSettings: "'FILL' 1" }}>mail</span>
