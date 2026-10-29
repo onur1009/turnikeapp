@@ -3,7 +3,7 @@ import Grid from './Grid';
 import Wheel from './Wheel';
 import { generateDuelLevel } from '../utils/gameLogic';
 import { DUEL_SECONDS } from '../utils/duel';
-import { playCountdown, playTick, playTimeUp } from '../utils/soundManager';
+import { playCountdown, playTick, playTimeUp, playVsSlam } from '../utils/soundManager';
 
 // Düello turu: 3-2-1 sayımı, sonra seed'den gelen aynı bulmaca ve DUEL_SECONDS süre.
 // Üstte skor tabelası (sen / rakip), süre çubuğunda rakibin bitirdiği an işaretli.
@@ -12,7 +12,8 @@ export default function DuelGame({ seed, me, opponent, onFinish, onQuit }) {
   const level = useMemo(() => generateDuelLevel(seed), [seed]);
   const [letters, setLetters] = useState(level.wheelLetters);
   const [found, setFound] = useState([]);
-  const [countdown, setCountdown] = useState(3);
+  const [countdown, setCountdown] = useState(4); // 4 = VS girişi, 3-2-1 sayım
+  useEffect(() => { playVsSlam(); }, []);
   const [left, setLeft] = useState(DUEL_SECONDS);
   const [wrong, setWrong] = useState(0);
   const startRef = useRef(0);
@@ -30,9 +31,9 @@ export default function DuelGame({ seed, me, opponent, onFinish, onQuit }) {
 
   // 3-2-1, ardından süre
   useEffect(() => {
-    playCountdown(countdown);
+    if (countdown <= 3) playCountdown(countdown);
     if (countdown > 0) {
-      const id = setTimeout(() => setCountdown(c => c - 1), 800);
+      const id = setTimeout(() => setCountdown(c => c - 1), countdown === 4 ? 1400 : 800);
       return () => clearTimeout(id);
     }
     startRef.current = Date.now();
@@ -120,9 +121,17 @@ export default function DuelGame({ seed, me, opponent, onFinish, onQuit }) {
         <button onClick={finish} className="mt-3 text-white/60 font-bold text-[13px] underline underline-offset-4">Pes et, bu skorla bitir</button>
       </div>
 
-      {countdown > 0 && (
-        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/55">
-          <span key={countdown} className="scale-in text-white font-black text-[120px] leading-none">{countdown}</span>
+      {countdown === 4 && (
+        <div className="duel-intro" aria-hidden="true">
+          <div className="duel-intro-half me"><span className="duel-intro-avatar">{(me || '?').slice(0, 1).toLocaleUpperCase('tr-TR')}</span><b>{me}</b></div>
+          <div className="duel-intro-half them"><span className="duel-intro-avatar">{(opponent?.name || '?').slice(0, 1).toLocaleUpperCase('tr-TR')}</span><b>{opponent?.name || 'Rakip'}</b></div>
+          <span className="duel-intro-vs">VS</span>
+        </div>
+      )}
+      {countdown > 0 && countdown < 4 && (
+        <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black/55">
+          <span key={countdown} className="duel-count text-white font-black text-[120px] leading-none">{countdown}</span>
+          <span className="text-white/70 font-bold text-[14px] mt-2">{opponent ? `${opponent.name}: ${opponent.score.w} kelime` : 'Hazır ol'}</span>
         </div>
       )}
     </div>

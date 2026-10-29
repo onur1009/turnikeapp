@@ -105,7 +105,10 @@ export default function NavigationContainer({
   if (screen === 'daily') {
     return (
       <div className="game-bg h-full flex flex-col relative z-10 fade-in overflow-hidden">
-        <DailyScreen onBack={() => setScreen('home')} />
+        <DailyScreen onBack={() => setScreen('home')} onPlay={() => {
+          useGameStore.setState({ levelIndex: useGameStore.getState().maxUnlockedLevel, lives: getMaxLives(useGameStore.getState().completedSets) });
+          setScreen('game');
+        }} />
       </div>
     );
   }

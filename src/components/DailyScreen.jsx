@@ -5,7 +5,11 @@ import { useGameStore } from '../store/gameStore';
 import { generateDuelLevel } from '../utils/gameLogic';
 import { formatKurus } from '../utils/format';
 import { track } from '../utils/analytics';
-import { addLeaguePoints } from '../utils/league';
+import { addLeaguePoints, LEAGUE_POINTS } from '../utils/league';
+import { PASS_XP } from '../utils/pass';
+import SceneBackground from './SceneBackground';
+import { LINES } from '../utils/transitNetwork';
+import { playTurnike, playPrize } from '../utils/soundManager';
 import { todayKey, yesterdayKey, dayNumber, dailySeed, buildShareText, DAILY_REWARD } from '../utils/daily';
 
 // Günün Seferi: herkese aynı gün aynı bulmaca, günde bir kez. Süre baskısı yok, süre ölçülür.
@@ -86,7 +90,19 @@ const Play = ({ onDone }) => {
   );
 };
 
-export default function DailyScreen({ onBack }) {
+// Seri ödülü: her 3 ardışık günde 1 ipucu
+const STREAK_HINT_EVERY = 3;
+
+export default function DailyScreen({ onBack, onPlay }) {
+  const [intro, setIntro] = useState(true); // açılış: bilet zımbalanır
+  useEffect(() => {
+    playTurnike();
+    const id = setTimeout(() => setIntro(false), 1100);
+    return () => clearTimeout(id);
+  }, []);
+  // Günün sahnesi: her gün başka bir hattın semti, sabah saati
+  const sceneLine = LINES[(dayNumber() * 7) % LINES.length];
+  const scene = { id: sceneLine.id, mode: sceneLine.mode, color: sceneLine.color, displayName: '', leg: 2, stationIndex: dayNumber() };
   const results = useGameStore(s => s.dailyResults);
   const saveDailyResult = useGameStore(s => s.saveDailyResult);
   const recordTopUp = useGameStore(s => s.recordTopUp);
@@ -103,6 +119,10 @@ export default function DailyScreen({ onBack }) {
       recordTopUp('puzzle', DAILY_REWARD);
       bumpDaily('daily');
       addLeaguePoints('daily');
+      // Seri katkısı: her 3. ardışık günde 1 ipucu
+      const st = dailyStreak({ ...useGameStore.getState().dailyResults });
+      if (st > 0 && st % STREAK_HINT_EVERY === 0) useGameStore.getState().addHints(1);
+      playPrize(false);
       track('daily_complete', { day: dayNumber(result.date), seconds: result.seconds, wrong: result.wrong });
     }
     setPlaying(false);
@@ -119,7 +139,18 @@ export default function DailyScreen({ onBack }) {
   };
 
   return (
-    <div className="daily-bg flex-1 min-h-0 flex flex-col">
+    <div className="daily-bg flex-1 min-h-0 flex flex-col relative isolate">
+      <SceneBackground station={scene} />
+      <div className="daily-tint" aria-hidden="true" />
+      {intro && (
+        <div className="daily-intro" aria-hidden="true">
+          <div className="daily-ticket">
+            <span className="daily-ticket-hole" />
+            <span className="daily-ticket-label">GÜNÜN SEFERİ</span>
+            <span className="daily-ticket-no">#{dayNumber()}</span>
+          </div>
+        </div>
+      )}
       <header className="flex items-center gap-3 px-4 pt-4 pb-3 shrink-0">
         <button className="icon-btn" onClick={playing ? () => setPlaying(false) : onBack} aria-label="Geri">
           <span aria-hidden="true" className="material-symbols-outlined text-[20px]">arrow_back</span>
@@ -142,6 +173,16 @@ export default function DailyScreen({ onBack }) {
                 <p className="text-[22px] tracking-[2px] leading-relaxed text-center break-all">{today.trail.map(c => (c === 'ok' ? '🟩' : '🟥')).join('')}</p>
                 <p className="text-white/60 text-[13px] font-semibold">{today.words} kelime · {today.wrong} yanlış deneme</p>
               </div>
+              {/* Günün Seferi'nin katkısı */}
+              <div className="grid grid-cols-2 gap-2">
+                <div className="daily-gain"><b>+{formatKurus(DAILY_REWARD)}</b><span>İstanbulkart</span></div>
+                <div className="daily-gain"><b>+{LEAGUE_POINTS.daily}</b><span>lig puanı</span></div>
+                <div className="daily-gain"><b>+{PASS_XP.daily} XP</b><span>Hat Pasosu</span></div>
+                <div className="daily-gain"><b>🔥 {streak} gün</b><span>{streak % STREAK_HINT_EVERY === 0 ? '+1 ipucu kazandın' : `${STREAK_HINT_EVERY - (streak % STREAK_HINT_EVERY)} gün sonra +1 ipucu`}</span></div>
+              </div>
+              <button onClick={onPlay} className="play-btn w-full flex items-center justify-center gap-2">
+                <span aria-hidden="true" className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>play_circle</span>YOLCULUĞA DEVAM ET
+              </button>
               <button onClick={share} className="daily-btn w-full flex items-center justify-center gap-2">
                 <span aria-hidden="true" className="material-symbols-outlined text-[22px]">share</span>SONUCUNU PAYLAŞ
               </button>
@@ -158,7 +199,7 @@ export default function DailyScreen({ onBack }) {
               <button onClick={() => { track('daily_start', { day: dayNumber() }); setPlaying(true); }} className="daily-btn w-full flex items-center justify-center gap-2">
                 <span aria-hidden="true" className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>play_circle</span>BAŞLA
               </button>
-              <p className="text-center text-white/55 text-[12px] font-semibold">Ödül: {formatKurus(DAILY_REWARD)} · seriyi sürdür</p>
+              <p className="text-center text-white/70 text-[12px] font-semibold">Kazanç: {formatKurus(DAILY_REWARD)} · +{LEAGUE_POINTS.daily} lig puanı · +{PASS_XP.daily} paso XP · her {STREAK_HINT_EVERY} günde +1 ipucu</p>
             </>
           )}
         </main>

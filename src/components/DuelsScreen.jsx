@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useGameStore } from '../store/gameStore';
 import DuelGame from './DuelGame';
+import DuelResult from './DuelResult';
 import { formatKurus } from '../utils/format';
 import { track } from '../utils/analytics';
 import { DUEL_SECONDS, DUEL_WIN_REWARD, newDuelSeed, decodeDuel, compareScores, shareDuel, botGhost } from '../utils/duel';
@@ -71,6 +72,7 @@ const DuelsScreen = ({ onBack }) => {
   const challengeVerified = !!(incoming?.fromRun && verified[incoming.fromRun]);
   const known = incoming ? duels.find(d => d.seed === incoming.seed && d.role === 'sent') : null;
   const isReply = !!(incoming?.toScore && known);
+  const winStreak = (() => { let n = 0; for (const d of duels) { if (d.theirs && compareScores(d.mine, d.theirs) > 0) n++; else if (d.theirs) break; } return n; })();
   const wins = duels.filter(d => d.theirs && compareScores(d.mine, d.theirs) > 0).length;
   const losses = duels.filter(d => d.theirs && compareScores(d.mine, d.theirs) < 0).length;
 
@@ -120,7 +122,7 @@ const DuelsScreen = ({ onBack }) => {
       const record = reward({ seed: active.seed, role: 'ghost', opponent: active.opponent.name, mine, theirs: active.opponent.score, at: Date.now() });
       saveDuel(record);
       uploadRun(score, active.seed, () => {});
-      setResult({ mine, theirs: active.opponent.score, opponent: active.opponent.name, final: true });
+      setResult({ mine, theirs: active.opponent.score, opponent: active.opponent.name, final: true, ghost: true });
     } else if (active.opponent) {
       const record = reward({ seed: active.seed, role: 'received', opponent: active.opponent.name, mine, theirs: active.opponent.score, at: Date.now() });
       saveDuel(record);
@@ -159,7 +161,6 @@ const DuelsScreen = ({ onBack }) => {
     return <DuelGame seed={active.seed} me={myName} opponent={active.opponent} onFinish={onFinish} onQuit={() => setView('lobby')} />;
   }
 
-  const outcome = result?.theirs ? compareScores(result.mine, result.theirs) : null;
 
   return (
     <main className="duel-bg flex-1 w-full flex flex-col overflow-y-auto" style={{ overscrollBehavior: 'contain' }}>
@@ -172,17 +173,7 @@ const DuelsScreen = ({ onBack }) => {
 
       <div className="flex-1 flex flex-col justify-center w-full max-w-sm mx-auto px-5 py-6 gap-6">
         {view === 'result' && result ? (
-          <>
-            <p className="text-center font-black text-[34px] tracking-tight fade-in"
-              style={{ color: outcome == null ? '#ffffff' : outcome > 0 ? '#4ade80' : outcome < 0 ? '#fda4af' : '#fde047' }}>
-              {outcome == null ? 'Skorun hazır!' : outcome > 0 ? 'KAZANDIN!' : outcome < 0 ? 'Kaybettin' : 'Berabere'}
-            </p>
-            <div className="flex items-start justify-between scale-in">
-              <div className="flex flex-col items-center w-[38%]"><Avatar name={myName} color="#2563eb" crown={outcome > 0} /><Score s={result.mine} /></div>
-              <div className="pt-3"><VsBadge /></div>
-              <div className="flex flex-col items-center w-[38%]"><Avatar name={result.opponent || 'Arkadaşın'} color="#e11d48" crown={outcome < 0} /><Score s={result.theirs} /></div>
-            </div>
-            {outcome > 0 && <p className="text-center text-green-300 font-bold text-[14px]">+{formatKurus(DUEL_WIN_REWARD)} İstanbulkart'ına yüklendi</p>}
+          <DuelResult myName={myName} opponent={result.opponent} mine={result.mine} theirs={result.theirs} streak={winStreak}>
             {!result.final && (
               <button onClick={share} className="duel-btn w-full flex items-center justify-center gap-2">
                 <span aria-hidden="true" className="material-symbols-outlined text-[24px]">send</span>
@@ -190,12 +181,13 @@ const DuelsScreen = ({ onBack }) => {
               </button>
             )}
             {result.final && (
-              <button onClick={() => play(newDuelSeed())} className="duel-btn w-full flex items-center justify-center gap-2">
+              <button onClick={() => (result.ghost ? quickPlay() : play(newDuelSeed()))} className="duel-btn w-full flex items-center justify-center gap-2">
                 <span aria-hidden="true" className="material-symbols-outlined text-[24px]">replay</span>RÖVANŞ
               </button>
             )}
+            <button onClick={() => setView('lobby')} className="text-white/70 font-bold text-[13px] underline underline-offset-4">Düello ana ekranı</button>
             {note && <p role="status" className="text-center text-white/75 text-[13px] font-semibold">{note}</p>}
-          </>
+          </DuelResult>
         ) : incoming && !isReply && !incoming.toScore ? (
           <>
             <p className="text-center text-white font-black text-[26px] leading-tight">{incoming.from}<br />seni düelloya çağırdı!</p>
