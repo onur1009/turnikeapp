@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
 import { useTranslation } from '../utils/i18n';
 import { formatKurus } from '../utils/format';
+import { STATION_NAMES } from '../utils/transitNetwork';
 
 const CountUp = ({ end, duration = 1200, format = (v) => v }) => {
   const [count, setCount] = useState(0);
@@ -94,6 +95,17 @@ const LevelComplete = ({ level, station, summary, mistakes, meanings, onNextLeve
         </div>
 
         {/* Kazanç dökümü */}
+        {/* Hat bitirme: bir hattın son durağı geçildiğinde (sonraki durak başka hatta) */}
+        {station.isLastLeg && station.isLineChange && (
+          <div className="w-full rounded-2xl px-4 py-3 mb-4 flex items-center gap-3 scale-in" style={{ background: station.color }} role="status">
+            <span aria-hidden="true" className="material-symbols-outlined text-[34px] text-white" style={{ fontVariationSettings: "'FILL' 1" }}>military_tech</span>
+            <span className="min-w-0">
+              <span className="block text-white font-black text-[16px] tracking-wide">{station.code} HATTI TAMAMLANDI</span>
+              <span className="block text-white/85 text-[12px] font-semibold truncate">{station.name} · {(STATION_NAMES[station.id] || []).length} durak</span>
+            </span>
+          </div>
+        )}
+
         {/* Toplam her zaman görünür; döküm dokununca açılır (devam düğmesi kaydırmadan görünsün) */}
         <details className="w-full card-panel px-4 py-3 mb-4 group">
           <summary className="flex justify-between items-center cursor-pointer list-none">

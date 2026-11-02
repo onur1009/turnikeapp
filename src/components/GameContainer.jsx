@@ -1059,6 +1059,7 @@ export default function GameContainer({
             pickMode={pickMode}
             onCellPick={handleCellPick}
             onIntersectionFound={handleIntersectionFound}
+            onWordTap={(w) => setInfoCard({ word: w, meaning: WORD_MEANINGS[w] || 'Bu kelimenin açıklaması sözlükte henüz yok.', id: Date.now() })}
           />
         </main>
 

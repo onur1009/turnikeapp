@@ -2,7 +2,8 @@ import React, { useMemo, useEffect, useState } from 'react';
 import { useGameStore } from '../store/gameStore';
 
 // pickMode: "Nokta" ipucu açıkken boş kutular dokunulabilir olur, seçilen kutu onCellPick ile bildirilir
-const Grid = ({ words, foundWords, hintedLetters = [], onIntersectionFound, accent, pickMode = false, onCellPick }) => {
+const Grid = ({ words, foundWords, hintedLetters = [], onIntersectionFound, accent, pickMode = false, onCellPick, onWordTap }) => {
+  const foundWordAt = (cell) => [...cell.wordNames].reverse().find(w => foundWords.includes(w)) || cell.wordNames[0];
   // Izgara hem genişliğe hem yüksekliğe sığmalı (küçük ekranlarda çark ile çakışmasın)
   const containerRef = React.useRef(null);
   const [containerSize, setContainerSize] = useState({ w: window.innerWidth, h: 320 });
@@ -142,7 +143,18 @@ const Grid = ({ words, foundWords, hintedLetters = [], onIntersectionFound, acce
           transition: 'all 0.35s ease'
         }}
       >
-        {cellData.isRevealed ? (
+        {cellData.isRevealed && cellData.isFound && onWordTap && !pickMode ? (
+          // Bulunan kelimeye dokununca anlamı açılır (kesişimde son bulunan kelime)
+          <button
+            type="button"
+            aria-label={`${foundWordAt(cellData)} anlamını göster`}
+            onClick={() => onWordTap(foundWordAt(cellData))}
+            className={`grid-cell-found w-full h-full flex items-center justify-center p-0 border-0 ${hasConfetti ? 'cell-confetti' : ''}`}
+            style={{ fontSize, animationDelay: `${delay}s` }}
+          >
+            {cellData.char}
+          </button>
+        ) : cellData.isRevealed ? (
           <div
             className={`${cellData.isFound ? 'grid-cell-found' : 'grid-cell-hinted'} w-full h-full flex items-center justify-center ${hasConfetti ? 'cell-confetti' : ''}`}
             style={{ fontSize, animationDelay: `${delay}s` }}

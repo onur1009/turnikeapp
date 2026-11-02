@@ -151,3 +151,23 @@ test('duraklatma: süre durur, devamla kaldığı yerden akar', async () => {
   assert.ok(await sec() < before);
   await p.close();
 });
+
+test('bulunan kelimeye dokununca anlamı açılır', async () => {
+  const { p } = await openGame({ level: 41 });
+  await click(p, 'DEVAM ET');
+  await p.waitForSelector('.wheel-letter', { timeout: 15000 });
+  await wait(2500);
+  const letters = await p.evaluate(() => [...document.querySelectorAll('.wheel-letter')].map(x => x.textContent));
+  for (const w of solve(letters)) {
+    await p.evaluate((w) => { for (const ch of w) window.dispatchEvent(new KeyboardEvent('keydown', { key: ch })); window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' })); }, w);
+    await wait(450);
+    if (await p.$('button[aria-label$="anlamını göster"]')) break;
+  }
+  await wait(4000); // kelime bulununca açılan kart kendiliğinden kapanır
+  const label = await p.$eval('button[aria-label$="anlamını göster"]', b => b.getAttribute('aria-label'));
+  const word = label.replace(' anlamını göster', '');
+  await p.click('button[aria-label$="anlamını göster"]');
+  await wait(600);
+  assert.ok((await text(p)).includes(word));
+  await p.close();
+});
