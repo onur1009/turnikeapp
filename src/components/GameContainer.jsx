@@ -233,7 +233,19 @@ export default function GameContainer({
   const timer = useGameTimer(30, handleTimeExpire, updateTrainPosition);
   
   useEffect(() => { timerRef.current = timer; }, [timer]);
-  const { timeLeft, startTimer: rawStartTimer, stopTimer } = timer;
+  const { timeLeft, startTimer: rawStartTimer, stopTimer, pauseTimer, resumeTimer } = timer;
+
+  // Duraklatma: düğmeyle ya da uygulama arka plana geçince; süre durur, dönünce pencere açık bekler
+  const [paused, setPaused] = useState(false);
+  const pauseGame = useCallback(() => { pauseTimer(); setPaused(true); }, [pauseTimer]);
+  const resumeGame = () => { setPaused(false); resumeTimer(); };
+  const setSettings = useGameStore(s => s.setSettings);
+  const musicEnabled = useGameStore(s => s.musicEnabled);
+  useEffect(() => {
+    const onVisibility = () => { if (document.hidden && internalState === 'playing') pauseGame(); };
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => document.removeEventListener('visibilitychange', onVisibility);
+  }, [pauseGame, internalState]);
   
   // startTimer'ı wrap et: totalTimeMsRef'i güncelle ve ilk pozisyonu ayarla
   const startTimer = useCallback((seconds) => {
@@ -962,7 +974,29 @@ export default function GameContainer({
             <span aria-hidden="true" className="material-symbols-outlined text-[16px]" style={{ color: 'var(--coin)', fontVariationSettings: "'FILL' 1" }}>toll</span>
             <AnimatedBalance value={balance} />
           </div>
+          <button onClick={pauseGame} className="icon-btn" aria-label="Duraklat">
+            <span aria-hidden="true" className="material-symbols-outlined text-[20px]">pause</span>
+          </button>
         </header>
+
+        {paused && (
+          <div className="fixed inset-0 z-[60] flex items-center justify-center px-6 fade-in" style={{ background: 'rgba(5,20,36,0.82)' }} role="dialog" aria-modal="true" aria-label="Oyun duraklatıldı">
+            <div className="w-full max-w-xs card-panel p-5 flex flex-col gap-3">
+              <p className="text-white font-black text-[20px] text-center">Duraklatıldı</p>
+              <p className="text-white/60 text-[13px] text-center -mt-2">Süre durdu, kaldığın yerden devam edersin.</p>
+              <button onClick={resumeGame} className="play-btn w-full" style={{ fontSize: 16, letterSpacing: 2, padding: '13px 20px' }}>DEVAM ET</button>
+              <div className="flex gap-2">
+                <button onClick={() => setSettings({ soundEnabled: !soundEnabled })} aria-pressed={soundEnabled} className="flex-1 py-3 rounded-full text-white/80 font-bold text-[13px] flex items-center justify-center gap-1.5" style={{ border: '1px solid var(--border)' }}>
+                  <span aria-hidden="true" className="material-symbols-outlined text-[18px]">{soundEnabled ? 'volume_up' : 'volume_off'}</span>Ses
+                </button>
+                <button onClick={() => setSettings({ musicEnabled: !musicEnabled })} aria-pressed={musicEnabled} className="flex-1 py-3 rounded-full text-white/80 font-bold text-[13px] flex items-center justify-center gap-1.5" style={{ border: '1px solid var(--border)' }}>
+                  <span aria-hidden="true" className="material-symbols-outlined text-[18px]">{musicEnabled ? 'music_note' : 'music_off'}</span>Müzik
+                </button>
+              </div>
+              <button onClick={() => { stopTimer(); setScreen('home'); }} className="py-3 rounded-full text-white/70 font-bold text-[13px] tracking-wider uppercase" style={{ border: '1px solid var(--border)' }}>{t('main_menu')}</button>
+            </div>
+          </div>
+        )}
 
         {/* Durum satırı: can | kelime ilerlemesi | kasa */}
         {/* Opak zemin: sahne bulutları ve güneş sayacın arkasına geçip okunmaz yapıyordu */}

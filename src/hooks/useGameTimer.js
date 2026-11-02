@@ -7,6 +7,7 @@ export function useGameTimer(initialSeconds, onExpire, onTick) {
   const requestRef = useRef();
   const startTimeRef = useRef();
   const initialTimeRef = useRef(initialSeconds * 1000);
+  const pausedRemainingRef = useRef(null);
   
   const onExpireRef = useRef(onExpire);
   useEffect(() => {
@@ -37,6 +38,7 @@ export function useGameTimer(initialSeconds, onExpire, onTick) {
     if (remaining > 0) {
       requestRef.current = requestAnimationFrame(tick);
     } else {
+      requestRef.current = null;
       setIsRunning(false);
       if (onExpireRef.current) onExpireRef.current();
     }
@@ -54,6 +56,7 @@ export function useGameTimer(initialSeconds, onExpire, onTick) {
     initialTimeRef.current = seconds * 1000;
     setTimeLeft(seconds);
     startTimeRef.current = null;
+    pausedRemainingRef.current = null;
     setIsRunning(true);
     if (requestRef.current) cancelAnimationFrame(requestRef.current);
     requestRef.current = requestAnimationFrame(tick);
@@ -62,7 +65,27 @@ export function useGameTimer(initialSeconds, onExpire, onTick) {
   const stopTimer = useCallback(() => {
     setIsRunning(false);
     if (requestRef.current) cancelAnimationFrame(requestRef.current);
+    requestRef.current = null;
+    pausedRemainingRef.current = null;
   }, []);
 
-  return { timeLeft, startTimer, stopTimer, isRunning };
+  // Duraklat/devam: kalan süre saklanır. Eskiden uygulama arka plana alınınca geçen süre de düşülüyordu
+  // (rAF durur ama geçen süre başlangıç anından hesaplanır).
+  const pauseTimer = useCallback(() => {
+    if (!requestRef.current || pausedRemainingRef.current !== null || !startTimeRef.current) return;
+    cancelAnimationFrame(requestRef.current);
+    requestRef.current = null;
+    pausedRemainingRef.current = Math.max(0, initialTimeRef.current - (performance.now() - startTimeRef.current));
+    setIsRunning(false);
+  }, []);
+  const resumeTimer = useCallback(() => {
+    if (pausedRemainingRef.current === null) return;
+    initialTimeRef.current = pausedRemainingRef.current;
+    pausedRemainingRef.current = null;
+    startTimeRef.current = null;
+    setIsRunning(true);
+    requestRef.current = requestAnimationFrame(tick);
+  }, [tick]);
+
+  return { timeLeft, startTimer, stopTimer, pauseTimer, resumeTimer, isRunning };
 }

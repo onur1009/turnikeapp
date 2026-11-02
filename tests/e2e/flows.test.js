@@ -134,3 +134,20 @@ test('çark: merkezden çapraz geçiş yalnızca iki uç harfi seçer', async ()
   assert.equal(picked, nodes[0].ch + far.ch);
   await p.close();
 });
+
+test('duraklatma: süre durur, devamla kaldığı yerden akar', async () => {
+  const { p } = await openGame({ level: 41 });
+  await click(p, 'DEVAM ET');
+  await p.waitForSelector('.wheel-letter', { timeout: 15000 });
+  await wait(3000);
+  const sec = async () => Number((await text(p)).match(/(\d+)s\b/)?.[1]);
+  const before = await sec();
+  await p.click('button[aria-label="Duraklat"]');
+  await wait(3000);
+  assert.ok(await p.$('[aria-label="Oyun duraklatıldı"]'));
+  assert.equal(await sec(), before);
+  await p.evaluate(() => [...document.querySelectorAll('[role=dialog] button')].find(x => x.innerText.trim() === 'DEVAM ET').click());
+  await wait(2500);
+  assert.ok(await sec() < before);
+  await p.close();
+});
