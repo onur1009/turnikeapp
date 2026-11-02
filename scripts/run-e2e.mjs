@@ -21,7 +21,7 @@ await build({
   platform: 'node',
   transform: { define: { 'import.meta.env': '{}' } },
   external: [/^node:/, 'puppeteer'],
-  output: { file: out, format: 'esm' },
+  output: { file: out, format: 'esm', codeSplitting: false },
   logLevel: 'silent',
 });
 

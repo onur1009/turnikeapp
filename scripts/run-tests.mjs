@@ -18,7 +18,7 @@ await build({
   platform: 'node',
   transform: { define: { 'import.meta.env': '{}' } },
   external: [/^node:/],
-  output: { file: out, format: 'esm' },
+  output: { file: out, format: 'esm', codeSplitting: false },
   logLevel: 'silent',
 });
 await import(pathToFileURL(out).href);

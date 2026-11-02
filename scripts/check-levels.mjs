@@ -10,7 +10,7 @@ await build({
   input: fileURLToPath(new URL('./check-levels.entry.js', import.meta.url)),
   platform: 'node',
   transform: { define: { 'import.meta.env': '{}' } },
-  output: { file: out, format: 'cjs' },
+  output: { file: out, format: 'cjs', codeSplitting: false },
   logLevel: 'silent',
 });
 createRequire(import.meta.url)(out);
