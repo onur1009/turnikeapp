@@ -51,7 +51,7 @@ tr:last-child td { border-bottom: 0; }
 
   <section>
     <h2>Graphify ne gösterdi</h2>
-    <p>En çok bağlantılı düğümler <code>useGameStore</code> (65 bağ) ve <code>GameContainer</code> (49 bağ). Oyunun bütün kuralları (kelime kontrolü, can, süre, ipucu, ödül, reklam, etkinlik, kayıp eşya) tek bir 1.188 satırlık bileşende duruyor. Bir değişiklik her şeyi etkiliyor ve test edilemiyor. Dört ekran (<code>BadgesScreen</code>, <code>BonusLockers</code>, <code>LostItemsScreen</code>, <code>UsernameModal</code>) store'un tamamına abone; store'daki her değişiklikte yeniden çiziliyorlar. <code>GameContainer</code>'da hiç atanmayan <code>hiddenWord</code> akışı hâlâ duruyor.</p>
+    <p>En çok bağlantılı düğümler <code>useGameStore</code> (65 bağ) ve <code>GameContainer</code> (49 bağ). Oyunun bütün kuralları (kelime kontrolü, can, süre, ipucu, ödül, reklam, etkinlik, kayıp eşya) tek bir 1.188 satırlık bileşende duruyor. Bir değişiklik her şeyi etkiliyor ve test edilemiyor. Dört ekran (<code>BadgesScreen</code>, <code>BonusLockers</code>, <code>LostItemsScreen</code>, <code>UsernameModal</code>) store'un tamamına abone; store'daki her değişiklikte yeniden çiziliyorlar.</p>
   </section>
 
   <section>
@@ -64,7 +64,7 @@ tr:last-child td { border-bottom: 0; }
     <article class="task"><h3>1.3 Uçtan uca testler</h3>
       <dl class="kv"><dt>Ne</dt><dd>Bu oturumda elle yazdığım puppeteer betikleri (çark, günlük çark, dolaplar, bölüm sonu) Playwright testlerine çevrilir.</dd><dt>Araç</dt><dd><code>Test Automation Engineer</code> agent, <code>playwright</code> MCP</dd><dt>Bitti</dt><dd>Beş ana akış (ilk açılış, bölüm, durak sonu, günlük, düello) otomatik koşuyor.</dd></dl></article>
     <article class="task"><h3>1.4 Sessiz hatalar ve ölü kod</h3>
-      <dl class="kv"><dt>Ne</dt><dd>104 kullanılmayan değişken, <code>hiddenWord</code> akışı, 9 "effect içinde setState" uyarısı temizlenir; 10 doğrudan <code>localStorage</code> çağrısı tek güvenli yardımcıya bağlanır.</dd><dt>Araç</dt><dd><code>ecc:silent-failure-hunter</code>, <code>caveman:cavecrew-reviewer</code></dd><dt>Bitti</dt><dd>Lint hatasız.</dd></dl></article>
+      <dl class="kv"><dt>Ne</dt><dd>104 kullanılmayan değişken ve 9 "effect içinde setState" uyarısı temizlenir; 10 doğrudan <code>localStorage</code> çağrısı tek güvenli yardımcıya bağlanır.</dd><dt>Araç</dt><dd><code>ecc:silent-failure-hunter</code>, <code>caveman:cavecrew-reviewer</code></dd><dt>Bitti</dt><dd>Lint hatasız.</dd></dl></article>
     <article class="task"><h3>1.5 Supabase güvenlik denetimi</h3>
       <dl class="kv"><dt>Ne</dt><dd>RLS politikaları ve RPC'lerin kötüye kullanım testi (sahte skor, lig puanı şişirme).</dd><dt>Araç</dt><dd><code>supabase</code> MCP; şu an bu oyunun projesini görmüyor. Proje erişimini sen bağlamalısın.</dd><dt>Bitti</dt><dd>Güvenlik danışmanında kritik uyarı yok.</dd></dl></article>
   </section>
