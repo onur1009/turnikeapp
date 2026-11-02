@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useGameStore } from '../store/gameStore';
 
 const UsernameModal = ({ onCancel }) => {
-  const { setUsername } = useGameStore();
+  const setUsername = useGameStore(s => s.setUsername);
   const [inputName, setInputName] = useState('');
   const [error, setError] = useState('');
 

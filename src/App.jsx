@@ -1,10 +1,10 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, Suspense, lazy } from 'react';
 import { playBadgeUnlock } from './utils/soundManager';
 import { useTranslation } from './utils/i18n';
 import DailySpinScreen from './components/DailySpinScreen';
 import IntroScreen from './components/IntroScreen';
 import NavigationContainer from './components/NavigationContainer';
-import GameContainer from './components/GameContainer';
+const GameContainer = lazy(() => import('./components/GameContainer'));
 import HomeScreen from './components/HomeScreen';
 import { useGameStore, getMaxLives } from './store/gameStore';
 import { Haptics, NotificationType } from '@capacitor/haptics';
@@ -215,25 +215,18 @@ function App() {
   /* ========== NAVIGATION SCREENS ========== */
   if (['akbil', 'vault', 'leaderboard', 'settings', 'stats', 'levels', 'dictionary', 'badges', 'lostitems', 'duels', 'daily', 'postcards', 'globalboard', 'pass'].includes(screen)) {
     return (
-      <NavigationContainer 
-        screen={screen} 
-        setScreen={setScreen} 
-         
-         
-      />
+      <Suspense fallback={<div className="game-bg h-full" />}>
+        <NavigationContainer screen={screen} setScreen={setScreen} />
+      </Suspense>
     );
   }
 
   /* ========== GAME SCREEN ========== */
   if (screen === 'game') {
     return (
-      <GameContainer 
-        setScreen={setScreen}
-        
-        
-        
-        
-      />
+      <Suspense fallback={<div className="game-bg h-full" />}>
+        <GameContainer setScreen={setScreen} />
+      </Suspense>
     );
   }
 

@@ -43,7 +43,15 @@ const BonusLockers = ({ onComplete }) => {
   const [isFinishing, setIsFinishing] = useState(false);
   const [totalWon, setTotalWon] = useState({ cash: 0, hints: 0, lives: 0 });
 
-  const { soundEnabled, hapticEnabled, addBalance, addHints, addLives } = useGameStore();
+  const soundEnabled = useGameStore(s => s.soundEnabled);
+
+  const hapticEnabled = useGameStore(s => s.hapticEnabled);
+
+  const addBalance = useGameStore(s => s.addBalance);
+
+  const addHints = useGameStore(s => s.addHints);
+
+  const addLives = useGameStore(s => s.addLives);
 
   useEffect(() => {
     setLockers(generateLockerContents());

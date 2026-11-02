@@ -5,7 +5,12 @@ import { useTranslation } from '../utils/i18n';
 import ScreenHeader from './ScreenHeader';
 
 const BadgesScreen = ({ onBack }) => {
-  const { unlockedBadges, maxUnlockedLevel, totalWordsFound, streak, maxCombo, balance } = useGameStore();
+  const unlockedBadges = useGameStore(s => s.unlockedBadges);
+  const maxUnlockedLevel = useGameStore(s => s.maxUnlockedLevel);
+  const totalWordsFound = useGameStore(s => s.totalWordsFound);
+  const streak = useGameStore(s => s.streak);
+  const maxCombo = useGameStore(s => s.maxCombo);
+  const balance = useGameStore(s => s.balance);
   // Kilitli rozetlerde "ne kadar kaldı" göstermek için [şu an, hedef]
   const progressFor = (id) => ({
     first_ticket: [maxUnlockedLevel, 1], level_5: [maxUnlockedLevel, 5], level_10: [maxUnlockedLevel, 10],

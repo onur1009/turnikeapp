@@ -15,7 +15,19 @@ const LostItemsScreen = ({ onBack }) => {
   const [isOpeningBox, setIsOpeningBox] = useState(false);
   const [boxResult, setBoxResult] = useState(null);
 
-  const { inventory, completedSets, dailyItemTarget, balance, buyMysteryBox, sellItem, checkCompletedSets } = useGameStore();
+  const inventory = useGameStore(s => s.inventory);
+
+  const completedSets = useGameStore(s => s.completedSets);
+
+  const dailyItemTarget = useGameStore(s => s.dailyItemTarget);
+
+  const balance = useGameStore(s => s.balance);
+
+  const buyMysteryBox = useGameStore(s => s.buyMysteryBox);
+
+  const sellItem = useGameStore(s => s.sellItem);
+
+  const checkCompletedSets = useGameStore(s => s.checkCompletedSets);
 
   useEffect(() => {
     checkCompletedSets(LOST_ITEMS_SETS);

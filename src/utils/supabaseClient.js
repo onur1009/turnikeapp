@@ -1,5 +1,3 @@
-import { createClient } from '@supabase/supabase-js';
-
 // Liderlik tablosu Supabase'te tutulur. Ayar için Vercel'de (ve yerelde .env.local'de):
 //   VITE_SUPABASE_URL=https://<proje>.supabase.co
 //   VITE_SUPABASE_ANON_KEY=<anon key>
@@ -12,12 +10,19 @@ const supabaseKey = env.VITE_SUPABASE_ANON_KEY || env.NEXT_PUBLIC_SUPABASE_PUBLI
 
 // Ayar yoksa istemci hiç oluşturulmaz; eskiden yer tutucu adrese istek atıp hata üretiyordu
 export const isCloudConfigured = Boolean(supabaseUrl && supabaseKey);
-export const supabase = isCloudConfigured ? createClient(supabaseUrl, supabaseKey) : null;
+// Kütüphane (~200 KB) ilk bulut çağrısında yüklenir; açılış paketine girmez
+let clientPromise = null;
+export const getSupabase = () => {
+  if (!isCloudConfigured) return Promise.resolve(null);
+  clientPromise ||= import('@supabase/supabase-js').then(({ createClient }) => createClient(supabaseUrl, supabaseKey));
+  return clientPromise;
+};
 
 // Her oyuncu arka planda anonim bir Supabase oturumu alır. RLS kuralları bir satırı yalnızca
 // sahibinin (auth.uid() = user_id) yazabilmesine izin verir; böylece kimse başkasının
 // kullanıcı adıyla skor gönderip üzerine yazamaz.
 export const ensureSession = async () => {
+  const supabase = await getSupabase();
   const { data: { session } } = await supabase.auth.getSession();
   if (session) return session;
   const { data, error } = await supabase.auth.signInAnonymously();
@@ -31,7 +36,7 @@ export const cloudService = {
   getTopPlayers: async () => {
     if (!isCloudConfigured) return null;
     try {
-      const { data, error } = await supabase
+      const { data, error } = await (await getSupabase())
         .from('players')
         .select('username, score, level')
         .order('score', { ascending: false })
@@ -51,7 +56,7 @@ export const cloudService = {
     try {
       const session = await ensureSession();
       const { score, level } = data;
-      const { error } = await supabase
+      const { error } = await (await getSupabase())
         .from('players')
         .upsert({
           user_id: session.user.id,
