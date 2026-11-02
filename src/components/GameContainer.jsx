@@ -14,7 +14,8 @@ import { Haptics, ImpactStyle, NotificationType } from '@capacitor/haptics';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { App as CapacitorApp } from '@capacitor/app';
 import { LOST_ITEMS_CATALOG, LOST_ITEMS_SETS, getRandomItem } from '../data/lostItems';
-import { calculateWordScore, calculateLevelCompletionBonus } from '../utils/scoring';
+import { calculateWordScore } from '../utils/scoring';
+import { classifyWord, wrongWordCostsLife, vaultOutcome, levelRewards, dropsLostItem, showsBonusLockers, EXTRA_WORD_REWARD } from '../game/rules';
 import { computeRawSignal, updateEwmvAndZScore, getAlpha, detectVolatility } from '../utils/dda';
 import { getStationForLevel } from '../utils/transitNetwork';
 import VehicleSprite from './VehicleSprite';
@@ -111,6 +112,7 @@ export default function GameContainer({
   const [pickMode, setPickMode] = useState(false);
   const [isAdLoading, setIsAdLoading] = useState(false);
   const [goldLetter, setGoldLetter] = useState(null);
+  const [hiddenWord, setHiddenWord] = useState(null);
   
   const [shake, setShake] = useState(false);
   const [flashBalance, setFlashBalance] = useState(false);
@@ -185,7 +187,6 @@ export default function GameContainer({
   const [termRevealed, setTermRevealed] = useState(false);
   const [hatArizasi, setHatArizasi] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
-  const [hiddenWord, setHiddenWord] = useState(null);
 
   // LevelData değiştiğinde Faz 2 mekaniklerini sıfırla/hazırla
   useEffect(() => {
@@ -380,24 +381,15 @@ export default function GameContainer({
     if (soundEnabled) playLevelComplete();
 
     const isFlawless = mistakeCount === 0;
-    const perfectBonus = isFlawless ? 20 : 0;
     if (isFlawless) {
       setTimeout(() => showFeedback('correct', t('perfect')), 800);
       unlockBadge('flawless');
     }
     const store = useGameStore.getState();
-    const { perfectClearBonus: expressBonus } = calculateLevelCompletionBonus(
-      store.levelSessionScore, expressRemaining > 0, expressRemaining
-    );
-    // Gizemli Paket seti: seviye kazancının tamamı 1,5x (kelime puanı zaten eklendi, farkı burada verilir)
-    const multiplier = getEarningsMultiplier(completedSets);
-    const setBonus = Math.round((store.levelSessionScore + perfectBonus + expressBonus) * (multiplier - 1));
     // Durağın 5. ayağı = bölüm sonu: WoW'daki bölüm hediyesi gibi tek seferlik ödül
     const finishedStation = getStationForLevel(levelIndex);
-    const stationBonus = finishedStation.isLastLeg ? 100 : 0;
-    // Hafta sonu etkinliği: kelime puanı 2 kat (fark burada eklenir) ve etkinlik ilerlemesi
+    // Hafta sonu etkinliği: kelime puanı 2 kat (fark bölüm sonunda eklenir) ve etkinlik ilerlemesi
     const event = currentEvent();
-    const eventBonus = event ? Math.round(store.levelSessionScore * (EVENT_MULTIPLIER - 1)) : 0;
     if (event) store.bumpEvent(event.id);
     // Durağın son ayağı: o semtin kartpostalı koleksiyona girer
     if (finishedStation.isLastLeg) {
@@ -405,14 +397,22 @@ export default function GameContainer({
     }
     // Kayıp eşya: eskiden yalnızca hiç atanmayan "gizli kelime" ile düşüyordu, ofis hep boş kalıyordu
     let lostItem = null;
-    if (finishedStation.isLastLeg || Math.random() < 0.15) {
+    if (dropsLostItem(finishedStation.isLastLeg)) {
       const itemId = getRandomItem();
       const isDaily = itemId === store.dailyItemTarget;
       store.addLostItem(itemId);
       lostItem = { ...LOST_ITEMS_CATALOG[itemId], isDaily };
     }
-    const lostBonus = lostItem?.isDaily ? 150 : 0;
-    addBalance(perfectBonus + expressBonus + setBonus + stationBonus + eventBonus + lostBonus);
+    const { perfectBonus, expressBonus, setBonus, stationBonus, eventBonus, lostBonus, total: bonusTotal } = levelRewards({
+      sessionScore: store.levelSessionScore,
+      expressRemaining,
+      isFlawless,
+      earningsMultiplier: getEarningsMultiplier(completedSets), // Gizemli Paket seti 1,5x
+      isLastLeg: finishedStation.isLastLeg,
+      eventMultiplier: event ? EVENT_MULTIPLIER : 1,
+      lostItemIsDaily: !!lostItem?.isDaily,
+    });
+    addBalance(bonusTotal);
 
     // DDA: başarı sinyali (bitirme süresi / ekspres süresi)
     const timeLimit = totalTimeMsRef.current / 1000;
@@ -454,69 +454,90 @@ export default function GameContainer({
     store.syncCloud();
 
     setTimeout(() => {
-      // Variable-Ratio Reinforcement: %12.5 ihtimalle sürpriz dolap; her 10. seviyede kesin
-      const isProbabilisticBonus = levelIndex >= 3 && Math.random() < 0.125; // ilk seviyelerde akışı bölmesin
-      const isLevelMultipleOf10 = (levelIndex + 1) % 10 === 0;
-      if (isProbabilisticBonus || isLevelMultipleOf10) setShowBonus(true);
+      if (showsBonusLockers(levelIndex)) setShowBonus(true);
       else setInternalState('levelComplete');
     }, 1800);
   };
 
+  // Izgarada olmayan geçerli kelime kasaya girer (yerel sözlükten ya da TDK'dan gelir)
+  const acceptExtraWord = (word, meaning) => {
+    incrementCombo();
+    incrementTotalWords();
+    addLearnedWord(word);
+    const before = useGameStore.getState().vaultWords.length;
+    useGameStore.getState().addVaultWord(word);
+    const after = useGameStore.getState().vaultWords.length;
+    const outcome = vaultOutcome(before, after);
+    if (outcome === 'jackpot') {
+      setShowVaultAnimation(true);
+      setTimeout(() => setShowVaultAnimation(false), 3000);
+      if (soundEnabled) setTimeout(() => playBalanceUp(), 500);
+    } else if (outcome === 'added') {
+      showFeedback('exists', `KASAYA EKLENDİ (${after}/10)`);
+      track('extra_word', { level: levelIndex + 1 });
+      useGameStore.getState().bumpDaily('extraWords');
+    } else {
+      showFeedback('exists', t('extra_word'));
+    }
+    if (meaning) setInfoCard({ word, meaning, id: Date.now() });
+    addBalance(EXTRA_WORD_REWARD);
+    if (soundEnabled) playCorrect();
+    if (hapticEnabled) Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
+  };
+
   const handleWordSubmit = async (word) => {
     if (internalState !== 'playing') return false;
-    const isGridWord = levelData.words.some(w => w.word === word);
-    if (foundWords.includes(word) || useGameStore.getState().vaultWords.includes(word)) { 
-      showFeedback('exists', t('already_found')); 
-      return false; 
+    const kind = classifyWord(word, {
+      gridWords: levelData.words.map(w => w.word),
+      foundWords,
+      vaultWords: useGameStore.getState().vaultWords,
+      dictionary: VALID_WORDS,
+    });
+    if (kind === 'duplicate') {
+      showFeedback('exists', t('already_found'));
+      return false;
     }
 
-    // Faz 2: Kayıp Vagon (Hidden Word) kontrolü
+    // Kayıp Vagon: seviyelerin %30'unda seçilen gizli ekstra kelime (tek seferlik ödül)
     if (hiddenWord && word === hiddenWord) {
       let earned = 50;
-      let msg = 'KAYIP VAGON BULUNDU! +50₺';
-      
-      // %30 şansla Kayıp Eşya düşür
+      let msg = `KAYIP VAGON BULUNDU! +${formatKurus(50)}`;
+      // %30 şansla Kayıp Eşya düşer
       if (Math.random() < 0.3) {
         const itemId = getRandomItem();
         addLostItem(itemId);
         const item = LOST_ITEMS_CATALOG[itemId];
-        
         if (itemId === dailyItemTarget) {
           earned += 150; // Günün aranan eşyası ekstra ödülü
-          msg = `GÜNÜN EŞYASI BULUNDU! ${item.name} (+200₺)`;
+          msg = `GÜNÜN EŞYASI BULUNDU! ${item.name} (+${formatKurus(earned)})`;
         } else {
-          msg = `EŞYA BULUNDU: ${item.name} (+50₺)`;
+          msg = `EŞYA BULUNDU: ${item.name} (+${formatKurus(earned)})`;
         }
       }
-      
       addBalance(earned);
       showFeedback('correct', msg);
       if (soundEnabled) playCombo();
-      setHiddenWord(null); // Tek seferlik
+      setHiddenWord(null);
       return true;
     }
-    
-    if (isGridWord) {
+
+    if (kind === 'grid') {
       const newFound = [...foundWords, word];
       setFoundWords(newFound);
       incrementTotalWords();
-      
-      // Kelimeyi hemen sözlüğe ekle
       addLearnedWord(word);
-      
-      // Yeni Skor Sistemi (Scoring Engine)
+
       const answerTime = (Date.now() - levelStartTime) / 1000;
       const ddaTimeAdjust = levelData.ddaTimeAdjust || 0;
       const timeToGiveWord = getTimeForLevel(levelIndex, levelData.words.length, mistakeCount + 1, ddaTimeAdjust);
       const remainingTime = Math.max(0, timeToGiveWord - answerTime);
-      
-      const { points, breakdown } = calculateWordScore(word, combo, remainingTime, timeToGiveWord);
+      const { points } = calculateWordScore(word, combo, remainingTime, timeToGiveWord);
 
       if (answerTime < 3) unlockBadge('speed_demon');
       incrementCombo();
       addBalance(points);
       useGameStore.getState().setLevelSessionScore(useGameStore.getState().levelSessionScore + points);
-      
+
       if (soundEnabled) playCorrect();
       if (soundEnabled && combo >= 2) playCombo();
 
@@ -539,101 +560,46 @@ export default function GameContainer({
       // Rahat mod: ekspres süresi kelime bulununca sıfırlanmaz
       if (newFound.length === levelData.words.length) completeLevel(newFound);
       return true;
-    } else {
-      if (VALID_WORDS.has(word)) { 
-        incrementCombo();
-        incrementTotalWords();
-        addLearnedWord(word);
-        
-        const currentVaultCount = useGameStore.getState().vaultWords.length;
-        useGameStore.getState().addVaultWord(word);
-        const newVaultCount = useGameStore.getState().vaultWords.length;
-        
-        if (currentVaultCount === 9 && newVaultCount === 0) {
-          setShowVaultAnimation(true);
-          setTimeout(() => setShowVaultAnimation(false), 3000);
-          if (soundEnabled) setTimeout(() => playBalanceUp(), 500);
-        } else if (newVaultCount > currentVaultCount) {
-          showFeedback('exists', `KASAYA EKLENDİ (${newVaultCount}/10)`);
-          track('extra_word', { level: levelIndex + 1 });
-          useGameStore.getState().bumpDaily('extraWords');
-          if (hapticEnabled) Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
-        } else {
-          showFeedback('exists', t('extra_word'));
-        }
-        
-        if (WORD_MEANINGS[word]) {
-          setInfoCard({ word, meaning: WORD_MEANINGS[word], id: Date.now() });
-        }
-        
-        addBalance(5); // Kasa için küçük anında ödül
-        if (soundEnabled) playCorrect();
-        if (hapticEnabled) Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
+    }
+
+    if (kind === 'extra') {
+      acceptExtraWord(word, WORD_MEANINGS[word]);
+      return true;
+    }
+
+    // Yerel sözlükte yok: TDK'ya sorulur. API CORS'a izin veriyor; web'de ve Android WebView'da doğrudan çağrılır.
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 4000);
+      const tdkUrl = `https://sozluk.gov.tr/gts?ara=${encodeURIComponent(word.toLocaleLowerCase('tr-TR'))}`;
+      const res = await fetch(tdkUrl, { signal: controller.signal });
+      clearTimeout(timeoutId);
+      const data = await res.json();
+      if (data && !data.error && data.length > 0) {
+        acceptExtraWord(word, data[0]?.anlamlarListe?.[0]?.anlam || "TDK onaylı kelime.");
         return true;
       }
-      else { 
-        // TDK SÖZLÜK KONTROLÜ
-        try {
-          const controller = new AbortController();
-          const timeoutId = setTimeout(() => controller.abort(), 4000);
-          // TDK API'si CORS'a izin veriyor (Access-Control-Allow-Origin: *); üçüncü taraf proxy'ye
-          // (corsproxy.io) gerek yok. Web'de ve Android WebView'da doğrudan çağrılır.
-          const tdkUrl = `https://sozluk.gov.tr/gts?ara=${encodeURIComponent(word.toLocaleLowerCase('tr-TR'))}`;
-          const res = await fetch(tdkUrl, { signal: controller.signal });
-          clearTimeout(timeoutId);
-          const data = await res.json();
-          if (data && !data.error && data.length > 0) {
-            // TDK'da kelime var!
-            incrementCombo();
-            incrementTotalWords();
-            addLearnedWord(word);
-            
-            const currentVaultCount = useGameStore.getState().vaultWords.length;
-            useGameStore.getState().addVaultWord(word);
-            const newVaultCount = useGameStore.getState().vaultWords.length;
-            
-            if (currentVaultCount === 9 && newVaultCount === 0) {
-              setShowVaultAnimation(true);
-              setTimeout(() => setShowVaultAnimation(false), 3000);
-              if (soundEnabled) setTimeout(() => playBalanceUp(), 500);
-            } else if (newVaultCount > currentVaultCount) {
-              showFeedback('exists', `KASAYA EKLENDİ (${newVaultCount}/10)`);
-          track('extra_word', { level: levelIndex + 1 });
-          useGameStore.getState().bumpDaily('extraWords');
-            }
-            
-            const meaning = data[0]?.anlamlarListe?.[0]?.anlam || "TDK onaylı kelime.";
-            setInfoCard({ word, meaning, id: Date.now() });
-            
-            addBalance(5); // Kasa ödülü
-            if (soundEnabled) playCorrect();
-            if (hapticEnabled) Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
-            return true;
-          }
-        } catch (err) {
-          console.error("TDK Check Failed", err);
-          // Graceful fallback: If API is unreachable, don't penalize. Just inform and accept it as an extra word temporarily without meaning, or just give a small warning.
-          showFeedback('exists', 'Sözlük sunucusuna ulaşılamadı.');
-          return false;
-        }
-
-        // TDK'da da yoksa veya ağ hatası varsa hata ver
-        setMistakeCount(c => c + 1); 
-        // İlk 5 seviye öğrenme alanı: yanlış kelime can götürmez
-        if (levelIndex >= 5) {
-          deductLife();
-          triggerLifeLossAnim();
-        }
-        resetCombo();
-        setShake(true);
-        setTimeout(() => setShake(false), 400);
-        showFeedback('wrong', t('wrong')); 
-        if (soundEnabled) playWrong();
-        setWrongWordTrigger(Date.now());
-        if (hapticEnabled) Haptics.notification({ type: NotificationType.Error }).catch(()=>{});
-        return false;
-      }
+    } catch (err) {
+      console.error("TDK Check Failed", err);
+      // Sunucuya ulaşılamazsa oyuncu cezalandırılmaz
+      showFeedback('exists', 'Sözlük sunucusuna ulaşılamadı.');
+      return false;
     }
+
+    // TDK'da da yok: yanlış kelime
+    setMistakeCount(c => c + 1);
+    if (wrongWordCostsLife(levelIndex)) {
+      deductLife();
+      triggerLifeLossAnim();
+    }
+    resetCombo();
+    setShake(true);
+    setTimeout(() => setShake(false), 400);
+    showFeedback('wrong', t('wrong'));
+    if (soundEnabled) playWrong();
+    setWrongWordTrigger(Date.now());
+    if (hapticEnabled) Haptics.notification({ type: NotificationType.Error }).catch(()=>{});
+    return false;
   };
 
   const hintCosts = getHintCosts(completedSets);
