@@ -8,7 +8,7 @@ import {
   TRANSIT_MEANINGS_TR, TRANSIT_MEANINGS_EN, TRANSIT_PROVIDERS_TR, TRANSIT_PROVIDERS_EN,
   COMMON_WORDS_TR, COMMON_WORDS_EN
 } from '../data/transitTerms';
-import { EVERYDAY_ROOTS_TR, EXTRA_WORDS_TR } from '../data/turkishWords';
+import { EVERYDAY_ROOTS_TR, EVERYDAY_ROOTS_TR_V2, EXTRA_WORDS_TR } from '../data/turkishWords';
 
 export const VALID_WORDS_TR = new Set([
   // ===== METRO & ULAŞIM TERİMLERİ (Kökler) =====
@@ -385,6 +385,15 @@ mergeTerms(VALID_WORDS_EN, WORD_MEANINGS_EN, PROVIDER_MAP_EN, TRANSIT_MEANINGS_E
 mergeTerms(VALID_WORDS_TR, WORD_MEANINGS_TR, PROVIDER_MAP_TR,
   Object.fromEntries(EVERYDAY_ROOTS_TR), Object.fromEntries(EVERYDAY_ROOTS_TR.map(([w]) => [w, 'Genel'])), EXTRA_WORDS_TR);
 
+// Düello ve Günün Seferi bu noktadaki sözlüğü ve anlamları kullanır (aşağıda dondurulur): paylaşılmış
+// düello bağlantısı ve aynı günün bulmacası, sözlük büyüse de herkes için aynı kalır.
+const DUEL_VALID_TR = new Set(VALID_WORDS_TR);
+const DUEL_MEANINGS_TR = { ...WORD_MEANINGS_TR };
+const DUEL_PROVIDERS_TR = { ...PROVIDER_MAP_TR };
+// 2. dalga gündelik kökler: yalnızca normal seviyeler ve kavanoz
+mergeTerms(VALID_WORDS_TR, WORD_MEANINGS_TR, PROVIDER_MAP_TR,
+  Object.fromEntries(EVERYDAY_ROOTS_TR_V2), Object.fromEntries(EVERYDAY_ROOTS_TR_V2.map(([w]) => [w, 'Genel'])), []);
+
 // Izgarada sorulmayan nadir kelimeler: sözlükte geçerli kalır (oyuncu bulursa kasaya girer)
 // ama bulmacanın zorunlu kelimesi olarak oyuncuyu şaşırtır (1. seviyede "AKT" gibi).
 const RARE_WORDS_TR = new Set([
@@ -406,6 +415,8 @@ const buildTechPool = (meanings, validWords, rareWords, providerMap, defaultProv
 
 const TECH_TR = buildTechPool(WORD_MEANINGS_TR, VALID_WORDS_TR, RARE_WORDS_TR, PROVIDER_MAP_TR, "Metro Istanbul");
 const TECH_EN = buildTechPool(WORD_MEANINGS_EN, VALID_WORDS_EN, RARE_WORDS_EN, PROVIDER_MAP_EN, "Metro");
+const DUEL_TECH_TR = buildTechPool(DUEL_MEANINGS_TR, DUEL_VALID_TR, RARE_WORDS_TR, DUEL_PROVIDERS_TR, "Metro Istanbul");
+const DUEL_FORMABLE_TR = new Map(); // düello kökleri için alt kelimeler dondurulmuş sözlükten hesaplanır
 
 const FORMABLE_TR = new Map();
 const FORMABLE_EN = new Map();
@@ -573,7 +584,9 @@ const ONBOARDING_EN = [
 // sayılarak seçilir ve dile göre önbelleğe alınır. Eskiden geçmiş, o oturumda üretilen seviyelerden
 // oluşuyordu; uygulama her açılışta sıfırlandığı için kökler kısa aralıkla dönüyor, aynı seviye de
 // farklı bulmaca verebiliyordu.
-const rootSchedule = { tr: { terms: [], roots: [] }, en: { terms: [], roots: [] } };
+// roots tekrar yasağının geçmişidir; ilk 30 tanıtım seviyesinin kökleriyle başlar (yoksa 31. seviye
+// tanıtımda az önce oynanan kökü, örn. TOPHANE'yi, hemen geri getirebiliyordu)
+const rootSchedule = { tr: { terms: [], roots: [...ONBOARDING_TR] }, en: { terms: [], roots: [...ONBOARDING_EN] } };
 const extraWordCounts = new Map();
 
 const chooseTechnicalRoot = (levelIndex, language) => {
@@ -827,7 +840,9 @@ export const WORD_MEANINGS = WORD_MEANINGS_TR;
 // Düello bulmacası: yalnızca seed'e bağlı (oyuncunun geçmişine değil), böylece bağlantıyı açan
 // arkadaş birebir aynı ızgarayı ve çarkı görür. 6-7 harfli kökler, en fazla 6 kelime.
 export const generateDuelLevel = (seed, language = "tr") => {
-  const { techTerms, validWords, formableCache, rareWords } = getPools(language);
+  const base = getPools(language);
+  const { techTerms, validWords, formableCache, rareWords } = language === "en" ? base
+    : { techTerms: DUEL_TECH_TR, validWords: DUEL_VALID_TR, formableCache: DUEL_FORMABLE_TR, rareWords: base.rareWords };
   const rand = seededRandom((Math.abs(seed | 0) % 2147483646) + 1);
   const pool = techTerms.filter(t => t.root.length >= 6 && t.root.length <= 7);
   const usable = pool.length ? pool : techTerms;
