@@ -1,0 +1,26 @@
+# Her push ve PR'da: birim testleri, 10.000 seviye + günlük/düello bulmaca taraması ve build.
+# Vercel bu işi beklemez; kırmızı bir sonuç GitHub'da commit'in yanında görünür.
+# Uçtan uca testler (npm run test:e2e) yerelde çalıştırılır.
+name: test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PUPPETEER_SKIP_DOWNLOAD: "true"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run check:levels
+      - run: npm run build
