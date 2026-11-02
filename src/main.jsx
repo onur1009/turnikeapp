@@ -1,5 +1,6 @@
 import React, { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import './fonts.css'
 import './index.css'
 import App from './App.jsx'
 import { useGameStore, GAME_STORAGE_KEY } from './store/gameStore'

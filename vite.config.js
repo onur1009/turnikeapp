@@ -10,6 +10,8 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
+      // Yerel fontlar da önbelleğe girsin (internetsiz açılışta simgeler yazıya dönmesin)
+      workbox: { globPatterns: ['**/*.{js,css,html,svg,woff2}'] },
       // Kayıt main.jsx'te elle yapılır: Android uygulamasında servis çalışanı olmamalı
       injectRegister: null,
       devOptions: {

@@ -12,7 +12,8 @@
     "test:mobile": "node tests/artemis/run.cjs",
     "check:levels": "node scripts/check-levels.mjs",
     "test": "node scripts/run-tests.mjs",
-    "test:e2e": "node scripts/run-e2e.mjs"
+    "test:e2e": "node scripts/run-e2e.mjs",
+    "fonts": "node scripts/fonts/icon-names.cjs . > scripts/fonts/icons.txt && node scripts/fonts/fetch-fonts.mjs . scripts/fonts/icons.txt"
   },
   "dependencies": {
     "@capacitor-community/admob": "^8.2.1",
