@@ -1,3 +1,4 @@
+import { L } from '../utils/i18n';
 import { useGameStore } from '../store/gameStore';
 import { formatKurus } from '../utils/format';
 import { track } from '../utils/analytics';
@@ -34,8 +35,8 @@ export default function MissionsSheet({ onClose, onOpenPass }) {
         style={{ background: '#10263f', borderTop: '1px solid var(--border)' }} onClick={e => e.stopPropagation()}>
         <div className="w-10 h-1 rounded-full bg-white/25 mx-auto" />
         <div className="flex items-center justify-between">
-          <h2 id="missions-title" className="text-white font-black text-[20px]">Bugünün görevleri</h2>
-          <button className="icon-btn" onClick={onClose} aria-label="Kapat">
+          <h2 id="missions-title" className="text-white font-black text-[20px]">{L("Bugünün görevleri")}</h2>
+          <button className="icon-btn" onClick={onClose} aria-label={L("Kapat")}>
             <span aria-hidden="true" className="material-symbols-outlined text-[20px]">close</span>
           </button>
         </div>
@@ -44,7 +45,7 @@ export default function MissionsSheet({ onClose, onOpenPass }) {
         <button onClick={onOpenPass} className="rounded-2xl p-3.5 flex items-center gap-3 text-left active:scale-[0.98] transition-transform" style={{ background: 'linear-gradient(90deg, #b45309, #7c2d12)' }}>
           <span aria-hidden="true" className="material-symbols-outlined text-[28px] text-amber-200" style={{ fontVariationSettings: "'FILL' 1" }}>confirmation_number</span>
           <span className="flex-1 min-w-0">
-            <span className="block text-white font-black text-[14px]">{seasonName(pass.season)} · Basamak {pass.tier}/{PASS_REWARDS.length}</span>
+            <span className="block text-white font-black text-[14px]">{seasonName(pass.season)}{L(" · Basamak ")}{pass.tier}/{PASS_REWARDS.length}</span>
             <span className="block h-1.5 rounded-full bg-black/25 mt-1.5 overflow-hidden"><span className="block h-full bg-amber-300" style={{ width: `${(pass.intoTier / XP_PER_TIER) * 100}%` }} /></span>
           </span>
           <span aria-hidden="true" className="material-symbols-outlined text-white text-[20px]">chevron_right</span>
@@ -54,7 +55,7 @@ export default function MissionsSheet({ onClose, onOpenPass }) {
           <div key={m.id} className="card-panel !rounded-2xl p-3.5 flex items-center gap-3">
             <span aria-hidden="true" className="material-symbols-outlined text-[24px] shrink-0" style={{ color: m.done ? '#4ade80' : '#fbbf24', fontVariationSettings: "'FILL' 1" }}>{m.done ? 'check_circle' : m.icon}</span>
             <div className="flex-1 min-w-0">
-              <p className="text-white font-bold text-[14px] leading-tight">{m.title}</p>
+              <p className="text-white font-bold text-[14px] leading-tight">{L(m.title)}</p>
               <div className="flex items-center gap-2 mt-1.5">
                 <div className="h-1.5 flex-1 rounded-full bg-white/10 overflow-hidden">
                   <div className="h-full rounded-full bg-amber-400 transition-all" style={{ width: `${(m.value / m.goal) * 100}%` }} />
@@ -67,12 +68,12 @@ export default function MissionsSheet({ onClose, onOpenPass }) {
               onClick={() => { claimMission(m.id, m.reward); addPassXp('mission'); track('mission_claim', { id: m.id }); }}
               className="shrink-0 px-3.5 py-2 rounded-full font-black text-[12px] text-white bg-green-600 disabled:bg-white/10 disabled:text-white/50"
             >
-              {m.claimed ? 'Alındı' : `+${formatKurus(m.reward)}`}
+              {m.claimed ? L("Alındı") : `+${formatKurus(m.reward)}`}
             </button>
           </div>
         ))}
 
-        <h3 className="text-white font-black text-[16px] mt-2">Giriş serisi: {streak} gün 🔥</h3>
+        <h3 className="text-white font-black text-[16px] mt-2">{L("Giriş serisi: ")}{streak}{L(" gün 🔥")}</h3>
         <div className="grid grid-cols-5 gap-1.5">
           {STREAK_MILESTONES.map(([day, reward]) => {
             const reached = streak >= day;
@@ -88,8 +89,7 @@ export default function MissionsSheet({ onClose, onOpenPass }) {
           })}
         </div>
         <p className="text-white/55 text-[12px] font-semibold">
-          {nextMilestone ? `${nextMilestone[0] - streak} gün sonra ${formatKurus(nextMilestone[1])} seri ödülü.` : 'Tüm seri ödüllerini açtın!'} Görevler gece yarısı yenilenir.
-        </p>
+          {nextMilestone ? L("{0} gün sonra {1} seri ödülü.", nextMilestone[0] - streak, formatKurus(nextMilestone[1])) : L("Tüm seri ödüllerini açtın!")}{L(" Görevler gece yarısı yenilenir.")}</p>
       </div>
     </div>
   );

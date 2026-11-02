@@ -1,3 +1,4 @@
+import { L } from '../utils/i18n';
 import { useState, useEffect } from 'react';
 import { useGameStore } from '../store/gameStore';
 import { LOST_ITEMS_CATALOG, LOST_ITEMS_SETS, getRandomItem } from '../data/lostItems';
@@ -52,14 +53,14 @@ const LostItemsScreen = ({ onBack }) => {
 
   return (
     <div className="flex-1 w-full flex flex-col items-center relative z-20 fade-in pb-6 px-4 min-h-full">
-      <ScreenHeader title="Kayıp Eşya Ofisi" onBack={onBack} className="px-0 pt-6 mb-3 max-w-sm"
+      <ScreenHeader title={L("Kayıp Eşya Ofisi")} onBack={onBack} className="px-0 pt-6 mb-3 max-w-sm"
         right={<span className="balance-pill">{formatKurus(balance)}</span>} />
 
       {/* Tabs */}
       <div className="flex w-full max-w-sm bg-white/5 p-1 rounded-full mb-6">
-        <button onClick={() => setActiveTab('raflar')} className={`flex-1 py-2 rounded-full font-bold text-sm transition-all ${activeTab === 'raflar' ? 'bg-green-600 text-white' : 'text-white/50 hover:text-white/80'}`}>Raflar</button>
-        <button onClick={() => setActiveTab('kutu')} className={`flex-1 py-2 rounded-full font-bold text-sm transition-all ${activeTab === 'kutu' ? 'bg-green-600 text-white' : 'text-white/50 hover:text-white/80'}`}>Sürpriz Kutu</button>
-        <button onClick={() => setActiveTab('pazar')} className={`flex-1 py-2 rounded-full font-bold text-sm transition-all ${activeTab === 'pazar' ? 'bg-green-600 text-white' : 'text-white/50 hover:text-white/80'}`}>Pazar</button>
+        <button onClick={() => setActiveTab('raflar')} className={`flex-1 py-2 rounded-full font-bold text-sm transition-all ${activeTab === 'raflar' ? 'bg-green-600 text-white' : 'text-white/50 hover:text-white/80'}`}>{L("Raflar")}</button>
+        <button onClick={() => setActiveTab('kutu')} className={`flex-1 py-2 rounded-full font-bold text-sm transition-all ${activeTab === 'kutu' ? 'bg-green-600 text-white' : 'text-white/50 hover:text-white/80'}`}>{L("Sürpriz Kutu")}</button>
+        <button onClick={() => setActiveTab('pazar')} className={`flex-1 py-2 rounded-full font-bold text-sm transition-all ${activeTab === 'pazar' ? 'bg-green-600 text-white' : 'text-white/50 hover:text-white/80'}`}>{L("Pazar")}</button>
       </div>
 
       {/* TAB CONTENT: RAFLAR */}
@@ -68,9 +69,9 @@ const LostItemsScreen = ({ onBack }) => {
           <div className="card-panel !rounded-2xl p-4 mb-5 flex items-center gap-3">
             <span aria-hidden="true" className="material-symbols-outlined text-[30px] text-sky-300" style={{ fontVariationSettings: "'FILL' 1" }}>{dailyItemTarget ? LOST_ITEMS_CATALOG[dailyItemTarget].icon : 'search'}</span>
             <div className="flex-1 min-w-0">
-              <p className="text-white font-black text-[14px]">Bugün aranan: {dailyItemTarget ? LOST_ITEMS_CATALOG[dailyItemTarget].name : '—'}</p>
-              <p className="text-white/60 text-[12px] font-semibold">Eşyalar bölüm sonlarında bulunur; bir durağı bitirince kesin bir eşya çıkar. Aranan eşya +₺1,50.</p>
-              <p className="text-white/80 text-[12px] font-bold mt-1">{Object.values(inventory).filter(c => c > 0).length}/{itemsList.length} eşya · {completedSets.length}/{LOST_ITEMS_SETS.length} set</p>
+              <p className="text-white font-black text-[14px]">{L("Bugün aranan: ")}{dailyItemTarget ? LOST_ITEMS_CATALOG[dailyItemTarget].name : '—'}</p>
+              <p className="text-white/60 text-[12px] font-semibold">{L("Eşyalar bölüm sonlarında bulunur; bir durağı bitirince kesin bir eşya çıkar. Aranan eşya +₺1,50.")}</p>
+              <p className="text-white/80 text-[12px] font-bold mt-1">{Object.values(inventory).filter(c => c > 0).length}/{itemsList.length}{L(" eşya · ")}{completedSets.length}/{LOST_ITEMS_SETS.length} set</p>
             </div>
           </div>
           {LOST_ITEMS_SETS.map(setInfo => {
@@ -78,10 +79,10 @@ const LostItemsScreen = ({ onBack }) => {
             return (
               <div key={setInfo.id} className="mb-8">
                 <div className="flex items-center justify-between mb-3 px-2">
-                  <h3 className={`font-bold text-lg ${isCompleted ? 'text-green-400' : 'text-white'}`}>{setInfo.name}</h3>
-                  {isCompleted && <span className="text-[10px] bg-green-500/20 text-green-300 px-2 py-1 rounded-md font-bold uppercase tracking-wider border border-green-500/30">Set Tamamlandı</span>}
+                  <h3 className={`font-bold text-lg ${isCompleted ? 'text-green-400' : 'text-white'}`}>{L(setInfo.name)}</h3>
+                  {isCompleted && <span className="text-[10px] bg-green-500/20 text-green-300 px-2 py-1 rounded-md font-bold uppercase tracking-wider border border-green-500/30">{L("Set Tamamlandı")}</span>}
                 </div>
-                <p className="text-xs text-white/50 px-2 mb-4">Ödül: {setInfo.description}</p>
+                <p className="text-xs text-white/50 px-2 mb-4">{L("Ödül: ")}{L(setInfo.description)}</p>
                 <div className="grid grid-cols-3 gap-3">
                   {setInfo.items.map(itemId => {
                     const item = LOST_ITEMS_CATALOG[itemId];
@@ -94,7 +95,7 @@ const LostItemsScreen = ({ onBack }) => {
                         <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-2 shadow-inner ${unlocked ? 'bg-gradient-to-br from-green-400/20 to-green-600/20' : 'bg-white/5'}`}>
                           <span aria-hidden="true" className={`material-symbols-outlined text-[24px] ${unlocked ? 'text-green-300' : 'text-white/20'}`}>{unlocked ? item.icon : 'lock'}</span>
                         </div>
-                        <h3 className={`font-black text-[10px] leading-tight ${unlocked ? 'text-green-50' : 'text-white/40'}`}>{unlocked ? item.name : 'Kilitli'}</h3>
+                        <h3 className={`font-black text-[10px] leading-tight ${unlocked ? 'text-green-50' : 'text-white/40'}`}>{unlocked ? item.name : L("Kilitli")}</h3>
                       </div>
                     );
                   })}
@@ -123,19 +124,19 @@ const LostItemsScreen = ({ onBack }) => {
           
           {boxResult ? (
             <div className="mb-8 fade-in">
-              <h3 className="text-2xl font-black text-green-400 mb-2">{boxResult.name}</h3>
-              <p className="text-white/70 text-sm max-w-xs">{boxResult.description}</p>
+              <h3 className="text-2xl font-black text-green-400 mb-2">{L(boxResult.name)}</h3>
+              <p className="text-white/70 text-sm max-w-xs">{L(boxResult.description)}</p>
             </div>
           ) : (
             <div className="mb-8">
-              <h3 className="text-xl font-bold text-white mb-2">Sürpriz Kutu</h3>
-              <p className="text-white/50 text-sm">{formatKurus(MYSTERY_BOX_PRICE)} karşılığında rastgele bir kayıp eşya bulma şansı yakala!</p>
+              <h3 className="text-xl font-bold text-white mb-2">{L("Sürpriz Kutu")}</h3>
+              <p className="text-white/50 text-sm">{formatKurus(MYSTERY_BOX_PRICE)}{L(" karşılığında rastgele bir kayıp eşya bulma şansı yakala!")}</p>
             </div>
           )}
 
           <button onClick={handleOpenBox} disabled={isOpeningBox || balance < MYSTERY_BOX_PRICE}
             className={`px-8 py-4 rounded-full font-black text-lg transition-all ${isOpeningBox || balance < MYSTERY_BOX_PRICE ? 'bg-white/10 text-white/30' : 'bg-green-600 text-white active:scale-95'}`}>
-            {isOpeningBox ? 'KUTU AÇILIYOR...' : `KUTU AÇ (${formatKurus(MYSTERY_BOX_PRICE)})`}
+            {isOpeningBox ? L("KUTU AÇILIYOR...") : L("KUTU AÇ ({0})", formatKurus(MYSTERY_BOX_PRICE))}
           </button>
         </div>
       )}
@@ -144,19 +145,19 @@ const LostItemsScreen = ({ onBack }) => {
       {activeTab === 'pazar' && (
         <div className="flex-1 w-full max-w-sm overflow-y-auto no-scrollbar pb-10">
           <div className="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-4 mb-6 text-center">
-            <h3 className="text-blue-400 font-bold text-sm mb-1 uppercase tracking-wider">Günün Aranan Eşyası</h3>
-            <p className="text-white/70 text-xs mb-3">Bu eşyayı bugün bölüm sonunda bulursan +₺1,50 kazanırsın.</p>
+            <h3 className="text-blue-400 font-bold text-sm mb-1 uppercase tracking-wider">{L("Günün Aranan Eşyası")}</h3>
+            <p className="text-white/70 text-xs mb-3">{L("Bu eşyayı bugün bölüm sonunda bulursan +₺1,50 kazanırsın.")}</p>
             {dailyItemTarget ? (
               <div className="inline-flex items-center gap-2 bg-blue-500/20 px-4 py-2 rounded-xl">
                 <span aria-hidden="true" className="material-symbols-outlined text-blue-300">{LOST_ITEMS_CATALOG[dailyItemTarget].icon}</span>
                 <span className="text-white font-bold">{LOST_ITEMS_CATALOG[dailyItemTarget].name}</span>
               </div>
             ) : (
-              <span className="text-white/50 text-xs">Aranan eşya yok.</span>
+              <span className="text-white/50 text-xs">{L("Aranan eşya yok.")}</span>
             )}
           </div>
 
-          <h3 className="text-white font-bold mb-4">Fazla Eşyaları Sat</h3>
+          <h3 className="text-white font-bold mb-4">{L("Fazla Eşyaları Sat")}</h3>
           <div className="space-y-3">
             {itemsList.map(item => {
               const count = inventory[item.id] || 0;
@@ -168,21 +169,20 @@ const LostItemsScreen = ({ onBack }) => {
                       <span aria-hidden="true" className="material-symbols-outlined">{item.icon}</span>
                     </div>
                     <div>
-                      <h4 className="text-white font-bold text-sm">{item.name}</h4>
-                      <p className="text-white/50 text-xs">{count - 1} adet fazlan var</p>
+                      <h4 className="text-white font-bold text-sm">{L(item.name)}</h4>
+                      <p className="text-white/50 text-xs">{count - 1}{L(" adet fazlan var")}</p>
                     </div>
                   </div>
                   <button onClick={() => {
                     sellItem(item.id, item.value);
                     if (useGameStore.getState().hapticEnabled) Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
-                  }} className="bg-green-600/20 text-green-400 border border-green-500/30 px-3 py-1.5 rounded-lg text-xs font-bold active:scale-95 transition-all">
-                    SAT (+{formatKurus(item.value)})
+                  }} className="bg-green-600/20 text-green-400 border border-green-500/30 px-3 py-1.5 rounded-lg text-xs font-bold active:scale-95 transition-all">{L("SAT (+")}{formatKurus(item.value)})
                   </button>
                 </div>
               );
             })}
             {Object.keys(inventory).filter(id => inventory[id] > 1).length === 0 && (
-              <div className="text-center text-white/40 text-sm py-8">Satılabilecek fazla eşyan yok. Sadece koleksiyonunda 1'den fazla olan eşyalar satılabilir.</div>
+              <div className="text-center text-white/40 text-sm py-8">{L("Satılabilecek fazla eşyan yok. Sadece koleksiyonunda 1'den fazla olan eşyalar satılabilir.")}</div>
             )}
           </div>
         </div>
@@ -198,13 +198,13 @@ const LostItemsScreen = ({ onBack }) => {
             <div className="w-20 h-20 rounded-2xl bg-green-500/20 flex items-center justify-center mx-auto mb-4 border border-green-400/30">
               <span aria-hidden="true" className="material-symbols-outlined text-4xl text-green-400">{selectedItem.icon}</span>
             </div>
-            <h2 className="text-2xl font-black text-white text-center mb-1">{selectedItem.name}</h2>
-            <div className="text-green-400 text-[10px] font-bold uppercase tracking-widest text-center mb-4">{selectedItem.rarity} EŞYA</div>
+            <h2 className="text-2xl font-black text-white text-center mb-1">{L(selectedItem.name)}</h2>
+            <div className="text-green-400 text-[10px] font-bold uppercase tracking-widest text-center mb-4">{selectedItem.rarity}{L(" EŞYA")}</div>
             <div className="bg-white/5 rounded-xl p-4 border border-white/10 mb-4 relative overflow-hidden">
               <span aria-hidden="true" className="material-symbols-outlined absolute -bottom-4 -right-2 text-6xl text-white/5 opacity-50">format_quote</span>
               <p className="text-white/80 text-sm italic relative z-10 leading-relaxed">"{selectedItem.lore}"</p>
             </div>
-            <p className="text-center text-xs text-white/40">Eşya Değeri: {formatKurus(selectedItem.value * 100)}</p>
+            <p className="text-center text-xs text-white/40">{L("Eşya Değeri: ")}{formatKurus(selectedItem.value * 100)}</p>
           </div>
         </div>
       )}

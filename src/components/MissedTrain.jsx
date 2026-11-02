@@ -1,3 +1,4 @@
+import { L } from '../utils/i18n';
 import { useEffect } from 'react';
 import VehicleSprite from './VehicleSprite';
 import { playTrainDepart } from '../utils/soundManager';
@@ -10,9 +11,7 @@ export default function MissedTrain({ color = '#16a34a', mode = 'metro' }) {
   return (
     <div className="missed-scene" aria-hidden="true">
       <div className="missed-sign">
-        <span className="missed-led" />
-        KAPILAR KAPANIYOR
-      </div>
+        <span className="missed-led" />{L("KAPILAR KAPANIYOR")}</div>
       <div className="missed-track">
         <div className="missed-train">
           <VehicleSprite mode={mode} color={color} width={260} night facing="right" />

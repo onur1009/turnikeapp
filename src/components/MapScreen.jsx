@@ -1,3 +1,4 @@
+import { L } from '../utils/i18n';
 import { useState, useEffect, useRef } from 'react';
 import { getStationData, getStationXPosition, LEVELS_PER_STATION, LINES, STATION_NAMES } from '../utils/transitNetwork';
 
@@ -146,7 +147,7 @@ const MapScreen = ({ onLevelSelect, currentLevel, initialLineId }) => {
 
       <div className="text-center mb-4">
         <div className="inline-block px-3 py-1 rounded-full" style={{ background: `${activeLineObj.color}22`, border: `1px solid ${activeLineObj.color}44` }}>
-          <span className="text-[10px] font-extrabold text-white">Bölüm {startGlobalIndex * LEVELS_PER_STATION + 1} - {(startGlobalIndex + stationsInLine.length) * LEVELS_PER_STATION}</span>
+          <span className="text-[10px] font-extrabold text-white">{L("Bölüm ")}{startGlobalIndex * LEVELS_PER_STATION + 1} - {(startGlobalIndex + stationsInLine.length) * LEVELS_PER_STATION}</span>
         </div>
       </div>
 
@@ -265,7 +266,7 @@ const MapScreen = ({ onLevelSelect, currentLevel, initialLineId }) => {
                       <div className="w-full h-1.5 rounded-full overflow-hidden mb-1" style={{ background: 'rgba(255,255,255,0.2)' }}>
                         <div className="h-full transition-all duration-500" style={{ width: `${progressRatio * 100}%`, background: activeLineObj.color }} />
                       </div>
-                      <span className="text-[9px] font-bold text-white/80">{currentLvlInStation} / {LEVELS_PER_STATION} Bölüm</span>
+                      <span className="text-[9px] font-bold text-white/80">{currentLvlInStation} / {LEVELS_PER_STATION}{L(" Bölüm")}</span>
                     </div>
                   )}
 
@@ -280,7 +281,7 @@ const MapScreen = ({ onLevelSelect, currentLevel, initialLineId }) => {
                   >
                     <p className="text-[11px] font-extrabold">{stationName}</p>
                     {i === stationsInLine.length - 1 && (
-                      <p className="text-[8px] font-bold opacity-75 uppercase tracking-wider mt-0.5">Aktarma Noktası</p>
+                      <p className="text-[8px] font-bold opacity-75 uppercase tracking-wider mt-0.5">{L("Aktarma Noktası")}</p>
                     )}
                   </div>
                 </button>

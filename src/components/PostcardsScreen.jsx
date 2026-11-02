@@ -1,3 +1,4 @@
+import { L } from '../utils/i18n';
 import { useState } from 'react';
 import { useGameStore } from '../store/gameStore';
 import ScreenHeader from './ScreenHeader';
@@ -14,12 +15,12 @@ export default function PostcardsScreen({ onBack }) {
   return (
     <main className="flex-1 w-full overflow-y-auto" style={{ overscrollBehavior: 'contain' }}>
       <div className="w-full max-w-md mx-auto px-4 pb-10">
-        <ScreenHeader title="Kartpostallarım" onBack={onBack} className="px-0" />
+        <ScreenHeader title={L("Kartpostallarım")} onBack={onBack} className="px-0" />
         {postcards.length === 0 ? (
           <div className="card-panel !rounded-2xl p-6 text-center flex flex-col items-center gap-3 mt-6">
             <span aria-hidden="true" className="material-symbols-outlined text-[48px] text-amber-300" style={{ fontVariationSettings: "'FILL' 1" }}>mail</span>
-            <p className="text-white font-black text-[18px]">Henüz kartpostal yok</p>
-            <p className="text-white/65 text-[14px] font-semibold">Bir durağın 5 bölümünü bitirince o semtten bir kartpostal gelir.</p>
+            <p className="text-white font-black text-[18px]">{L("Henüz kartpostal yok")}</p>
+            <p className="text-white/65 text-[14px] font-semibold">{L("Bir durağın 5 bölümünü bitirince o semtten bir kartpostal gelir.")}</p>
           </div>
         ) : byLine.map(({ line, cards }) => (
           <section key={line.id} className="mb-6">
@@ -30,7 +31,7 @@ export default function PostcardsScreen({ onBack }) {
             </h2>
             <div className="grid grid-cols-2 gap-2.5">
               {cards.map(c => (
-                <button key={c.stationIndex} onClick={() => setOpen(c)} className="text-left active:scale-[0.98] transition-transform" aria-label={`${c.name} kartpostalı`}>
+                <button key={c.stationIndex} onClick={() => setOpen(c)} className="text-left active:scale-[0.98] transition-transform" aria-label={L("{0} kartpostalı", c.name)}>
                   <Postcard card={c} />
                 </button>
               ))}
@@ -40,10 +41,10 @@ export default function PostcardsScreen({ onBack }) {
       </div>
 
       {open && (
-        <div className="fixed inset-0 z-[160] bg-black/75 flex items-center justify-center p-5 fade-in" onClick={() => setOpen(null)} role="dialog" aria-label={`${open.name} kartpostalı`}>
+        <div className="fixed inset-0 z-[160] bg-black/75 flex items-center justify-center p-5 fade-in" onClick={() => setOpen(null)} role="dialog" aria-label={L("{0} kartpostalı", open.name)}>
           <div className="w-full max-w-sm scale-in" onClick={e => e.stopPropagation()}>
             <Postcard card={open} large />
-            <button onClick={() => setOpen(null)} className="mt-4 w-full py-3 rounded-full bg-white text-[#10263f] font-black text-[14px]">Kapat</button>
+            <button onClick={() => setOpen(null)} className="mt-4 w-full py-3 rounded-full bg-white text-[#10263f] font-black text-[14px]">{L("Kapat")}</button>
           </div>
         </div>
       )}

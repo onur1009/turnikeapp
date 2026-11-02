@@ -1,3 +1,4 @@
+import { L } from '../utils/i18n';
 import { useGameStore, VAULT_REWARD } from '../store/gameStore';
 import { formatKurus } from '../utils/format';
 import ScreenHeader from './ScreenHeader';
@@ -10,7 +11,7 @@ const VaultScreen = ({ onBack }) => {
 
   return (
     <div className="flex-1 w-full flex flex-col items-center relative z-20 fade-in pb-6 px-4">
-      <ScreenHeader title="Kasa" onBack={onBack} className="px-0 pt-6 mb-6 max-w-sm" />
+      <ScreenHeader title={L("Kasa")} onBack={onBack} className="px-0 pt-6 mb-6 max-w-sm" />
 
       {/* Kasa Görseli */}
       <div className="relative mb-8 mt-4">
@@ -44,21 +45,17 @@ const VaultScreen = ({ onBack }) => {
             <div className="absolute top-0 right-0 bottom-0 w-8 bg-gradient-to-r from-transparent to-white/40"></div>
           </div>
         </div>
-        <p className="text-center text-white/50 text-xs font-bold mt-3 uppercase tracking-wider">
-          Kasanın kırılmasına <span className="text-green-400">{maxCapacity - currentCount}</span> kelime kaldı!
-        </p>
+        <p className="text-center text-white/50 text-xs font-bold mt-3 uppercase tracking-wider">{L("Kasanın kırılmasına ")}<span className="text-green-400">{maxCapacity - currentCount}</span>{L(" kelime kaldı!")}</p>
       </div>
 
       {/* Kelimeler Listesi */}
       <div className="w-full max-w-sm flex-1 bg-black/40 rounded-3xl border border-white/5 p-5 overflow-y-auto">
-        <h3 className="text-white/60 text-[11px] font-black tracking-[3px] mb-4 uppercase">
-          Biriken Kelimeler
-        </h3>
+        <h3 className="text-white/60 text-[11px] font-black tracking-[3px] mb-4 uppercase">{L("Biriken Kelimeler")}</h3>
         
         {currentCount === 0 ? (
           <div className="flex flex-col items-center justify-center h-32 opacity-50">
             <span aria-hidden="true" className="material-symbols-outlined text-4xl mb-2 text-white/40">search_off</span>
-            <p className="text-white/60 text-sm font-bold text-center">Henüz ekstra kelime bulmadın.</p>
+            <p className="text-white/60 text-sm font-bold text-center">{L("Henüz ekstra kelime bulmadın.")}</p>
           </div>
         ) : (
           <div className="flex flex-wrap gap-2">
@@ -83,9 +80,7 @@ const VaultScreen = ({ onBack }) => {
       {/* Kural Uyarısı */}
       <div className="w-full max-w-sm mt-6 p-4 rounded-2xl bg-white/5 border border-white/5 flex items-start gap-3">
         <span aria-hidden="true" className="material-symbols-outlined text-yellow-500 text-[20px]">info</span>
-        <p className="text-white/60 text-[12px] leading-relaxed font-bold">
-          Bulmacada yer almayan ama sözlükte bulunan (geçerli) her kelime Kasaya eklenir. Kasa dolduğunda anında <span className="text-green-400">{formatKurus(VAULT_REWARD)} bakiye</span> kazanırsınız!
-        </p>
+        <p className="text-white/60 text-[12px] leading-relaxed font-bold">{L("Bulmacada yer almayan ama sözlükte bulunan (geçerli) her kelime Kasaya eklenir. Kasa dolduğunda anında ")}<span className="text-green-400">{formatKurus(VAULT_REWARD)} bakiye</span>{L(" kazanırsınız!")}</p>
       </div>
 
     </div>

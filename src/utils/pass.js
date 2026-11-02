@@ -1,3 +1,4 @@
+import { L } from './i18n';
 // Aylık Hat Pasosu (ücretsiz şerit): oynadıkça XP kazanılır, 20 basamakta ödül açılır.
 // Sezon takvim ayıdır; ay değişince XP ve alınan ödüller sıfırlanır, açılan kart desenleri kalır.
 // XP: bölüm 10, Günün Seferi 30, günlük görev 20, kazanılan düello 15.
@@ -17,7 +18,7 @@ export const PASS_REWARDS = [
 
 const MONTHS = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
 export const seasonKey = (d = new Date()) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
-export const seasonName = (key = seasonKey()) => `${MONTHS[Number(key.slice(5)) - 1]} Pasosu`;
+export const seasonName = (key = seasonKey()) => L('{0} Pasosu', L(MONTHS[Number(key.slice(5)) - 1]));
 export const seasonEndsIn = (d = new Date()) => {
   const end = new Date(d.getFullYear(), d.getMonth() + 1, 1);
   const days = Math.ceil((end - d) / 86400000);

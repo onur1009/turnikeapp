@@ -1,3 +1,4 @@
+import { L } from '../utils/i18n';
 import { useGameStore } from '../store/gameStore';
 
 // Bir kez gösterilen ipucu baloncuğu (ilk oturum rehberi). Okundu deyince seenTips'e yazılır
@@ -9,7 +10,7 @@ export default function TipBubble({ id, when = true, children, className = '' })
   return (
     <div role="status" className={`tip-bubble fade-in ${className}`}>
       <span className="flex-1">{children}</span>
-      <button onClick={dismiss} className="tip-ok">Tamam</button>
+      <button onClick={dismiss} className="tip-ok">{L("Tamam")}</button>
     </div>
   );
 }

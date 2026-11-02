@@ -1,3 +1,4 @@
+import { L } from '../utils/i18n';
 import { useEffect, useState } from 'react';
 import { useGameStore } from '../store/gameStore';
 import { playStationAnnouncement } from '../utils/soundManager';
@@ -29,7 +30,7 @@ export default function StationAnnouncement({ station, levelKey }) {
       <span className="line-badge" style={{ background: station.color }}>{station.code}</span>
       <span className="flex flex-col min-w-0">
         <span className="station-announce-label">
-          {arrival ? (transfer ? 'AKTARMA · SIRADAKİ DURAK' : 'SIRADAKİ DURAK') : `BÖLÜM ${station.leg}/${station.legsPerStation}`}
+          {arrival ? (transfer ? L("AKTARMA · SIRADAKİ DURAK") : L("SIRADAKİ DURAK")) : L("BÖLÜM {0}/{1}", station.leg, station.legsPerStation)}
         </span>
         <span className="station-announce-name">{station.displayName}</span>
       </span>

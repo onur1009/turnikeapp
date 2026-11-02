@@ -1,6 +1,6 @@
 import { setAnalyticsConsent } from '../utils/analytics';
 import { useGameStore } from '../store/gameStore';
-import { useTranslation } from '../utils/i18n';
+import { useTranslation, L } from '../utils/i18n';
 import ScreenHeader from './ScreenHeader';
 
 // Ayar satırı ve anahtar: bileşen dışında tanımlı ki her çizimde yeniden oluşup odak kaybolmasın
@@ -44,10 +44,8 @@ const SettingsScreen = ({ onBack }) => {
           <div className="bg-white/5 rounded-2xl p-4 border border-white/10">
             <div className="flex justify-between items-center mb-4">
               <span className="text-white font-bold flex items-center gap-2">
-                <span aria-hidden="true" className="material-symbols-outlined text-blue-400">volume_up</span>
-                Ses efektleri
-              </span>
-              <Toggle on={soundEnabled} onClick={() => setSettings({ soundEnabled: !soundEnabled })} label="Ses efektleri" />
+                <span aria-hidden="true" className="material-symbols-outlined text-blue-400">volume_up</span>{L("Ses efektleri")}</span>
+              <Toggle on={soundEnabled} onClick={() => setSettings({ soundEnabled: !soundEnabled })} label={L("Ses efektleri")} />
             </div>
             
             <div className="flex justify-between items-center">
@@ -58,29 +56,29 @@ const SettingsScreen = ({ onBack }) => {
               <Toggle on={hapticEnabled} onClick={() => setSettings({ hapticEnabled: !hapticEnabled })} label={t('haptic')} />
             </div>
 
-            <Row icon="music_note" color="text-pink-300" title="Müzik" hint="Arka plan müziği"
+            <Row icon="music_note" color="text-pink-300" title={L("Müzik")} hint={L("Arka plan müziği")}
               on={musicEnabled} onClick={() => setSettings({ musicEnabled: !musicEnabled })} />
             {musicEnabled && (
               <label className="flex items-center gap-3 mt-3 text-white/70 text-[12px] font-bold">
-                <span className="shrink-0">Müzik seviyesi</span>
-                <input type="range" min="0" max="1" step="0.05" value={musicVolume ?? 0.5} aria-label="Müzik seviyesi"
+                <span className="shrink-0">{L("Müzik seviyesi")}</span>
+                <input type="range" min="0" max="1" step="0.05" value={musicVolume ?? 0.5} aria-label={L("Müzik seviyesi")}
                   onChange={e => setSettings({ musicVolume: Number(e.target.value) })} className="flex-1 accent-pink-400" />
               </label>
             )}
-            <Row icon="campaign" color="text-amber-300" title="Durak anonsu" hint="Yeni durakta tabela ve sesli anons"
+            <Row icon="campaign" color="text-amber-300" title={L("Durak anonsu")} hint={L("Yeni durakta tabela ve sesli anons")}
               on={announceEnabled} onClick={() => setSettings({ announceEnabled: !announceEnabled })} />
-            <Row icon="format_size" color="text-sky-300" title="Büyük harfler" hint="Izgara ve çarktaki harfler büyür"
+            <Row icon="format_size" color="text-sky-300" title={L("Büyük harfler")} hint={L("Izgara ve çarktaki harfler büyür")}
               on={largeText} onClick={() => setSettings({ largeText: !largeText })} />
-            <Row icon="contrast" color="text-white" title="Yüksek kontrast" hint="Taşlar ve yazılar daha belirgin"
+            <Row icon="contrast" color="text-white" title={L("Yüksek kontrast")} hint={L("Taşlar ve yazılar daha belirgin")}
               on={highContrast} onClick={() => setSettings({ highContrast: !highContrast })} />
 
             {/* KVKK: anonim kullanım verisi rızası */}
             <div className="flex justify-between items-center mt-4 gap-3">
               <span className="text-white font-bold flex items-center gap-2 min-w-0">
                 <span aria-hidden="true" className="material-symbols-outlined text-teal-400">insights</span>
-                <span className="flex flex-col"><span>Anonim kullanım verisi</span><span className="text-white/50 text-[11px] font-semibold">Ad, e-posta, konum toplanmaz</span></span>
+                <span className="flex flex-col"><span>{L("Anonim kullanım verisi")}</span><span className="text-white/50 text-[11px] font-semibold">{L("Ad, e-posta, konum toplanmaz")}</span></span>
               </span>
-              <Toggle on={analyticsConsent === true} onClick={() => setAnalyticsConsent(analyticsConsent !== true)} label="Anonim kullanım verisi" />
+              <Toggle on={analyticsConsent === true} onClick={() => setAnalyticsConsent(analyticsConsent !== true)} label={L("Anonim kullanım verisi")} />
             </div>
           </div>
 
@@ -106,15 +104,11 @@ const SettingsScreen = ({ onBack }) => {
               <button
                 onClick={() => setSettings({ language: 'tr' })}
                 className={`flex-1 py-3 rounded-xl font-bold text-sm tracking-wide transition-colors ${language === 'tr' ? 'bg-red-600 text-white' : 'bg-white/5 text-white/70 hover:bg-white/10'}`}
-              >
-                Türkçe
-              </button>
+              >{L("Türkçe")}</button>
               <button
                 onClick={() => setSettings({ language: 'en' })}
                 className={`flex-1 py-3 rounded-xl font-bold text-sm tracking-wide transition-colors ${language === 'en' ? 'bg-blue-600 text-white' : 'bg-white/5 text-white/70 hover:bg-white/10'}`}
-              >
-                English
-              </button>
+              >{L("English")}</button>
             </div>
           </div>
         </div>

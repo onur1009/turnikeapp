@@ -1,3 +1,4 @@
+import { L } from '../utils/i18n';
 import { LINES, STATION_INFO } from '../utils/transitNetwork';
 import { getSceneFor } from '../data/scenes';
 import { PHOTO_CREDITS, photoFor } from '../data/postcardPhotos';
@@ -18,20 +19,19 @@ export default function Postcard({ card, large = false }) {
         <img className="postcard-photo" src={`/postcards/${photo}.webp`} alt="" loading="lazy" decoding="async" />
         <figcaption className="postcard-caption">
           <span className="line-badge" style={{ background: line.color }}>{line.code}</span>
-          <span className="postcard-hello">Selamlar,<br /><b>{card.name}!</b></span>
+          <span className="postcard-hello">{L("Selamlar,")}<br /><b>{card.name}!</b></span>
         </figcaption>
       </div>
       {large && (
         <div className="postcard-info">
-          {STATION_INFO[card.name] && <p className="m-0 mb-1.5">{STATION_INFO[card.name]}</p>}
+          {STATION_INFO[card.name] && <p className="m-0 mb-1.5">{L(STATION_INFO[card.name])}</p>}
           {credit && (
-            <p className="m-0 text-[11px] opacity-70">
-              Fotoğraf: {credit.artist} · {credit.license} · <a href={credit.source} target="_blank" rel="noreferrer" className="underline">Wikimedia Commons</a>
+            <p className="m-0 text-[11px] opacity-70">{L("Fotoğraf: ")}{credit.artist} · {credit.license} · <a href={credit.source} target="_blank" rel="noreferrer" className="underline">{L("Wikimedia Commons")}</a>
             </p>
           )}
         </div>
       )}
-      <span className="postcard-stamp" aria-hidden="true">TURNİKE<br />{new Date(card.at).toLocaleDateString('tr-TR', { day: 'numeric', month: 'short' })}</span>
+      <span className="postcard-stamp" aria-hidden="true">{L("TURNİKE")}<br />{new Date(card.at).toLocaleDateString('tr-TR', { day: 'numeric', month: 'short' })}</span>
     </figure>
   );
 }

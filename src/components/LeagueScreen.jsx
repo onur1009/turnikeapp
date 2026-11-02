@@ -1,3 +1,4 @@
+import { L } from '../utils/i18n';
 import { useEffect, useState } from 'react';
 import { useGameStore } from '../store/gameStore';
 import { formatKurus } from '../utils/format';
@@ -28,36 +29,35 @@ export default function LeagueScreen({ onBack, onGlobal }) {
     <main className="flex-1 w-full flex flex-col overflow-hidden">
       <header className="shrink-0 px-4 pt-4 pb-4" style={{ background: `linear-gradient(180deg, ${tier.color} 0%, transparent 100%)` }}>
         <div className="flex items-center gap-3">
-          <button className="icon-btn" onClick={onBack} aria-label="Geri">
+          <button className="icon-btn" onClick={onBack} aria-label={L("Geri")}>
             <span aria-hidden="true" className="material-symbols-outlined text-[20px]">arrow_back</span>
           </button>
           <div className="flex-1 min-w-0">
-            <p className="text-white font-black text-[20px] leading-tight">{tier.name}</p>
-            <p className="text-white/80 text-[12px] font-semibold">Hafta {weekEndsIn()} sonra biter{syncing ? ' · eşitleniyor…' : ''}</p>
+            <p className="text-white font-black text-[20px] leading-tight">{L(tier.name)}</p>
+            <p className="text-white/80 text-[12px] font-semibold">{L("Hafta ")}{weekEndsIn()}{L(" sonra biter")}{syncing ? L(" · eşitleniyor…") : ''}</p>
           </div>
           <span aria-hidden="true" className="material-symbols-outlined text-white text-[36px]" style={{ fontVariationSettings: "'FILL' 1" }}>{tier.icon}</span>
         </div>
         {/* Lig basamakları */}
-        <div className="flex gap-1.5 mt-3" aria-label="Ligler">
+        <div className="flex gap-1.5 mt-3" aria-label={L("Ligler")}>
           {TIERS.map(t => (
             <span key={t.id} className="flex-1 h-1.5 rounded-full" style={{ background: t.id <= league.tier ? t.color : 'rgba(255,255,255,0.18)', outline: t.id === league.tier ? '2px solid #fff' : 'none' }} title={t.name} />
           ))}
         </div>
         <div className="grid grid-cols-3 gap-2 mt-3">
-          <div className="map-stat"><span className="map-stat-value">#{me.rank}</span><span className="map-stat-label">Sıran</span></div>
-          <div className="map-stat"><span className="map-stat-value">{league.points}</span><span className="map-stat-label">Puan</span></div>
-          <div className="map-stat"><span className="map-stat-value">{(RANK_REWARDS.find(([n]) => me.rank <= n) || [0, 0])[1] ? formatKurus((RANK_REWARDS.find(([n]) => me.rank <= n))[1]) : '—'}</span><span className="map-stat-label">Ödül</span></div>
+          <div className="map-stat"><span className="map-stat-value">#{me.rank}</span><span className="map-stat-label">{L("Sıran")}</span></div>
+          <div className="map-stat"><span className="map-stat-value">{league.points}</span><span className="map-stat-label">{L("Puan")}</span></div>
+          <div className="map-stat"><span className="map-stat-value">{(RANK_REWARDS.find(([n]) => me.rank <= n) || [0, 0])[1] ? formatKurus((RANK_REWARDS.find(([n]) => me.rank <= n))[1]) : '—'}</span><span className="map-stat-label">{L("Ödül")}</span></div>
         </div>
       </header>
 
       {last && (
         <div className="mx-4 mb-3 rounded-2xl p-3 flex items-center gap-3 fade-in" style={{ background: 'rgba(251,191,36,0.15)', border: '1px solid rgba(251,191,36,0.45)' }}>
           <span className="text-[26px]" aria-hidden="true">{last.toTier > last.fromTier ? '🚀' : last.toTier < last.fromTier ? '📉' : '🏁'}</span>
-          <p className="flex-1 text-white text-[13px] font-semibold">
-            Geçen hafta <b>{last.rank}.</b> oldun. {last.toTier > last.fromTier ? `${TIERS[last.toTier - 1].name}'ne yükseldin!` : last.toTier < last.fromTier ? `${TIERS[last.toTier - 1].name}'ne düştün.` : 'Liginde kaldın.'}
-            {last.reward ? ` +${formatKurus(last.reward)} kazandın.` : ''}
+          <p className="flex-1 text-white text-[13px] font-semibold">{L("Geçen hafta ")}<b>{last.rank}.</b>{L(" oldun. ")}{last.toTier > last.fromTier ? L("{0}'ne yükseldin!", L(TIERS[last.toTier - 1].name)) : last.toTier < last.fromTier ? L("{0}'ne düştün.", L(TIERS[last.toTier - 1].name)) : L("Liginde kaldın.")}
+            {last.reward ? L(" +{0} kazandın.", formatKurus(last.reward)) : ''}
           </p>
-          <button className="text-white/70 text-[12px] font-bold" onClick={() => useGameStore.setState(s => ({ leagueState: { ...s.leagueState, seenResult: true } }))}>Tamam</button>
+          <button className="text-white/70 text-[12px] font-bold" onClick={() => useGameStore.setState(s => ({ leagueState: { ...s.leagueState, seenResult: true } }))}>{L("Tamam")}</button>
         </div>
       )}
 
@@ -69,8 +69,8 @@ export default function LeagueScreen({ onBack, onGlobal }) {
               style={{ background: p.me ? `${tier.color}55` : z === 'up' ? 'rgba(34,197,94,0.12)' : z === 'down' ? 'rgba(239,68,68,0.12)' : 'rgba(255,255,255,0.05)' }}>
               <span className="w-7 text-center text-white font-black text-[14px] tabular-nums">{p.rank}</span>
               <span className="flex-1 min-w-0 text-white font-bold text-[14px] truncate">{p.name}{p.me ? ' (sen)' : ''}</span>
-              {z === 'up' && <span aria-label="Yükselme bölgesi" className="text-green-300 text-[12px]">▲</span>}
-              {z === 'down' && <span aria-label="Düşme bölgesi" className="text-red-300 text-[12px]">▼</span>}
+              {z === 'up' && <span aria-label={L("Yükselme bölgesi")} className="text-green-300 text-[12px]">▲</span>}
+              {z === 'down' && <span aria-label={L("Düşme bölgesi")} className="text-red-300 text-[12px]">▼</span>}
               <span className="text-white/85 font-black text-[14px] tabular-nums w-12 text-right">{p.points}</span>
             </li>
           );
@@ -78,12 +78,10 @@ export default function LeagueScreen({ onBack, onGlobal }) {
       </ol>
 
       <footer className="shrink-0 px-4 pb-5 pt-2 flex flex-col gap-2" style={{ borderTop: '1px solid var(--border)' }}>
-        <p className="text-white/60 text-[12px] font-semibold">
-          Puan: bölüm +{LEAGUE_POINTS.level}, Günün Seferi +{LEAGUE_POINTS.daily}, kazanılan düello +{LEAGUE_POINTS.duelWin}. İlk {PROMOTE} yükselir, son {DEMOTE} düşer.
-          {!isCloudConfigured && ' Çevrimdışı modasın: grup şimdilik bot oyunculardan oluşuyor.'}
+        <p className="text-white/60 text-[12px] font-semibold">{L("Puan: bölüm +")}{LEAGUE_POINTS.level}{L(", Günün Seferi +")}{LEAGUE_POINTS.daily}{L(", kazanılan düello +")}{LEAGUE_POINTS.duelWin}{L(". İlk ")}{PROMOTE}{L(" yükselir, son ")}{DEMOTE}{L(" düşer.")}{!isCloudConfigured && L(" Çevrimdışı modasın: grup şimdilik bot oyunculardan oluşuyor.")}
         </p>
         {isCloudConfigured && (
-          <button onClick={onGlobal} className="text-white/75 font-bold text-[13px] underline underline-offset-4 self-start">Genel sıralamayı gör</button>
+          <button onClick={onGlobal} className="text-white/75 font-bold text-[13px] underline underline-offset-4 self-start">{L("Genel sıralamayı gör")}</button>
         )}
       </footer>
     </main>

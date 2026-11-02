@@ -1,3 +1,4 @@
+import { L } from '../utils/i18n';
 import { useState, useEffect, useCallback } from 'react';
 import { useGameStore } from '../store/gameStore';
 import { cloudService, isCloudConfigured } from '../utils/supabaseClient';
@@ -49,11 +50,11 @@ const LeaderboardScreen = ({ onBack }) => {
 
   return (
     <div className="flex-1 w-full flex flex-col items-center relative z-20 fade-in pb-6 px-4">
-      <ScreenHeader title="Liderlik" onBack={onBack} className="px-0 pt-6 mb-4 max-w-sm" />
+      <ScreenHeader title={L("Liderlik")} onBack={onBack} className="px-0 pt-6 mb-4 max-w-sm" />
 
       <div className="flex flex-col items-center mb-5">
         <span aria-hidden="true" className="material-symbols-outlined text-[56px] text-yellow-400" style={{ fontVariationSettings: "'FILL' 1" }}>trophy</span>
-        <p className="text-white/55 text-[12px] font-bold tracking-[3px] uppercase mt-1">En çok bakiye biriktirenler</p>
+        <p className="text-white/55 text-[12px] font-bold tracking-[3px] uppercase mt-1">{L("En çok bakiye biriktirenler")}</p>
       </div>
 
       <div className="w-full max-w-sm flex-1 overflow-y-auto flex flex-col gap-2.5 pb-8">
@@ -66,26 +67,22 @@ const LeaderboardScreen = ({ onBack }) => {
         {status === 'disabled' && (
           <div className="card-panel p-6 flex flex-col items-center text-center gap-3">
             <span aria-hidden="true" className="material-symbols-outlined text-[40px] text-white/40">construction</span>
-            <p className="text-white font-bold text-[15px]">Liderlik tablosu yakında</p>
-            <p className="text-white/55 text-[13px]">Çevrim içi sıralama henüz etkin değil. İlerlemen cihazında kayıtlı.</p>
+            <p className="text-white font-bold text-[15px]">{L("Liderlik tablosu yakında")}</p>
+            <p className="text-white/55 text-[13px]">{L("Çevrim içi sıralama henüz etkin değil. İlerlemen cihazında kayıtlı.")}</p>
           </div>
         )}
 
         {status === 'offline' && (
           <div className="card-panel p-6 flex flex-col items-center text-center gap-3">
             <span aria-hidden="true" className="material-symbols-outlined text-[40px] text-white/40">wifi_off</span>
-            <p className="text-white font-bold text-[15px]">Bağlantı kurulamadı</p>
-            <p className="text-white/55 text-[13px]">Sıralamayı görmek için internet bağlantını kontrol et.</p>
-            <button onClick={fetchLeaderboard} className="mt-1 px-5 py-2.5 rounded-full bg-green-600 text-white font-bold text-[13px] active:scale-95 transition-transform">
-              Tekrar dene
-            </button>
+            <p className="text-white font-bold text-[15px]">{L("Bağlantı kurulamadı")}</p>
+            <p className="text-white/55 text-[13px]">{L("Sıralamayı görmek için internet bağlantını kontrol et.")}</p>
+            <button onClick={fetchLeaderboard} className="mt-1 px-5 py-2.5 rounded-full bg-green-600 text-white font-bold text-[13px] active:scale-95 transition-transform">{L("Tekrar dene")}</button>
           </div>
         )}
 
         {status === 'ready' && data.length === 0 && (
-          <div className="card-panel p-6 text-center text-white/60 text-[14px]">
-            Henüz sıralamada kimse yok. Bir seviye bitir, listeye ilk sen gir!
-          </div>
+          <div className="card-panel p-6 text-center text-white/60 text-[14px]">{L("Henüz sıralamada kimse yok. Bir seviye bitir, listeye ilk sen gir!")}</div>
         )}
 
         {status === 'ready' && data.map((player, index) => {

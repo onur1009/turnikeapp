@@ -1,3 +1,4 @@
+import { L } from '../utils/i18n';
 import { useGameStore } from '../store/gameStore';
 import { formatKurus } from '../utils/format';
 import { track } from '../utils/analytics';
@@ -19,13 +20,13 @@ export default function EventSheet({ event, onClose, onPlay }) {
         <div className="flex items-center gap-3">
           <span aria-hidden="true" className="material-symbols-outlined text-white text-[40px]" style={{ fontVariationSettings: "'FILL' 1" }}>{event.icon}</span>
           <div className="flex-1 min-w-0">
-            <h2 id="event-title" className="text-white font-black text-[22px] leading-tight">{event.name}</h2>
-            <p className="text-white/80 text-[13px] font-semibold">{event.tagline} · {timeLeft(event.endsAt)} kaldı</p>
+            <h2 id="event-title" className="text-white font-black text-[22px] leading-tight">{L(event.name)}</h2>
+            <p className="text-white/80 text-[13px] font-semibold">{L(event.tagline)} · {timeLeft(event.endsAt)}{L(" kaldı")}</p>
           </div>
         </div>
 
         <div>
-          <div className="flex justify-between text-white/80 text-[12px] font-bold mb-1.5"><span>Bu hafta sonu bitirdiğin bölüm</span><span className="tabular-nums">{levels}</span></div>
+          <div className="flex justify-between text-white/80 text-[12px] font-bold mb-1.5"><span>{L("Bu hafta sonu bitirdiğin bölüm")}</span><span className="tabular-nums">{levels}</span></div>
           <div className="relative h-3 rounded-full bg-white/15">
             <div className="h-full rounded-full bg-amber-400 transition-all" style={{ width: `${Math.min(100, (levels / max) * 100)}%` }} />
             {EVENT_TIERS.map(([tier]) => (
@@ -43,17 +44,16 @@ export default function EventSheet({ event, onClose, onPlay }) {
                 onClick={() => { claimEventTier(event.id, tier, reward); track('event_claim', { event: event.key, tier }); }}
                 className={`rounded-2xl py-3 flex flex-col items-center gap-1 border ${reached && !got ? 'bg-amber-400 text-[#422006] border-amber-300 pulse-soft' : 'bg-white/5 text-white border-white/10'}`}>
                 <span aria-hidden="true" className="material-symbols-outlined text-[26px]" style={{ fontVariationSettings: "'FILL' 1" }}>{got ? 'check_circle' : reached ? 'redeem' : 'lock'}</span>
-                <span className="font-black text-[13px]">{tier} bölüm</span>
+                <span className="font-black text-[13px]">{tier}{L(" bölüm")}</span>
                 <span className="text-[12px] font-bold opacity-80">{formatKurus(reward)}</span>
               </button>
             );
           })}
         </div>
 
-        <p className="text-white/70 text-[13px] font-semibold">Etkinlik boyunca her bölümün kelime puanı 2 katına çıkar. İlerleme pazartesi sıfırlanır.</p>
+        <p className="text-white/70 text-[13px] font-semibold">{L("Etkinlik boyunca her bölümün kelime puanı 2 katına çıkar. İlerleme pazartesi sıfırlanır.")}</p>
         <button onClick={onPlay} className="play-btn w-full flex items-center justify-center gap-2">
-          <span aria-hidden="true" className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>play_circle</span>OYNA
-        </button>
+          <span aria-hidden="true" className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>play_circle</span>{L("OYNA")}</button>
       </div>
     </div>
   );

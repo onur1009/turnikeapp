@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { generateLevel, VALID_WORDS_TR, VALID_WORDS_EN, WORD_MEANINGS_TR, WORD_MEANINGS_EN, getTimeForLevel } from '../utils/gameLogic';
 import { playCorrect, playWrong, playLevelComplete, playTurnike, playCombo, playBadgeUnlock, playBalanceUp, playTick, playTimeUp } from '../utils/soundManager';
-import { useTranslation } from '../utils/i18n';
+import { useTranslation, L } from '../utils/i18n';
 import Grid from './Grid';
 import Wheel from './Wheel';
 import LevelComplete from './LevelComplete';
@@ -472,7 +472,7 @@ export default function GameContainer({
       setTimeout(() => setShowVaultAnimation(false), 3000);
       if (soundEnabled) setTimeout(() => playBalanceUp(), 500);
     } else if (outcome === 'added') {
-      showFeedback('exists', `KASAYA EKLENDİ (${after}/10)`);
+      showFeedback('exists', L("KASAYA EKLENDİ ({0}/10)", after));
       track('extra_word', { level: levelIndex + 1 });
       useGameStore.getState().bumpDaily('extraWords');
     } else {
@@ -508,9 +508,9 @@ export default function GameContainer({
         const item = LOST_ITEMS_CATALOG[itemId];
         if (itemId === dailyItemTarget) {
           earned += 150; // Günün aranan eşyası ekstra ödülü
-          msg = `GÜNÜN EŞYASI BULUNDU! ${item.name} (+${formatKurus(earned)})`;
+          msg = L("GÜNÜN EŞYASI BULUNDU! {0} (+{1})", L(item.name), formatKurus(earned));
         } else {
-          msg = `EŞYA BULUNDU: ${item.name} (+${formatKurus(earned)})`;
+          msg = L("EŞYA BULUNDU: {0} (+{1})", L(item.name), formatKurus(earned));
         }
       }
       addBalance(earned);
@@ -581,7 +581,7 @@ export default function GameContainer({
     } catch (err) {
       console.error("TDK Check Failed", err);
       // Sunucuya ulaşılamazsa oyuncu cezalandırılmaz
-      showFeedback('exists', 'Sözlük sunucusuna ulaşılamadı.');
+      showFeedback('exists', L("Sözlük sunucusuna ulaşılamadı."));
       return false;
     }
 
@@ -632,7 +632,7 @@ export default function GameContainer({
     const ok = await showRewardedAd();
     setAdBusy(false);
     track('ad_rewarded', { placement: 'free_letter', completed: ok });
-    if (!ok) { showFeedback('wrong', 'Reklam yüklenemedi'); return; }
+    if (!ok) { showFeedback('wrong', L("Reklam yüklenemedi")); return; }
     noteRewardedShown();
     const pick = randomHiddenCell();
     if (pick) setHintedLetters(prev => [...prev, pick]);
@@ -745,7 +745,7 @@ export default function GameContainer({
         <h2 className="text-white text-2xl font-black tracking-[6px] mb-1">
           {t('word_journey')}
         </h2>
-        <p className="text-white/30 text-[11px] tracking-[4px] mb-6 font-bold">TURNİKE</p>
+        <p className="text-white/30 text-[11px] tracking-[4px] mb-6 font-bold">{L("TURNİKE")}</p>
 
         <div className="relative w-56">
           <div className="w-full h-2 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.1)' }}>
@@ -776,7 +776,7 @@ export default function GameContainer({
                 const ok = await showRewardedAd();
                 setIsAdLoading(false);
                 track('ad_rewarded', { placement: 'continue', completed: ok });
-                if (!ok) { showFeedback('wrong', 'Reklam yüklenemedi'); return; }
+                if (!ok) { showFeedback('wrong', L("Reklam yüklenemedi")); return; }
                 noteRewardedShown();
                 useGameStore.setState({ lives: 1, gameStatus: 'playing' });
                 setInternalState('playing');
@@ -837,7 +837,7 @@ export default function GameContainer({
               <span aria-hidden="true" className="material-symbols-outlined text-red-500 text-5xl mb-4 mt-2" style={{ fontVariationSettings: "'FILL' 1" }}>
                 warning
               </span>
-              <h3 className="text-white text-xl font-bold mb-2">Ana Menüye Dön</h3>
+              <h3 className="text-white text-xl font-bold mb-2">{L("Ana Menüye Dön")}</h3>
               <p className="text-white/60 text-sm mb-6 leading-relaxed">
                 {t('confirm_reset')}
               </p>
@@ -845,9 +845,7 @@ export default function GameContainer({
                 <button
                   onClick={() => setShowConfirmModal(false)}
                   className="flex-1 py-3 rounded-xl font-bold text-white/70 bg-white/5 hover:bg-white/10 transition-colors"
-                >
-                  İPTAL
-                </button>
+                >{L("İPTAL")}</button>
                 <button
                   onClick={() => {
                     setShowConfirmModal(false);
@@ -855,9 +853,7 @@ export default function GameContainer({
                     setScreen('home');
                   }}
                   className="flex-1 py-3 rounded-xl font-bold text-white bg-red-600 hover:bg-red-500 transition-colors shadow-lg shadow-red-900/50"
-                >
-                  EVET, DÖN
-                </button>
+                >{L("EVET, DÖN")}</button>
               </div>
             </div>
           </div>
@@ -875,7 +871,7 @@ export default function GameContainer({
     const station = getStationForLevel(levelIndex);
     const isTutorial = levelIndex === 0 && foundWords.length === 0 && localStorage.getItem('turnike_tutorial_seen') !== 'true';
     const showStationInfo = () => {
-      setInfoCard({ word: station.displayName, meaning: `${station.stationInfo} ${levelData.missionTask || ''}`.trim(), id: Date.now() });
+      setInfoCard({ word: station.displayName, meaning: `${L(station.stationInfo)} ${levelData.missionTask || ''}`.trim(), id: Date.now() });
       if (hapticEnabled) Haptics.selectionStart().catch(()=>{});
     };
 
@@ -893,9 +889,9 @@ export default function GameContainer({
             <div className="scale-in flex flex-col items-center p-6 rounded-3xl border border-green-500/30 text-center"
                  style={{ background: '#10263f', boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}>
               <span aria-hidden="true" className="material-symbols-outlined text-green-400 text-6xl animate-bounce" style={{ fontVariationSettings: "'FILL' 1" }}>lock_open</span>
-              <h2 className="text-white text-2xl font-black tracking-widest mt-4">KASA PATLATILDI!</h2>
-              <p className="text-green-400/80 font-bold text-lg mt-2">+{formatKurus(VAULT_REWARD)} İstanbulkart Bakiyesi</p>
-              <span className="text-white/40 text-xs mt-4 tracking-widest uppercase">Güvenli Seferler Dileriz</span>
+              <h2 className="text-white text-2xl font-black tracking-widest mt-4">{L("KASA PATLATILDI!")}</h2>
+              <p className="text-green-400/80 font-bold text-lg mt-2">+{formatKurus(VAULT_REWARD)}{L(" İstanbulkart Bakiyesi")}</p>
+              <span className="text-white/40 text-xs mt-4 tracking-widest uppercase">{L("Güvenli Seferler Dileriz")}</span>
             </div>
           </div>
         )}
@@ -929,24 +925,22 @@ export default function GameContainer({
             <span aria-hidden="true" className="material-symbols-outlined text-[16px]" style={{ color: 'var(--coin)', fontVariationSettings: "'FILL' 1" }}>toll</span>
             <AnimatedBalance value={balance} />
           </div>
-          <button onClick={pauseGame} className="icon-btn" aria-label="Duraklat">
+          <button onClick={pauseGame} className="icon-btn" aria-label={L("Duraklat")}>
             <span aria-hidden="true" className="material-symbols-outlined text-[20px]">pause</span>
           </button>
         </header>
 
         {paused && (
-          <div className="fixed inset-0 z-[60] flex items-center justify-center px-6 fade-in" style={{ background: 'rgba(5,20,36,0.82)' }} role="dialog" aria-modal="true" aria-label="Oyun duraklatıldı">
+          <div className="fixed inset-0 z-[60] flex items-center justify-center px-6 fade-in" style={{ background: 'rgba(5,20,36,0.82)' }} role="dialog" aria-modal="true" aria-label={L("Oyun duraklatıldı")}>
             <div className="w-full max-w-xs card-panel p-5 flex flex-col gap-3">
-              <p className="text-white font-black text-[20px] text-center">Duraklatıldı</p>
-              <p className="text-white/60 text-[13px] text-center -mt-2">Süre durdu, kaldığın yerden devam edersin.</p>
-              <button onClick={resumeGame} className="play-btn w-full" style={{ fontSize: 16, letterSpacing: 2, padding: '13px 20px' }}>DEVAM ET</button>
+              <p className="text-white font-black text-[20px] text-center">{L("Duraklatıldı")}</p>
+              <p className="text-white/60 text-[13px] text-center -mt-2">{L("Süre durdu, kaldığın yerden devam edersin.")}</p>
+              <button onClick={resumeGame} className="play-btn w-full" style={{ fontSize: 16, letterSpacing: 2, padding: '13px 20px' }}>{L("DEVAM ET")}</button>
               <div className="flex gap-2">
                 <button onClick={() => setSettings({ soundEnabled: !soundEnabled })} aria-pressed={soundEnabled} className="flex-1 py-3 rounded-full text-white/80 font-bold text-[13px] flex items-center justify-center gap-1.5" style={{ border: '1px solid var(--border)' }}>
-                  <span aria-hidden="true" className="material-symbols-outlined text-[18px]">{soundEnabled ? 'volume_up' : 'volume_off'}</span>Ses
-                </button>
+                  <span aria-hidden="true" className="material-symbols-outlined text-[18px]">{soundEnabled ? 'volume_up' : 'volume_off'}</span>{L("Ses")}</button>
                 <button onClick={() => setSettings({ musicEnabled: !musicEnabled })} aria-pressed={musicEnabled} className="flex-1 py-3 rounded-full text-white/80 font-bold text-[13px] flex items-center justify-center gap-1.5" style={{ border: '1px solid var(--border)' }}>
-                  <span aria-hidden="true" className="material-symbols-outlined text-[18px]">{musicEnabled ? 'music_note' : 'music_off'}</span>Müzik
-                </button>
+                  <span aria-hidden="true" className="material-symbols-outlined text-[18px]">{musicEnabled ? 'music_note' : 'music_off'}</span>{L("Müzik")}</button>
               </div>
               <button onClick={() => { stopTimer(); setScreen('home'); }} className="py-3 rounded-full text-white/70 font-bold text-[13px] tracking-wider uppercase" style={{ border: '1px solid var(--border)' }}>{t('main_menu')}</button>
             </div>
@@ -1014,7 +1008,7 @@ export default function GameContainer({
             pickMode={pickMode}
             onCellPick={handleCellPick}
             onIntersectionFound={handleIntersectionFound}
-            onWordTap={(w) => setInfoCard({ word: w, meaning: WORD_MEANINGS[w] || 'Bu kelimenin açıklaması sözlükte henüz yok.', id: Date.now() })}
+            onWordTap={(w) => setInfoCard({ word: w, meaning: WORD_MEANINGS[w] || L("Bu kelimenin açıklaması sözlükte henüz yok."), id: Date.now() })}
           />
         </main>
 
@@ -1023,16 +1017,12 @@ export default function GameContainer({
           {isRewardedAdSupported() && levelIndex >= 5 && stuck && hints === 0 && balance < hintCosts.letter && (
             <button onClick={handleAdLetter} disabled={adBusy} className="ad-chip mb-2">
               <span aria-hidden="true" className="material-symbols-outlined text-[18px]">smart_display</span>
-              {adBusy ? 'Reklam yükleniyor…' : 'Reklam izle, ücretsiz harf aç'}
+              {adBusy ? L("Reklam yükleniyor…") : L("Reklam izle, ücretsiz harf aç")}
             </button>
           )}
           {/* Aynı anda en fazla bir baloncuk: kavanoz ipucu, Nokta ipucu okunduktan sonra sıraya girer */}
-          <TipBubble id="tip-pick" when={settled && !pickMode && levelIndex >= 3} className="mb-2 mx-4">
-            Yeni: <b>Nokta</b> ipucuyla açmak istediğin kutuyu kendin seç.
-          </TipBubble>
-          <TipBubble id="tip-jar" when={settled && vaultCount > 0 && (levelIndex < 3 || tipPickSeen)} className="mb-2 mx-4">
-            Izgarada olmayan geçerli kelimeler <b>kavanoza</b> gider. 10 kelimede bakiye ödülü!
-          </TipBubble>
+          <TipBubble id="tip-pick" when={settled && !pickMode && levelIndex >= 3} className="mb-2 mx-4">{L("Yeni: ")}<b>{L("Nokta")}</b>{L(" ipucuyla açmak istediğin kutuyu kendin seç.")}</TipBubble>
+          <TipBubble id="tip-jar" when={settled && vaultCount > 0 && (levelIndex < 3 || tipPickSeen)} className="mb-2 mx-4">{L("Izgarada olmayan geçerli kelimeler ")}<b>kavanoza</b>{L(" gider. 10 kelimede bakiye ödülü!")}</TipBubble>
           {pickMode && (
             <p className="tutorial-hint mb-2">
               <span aria-hidden="true" className="material-symbols-outlined text-[16px]">ads_click</span>{t('pick_cell')}

@@ -1,3 +1,4 @@
+import { L } from '../utils/i18n';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Grid from './Grid';
 import Wheel from './Wheel';
@@ -146,18 +147,18 @@ export default function DailyScreen({ onBack, onPlay }) {
         <div className="daily-intro" aria-hidden="true">
           <div className="daily-ticket">
             <span className="daily-ticket-hole" />
-            <span className="daily-ticket-label">GÜNÜN SEFERİ</span>
+            <span className="daily-ticket-label">{L("GÜNÜN SEFERİ")}</span>
             <span className="daily-ticket-no">#{dayNumber()}</span>
           </div>
         </div>
       )}
       <header className="flex items-center gap-3 px-4 pt-4 pb-3 shrink-0">
-        <button className="icon-btn" onClick={playing ? () => setPlaying(false) : onBack} aria-label="Geri">
+        <button className="icon-btn" onClick={playing ? () => setPlaying(false) : onBack} aria-label={L("Geri")}>
           <span aria-hidden="true" className="material-symbols-outlined text-[20px]">arrow_back</span>
         </button>
         <div className="flex-1 min-w-0">
-          <p className="text-white font-black text-[18px] leading-tight">Günün Seferi #{dayNumber()}</p>
-          <p className="text-white/60 text-[12px] font-semibold">Herkese aynı bulmaca · gece yarısı yenilenir</p>
+          <p className="text-white font-black text-[18px] leading-tight">{L("Günün Seferi #")}{dayNumber()}</p>
+          <p className="text-white/60 text-[12px] font-semibold">{L("Herkese aynı bulmaca · gece yarısı yenilenir")}</p>
         </div>
         <span className="status-chip">🔥 {streak}</span>
       </header>
@@ -166,40 +167,37 @@ export default function DailyScreen({ onBack, onPlay }) {
         <main className="flex-1 flex flex-col justify-center gap-5 w-full max-w-sm mx-auto px-5 pb-10">
           {today ? (
             <>
-              <p className="text-center text-white font-black text-[30px]">Bugünkü seferi tamamladın!</p>
+              <p className="text-center text-white font-black text-[30px]">{L("Bugünkü seferi tamamladın!")}</p>
               <div className="card-panel !rounded-2xl p-5 flex flex-col items-center gap-2">
-                <p className="text-white/60 text-[13px] font-bold">Süre</p>
+                <p className="text-white/60 text-[13px] font-bold">{L("Süre")}</p>
                 <p className="text-white font-black text-[40px] leading-none tabular-nums">{mmss(today.seconds)}</p>
                 <p className="text-[22px] tracking-[2px] leading-relaxed text-center break-all">{today.trail.map(c => (c === 'ok' ? '🟩' : '🟥')).join('')}</p>
-                <p className="text-white/60 text-[13px] font-semibold">{today.words} kelime · {today.wrong} yanlış deneme</p>
+                <p className="text-white/60 text-[13px] font-semibold">{today.words}{L(" kelime · ")}{today.wrong}{L(" yanlış deneme")}</p>
               </div>
               {/* Günün Seferi'nin katkısı */}
               <div className="grid grid-cols-2 gap-2">
-                <div className="daily-gain"><b>+{formatKurus(DAILY_REWARD)}</b><span>İstanbulkart</span></div>
-                <div className="daily-gain"><b>+{LEAGUE_POINTS.daily}</b><span>lig puanı</span></div>
-                <div className="daily-gain"><b>+{PASS_XP.daily} XP</b><span>Hat Pasosu</span></div>
-                <div className="daily-gain"><b>🔥 {streak} gün</b><span>{streak % STREAK_HINT_EVERY === 0 ? '+1 ipucu kazandın' : `${STREAK_HINT_EVERY - (streak % STREAK_HINT_EVERY)} gün sonra +1 ipucu`}</span></div>
+                <div className="daily-gain"><b>+{formatKurus(DAILY_REWARD)}</b><span>{L("İstanbulkart")}</span></div>
+                <div className="daily-gain"><b>+{LEAGUE_POINTS.daily}</b><span>{L("lig puanı")}</span></div>
+                <div className="daily-gain"><b>+{PASS_XP.daily}{L(" XP")}</b><span>{L("Hat Pasosu")}</span></div>
+                <div className="daily-gain"><b>🔥 {streak}{L(" gün")}</b><span>{streak % STREAK_HINT_EVERY === 0 ? L("+1 ipucu kazandın") : L("{0} gün sonra +1 ipucu", STREAK_HINT_EVERY - (streak % STREAK_HINT_EVERY))}</span></div>
               </div>
               <button onClick={onPlay} className="play-btn w-full flex items-center justify-center gap-2">
-                <span aria-hidden="true" className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>play_circle</span>YOLCULUĞA DEVAM ET
-              </button>
+                <span aria-hidden="true" className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>play_circle</span>{L("YOLCULUĞA DEVAM ET")}</button>
               <button onClick={share} className="daily-btn w-full flex items-center justify-center gap-2">
-                <span aria-hidden="true" className="material-symbols-outlined text-[22px]">share</span>SONUCUNU PAYLAŞ
-              </button>
+                <span aria-hidden="true" className="material-symbols-outlined text-[22px]">share</span>{L("SONUCUNU PAYLAŞ")}</button>
               {note && <p role="status" className="text-center text-white/75 text-[13px] font-semibold whitespace-pre-line">{note}</p>}
-              <p className="text-center text-white/55 text-[13px] font-semibold">Yeni sefer {untilMidnight()} sonra</p>
+              <p className="text-center text-white/55 text-[13px] font-semibold">{L("Yeni sefer ")}{untilMidnight()} sonra</p>
             </>
           ) : (
             <>
               <div className="flex flex-col items-center gap-3">
                 <span aria-hidden="true" className="material-symbols-outlined text-amber-300 text-[64px]" style={{ fontVariationSettings: "'FILL' 1" }}>today</span>
-                <p className="text-center text-white font-black text-[26px] leading-tight">Bugünün bulmacası hazır</p>
-                <p className="text-center text-white/70 text-[14px] font-semibold">Herkes aynı bulmacayı çözüyor. Süre sınırı yok; ne kadar hızlı, o kadar iyi. Sonucunu cevabı vermeden paylaşabilirsin.</p>
+                <p className="text-center text-white font-black text-[26px] leading-tight">{L("Bugünün bulmacası hazır")}</p>
+                <p className="text-center text-white/70 text-[14px] font-semibold">{L("Herkes aynı bulmacayı çözüyor. Süre sınırı yok; ne kadar hızlı, o kadar iyi. Sonucunu cevabı vermeden paylaşabilirsin.")}</p>
               </div>
               <button onClick={() => { track('daily_start', { day: dayNumber() }); setPlaying(true); }} className="daily-btn w-full flex items-center justify-center gap-2">
-                <span aria-hidden="true" className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>play_circle</span>BAŞLA
-              </button>
-              <p className="text-center text-white/70 text-[12px] font-semibold">Kazanç: {formatKurus(DAILY_REWARD)} · +{LEAGUE_POINTS.daily} lig puanı · +{PASS_XP.daily} paso XP · her {STREAK_HINT_EVERY} günde +1 ipucu</p>
+                <span aria-hidden="true" className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>play_circle</span>{L("BAŞLA")}</button>
+              <p className="text-center text-white/70 text-[12px] font-semibold">{L("Kazanç: ")}{formatKurus(DAILY_REWARD)} · +{LEAGUE_POINTS.daily}{L(" lig puanı · +")}{PASS_XP.daily}{L(" paso XP · her ")}{STREAK_HINT_EVERY}{L(" günde +1 ipucu")}</p>
             </>
           )}
         </main>

@@ -1,3 +1,4 @@
+import { L } from '../utils/i18n';
 import { useGameStore } from '../store/gameStore';
 import ScreenHeader from './ScreenHeader';
 import { formatKurus } from '../utils/format';
@@ -18,15 +19,14 @@ export default function PassScreen({ onBack }) {
         <ScreenHeader title={seasonName(p.season)} onBack={onBack} className="px-0" />
         <div className="card-panel !rounded-2xl p-4 mb-3">
           <div className="flex items-end justify-between mb-2">
-            <span className="text-white font-black text-[26px] leading-none">Basamak {p.tier}<span className="text-white/50 text-[15px]">/{PASS_REWARDS.length}</span></span>
-            <span className="text-white/60 text-[12px] font-bold">{seasonEndsIn()} kaldı</span>
+            <span className="text-white font-black text-[26px] leading-none">{L("Basamak ")}{p.tier}<span className="text-white/50 text-[15px]">/{PASS_REWARDS.length}</span></span>
+            <span className="text-white/60 text-[12px] font-bold">{seasonEndsIn()}{L(" kaldı")}</span>
           </div>
           <div className="h-2.5 rounded-full bg-white/10 overflow-hidden">
             <div className="h-full rounded-full bg-amber-400 transition-all" style={{ width: `${p.tier >= PASS_REWARDS.length ? 100 : (p.intoTier / XP_PER_TIER) * 100}%` }} />
           </div>
           <p className="text-white/60 text-[12px] font-semibold mt-2">
-            {p.tier >= PASS_REWARDS.length ? 'Pasoyu tamamladın!' : `Sonraki basamağa ${XP_PER_TIER - p.intoTier} XP`} · Bölüm +{PASS_XP.level}, Günün Seferi +{PASS_XP.daily}, görev +{PASS_XP.mission}, düello galibiyeti +{PASS_XP.duelWin} XP
-          </p>
+            {p.tier >= PASS_REWARDS.length ? L("Pasoyu tamamladın!") : L("Sonraki basamağa {0} XP", XP_PER_TIER - p.intoTier)}{L(" · Bölüm +")}{PASS_XP.level}{L(", Günün Seferi +")}{PASS_XP.daily}{L(", görev +")}{PASS_XP.mission}{L(", düello galibiyeti +")}{PASS_XP.duelWin}{L(" XP")}</p>
         </div>
       </div>
 
@@ -45,7 +45,7 @@ export default function PassScreen({ onBack }) {
                   disabled={!reached || got}
                   onClick={() => { if (claimPassTier(tierNo)) track('pass_claim', { tier: tierNo, type: r.type }); }}
                   className="shrink-0 px-3.5 py-1.5 rounded-full font-black text-[12px] text-white bg-green-600 disabled:bg-white/10 disabled:text-white/45">
-                  {got ? 'Alındı' : reached ? 'Al' : <span aria-label="Kilitli" className="material-symbols-outlined text-[16px] align-middle">lock</span>}
+                  {got ? L("Alındı") : reached ? L("Al") : <span aria-label={L("Kilitli")} className="material-symbols-outlined text-[16px] align-middle">lock</span>}
                 </button>
               </div>
             </li>

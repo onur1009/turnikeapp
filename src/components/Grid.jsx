@@ -1,3 +1,4 @@
+import { L } from '../utils/i18n';
 import React, { useMemo, useEffect, useState } from 'react';
 import { useGameStore } from '../store/gameStore';
 
@@ -147,7 +148,7 @@ const Grid = ({ words, foundWords, hintedLetters = [], onIntersectionFound, acce
           // Bulunan kelimeye dokununca anlamı açılır (kesişimde son bulunan kelime)
           <button
             type="button"
-            aria-label={`${foundWordAt(cellData)} anlamını göster`}
+            aria-label={L("{0} anlamını göster", foundWordAt(cellData))}
             onClick={() => onWordTap(foundWordAt(cellData))}
             className={`grid-cell-found w-full h-full flex items-center justify-center p-0 border-0 ${hasConfetti ? 'cell-confetti' : ''}`}
             style={{ fontSize, animationDelay: `${delay}s` }}
@@ -165,7 +166,7 @@ const Grid = ({ words, foundWords, hintedLetters = [], onIntersectionFound, acce
           pickMode ? (
             <button
               type="button"
-              aria-label="Bu kutuyu aç"
+              aria-label={L("Bu kutuyu aç")}
               onClick={() => onCellPick?.({ x: parseInt(sx), y: parseInt(sy), char: cellData.char })}
               className="grid-cell-empty grid-cell-pickable w-full h-full"
             />

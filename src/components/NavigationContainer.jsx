@@ -16,7 +16,7 @@ const DailyScreen = lazy(() => import('./DailyScreen'));
 const PostcardsScreen = lazy(() => import('./PostcardsScreen'));
 const LeagueScreen = lazy(() => import('./LeagueScreen'));
 const PassScreen = lazy(() => import('./PassScreen'));
-import { useTranslation } from '../utils/i18n';
+import { useTranslation, L } from '../utils/i18n';
 import { useGameStore, getMaxLives } from '../store/gameStore';
 import UsernameModal from './UsernameModal';
 import ScreenHeader from './ScreenHeader';
@@ -139,7 +139,7 @@ export default function NavigationContainer({
     return (
       <div className="game-bg h-full flex flex-col relative z-10 fade-in">
         <ScreenHeader
-          title={mapLineId ? t('map') : 'İstanbul Ulaşım Ağı'}
+          title={mapLineId ? t('map') : L("İstanbul Ulaşım Ağı")}
           onBack={() => (mapLineId ? setMapLineId(null) : setScreen('home'))}
         />
         <div className="flex-1 min-h-0 flex flex-col">
@@ -148,8 +148,8 @@ export default function NavigationContainer({
           ) : (
             <>
               <div className="seg mx-4 mb-3 shrink-0">
-                <button aria-pressed={networkView === 'map'} onClick={() => setNetworkView('map')}>Harita</button>
-                <button aria-pressed={networkView === 'list'} onClick={() => setNetworkView('list')}>Hat listesi</button>
+                <button aria-pressed={networkView === 'map'} onClick={() => setNetworkView('map')}>{L("Harita")}</button>
+                <button aria-pressed={networkView === 'list'} onClick={() => setNetworkView('list')}>{L("Hat listesi")}</button>
               </div>
               {networkView === 'map'
                 ? <NetworkMap currentLevel={maxUnlockedLevel + 1} onOpenLine={setMapLineId} />

@@ -1,3 +1,4 @@
+import { L } from '../utils/i18n';
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
 
@@ -286,7 +287,7 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
     >
       {/* Shuffle button */}
       <button
-        aria-label="Harfleri karıştır"
+        aria-label={L("Harfleri karıştır")}
         onClick={(e) => {
           e.stopPropagation();
           if (isShuffling) return;
@@ -436,13 +437,13 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
     </div>
     {/* Ekran okuyucu (TalkBack) için kaydırmasız giriş: çarkın dışında, görünmez. Çarkın içinde olsaydı
         kaydırma dinleyicisi dokunuşu yutardı. */}
-    <div className="sr-only" role="group" aria-label="Harf çarkı">
-      <p aria-live="polite">{currentWord ? `Seçilen: ${currentWord}` : 'Harf seçilmedi'}</p>
+    <div className="sr-only" role="group" aria-label={L("Harf çarkı")}>
+      <p aria-live="polite">{currentWord ? L("Seçilen: {0}", currentWord) : L("Harf seçilmedi")}</p>
       {letters.map((l, i) => (
-        <button key={i} type="button" onClick={() => pushIndex(i)} disabled={selectedIndices.includes(i) || eliminatedLetters?.includes(l)}>{l} harfini ekle</button>
+        <button key={i} type="button" onClick={() => pushIndex(i)} disabled={selectedIndices.includes(i) || eliminatedLetters?.includes(l)}>{l}{L(" harfini ekle")}</button>
       ))}
-      <button type="button" onClick={popIndex}>Son harfi sil</button>
-      <button type="button" onClick={submitSelection}>Kelimeyi gönder</button>
+      <button type="button" onClick={popIndex}>{L("Son harfi sil")}</button>
+      <button type="button" onClick={submitSelection}>{L("Kelimeyi gönder")}</button>
     </div>
     </>
   );

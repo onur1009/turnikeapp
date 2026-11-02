@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { WORD_MEANINGS_TR, WORD_MEANINGS_EN, PROVIDER_MAP_TR, PROVIDER_MAP_EN } from '../utils/gameLogic';
-import { useTranslation } from '../utils/i18n';
+import { useTranslation, L } from '../utils/i18n';
 
 const PROVIDER_THEMES = {
   "Metro Istanbul": { color: "#ef4444", bg: "rgba(239,68,68,0.12)", border: "rgba(239,68,68,0.3)", label: "Metro İstanbul" },
@@ -110,7 +110,7 @@ const DictionaryScreen = ({ learnedWords = [] }) => {
           displayedWords.map((wordKey) => {
             const meaning = WORD_MEANINGS[wordKey];
             const provider = PROVIDER_MAP[wordKey];
-            const theme = PROVIDER_THEMES[provider] || { color: '#64748b', bg: 'rgba(255,255,255,0.06)', border: 'rgba(255,255,255,0.1)', label: 'Genel' };
+            const theme = PROVIDER_THEMES[provider] || { color: '#64748b', bg: 'rgba(255,255,255,0.06)', border: 'rgba(255,255,255,0.1)', label: L("Genel") };
 
             return (
               <div key={wordKey} className="card-panel p-4 relative overflow-hidden transition-all hover:translate-x-0.5">
@@ -141,7 +141,7 @@ const DictionaryScreen = ({ learnedWords = [] }) => {
                     shield
                   </span>
                   <span className="text-white/30 text-[9px] font-black tracking-widest uppercase">
-                    {language === 'en' ? 'VERIFIED TERM' : 'ONAYLI TERİM'}
+                    {language === 'en' ? L("VERIFIED TERM") : L("ONAYLI TERİM")}
                   </span>
                 </div>
               </div>

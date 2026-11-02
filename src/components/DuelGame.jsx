@@ -1,3 +1,4 @@
+import { L } from '../utils/i18n';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Grid from './Grid';
 import Wheel from './Wheel';
@@ -79,7 +80,7 @@ export default function DuelGame({ seed, me, opponent, onFinish, onQuit }) {
     <div className="duel-bg flex-1 min-h-0 flex flex-col relative" style={{ '--accent': '#e11d48' }}>
       {/* Skor tabelası */}
       <div className="flex items-center gap-2 px-3 pt-3 pb-2 shrink-0">
-        <button className="icon-btn" onClick={onQuit} aria-label="Düellodan çık">
+        <button className="icon-btn" onClick={onQuit} aria-label={L("Düellodan çık")}>
           <span aria-hidden="true" className="material-symbols-outlined text-[20px]">close</span>
         </button>
         <div className="duel-scoreboard flex-1">
@@ -90,7 +91,7 @@ export default function DuelGame({ seed, me, opponent, onFinish, onQuit }) {
           <div className="duel-clock tabular-nums" style={{ color: pct > 0.25 ? '#ffffff' : '#fda4af' }}>{left}</div>
           <div className="duel-side is-them">
             <b className="tabular-nums">{opponent ? `${rivalNow}/${total}` : '?'}</b>
-            <span className="truncate">{opponent ? opponent.name : 'Arkadaşın'}</span>
+            <span className="truncate">{opponent ? opponent.name : L("Arkadaşın")}</span>
           </div>
         </div>
       </div>
@@ -99,11 +100,11 @@ export default function DuelGame({ seed, me, opponent, onFinish, onQuit }) {
           <div className="h-full rounded-full transition-[width] duration-300" style={{ width: `${pct * 100}%`, background: pct > 0.25 ? '#22c55e' : '#ef4444' }} />
           {/* Rakibin bitirdiği an */}
           {opponent && (
-            <div className="absolute -top-1 w-1 h-[18px] rounded-full bg-rose-400" style={{ left: `${(1 - opponent.score.t / DUEL_SECONDS) * 100}%` }} title="Rakibin bitirdiği an" />
+            <div className="absolute -top-1 w-1 h-[18px] rounded-full bg-rose-400" style={{ left: `${(1 - opponent.score.t / DUEL_SECONDS) * 100}%` }} title={L("Rakibin bitirdiği an")} />
           )}
         </div>
         <p className="text-center text-[12px] font-bold mt-1.5" style={{ color: !opponent ? 'rgba(255,255,255,0.6)' : ahead > 0 ? '#86efac' : ahead < 0 ? '#fda4af' : '#fde047' }}>
-          {!opponent ? 'Ne kadar çok kelime, o kadar iyi' : ahead > 0 ? `Öndesin (+${ahead})` : ahead < 0 ? `${-ahead} kelime gerisindesin` : 'Başa baş'}
+          {!opponent ? L("Ne kadar çok kelime, o kadar iyi") : ahead > 0 ? L("Öndesin (+{0})", ahead) : ahead < 0 ? `${-ahead} kelime gerisindesin` : L("Başa baş")}
         </p>
       </div>
 
@@ -118,20 +119,20 @@ export default function DuelGame({ seed, me, opponent, onFinish, onQuit }) {
             <Wheel letters={letters} onWordSubmit={onWordSubmit} onShuffle={() => setLetters(l => [...l].sort(() => Math.random() - 0.5))} wrongWordTrigger={wrong} />
           </div>
         </div>
-        <button onClick={finish} className="mt-3 text-white/60 font-bold text-[13px] underline underline-offset-4">Pes et, bu skorla bitir</button>
+        <button onClick={finish} className="mt-3 text-white/60 font-bold text-[13px] underline underline-offset-4">{L("Pes et, bu skorla bitir")}</button>
       </div>
 
       {countdown === 4 && (
         <div className="duel-intro" aria-hidden="true">
           <div className="duel-intro-half me"><span className="duel-intro-avatar">{(me || '?').slice(0, 1).toLocaleUpperCase('tr-TR')}</span><b>{me}</b></div>
-          <div className="duel-intro-half them"><span className="duel-intro-avatar">{(opponent?.name || '?').slice(0, 1).toLocaleUpperCase('tr-TR')}</span><b>{opponent?.name || 'Rakip'}</b></div>
-          <span className="duel-intro-vs">VS</span>
+          <div className="duel-intro-half them"><span className="duel-intro-avatar">{(opponent?.name || '?').slice(0, 1).toLocaleUpperCase('tr-TR')}</span><b>{opponent?.name || L("Rakip")}</b></div>
+          <span className="duel-intro-vs">{L("VS")}</span>
         </div>
       )}
       {countdown > 0 && countdown < 4 && (
         <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black/55">
           <span key={countdown} className="duel-count text-white font-black text-[120px] leading-none">{countdown}</span>
-          <span className="text-white/70 font-bold text-[14px] mt-2">{opponent ? `${opponent.name}: ${opponent.score.w} kelime` : 'Hazır ol'}</span>
+          <span className="text-white/70 font-bold text-[14px] mt-2">{opponent ? `${opponent.name}: ${opponent.score.w} kelime` : L("Hazır ol")}</span>
         </div>
       )}
     </div>

@@ -32,6 +32,9 @@ function App() {
   const unlockBadge = useGameStore(state => state.unlockBadge);
   const checkStreak = useGameStore(state => state.checkStreak);
   const highContrast = useGameStore(state => state.highContrast);
+  const language = useGameStore(state => state.language);
+  // Büyük harf dönüşümü dile göre: lang="tr" kalırsa İngilizce "SPIN" metni "SPİN" olur
+  useEffect(() => { document.documentElement.lang = language === 'en' ? 'en' : 'tr'; }, [language]);
   const largeText = useGameStore(state => state.largeText);
   // Erişilebilirlik ayarları tüm ekranlara body sınıfıyla uygulanır
   useEffect(() => {

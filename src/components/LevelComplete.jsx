@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
-import { useTranslation } from '../utils/i18n';
+import { useTranslation, L } from '../utils/i18n';
 import { formatKurus } from '../utils/format';
 import { STATION_NAMES } from '../utils/transitNetwork';
 
@@ -54,7 +54,7 @@ const LevelComplete = ({ level, station, summary, mistakes, meanings, onNextLeve
 
   const handleShare = async () => {
     Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
-    const shareText = `🚇 Turnike: Sözcük Seferi\n📍 ${station.id} · ${station.displayName} (${level})\n⏱️ ${summary?.timeSpent || 0}s · 🎯 %${accuracy}\n${'⭐'.repeat(stars)}\n\nSen de İstanbul'u keşfet!`;
+    const shareText = L("🚇 Turnike: Sözcük Seferi\n📍 {0} · {1} ({2})\n⏱️ {3}s · 🎯 %{4}\n{5}\n\nSen de İstanbul'u keşfet!", station.id, station.displayName, level, summary?.timeSpent || 0, accuracy, '⭐'.repeat(stars));
     if (navigator.share) {
       try {
         await navigator.share({ title: 'Turnike: Sözcük Seferi', text: shareText, url: window.location.origin });
@@ -75,7 +75,7 @@ const LevelComplete = ({ level, station, summary, mistakes, meanings, onNextLeve
         <div className="w-full rounded-2xl overflow-hidden mb-4" style={{ border: `1.5px solid ${station.color}`, boxShadow: `0 0 30px ${station.color}33` }}>
           <div className="flex items-center gap-2 px-4 py-2" style={{ background: station.color }}>
             <span className="text-white font-black text-[13px] tracking-wide">{station.code}</span>
-            <span className="text-white/85 text-[12px] font-semibold truncate">{station.name}</span>
+            <span className="text-white/85 text-[12px] font-semibold truncate">{L(station.name)}</span>
           </div>
           <div className="px-4 py-3 text-center" style={{ background: 'var(--surface-strong)' }}>
             <div className="flex justify-center gap-1.5 mb-2">
@@ -90,7 +90,7 @@ const LevelComplete = ({ level, station, summary, mistakes, meanings, onNextLeve
             </div>
             <h1 className="text-white text-[24px] font-black leading-tight">{station.displayName}</h1>
             <p className="text-white/60 text-[13px] font-semibold mt-0.5">{station.isLastLeg ? `${t('arrived_at')} · ${t('leg')} ${station.leg}/${station.legsPerStation}` : `${t('leg')} ${station.leg}/${station.legsPerStation} ${t('leg_done')}`}</p>
-            {station.isLastLeg && <p className="text-white/70 text-[13px] leading-relaxed mt-3">{station.stationInfo}</p>}
+            {station.isLastLeg && <p className="text-white/70 text-[13px] leading-relaxed mt-3">{L(station.stationInfo)}</p>}
           </div>
         </div>
 
@@ -100,8 +100,8 @@ const LevelComplete = ({ level, station, summary, mistakes, meanings, onNextLeve
           <div className="w-full rounded-2xl px-4 py-3 mb-4 flex items-center gap-3 scale-in" style={{ background: station.color }} role="status">
             <span aria-hidden="true" className="material-symbols-outlined text-[34px] text-white" style={{ fontVariationSettings: "'FILL' 1" }}>military_tech</span>
             <span className="min-w-0">
-              <span className="block text-white font-black text-[16px] tracking-wide">{station.code} HATTI TAMAMLANDI</span>
-              <span className="block text-white/85 text-[12px] font-semibold truncate">{station.name} · {(STATION_NAMES[station.id] || []).length} durak</span>
+              <span className="block text-white font-black text-[16px] tracking-wide">{station.code}{L(" HATTI TAMAMLANDI")}</span>
+              <span className="block text-white/85 text-[12px] font-semibold truncate">{L(station.name)} · {(STATION_NAMES[station.id] || []).length} durak</span>
             </span>
           </div>
         )}
@@ -109,9 +109,7 @@ const LevelComplete = ({ level, station, summary, mistakes, meanings, onNextLeve
         {/* Toplam her zaman görünür; döküm dokununca açılır (devam düğmesi kaydırmadan görünsün) */}
         <details className="w-full card-panel px-4 py-3 mb-4 group">
           <summary className="flex justify-between items-center cursor-pointer list-none">
-            <span className="text-white font-black text-[15px] flex items-center gap-1">
-              İstanbulkart
-              <span aria-hidden="true" className="material-symbols-outlined text-[18px] text-white/50 transition-transform group-open:rotate-180">expand_more</span>
+            <span className="text-white font-black text-[15px] flex items-center gap-1">{L("İstanbulkart")}<span aria-hidden="true" className="material-symbols-outlined text-[18px] text-white/50 transition-transform group-open:rotate-180">expand_more</span>
             </span>
             <span className="font-black text-[18px] tabular-nums" style={{ color: 'var(--coin)' }}>
               +<CountUp end={total} format={formatKurus} />
@@ -119,8 +117,8 @@ const LevelComplete = ({ level, station, summary, mistakes, meanings, onNextLeve
           </summary>
           <div className="border-t border-white/10 mt-2 pt-1">
             {earnings.map(e => (
-              <div key={e.label} className={`flex justify-between text-[14px] py-1 ${e.value ? 'text-white/85' : 'text-white/35'}`}>
-                <span className="font-semibold">{e.label}</span>
+              <div key={L(e.label)} className={`flex justify-between text-[14px] py-1 ${e.value ? 'text-white/85' : 'text-white/35'}`}>
+                <span className="font-semibold">{L(e.label)}</span>
                 <span className="font-bold tabular-nums">+{formatKurus(e.value)}</span>
               </div>
             ))}
@@ -132,15 +130,15 @@ const LevelComplete = ({ level, station, summary, mistakes, meanings, onNextLeve
           <div className="w-full rounded-2xl p-3 mb-3 flex items-center gap-3 fade-in" style={{ background: 'rgba(96,165,250,0.15)', border: '1px solid rgba(96,165,250,0.45)' }}>
             <span aria-hidden="true" className="material-symbols-outlined text-[28px] text-sky-300" style={{ fontVariationSettings: "'FILL' 1" }}>{summary.lostItem.icon}</span>
             <span className="text-white text-[13px] font-semibold">
-              <b>Kayıp eşya bulundu: {summary.lostItem.name}</b>{summary.lostItem.isDaily ? ' · Günün aranan eşyası!' : ''}<br />
-              <span className="text-white/65">Kayıp Eşya Ofisi'ndeki rafına kondu.</span>
+              <b>{L("Kayıp eşya bulundu: ")}{L(summary.lostItem.name)}</b>{summary.lostItem.isDaily ? L(" · Günün aranan eşyası!") : ''}<br />
+              <span className="text-white/65">{L("Kayıp Eşya Ofisi'ndeki rafına kondu.")}</span>
             </span>
           </div>
         )}
         {summary?.postcard && (
           <div className="w-full rounded-2xl p-3 mb-4 flex items-center gap-3 fade-in" style={{ background: 'rgba(251,191,36,0.15)', border: '1px solid rgba(251,191,36,0.45)' }}>
             <span aria-hidden="true" className="material-symbols-outlined text-[28px] text-amber-300" style={{ fontVariationSettings: "'FILL' 1" }}>mail</span>
-            <span className="text-white text-[13px] font-semibold"><b>Yeni kartpostal!</b> {station.displayName} kartpostalı koleksiyonuna eklendi.</span>
+            <span className="text-white text-[13px] font-semibold"><b>{L("Yeni kartpostal!")}</b> {station.displayName}{L(" kartpostalı koleksiyonuna eklendi.")}</span>
           </div>
         )}
         {learned.length > 0 && (
@@ -180,10 +178,10 @@ const LevelComplete = ({ level, station, summary, mistakes, meanings, onNextLeve
               onClick={async () => { setDoubleState('loading'); setDoubleState((await onDoubleReward(total)) ? 'done' : 'failed'); }}
               className="w-full mb-2.5 py-3 rounded-full font-black text-[14px] text-white bg-blue-600 active:scale-95 transition-transform flex items-center justify-center gap-2 disabled:opacity-60">
               <span aria-hidden="true" className="material-symbols-outlined text-[20px]">smart_display</span>
-              {doubleState === 'loading' ? 'Reklam yükleniyor…' : doubleState === 'failed' ? 'Reklam yüklenemedi, tekrar dene' : `Reklam izle, kazancı 2 katına çıkar (+${formatKurus(total)})`}
+              {doubleState === 'loading' ? L("Reklam yükleniyor…") : doubleState === 'failed' ? L("Reklam yüklenemedi, tekrar dene") : L("Reklam izle, kazancı 2 katına çıkar (+{0})", formatKurus(total))}
             </button>
           )}
-          {doubleState === 'done' && <p className="text-center text-green-300 font-bold text-[13px] mb-2.5">+{formatKurus(total)} eklendi, kazancın 2 katına çıktı!</p>}
+          {doubleState === 'done' && <p className="text-center text-green-300 font-bold text-[13px] mb-2.5">+{formatKurus(total)}{L(" eklendi, kazancın 2 katına çıktı!")}</p>}
           <button onClick={onNextLevel} className="play-btn w-full flex items-center justify-center gap-2 whitespace-nowrap" style={{ fontSize: 16, letterSpacing: 2, padding: '15px 20px' }}>
             <span aria-hidden="true" className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>directions_railway</span>
             {station.isLastLeg ? t('next_station').toLocaleUpperCase('tr-TR') : t('continue_journey')}
@@ -192,10 +190,10 @@ const LevelComplete = ({ level, station, summary, mistakes, meanings, onNextLeve
             <button onClick={onHome} className="flex-1 py-3.5 rounded-full font-bold text-white/70 text-[13px] tracking-wider uppercase active:scale-95 transition-transform flex items-center justify-center gap-1.5" style={{ border: '1px solid var(--border)' }}>
               <span aria-hidden="true" className="material-symbols-outlined text-[18px]">home</span>{t('main_menu')}
             </button>
-            <button onClick={onRetry} className="w-14 rounded-full text-white/70 active:scale-95 transition-transform flex items-center justify-center" style={{ border: '1px solid var(--border)' }} aria-label="Tekrar oyna">
+            <button onClick={onRetry} className="w-14 rounded-full text-white/70 active:scale-95 transition-transform flex items-center justify-center" style={{ border: '1px solid var(--border)' }} aria-label={L("Tekrar oyna")}>
               <span aria-hidden="true" className="material-symbols-outlined text-[20px]">replay</span>
             </button>
-            <button onClick={handleShare} className="w-14 rounded-full text-blue-400 active:scale-95 transition-transform flex items-center justify-center" style={{ border: '1px solid rgba(59,130,246,0.35)' }} aria-label="Paylaş">
+            <button onClick={handleShare} className="w-14 rounded-full text-blue-400 active:scale-95 transition-transform flex items-center justify-center" style={{ border: '1px solid rgba(59,130,246,0.35)' }} aria-label={L("Paylaş")}>
               <span aria-hidden="true" className="material-symbols-outlined text-[20px]">{copied ? 'check' : 'share'}</span>
             </button>
           </div>

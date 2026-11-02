@@ -1,4 +1,5 @@
 import { useGameStore } from '../store/gameStore';
+import EN from './en';
 
 export const translations = {
   tr: {
@@ -260,4 +261,17 @@ export const useTranslation = () => {
   };
 
   return { t, language };
+};
+
+// Sabit Türkçe arayüz metinleri: Türkçe metnin kendisi anahtardır, İngilizce karşılığı en.js'tedir.
+// Karşılık yoksa Türkçe görünür. Reaktif değildir: dil değişince açılan ekranlar yeni dili kullanır.
+export const L = (text, ...args) => {
+  let out = text;
+  if (useGameStore.getState().language === 'en') {
+    // Anahtar kırpılmış metindir; JSX'teki baş/son boşluk korunur
+    const key = text.trim();
+    if (EN[key]) out = text.replace(key, EN[key]);
+  }
+  // Şablon metinler: L('Günlük yükleme {0}', tutar)
+  return args.length ? out.replace(/\{(\d+)\}/g, (m, i) => args[i] ?? m) : out;
 };

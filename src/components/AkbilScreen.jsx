@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useGameStore, VAULT_SIZE, VAULT_REWARD } from '../store/gameStore';
-import { useTranslation } from '../utils/i18n';
+import { useTranslation, L } from '../utils/i18n';
 import ScreenHeader from './ScreenHeader';
 import { formatKurus } from '../utils/format';
 import { LINES, getStationForLevel, getNetworkProgress } from '../utils/transitNetwork';
@@ -124,21 +124,21 @@ export const IstanbulCard = ({ color, pattern, name, sticker, balance, onClick }
       onClick={onClick}
       className="w-full aspect-[1.586/1] rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden text-left active:scale-[0.98] transition-transform"
       style={{ background: `linear-gradient(135deg, ${color}, ${color}cc)`, boxShadow: '0 18px 36px rgba(0,0,0,0.35)' }}
-      aria-label="Kartı kişiselleştir"
+      aria-label={L("Kartı kişiselleştir")}
     >
       <CardPattern pattern={pattern} />
       <div className="flex justify-between items-start relative">
-        <span className="text-white font-black text-[18px] tracking-tight">İstanbul<span className="font-semibold">kart</span></span>
+        <span className="text-white font-black text-[18px] tracking-tight">{L("İstanbul")}<span className="font-semibold">kart</span></span>
         {stickerLine && <span className="line-badge" style={{ background: stickerLine.color }}>{stickerLine.code}</span>}
       </div>
       {/* Temassız çip */}
       <div className="relative w-10 h-7 rounded-md bg-gradient-to-br from-amber-200 to-amber-500 opacity-90" />
       <div className="relative flex items-end justify-between gap-2">
         <div className="min-w-0">
-          <p className="text-white/70 text-[11px] font-bold uppercase tracking-wider">Bakiye</p>
+          <p className="text-white/70 text-[11px] font-bold uppercase tracking-wider">{L("Bakiye")}</p>
           <p className="text-white text-[34px] leading-none font-black tracking-tight tabular-nums">{formatKurus(balance)}</p>
         </div>
-        <p className="text-white/85 text-[12px] font-bold uppercase tracking-widest truncate max-w-[45%]">{name || 'YOLCU'}</p>
+        <p className="text-white/85 text-[12px] font-bold uppercase tracking-widest truncate max-w-[45%]">{name || L("YOLCU")}</p>
       </div>
     </button>
   );
@@ -205,7 +205,7 @@ const AkbilScreen = ({ onBack }) => {
     if (rewarded) {
       registerAdReward(today);
       recordTopUp('ad', AD_REWARD);
-      flash(`+${formatKurus(AD_REWARD)} yüklendi`);
+      flash(L("+{0} yüklendi", formatKurus(AD_REWARD)));
       setAdState('idle');
     } else {
       setAdState('failed');
@@ -216,7 +216,7 @@ const AkbilScreen = ({ onBack }) => {
     setSettings({ dailyTopUpDate: today });
     recordTopUp('daily', DAILY_TOP_UP);
     track('top_up_daily');
-    flash(`+${formatKurus(DAILY_TOP_UP)} yüklendi`);
+    flash(L("+{0} yüklendi", formatKurus(DAILY_TOP_UP)));
   };
 
   return (
@@ -227,18 +227,18 @@ const AkbilScreen = ({ onBack }) => {
         <IstanbulCard color={cardColor} pattern={cardPattern} name={cardName} sticker={cardSticker} balance={balance}
           onClick={() => setCustomizing(c => !c)} />
         <p className="text-center text-white/50 text-[12px] font-semibold mt-2 mb-4">
-          {customizing ? 'Kartını düzenliyorsun' : 'Kartına dokunarak kişiselleştir'}
+          {customizing ? L("Kartını düzenliyorsun") : L("Kartına dokunarak kişiselleştir")}
         </p>
 
         {customizing && (
           <section className="card-panel !rounded-2xl p-4 mb-4 flex flex-col gap-4 fade-in">
             <div>
-              <h3 className="kart-label">Renk</h3>
+              <h3 className="kart-label">{L("Renk")}</h3>
               <div className="flex gap-2 flex-wrap">
                 {[...CARD_COLORS, ...PASS_COLORS].map(c => {
                   const locked = PASS_COLORS.includes(c) && !cardUnlocks.includes(c);
                   return (
-                    <button key={c} aria-label={locked ? `Renk ${c}, Hat Pasosu ile açılır` : `Renk ${c}`} aria-pressed={cardColor === c} disabled={locked}
+                    <button key={c} aria-label={locked ? L("Renk {0}, Hat Pasosu ile açılır", c) : `Renk ${c}`} aria-pressed={cardColor === c} disabled={locked}
                       onClick={() => setSettings({ cardColor: c })}
                       className={`w-9 h-9 rounded-full transition-transform flex items-center justify-center ${cardColor === c ? 'ring-2 ring-white scale-110' : ''} ${locked ? 'opacity-40' : ''}`} style={{ background: c }}>
                       {locked && <span aria-hidden="true" className="material-symbols-outlined text-white text-[16px]">lock</span>}
@@ -248,23 +248,23 @@ const AkbilScreen = ({ onBack }) => {
               </div>
             </div>
             <div>
-              <h3 className="kart-label">Desen <span className="normal-case tracking-normal font-semibold text-white/45">· 🔒 olanlar Hat Pasosu'ndan</span></h3>
+              <h3 className="kart-label">{L("Desen ")}<span className="normal-case tracking-normal font-semibold text-white/45">{L("· 🔒 olanlar Hat Pasosu'ndan")}</span></h3>
               <div className="flex gap-2 flex-wrap">
                 {PATTERNS.map(p => {
                   const locked = p.pass && !cardUnlocks.includes(p.id);
                   return (
                     <button key={p.id} aria-pressed={cardPattern === p.id} disabled={locked} onClick={() => setSettings({ cardPattern: p.id })}
                       className={`kart-chip ${cardPattern === p.id ? 'is-on' : ''} ${locked ? 'opacity-45' : ''}`}>
-                      {locked ? '🔒 ' : ''}{p.label}
+                      {locked ? '🔒 ' : ''}{L(p.label)}
                     </button>
                   );
                 })}
               </div>
             </div>
             <div>
-              <h3 className="kart-label">Hat rozeti</h3>
+              <h3 className="kart-label">{L("Hat rozeti")}</h3>
               <div className="flex gap-1.5 flex-wrap">
-                <button aria-pressed={!cardSticker} onClick={() => setSettings({ cardSticker: null })} className={`kart-chip ${!cardSticker ? 'is-on' : ''}`}>Yok</button>
+                <button aria-pressed={!cardSticker} onClick={() => setSettings({ cardSticker: null })} className={`kart-chip ${!cardSticker ? 'is-on' : ''}`}>{L("Yok")}</button>
                 {stickerLines.map(l => (
                   <button key={l.id} aria-pressed={cardSticker === l.id} onClick={() => setSettings({ cardSticker: l.id })}
                     className={`line-badge transition-transform ${cardSticker === l.id ? 'ring-2 ring-white scale-110' : 'opacity-80'}`} style={{ background: l.color }}>{l.code}</button>
@@ -272,8 +272,8 @@ const AkbilScreen = ({ onBack }) => {
               </div>
             </div>
             <label className="block">
-              <span className="kart-label block">Kart üstündeki isim</span>
-              <input value={cardName} maxLength={16} placeholder="YOLCU"
+              <span className="kart-label block">{L("Kart üstündeki isim")}</span>
+              <input value={cardName} maxLength={16} placeholder={L("YOLCU")}
                 onChange={e => setSettings({ cardName: e.target.value.toLocaleUpperCase('tr-TR') })}
                 className="w-full rounded-xl bg-white/10 border border-white/15 px-3 py-2.5 text-white font-bold tracking-widest uppercase placeholder:text-white/30 outline-none focus:border-white/40" />
             </label>
@@ -284,45 +284,45 @@ const AkbilScreen = ({ onBack }) => {
           <div role="status" className="mb-3 p-3 rounded-xl text-center bg-green-600/25 border border-green-500/40 text-green-300 font-bold text-[14px] fade-in">✓ {toast}</div>
         )}
 
-        <h2 className="kart-label mt-1">Bakiye yükle</h2>
+        <h2 className="kart-label mt-1">{L("Bakiye yükle")}</h2>
         <div className="flex flex-col gap-2.5">
           <Module
             icon="smart_display" iconColor="#60a5fa"
-            title={`Reklam izle, ${formatKurus(AD_REWARD)} yükle`}
+            title={L("Reklam izle, {0} yükle", formatKurus(AD_REWARD))}
             subtitle={!adsSupported
-              ? 'Yalnızca Android uygulamasında'
+              ? L("Yalnızca Android uygulamasında")
               : adState === 'failed'
-                ? 'Reklam yüklenemedi, biraz sonra tekrar dene'
-                : `Bugün ${Math.max(0, adsLeft)}/${AD_DAILY_LIMIT} hak kaldı`}
-            action={adState === 'loading' ? '...' : 'İzle'}
+                ? L("Reklam yüklenemedi, biraz sonra tekrar dene")
+                : L("Bugün {0}/{1} hak kaldı", Math.max(0, adsLeft), AD_DAILY_LIMIT)}
+            action={adState === 'loading' ? '...' : L("İzle")}
             disabled={!adsSupported || adsLeft <= 0 || adState === 'loading'}
             onClick={watchAd}
           />
           <Module
             icon="calendar_today" iconColor="#34d399"
-            title={`Günlük yükleme ${formatKurus(DAILY_TOP_UP)}`}
-            subtitle={dailyClaimed ? 'Bugün alındı, yarın yine gel' : 'Her gün bir kez ücretsiz'}
-            action={dailyClaimed ? 'Alındı' : 'Al'}
+            title={L("Günlük yükleme {0}", formatKurus(DAILY_TOP_UP))}
+            subtitle={dailyClaimed ? L("Bugün alındı, yarın yine gel") : L("Her gün bir kez ücretsiz")}
+            action={dailyClaimed ? L("Alındı") : L("Al")}
             disabled={dailyClaimed}
             onClick={claimDaily}
           />
           <Module
             icon="savings" iconColor="#fbbf24"
             title={`Kelime kavanozu: ${vaultCount}/${VAULT_SIZE}`}
-            subtitle={`Izgarada olmayan ${VAULT_SIZE} kelime bul, ${formatKurus(VAULT_REWARD)} kazan`}
+            subtitle={L('Izgarada olmayan {0} kelime bul, {1} kazan', VAULT_SIZE, formatKurus(VAULT_REWARD))}
             progress={vaultCount / VAULT_SIZE}
           />
           <Module
             icon="flag" iconColor={station.color}
-            title={`Durak ödülü: ${station.displayName}`}
-            subtitle={`Bölüm ${station.leg}/${station.legsPerStation} · durağı bitirince ${formatKurus(100)}`}
+            title={L("Durak ödülü: {0}", station.displayName)}
+            subtitle={L("Bölüm {0}/{1} · durağı bitirince {2}", station.leg, station.legsPerStation, formatKurus(100))}
             progress={(station.leg - 1) / station.legsPerStation}
           />
         </div>
 
-        <h2 className="kart-label mt-5">Son işlemler</h2>
+        <h2 className="kart-label mt-5">{L("Son işlemler")}</h2>
         {topUpHistory.length === 0 ? (
-          <p className="text-white/45 text-[13px] font-semibold">Henüz yükleme yok.</p>
+          <p className="text-white/45 text-[13px] font-semibold">{L("Henüz yükleme yok.")}</p>
         ) : (
           <ul className="flex flex-col gap-1.5">
             {topUpHistory.slice(0, 10).map((h, i) => (

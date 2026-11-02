@@ -1,3 +1,4 @@
+import { L } from '../utils/i18n';
 import { useState } from 'react';
 import { useGameStore } from '../store/gameStore';
 
@@ -38,19 +39,15 @@ const UsernameModal = ({ onCancel }) => {
           <span aria-hidden="true" className="material-symbols-outlined text-4xl text-green-400">person_add</span>
         </div>
         
-        <h2 className="text-xl font-black text-white text-center mb-2 tracking-wide font-orbitron">
-          LİDERLİK İÇİN<br/>KULLANICI ADI
-        </h2>
-        <p className="text-white/60 text-sm text-center mb-6 px-2">
-          Dünya sıralamasında görünmek için kendine bir ad seç.
-        </p>
+        <h2 className="text-xl font-black text-white text-center mb-2 tracking-wide font-orbitron">{L("LİDERLİK İÇİN")}<br/>{L("KULLANICI ADI")}</h2>
+        <p className="text-white/60 text-sm text-center mb-6 px-2">{L("Dünya sıralamasında görünmek için kendine bir ad seç.")}</p>
 
         <form onSubmit={handleSubmit} className="w-full flex flex-col items-center">
           <input
             type="text"
             value={inputName}
             onChange={(e) => { setInputName(e.target.value); setError(''); }}
-            placeholder="Kullanıcı Adın"
+            placeholder={L("Kullanıcı Adın")}
             className="w-full bg-black/40 border border-green-500/30 rounded-xl px-4 py-3 text-green-400 text-center focus:outline-none focus:border-green-400 transition-colors mb-2 placeholder-white/20 font-bold"
             autoFocus
           />
@@ -59,13 +56,9 @@ const UsernameModal = ({ onCancel }) => {
           <button
             type="submit"
             className="w-full py-3 mt-2 rounded-xl font-bold text-white transition-all bg-green-600 hover:bg-green-500 shadow-lg shadow-green-500/20"
-          >
-            BAŞLA
-          </button>
+          >{L("BAŞLA")}</button>
           {onCancel && (
-            <button type="button" onClick={onCancel} className="w-full py-3 mt-1 rounded-xl font-bold text-white/55 text-sm">
-              Vazgeç
-            </button>
+            <button type="button" onClick={onCancel} className="w-full py-3 mt-1 rounded-xl font-bold text-white/55 text-sm">{L("Vazgeç")}</button>
           )}
         </form>
       </div>

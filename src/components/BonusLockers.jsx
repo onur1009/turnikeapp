@@ -1,3 +1,4 @@
+import { L } from '../utils/i18n';
 import { useState, useEffect, useRef } from 'react';
 import { formatKurus } from '../utils/format';
 import { useGameStore } from '../store/gameStore';
@@ -109,8 +110,8 @@ const BonusLockers = ({ onComplete }) => {
         <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-3" style={{ background: 'rgba(245, 158, 11, 0.15)', border: '2px solid rgba(245, 158, 11, 0.4)' }}>
           <span aria-hidden="true" className="material-symbols-outlined text-[32px] text-amber-500">luggage</span>
         </div>
-        <h1 className="text-white text-2xl font-black mb-1 uppercase tracking-widest">Emanet Dolapları</h1>
-        <p className="text-white/60 text-sm font-semibold max-w-xs mx-auto">İETT ve Metro'da unutulan eşyalar arasında şansını dene!</p>
+        <h1 className="text-white text-2xl font-black mb-1 uppercase tracking-widest">{L("Emanet Dolapları")}</h1>
+        <p className="text-white/60 text-sm font-semibold max-w-xs mx-auto">{L("İETT ve Metro'da unutulan eşyalar arasında şansını dene!")}</p>
       </div>
 
       {/* Picks Left Badge */}
@@ -121,7 +122,7 @@ const BonusLockers = ({ onComplete }) => {
         }}
       >
         <span aria-hidden="true" className="material-symbols-outlined text-[18px]" style={{ color: picksLeft > 0 ? '#4ade80' : '#f87171' }}>key</span>
-        <span className="font-bold text-sm" role="status" aria-live="polite" style={{ color: picksLeft > 0 ? '#4ade80' : '#f87171' }}>{picksLeft} HAKKIN KALDI</span>
+        <span className="font-bold text-sm" role="status" aria-live="polite" style={{ color: picksLeft > 0 ? '#4ade80' : '#f87171' }}>{picksLeft}{L(" HAKKIN KALDI")}</span>
       </div>
 
       {/* Lockers Grid */}
@@ -177,7 +178,7 @@ const BonusLockers = ({ onComplete }) => {
                     {reward.icon}
                   </span>
                   <span className="font-bold text-[10px] leading-tight text-center px-1 whitespace-pre-line" style={{ color: reward.color }}>
-                    {reward.label}
+                    {L(reward.label)}
                   </span>
                 </div>
               </div>
@@ -189,18 +190,16 @@ const BonusLockers = ({ onComplete }) => {
       {/* Finishing Summary */}
       <div className={`transition-all duration-700 flex flex-col items-center ${isFinishing ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95 pointer-events-none'}`}>
         <div className="bg-slate-800/80 backdrop-blur border border-slate-700/50 rounded-2xl p-4 shadow-2xl flex flex-col items-center">
-          <p className="text-white font-black text-sm uppercase tracking-widest mb-3 text-center">TOPLAM KAZANÇ</p>
+          <p className="text-white font-black text-sm uppercase tracking-widest mb-3 text-center">{L("TOPLAM KAZANÇ")}</p>
           <div className="flex flex-wrap justify-center gap-2">
             {totalWon.cash > 0 && <span className="text-green-400 font-bold bg-green-500/10 px-3 py-1.5 rounded-lg border border-green-500/30">+{formatKurus(totalWon.cash)}</span>}
-            {totalWon.hints > 0 && <span className="text-blue-400 font-bold bg-blue-500/10 px-3 py-1.5 rounded-lg border border-blue-500/30">+{totalWon.hints} İpucu</span>}
-            {totalWon.lives > 0 && <span className="text-pink-400 font-bold bg-pink-500/10 px-3 py-1.5 rounded-lg border border-pink-500/30">+{totalWon.lives} Can</span>}
-            {totalWon.cash === 0 && totalWon.hints === 0 && totalWon.lives === 0 && <span className="text-slate-400 font-bold bg-slate-500/10 px-3 py-1.5 rounded-lg border border-slate-500/30">Maalesef boş çektin...</span>}
+            {totalWon.hints > 0 && <span className="text-blue-400 font-bold bg-blue-500/10 px-3 py-1.5 rounded-lg border border-blue-500/30">+{totalWon.hints}{L(" İpucu")}</span>}
+            {totalWon.lives > 0 && <span className="text-pink-400 font-bold bg-pink-500/10 px-3 py-1.5 rounded-lg border border-pink-500/30">+{totalWon.lives}{L(" Can")}</span>}
+            {totalWon.cash === 0 && totalWon.hints === 0 && totalWon.lives === 0 && <span className="text-slate-400 font-bold bg-slate-500/10 px-3 py-1.5 rounded-lg border border-slate-500/30">{L("Maalesef boş çektin...")}</span>}
           </div>
         </div>
         {isFinishing && (
-          <button type="button" onClick={finish} className="play-btn mt-4 px-10" style={{ fontSize: 15, letterSpacing: 2, padding: '13px 40px' }}>
-            DEVAM ET
-          </button>
+          <button type="button" onClick={finish} className="play-btn mt-4 px-10" style={{ fontSize: 15, letterSpacing: 2, padding: '13px 40px' }}>{L("DEVAM ET")}</button>
         )}
       </div>
     </main>

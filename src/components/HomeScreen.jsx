@@ -9,7 +9,7 @@ import EventSheet from './EventSheet';
 import { useState } from 'react';
 import AnimatedBalance from './AnimatedBalance';
 import { useGameStore, VAULT_SIZE } from '../store/gameStore';
-import { useTranslation } from '../utils/i18n';
+import { useTranslation, L } from '../utils/i18n';
 import { getStationForLevel } from '../utils/transitNetwork';
 
 // Sekmelerin açıldığı seviye (maxUnlockedLevel, 0 tabanlı). Kilitliyse uyarı gösterilir.
@@ -62,7 +62,7 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
         </button>
         <div className="flex items-center gap-2">
           {streak > 0 && (
-            <span className="status-chip" title="Seri">🔥 {streak}</span>
+            <span className="status-chip" title={L("Seri")}>🔥 {streak}</span>
           )}
           <button className="icon-btn" onClick={() => setScreen('stats')} aria-label={t('stats')}>
             <span aria-hidden="true" className="material-symbols-outlined text-[18px]">bar_chart</span>
@@ -83,7 +83,7 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
             </div>
             <div className="flex items-center gap-1 shrink-0">
               <span className="ybs-led text-[9px]" style={{ animation: 'ybsLedBlink 1.2s ease-in-out infinite' }}>●</span>
-              <span className="text-[10px] font-bold">CANLI</span>
+              <span className="text-[10px] font-bold">{L("CANLI")}</span>
             </div>
           </div>
           <div className="px-3 pt-2 pb-1">
@@ -119,27 +119,27 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
             <button onClick={() => setShowEvent(true)} className="event-strip" style={{ background: event.color }}>
               <span aria-hidden="true" className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>{event.icon}</span>
               <span className="flex-1 min-w-0 text-left leading-tight">
-                <span className="block font-black text-[14px] truncate">{event.name} · 2x</span>
-                <span className="block text-[11px] font-bold opacity-85">{timeLeft(event.endsAt)} kaldı</span>
+                <span className="block font-black text-[14px] truncate">{L(event.name)} · 2x</span>
+                <span className="block text-[11px] font-bold opacity-85">{timeLeft(event.endsAt)}{L(" kaldı")}</span>
               </span>
               <span aria-hidden="true" className="material-symbols-outlined text-[20px]">chevron_right</span>
             </button>
           )}
           {/* Günlük ritim: Günün Seferi ve görevler */}
           <div className="grid grid-cols-2 gap-2">
-            <button onClick={() => setScreen('daily')} className="home-chip" aria-label={`Günün Seferi #${dayNumber()}`}>
+            <button onClick={() => setScreen('daily')} className="home-chip" aria-label={L("Günün Seferi #{0}", dayNumber())}>
               <span aria-hidden="true" className="material-symbols-outlined text-[22px] text-amber-300" style={{ fontVariationSettings: "'FILL' 1" }}>{dailySolved ? 'event_available' : 'today'}</span>
               <span className="flex flex-col items-start leading-tight min-w-0">
-                <span className="font-black text-[13px]">Günün Seferi</span>
-                <span className="text-[11px] font-bold opacity-75">{dailySolved ? 'Çözüldü ✓' : `#${dayNumber()} hazır`}</span>
+                <span className="font-black text-[13px]">{L("Günün Seferi")}</span>
+                <span className="text-[11px] font-bold opacity-75">{dailySolved ? L("Çözüldü ✓") : L('#{n} hazır').replace('{n}', dayNumber())}</span>
               </span>
               {!dailySolved && <span className="home-dot" aria-hidden="true" />}
             </button>
             <button onClick={() => setShowMissions(true)} className="home-chip">
               <span aria-hidden="true" className="material-symbols-outlined text-[22px] text-green-300" style={{ fontVariationSettings: "'FILL' 1" }}>task_alt</span>
               <span className="flex flex-col items-start leading-tight min-w-0">
-                <span className="font-black text-[13px]">Görevler</span>
-                <span className="text-[11px] font-bold opacity-75">{doneCount}/3 tamam</span>
+                <span className="font-black text-[13px]">{L("Görevler")}</span>
+                <span className="text-[11px] font-bold opacity-75">{doneCount}{L("/3 tamam")}</span>
               </span>
               {missionsReady > 0 && <span className="home-badge">{missionsReady}</span>}
             </button>
@@ -151,14 +151,12 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
               <span className="text-[11px] font-bold opacity-80 tracking-wider">{t('level_short')} {maxUnlockedLevel + 1}</span>
             </span>
           </button>
-          <TipBubble id="tip-duel" when={maxUnlockedLevel >= 10}>
-            Arkadaşına meydan oku: aynı bulmacayı kim daha hızlı çözecek?
-          </TipBubble>
+          <TipBubble id="tip-duel" when={maxUnlockedLevel >= 10}>{L("Arkadaşına meydan oku: aynı bulmacayı kim daha hızlı çözecek?")}</TipBubble>
           <button onClick={() => setScreen('duels')} className="duel-btn w-full flex items-center justify-center gap-3">
             <span aria-hidden="true" className="material-symbols-outlined text-[26px]">swords</span>
             <span className="flex flex-col items-start leading-tight">
-              <span>DÜELLO</span>
-              <span className="text-[11px] font-bold opacity-85 tracking-wider">Arkadaşına meydan oku</span>
+              <span>{L("DÜELLO")}</span>
+              <span className="text-[11px] font-bold opacity-85 tracking-wider">{L("Arkadaşına meydan oku")}</span>
             </span>
           </button>
         </div>
@@ -185,8 +183,8 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
             <button onClick={() => setScreen('postcards')} className="card-panel flex items-center gap-3 p-4 text-left active:scale-[0.98] transition-transform">
               <span aria-hidden="true" className="material-symbols-outlined text-[28px] text-amber-300" style={{ fontVariationSettings: "'FILL' 1" }}>mail</span>
               <span className="flex-1">
-                <span className="block text-white font-bold">Kartpostallarım</span>
-                <span className="block text-white/55 text-[12px] font-semibold">{postcardCount} durak kartpostalı</span>
+                <span className="block text-white font-bold">{L("Kartpostallarım")}</span>
+                <span className="block text-white/55 text-[12px] font-semibold">{postcardCount}{L(" durak kartpostalı")}</span>
               </span>
             </button>
             <button onClick={() => setScreen('vault')} className="card-panel flex items-center gap-3 p-4 text-left active:scale-[0.98] transition-transform">
@@ -200,8 +198,8 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
             <button onClick={() => setScreen('lostitems')} className="card-panel flex items-center gap-3 p-4 text-left active:scale-[0.98] transition-transform">
               <span aria-hidden="true" className="material-symbols-outlined text-[28px] text-blue-400">search</span>
               <span className="flex-1">
-                <span className="block text-white font-extrabold text-[15px]">Kayıp Eşya Ofisi</span>
-                <span className="block text-white/55 text-[12px]">Setleri tamamla, kalıcı bonus kazan</span>
+                <span className="block text-white font-extrabold text-[15px]">{L("Kayıp Eşya Ofisi")}</span>
+                <span className="block text-white/55 text-[12px]">{L("Setleri tamamla, kalıcı bonus kazan")}</span>
               </span>
               <span aria-hidden="true" className="material-symbols-outlined text-white/40">chevron_right</span>
             </button>

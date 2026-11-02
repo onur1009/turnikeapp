@@ -1,3 +1,4 @@
+import { L } from '../utils/i18n';
 import { useEffect, useState } from 'react';
 import { useGameStore } from '../store/gameStore';
 import DuelGame from './DuelGame';
@@ -32,11 +33,11 @@ const Avatar = ({ name, color, crown }) => (
 
 const VsBadge = () => (
   <div className="w-12 h-12 rounded-full bg-amber-400 text-[#10263f] font-black text-[18px] flex items-center justify-center shrink-0"
-    style={{ boxShadow: 'inset 0 -3px 0 rgba(0,0,0,0.2), 0 6px 14px rgba(0,0,0,0.3)' }}>VS</div>
+    style={{ boxShadow: 'inset 0 -3px 0 rgba(0,0,0,0.2), 0 6px 14px rgba(0,0,0,0.3)' }}>{L("VS")}</div>
 );
 
 const Score = ({ s }) => s
-  ? <p className="text-white/80 text-[13px] font-bold tabular-nums">{s.w} kelime · {s.t} sn</p>
+  ? <p className="text-white/80 text-[13px] font-bold tabular-nums">{s.w}{L(" kelime · ")}{s.t} sn</p>
   : <p className="text-white/40 text-[13px] font-bold">?</p>;
 
 const DuelsScreen = ({ onBack }) => {
@@ -143,8 +144,8 @@ const DuelsScreen = ({ onBack }) => {
   const share = async () => {
     const l = result.link;
     const text = l.toScore
-      ? `${myName} düellonu oynadı: ${l.toScore.w} kelime, ${l.toScore.t} sn. Sonuca bak!`
-      : `${myName} seni Turnike düellosuna çağırıyor: ${l.fromScore.w} kelime, ${l.fromScore.t} sn. Geçebilir misin?`;
+      ? L("{0} düellonu oynadı: {1} kelime, {2} sn. Sonuca bak!", myName, l.toScore.w, l.toScore.t)
+      : L("{0} seni Turnike düellosuna çağırıyor: {1} kelime, {2} sn. Geçebilir misin?", myName, l.fromScore.w, l.fromScore.t);
     const r = await shareDuel(l, text);
     track('duel_share', { result: r, reply: !!l.toScore });
     if (r !== 'cancelled') useGameStore.getState().bumpDaily('duels');
@@ -165,7 +166,7 @@ const DuelsScreen = ({ onBack }) => {
   return (
     <main className="duel-bg flex-1 w-full flex flex-col overflow-y-auto" style={{ overscrollBehavior: 'contain' }}>
       <header className="flex items-center justify-between px-4 pt-4 shrink-0">
-        <button className="icon-btn" onClick={view === 'result' ? () => setView('lobby') : onBack} aria-label="Geri">
+        <button className="icon-btn" onClick={view === 'result' ? () => setView('lobby') : onBack} aria-label={L("Geri")}>
           <span aria-hidden="true" className="material-symbols-outlined text-[20px]">arrow_back</span>
         </button>
         <span className="status-chip">🏆 {wins} · {losses} 💔</span>
@@ -177,66 +178,63 @@ const DuelsScreen = ({ onBack }) => {
             {!result.final && (
               <button onClick={share} className="duel-btn w-full flex items-center justify-center gap-2">
                 <span aria-hidden="true" className="material-symbols-outlined text-[24px]">send</span>
-                {result.theirs ? 'SONUCU GÖNDER' : 'ARKADAŞINA GÖNDER'}
+                {result.theirs ? L("SONUCU GÖNDER") : L("ARKADAŞINA GÖNDER")}
               </button>
             )}
             {result.final && (
               <button onClick={() => (result.ghost ? quickPlay() : play(newDuelSeed()))} className="duel-btn w-full flex items-center justify-center gap-2">
-                <span aria-hidden="true" className="material-symbols-outlined text-[24px]">replay</span>RÖVANŞ
-              </button>
+                <span aria-hidden="true" className="material-symbols-outlined text-[24px]">replay</span>{L("RÖVANŞ")}</button>
             )}
-            <button onClick={() => setView('lobby')} className="text-white/70 font-bold text-[13px] underline underline-offset-4">Düello ana ekranı</button>
+            <button onClick={() => setView('lobby')} className="text-white/70 font-bold text-[13px] underline underline-offset-4">{L("Düello ana ekranı")}</button>
             {note && <p role="status" className="text-center text-white/75 text-[13px] font-semibold">{note}</p>}
           </DuelResult>
         ) : incoming && !isReply && !incoming.toScore ? (
           <>
-            <p className="text-center text-white font-black text-[26px] leading-tight">{incoming.from}<br />seni düelloya çağırdı!</p>
+            <p className="text-center text-white font-black text-[26px] leading-tight">{incoming.from}<br />{L("seni düelloya çağırdı!")}</p>
             <div className="flex items-start justify-between">
               <div className="flex flex-col items-center w-[38%]"><Avatar name={incoming.from} color="#e11d48" /><Score s={challengerScore} /></div>
               <div className="pt-3"><VsBadge /></div>
               <div className="flex flex-col items-center w-[38%]"><Avatar name={myName} color="#2563eb" /><Score s={null} /></div>
             </div>
-            <p className="text-center text-white/70 text-[14px] font-semibold">Aynı bulmaca, {DUEL_SECONDS} saniye. Daha çok kelime bulan kazanır.</p>
-            <p className={`text-center text-[12px] font-bold ${challengeVerified ? 'text-green-300' : 'text-white/45'}`}>{challengeVerified ? '✓ Skor sunucuda doğrulandı' : 'Skor bağlantıdan okundu (doğrulanmadı)'}</p>
+            <p className="text-center text-white/70 text-[14px] font-semibold">{L("Aynı bulmaca, ")}{DUEL_SECONDS}{L(" saniye. Daha çok kelime bulan kazanır.")}</p>
+            <p className={`text-center text-[12px] font-bold ${challengeVerified ? 'text-green-300' : 'text-white/45'}`}>{challengeVerified ? L("✓ Skor sunucuda doğrulandı") : L("Skor bağlantıdan okundu (doğrulanmadı)")}</p>
             <button onClick={() => play(incoming.seed, { name: incoming.from, score: challengerScore, runId: incoming.fromRun, timeline: verified[incoming.fromRun]?.timeline })} className="duel-btn w-full flex items-center justify-center gap-2">
-              <span aria-hidden="true" className="material-symbols-outlined text-[24px]">swords</span>KABUL ET
-            </button>
-            <button onClick={clearIncoming} className="text-white/55 font-bold text-[13px]">Şimdi değil</button>
+              <span aria-hidden="true" className="material-symbols-outlined text-[24px]">swords</span>{L("KABUL ET")}</button>
+            <button onClick={clearIncoming} className="text-white/55 font-bold text-[13px]">{L("Şimdi değil")}</button>
           </>
         ) : isReply ? (
           <>
-            <p className="text-center text-white font-black text-[26px] leading-tight">{incoming.to}<br />düellonu oynadı!</p>
-            <button onClick={openReply} className="duel-btn w-full">SONUCU GÖR</button>
+            <p className="text-center text-white font-black text-[26px] leading-tight">{incoming.to}<br />{L("düellonu oynadı!")}</p>
+            <button onClick={openReply} className="duel-btn w-full">{L("SONUCU GÖR")}</button>
           </>
         ) : (
           <>
             <div className="flex items-start justify-between">
               <div className="flex flex-col items-center w-[38%]"><Avatar name={myName} color="#2563eb" /></div>
               <div className="pt-3"><VsBadge /></div>
-              <div className="flex flex-col items-center w-[38%]"><Avatar name="Arkadaşın" color="#64748b" /></div>
+              <div className="flex flex-col items-center w-[38%]"><Avatar name={L("Arkadaşın")} color="#64748b" /></div>
             </div>
             <ol className="flex flex-col gap-2 text-white/80 text-[14px] font-semibold">
-              <li className="duel-step"><span>1</span>{DUEL_SECONDS} saniyede bulmacayı çöz</li>
-              <li className="duel-step"><span>2</span>Bağlantıyı arkadaşına gönder</li>
-              <li className="duel-step"><span>3</span>Aynı bulmacada seni geçmeye çalışsın</li>
+              <li className="duel-step"><span>1</span>{DUEL_SECONDS}{L(" saniyede bulmacayı çöz")}</li>
+              <li className="duel-step"><span>2</span>{L("Bağlantıyı arkadaşına gönder")}</li>
+              <li className="duel-step"><span>3</span>{L("Aynı bulmacada seni geçmeye çalışsın")}</li>
             </ol>
             <button onClick={quickPlay} disabled={loadingGhost} className="play-btn w-full flex items-center justify-center gap-2 disabled:opacity-60">
-              <span aria-hidden="true" className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>bolt</span>{loadingGhost ? 'RAKİP ARANIYOR…' : 'HEMEN OYNA'}
+              <span aria-hidden="true" className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>bolt</span>{loadingGhost ? L("RAKİP ARANIYOR…") : L("HEMEN OYNA")}
             </button>
-            <p className="text-center text-white/55 text-[12px] font-semibold -mt-3">Beklemeden bir oyuncunun turuna karşı yarış</p>
+            <p className="text-center text-white/55 text-[12px] font-semibold -mt-3">{L("Beklemeden bir oyuncunun turuna karşı yarış")}</p>
             <button onClick={() => play(newDuelSeed())} className="duel-btn w-full flex items-center justify-center gap-2">
-              <span aria-hidden="true" className="material-symbols-outlined text-[24px]">swords</span>ARKADAŞINA MEYDAN OKU
-            </button>
-            <p className="text-center text-white/55 text-[12px] font-semibold -mt-3">Kazanana {formatKurus(DUEL_WIN_REWARD)} İstanbulkart bakiyesi</p>
+              <span aria-hidden="true" className="material-symbols-outlined text-[24px]">swords</span>{L("ARKADAŞINA MEYDAN OKU")}</button>
+            <p className="text-center text-white/55 text-[12px] font-semibold -mt-3">{L("Kazanana ")}{formatKurus(DUEL_WIN_REWARD)}{L(" İstanbulkart bakiyesi")}</p>
 
             {showCode ? (
               <div className="flex gap-2">
-                <input aria-label="Düello bağlantısı" value={paste} onChange={e => setPaste(e.target.value)} placeholder="Bağlantıyı yapıştır"
+                <input aria-label={L("Düello bağlantısı")} value={paste} onChange={e => setPaste(e.target.value)} placeholder={L("Bağlantıyı yapıştır")}
                   className="flex-1 min-w-0 rounded-full bg-white/10 border border-white/20 px-4 py-2.5 text-white text-[14px] outline-none focus:border-white/50" />
-                <button onClick={openPasted} disabled={!paste.trim()} className="px-5 rounded-full bg-white text-[#10263f] font-black text-[13px] disabled:opacity-40">Aç</button>
+                <button onClick={openPasted} disabled={!paste.trim()} className="px-5 rounded-full bg-white text-[#10263f] font-black text-[13px] disabled:opacity-40">{L("Aç")}</button>
               </div>
             ) : (
-              <button onClick={() => setShowCode(true)} className="text-white/60 font-bold text-[13px] underline underline-offset-4">Bağlantım var</button>
+              <button onClick={() => setShowCode(true)} className="text-white/60 font-bold text-[13px] underline underline-offset-4">{L("Bağlantım var")}</button>
             )}
             {note && <p role="status" className="text-center text-white/75 text-[13px] font-semibold">{note}</p>}
           </>

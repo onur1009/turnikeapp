@@ -1,3 +1,4 @@
+import { L } from '../utils/i18n';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { LINES, STATION_NAMES, MODE_META, getNetworkProgress } from '../utils/transitNetwork';
 import { MAP_W, MAP_H, WATER, getStationPoints, toPath } from '../data/networkGeometry';
@@ -42,9 +43,9 @@ export default function NetworkMap({ currentLevel, onOpenLine }) {
     <div className="flex-1 min-h-0 flex flex-col relative">
       {/* Özet şeridi */}
       <div className="shrink-0 grid grid-cols-3 gap-2 px-4 pb-3">
-        <div className="map-stat"><span className="map-stat-value">%{pct}</span><span className="map-stat-label">Ağ keşfi</span></div>
-        <div className="map-stat"><span className="map-stat-value">{progress.doneStations}/{progress.totalStations}</span><span className="map-stat-label">Durak</span></div>
-        <div className="map-stat"><span className="map-stat-value">{progress.doneLines}/{LINES.length}</span><span className="map-stat-label">Hat bitti</span></div>
+        <div className="map-stat"><span className="map-stat-value">%{pct}</span><span className="map-stat-label">{L("Ağ keşfi")}</span></div>
+        <div className="map-stat"><span className="map-stat-value">{progress.doneStations}/{progress.totalStations}</span><span className="map-stat-label">{L("Durak")}</span></div>
+        <div className="map-stat"><span className="map-stat-value">{progress.doneLines}/{LINES.length}</span><span className="map-stat-label">{L("Hat bitti")}</span></div>
       </div>
 
       <div ref={scrollRef} className="flex-1 min-h-0 overflow-auto map-canvas" style={{ overscrollBehavior: 'contain' }}>
@@ -52,7 +53,7 @@ export default function NetworkMap({ currentLevel, onOpenLine }) {
           viewBox={`0 0 ${MAP_W} ${MAP_H}`}
           style={{ height: `${zoom * 100}%`, width: 'auto', maxWidth: 'none', display: 'block' }}
           role="img"
-          aria-label="İstanbul raylı sistem ve deniz hatları haritası"
+          aria-label={L("İstanbul raylı sistem ve deniz hatları haritası")}
         >
           <defs>
             <linearGradient id="map-land" x1="0" y1="0" x2="0" y2="1">
@@ -92,10 +93,10 @@ export default function NetworkMap({ currentLevel, onOpenLine }) {
             ))}
             <g transform="translate(395 58) rotate(-20)"><path d="M-12 0 L12 0 L16 -2 L12 -4 L-12 -4 Z M-2 -4 L4 -14 L7 -14 L3 -4 Z" /></g>
           </g>
-          <text x="200" y="600" className="map-water-label">Marmara Denizi</text>
-          <text x="640" y="200" className="map-water-label" transform="rotate(-72 640 200)">İstanbul Boğazı</text>
-          <text x="150" y="160" className="map-side-label">AVRUPA</text>
-          <text x="790" y="200" className="map-side-label">ANADOLU</text>
+          <text x="200" y="600" className="map-water-label">{L("Marmara Denizi")}</text>
+          <text x="640" y="200" className="map-water-label" transform="rotate(-72 640 200)">{L("İstanbul Boğazı")}</text>
+          <text x="150" y="160" className="map-side-label">{L("AVRUPA")}</text>
+          <text x="790" y="200" className="map-side-label">{L("ANADOLU")}</text>
 
           {drawOrder.map(line => {
             const s = progress.lines[line.id];
@@ -157,13 +158,13 @@ export default function NetworkMap({ currentLevel, onOpenLine }) {
 
       {/* Yakınlaştırma */}
       <div className="absolute right-3 top-16 flex flex-col gap-2 z-10">
-        <button className="icon-btn" aria-label="Yakınlaştır" onClick={() => setZoom(z => ZOOMS[Math.min(ZOOMS.length - 1, ZOOMS.indexOf(z) + 1)])}>
+        <button className="icon-btn" aria-label={L("Yakınlaştır")} onClick={() => setZoom(z => ZOOMS[Math.min(ZOOMS.length - 1, ZOOMS.indexOf(z) + 1)])}>
           <span aria-hidden="true" className="material-symbols-outlined text-[20px]">add</span>
         </button>
-        <button className="icon-btn" aria-label="Uzaklaştır" onClick={() => setZoom(z => ZOOMS[Math.max(0, ZOOMS.indexOf(z) - 1)])}>
+        <button className="icon-btn" aria-label={L("Uzaklaştır")} onClick={() => setZoom(z => ZOOMS[Math.max(0, ZOOMS.indexOf(z) - 1)])}>
           <span aria-hidden="true" className="material-symbols-outlined text-[20px]">remove</span>
         </button>
-        <button className="icon-btn" aria-label="Bulunduğum yere git" onClick={() => setZoom(z => (z === 1 ? 1.6 : z))}>
+        <button className="icon-btn" aria-label={L("Bulunduğum yere git")} onClick={() => setZoom(z => (z === 1 ? 1.6 : z))}>
           <span aria-hidden="true" className="material-symbols-outlined text-[20px]">my_location</span>
         </button>
       </div>
@@ -178,7 +179,7 @@ export default function NetworkMap({ currentLevel, onOpenLine }) {
               <p className="text-white font-extrabold text-[15px] leading-tight truncate">{sel.name}</p>
               <p className="text-white/60 text-[12px] font-semibold">{MODE_META[sel.mode].label} · {selState.done}/{selState.count} durak</p>
             </div>
-            <button className="icon-btn" aria-label="Kapat" onClick={() => setSelected(null)}>
+            <button className="icon-btn" aria-label={L("Kapat")} onClick={() => setSelected(null)}>
               <span aria-hidden="true" className="material-symbols-outlined text-[20px]">close</span>
             </button>
           </div>
@@ -203,7 +204,7 @@ export default function NetworkMap({ currentLevel, onOpenLine }) {
             className="w-full mt-2 py-3 rounded-full font-black text-[14px] text-white disabled:opacity-40"
             style={{ background: sel.color }}
           >
-            {selState.locked ? 'Bu hat henüz kilitli' : 'Hattın duraklarını aç'}
+            {selState.locked ? L("Bu hat henüz kilitli") : L("Hattın duraklarını aç")}
           </button>
         </div>
       )}

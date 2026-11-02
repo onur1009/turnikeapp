@@ -1,3 +1,4 @@
+import { L } from '../utils/i18n';
 import { useEffect } from 'react';
 import { formatKurus } from '../utils/format';
 import { compareScores, DUEL_WIN_REWARD } from '../utils/duel';
@@ -12,9 +13,9 @@ const initials = (n) => (n || '?').trim().slice(0, 1).toLocaleUpperCase('tr-TR')
 const gapText = (me, them, r) => {
   if (r === 0) return 'Aynı kelime, aynı süre: tam bir berabere!';
   const dw = me.w - them.w;
-  if (dw !== 0) return `${Math.abs(dw)} kelime ${r > 0 ? 'farkla kazandın' : 'farkla kaçırdın'}`;
+  if (dw !== 0) return r > 0 ? L('{0} kelime farkla kazandın', Math.abs(dw)) : L('{0} kelime farkla kaçırdın', Math.abs(dw));
   const dt = Math.abs(me.t - them.t);
-  return r > 0 ? `Aynı kelime sayısı, ${dt} sn daha hızlıydın` : `Aynı kelime sayısı, ${dt} sn geç kaldın`;
+  return r > 0 ? L("Aynı kelime sayısı, {0} sn daha hızlıydın", dt) : L("Aynı kelime sayısı, {0} sn geç kaldın", dt);
 };
 
 export default function DuelResult({ myName, opponent, mine, theirs, streak, children }) {
@@ -37,19 +38,19 @@ export default function DuelResult({ myName, opponent, mine, theirs, streak, chi
       {theirs && <p className="duel-result-gap">{gapText(mine, theirs, r)}</p>}
 
       {/* Skor tablosu */}
-      <div className="duel-board" role="table" aria-label="Düello skorları">
+      <div className="duel-board" role="table" aria-label={L("Düello skorları")}>
         <div className="duel-board-row head" role="row">
           <span role="columnheader" />
           <span role="columnheader" className="me"><i>{initials(myName)}</i>{myName}</span>
-          <span role="columnheader" className="them"><i>{initials(opponent)}</i>{opponent || 'Arkadaşın'}</span>
+          <span role="columnheader" className="them"><i>{initials(opponent)}</i>{opponent || L("Arkadaşın")}</span>
         </div>
         <div className="duel-board-row" role="row">
-          <span role="rowheader">Kelime</span>
+          <span role="rowheader">{L("Kelime")}</span>
           <b className={theirs && mine.w > theirs.w ? 'best' : ''}>{mine.w}</b>
           <b className={theirs && theirs.w > mine.w ? 'best' : ''}>{theirs ? theirs.w : '?'}</b>
         </div>
         <div className="duel-board-row" role="row">
-          <span role="rowheader">Süre</span>
+          <span role="rowheader">{L("Süre")}</span>
           <b className={theirs && mine.w === theirs.w && mine.t < theirs.t ? 'best' : ''}>{mine.t} sn</b>
           <b className={theirs && mine.w === theirs.w && theirs.t < mine.t ? 'best' : ''}>{theirs ? `${theirs.t} sn` : '?'}</b>
         </div>
@@ -59,12 +60,12 @@ export default function DuelResult({ myName, opponent, mine, theirs, streak, chi
         <div className="duel-gains">
           <span><b>+{formatKurus(DUEL_WIN_REWARD)}</b>kart</span>
           <span><b>+{LEAGUE_POINTS.duelWin}</b>lig</span>
-          <span><b>+{PASS_XP.duelWin}</b>XP</span>
+          <span><b>+{PASS_XP.duelWin}</b>{L("XP")}</span>
           {streak > 1 && <span><b>🔥 {streak}</b>seri</span>}
         </div>
       )}
-      {tone === 'lose' && <p className="duel-result-tip">Rövanşta kısa kelimelerle başla, uzun kökü sona bırak.</p>}
-      {tone === 'pending' && <p className="duel-result-tip">Bağlantıyı gönder; arkadaşın aynı bulmacayı çözünce sonucu burada görürsün.</p>}
+      {tone === 'lose' && <p className="duel-result-tip">{L("Rövanşta kısa kelimelerle başla, uzun kökü sona bırak.")}</p>}
+      {tone === 'pending' && <p className="duel-result-tip">{L("Bağlantıyı gönder; arkadaşın aynı bulmacayı çözünce sonucu burada görürsün.")}</p>}
 
       <div className="w-full flex flex-col gap-2.5 mt-1">{children}</div>
     </div>

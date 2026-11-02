@@ -1,3 +1,4 @@
+import { L } from '../utils/i18n';
 import { useEffect, useRef } from 'react';
 import SceneBackground from './SceneBackground';
 import VehicleSprite from './VehicleSprite';
@@ -36,7 +37,7 @@ export default function IntroScreen({ onDone }) {
 
   return (
     <div className="game-bg scenic intro-root h-full relative overflow-hidden" onClick={finish} role="button" tabIndex={0}
-      aria-label="Tanıtımı geç" onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && finish()}>
+      aria-label={L("Tanıtımı geç")} onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && finish()}>
       <SceneBackground station={NIGHT} />
       <div className="intro-vignette" aria-hidden="true" />
 
@@ -59,18 +60,18 @@ export default function IntroScreen({ onDone }) {
         </svg>
 
         {/* Harf taşları */}
-        <div className="flex gap-1.5 mt-4" aria-label="Turnike">
+        <div className="flex gap-1.5 mt-4" aria-label={L("Turnike")}>
           {LETTERS.map((ch, i) => (
             <span key={i} className="intro-tile" style={{ '--i': i, '--c': LINE_COLORS[i] }} aria-hidden="true">{ch}</span>
           ))}
         </div>
-        <p className="intro-sub">Sözcük Seferi</p>
+        <p className="intro-sub">{L("Sözcük Seferi")}</p>
         <div className="intro-lines" aria-hidden="true">
           {LINE_COLORS.slice(0, 4).map((c, i) => <span key={c} style={{ background: c, '--i': i }} />)}
         </div>
       </div>
 
-      <span className="intro-skip">Geçmek için dokun</span>
+      <span className="intro-skip">{L("Geçmek için dokun")}</span>
     </div>
   );
 }

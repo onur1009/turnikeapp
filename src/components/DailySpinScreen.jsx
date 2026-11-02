@@ -1,3 +1,4 @@
+import { L } from '../utils/i18n';
 import { useState } from 'react';
 import { useGameStore } from '../store/gameStore';
 import { Haptics, ImpactStyle, NotificationType } from '@capacitor/haptics';
@@ -72,9 +73,9 @@ const DailySpinScreen = ({ onComplete }) => {
       <div className="spin-rays" aria-hidden="true" />
 
       <div className="relative z-10 flex flex-col items-center text-center mb-6">
-        <span className="spin-eyebrow">Günde bir kez</span>
-        <h1 id="spin-title" className="text-white font-black text-[34px] leading-none mt-1">Turnike Çarkı</h1>
-        <p className="text-white/70 text-[14px] font-semibold mt-2">Kapıdan geç, günün ödülünü kap</p>
+        <span className="spin-eyebrow">{L("Günde bir kez")}</span>
+        <h1 id="spin-title" className="text-white font-black text-[34px] leading-none mt-1">{L("Turnike Çarkı")}</h1>
+        <p className="text-white/70 text-[14px] font-semibold mt-2">{L("Kapıdan geç, günün ödülünü kap")}</p>
       </div>
 
       <div className="relative z-10" style={{ width: 'min(84vw, 330px)', aspectRatio: '1 / 1' }}>
@@ -107,10 +108,10 @@ const DailySpinScreen = ({ onComplete }) => {
                 <path d={arcPath(i)} fill={p.color} stroke="#0b1a33" strokeWidth="2" />
                 <g transform={`rotate(${mid} ${R} ${R})`}>
                   <rect x={R - 17} y="22" width="34" height="16" rx="4" fill="rgba(0,0,0,0.35)" />
-                  <text x={R} y="34" textAnchor="middle" fill="#fff" fontSize="10" fontWeight="900" letterSpacing="0.5">{p.line}</text>
+                  <text x={R} y="34" textAnchor="middle" fill="#fff" fontSize="10" fontWeight="900" letterSpacing="0.5">{L(p.line)}</text>
                   <text x={R} y="66" textAnchor="middle" fill="#fff" fontSize={p.jackpot ? 19 : 17} fontWeight="900"
                     transform={`rotate(${textTurn} ${R} 66)`} style={{ paintOrder: 'stroke', stroke: 'rgba(0,0,0,0.35)', strokeWidth: 3 }}>
-                    {p.label}
+                    {L(p.label)}
                   </text>
                 </g>
               </g>
@@ -120,26 +121,26 @@ const DailySpinScreen = ({ onComplete }) => {
         </svg>
 
         {/* Göbek: dokunarak çevir */}
-        <button onClick={spin} disabled={phase !== 'ready'} aria-label="Çarkı çevir"
+        <button onClick={spin} disabled={phase !== 'ready'} aria-label={L("Çarkı çevir")}
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-[22%] aspect-square rounded-full flex items-center justify-center text-[#fde68a] font-black text-[13px] tracking-wider disabled:opacity-90">
-          {phase === 'ready' ? 'ÇEVİR' : <span aria-hidden="true" className="material-symbols-outlined text-[26px]">toll</span>}
+          {phase === 'ready' ? L("ÇEVİR") : <span aria-hidden="true" className="material-symbols-outlined text-[26px]">toll</span>}
         </button>
       </div>
 
       <div className="relative z-10 w-full max-w-xs mt-8 min-h-[120px] flex flex-col items-center justify-start">
         {phase === 'won' && prize ? (
           <div className="spin-prize scale-in w-full">
-            <p className="text-[#422006]/70 text-[12px] font-black tracking-[2px] uppercase">{prize.jackpot ? 'Büyük ödül!' : 'Günün ödülü'}</p>
-            <p className="text-[#422006] font-black text-[36px] leading-tight">{prize.label}</p>
-            <p className="text-[#422006]/75 text-[13px] font-semibold mb-3">{prize.type === 'money' ? `${formatKurus(prize.value)} kartına yüklendi` : 'İpuçlarına eklendi'}</p>
-            <button onClick={onComplete} className="w-full py-3 rounded-full bg-[#10263f] text-white font-black text-[15px] active:scale-95 transition-transform">Topla</button>
+            <p className="text-[#422006]/70 text-[12px] font-black tracking-[2px] uppercase">{prize.jackpot ? L("Büyük ödül!") : L("Günün ödülü")}</p>
+            <p className="text-[#422006] font-black text-[36px] leading-tight">{L(prize.label)}</p>
+            <p className="text-[#422006]/75 text-[13px] font-semibold mb-3">{prize.type === 'money' ? L("{0} kartına yüklendi", formatKurus(prize.value)) : L("İpuçlarına eklendi")}</p>
+            <button onClick={onComplete} className="w-full py-3 rounded-full bg-[#10263f] text-white font-black text-[15px] active:scale-95 transition-transform">{L("Topla")}</button>
           </div>
         ) : (
           <>
             <button onClick={spin} disabled={phase !== 'ready'} className="play-btn w-full disabled:opacity-60">
-              {phase === 'spinning' ? 'Dönüyor…' : 'Çarkı çevir'}
+              {phase === 'spinning' ? L("Dönüyor…") : L("Çarkı çevir")}
             </button>
-            {phase === 'ready' && <button onClick={onComplete} className="mt-3 text-white/60 font-bold text-[13px] underline underline-offset-4">Sonra</button>}
+            {phase === 'ready' && <button onClick={onComplete} className="mt-3 text-white/60 font-bold text-[13px] underline underline-offset-4">{L("Sonra")}</button>}
           </>
         )}
       </div>
