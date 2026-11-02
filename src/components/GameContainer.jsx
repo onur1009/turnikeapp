@@ -12,6 +12,7 @@ import { useGameTimer } from '../hooks/useGameTimer';
 import { Haptics, ImpactStyle, NotificationType } from '@capacitor/haptics';
 import { LOST_ITEMS_CATALOG, getRandomItem } from '../data/lostItems';
 import { calculateWordScore } from '../utils/scoring';
+import { hiddenCells, pickRandom, hintPayment, maskTerm } from '../game/hints';
 import { classifyWord, wrongWordCostsLife, vaultOutcome, levelRewards, dropsLostItem, showsBonusLockers, EXTRA_WORD_REWARD } from '../game/rules';
 import { computeRawSignal, updateEwmvAndZScore, getAlpha, detectVolatility } from '../utils/dda';
 import { getStationForLevel } from '../utils/transitNetwork';
@@ -621,17 +622,7 @@ export default function GameContainer({
   const maxLives = getMaxLives(completedSets);
 
   // Açılmamış rastgele bir harf; yoksa null
-  const randomHiddenCell = () => {
-    const candidates = [];
-    levelData.words.filter(w => !foundWords.includes(w.word)).forEach(wordObj => {
-      for (let i = 0; i < wordObj.word.length; i++) {
-        const x = wordObj.startX + (wordObj.isHorizontal ? i : 0);
-        const y = wordObj.startY + (wordObj.isHorizontal ? 0 : i);
-        if (!hintedLetters.some(hl => hl.x === x && hl.y === y)) candidates.push({ x, y, char: wordObj.word[i] });
-      }
-    });
-    return candidates.length ? candidates[Math.floor(Math.random() * candidates.length)] : null;
-  };
+  const randomHiddenCell = () => pickRandom(hiddenCells(levelData.words, foundWords, hintedLetters));
 
   // Bakiyesi yetmeyen oyuncuya: reklam izle, ücretsiz harf
   const [adBusy, setAdBusy] = useState(false);
@@ -648,90 +639,58 @@ export default function GameContainer({
     if (soundEnabled) playTurnike();
   };
 
-  const handleLetterHint = () => {
-    if (hints > 0 || balance >= hintCosts.letter) {
-      const missingWords = levelData.words.filter(w => !foundWords.includes(w.word));
-      if (missingWords.length > 0) {
-        const candidates = [];
-        missingWords.forEach(wordObj => {
-          for (let i = 0; i < wordObj.word.length; i++) {
-            const x = wordObj.startX + (wordObj.isHorizontal ? i : 0);
-            const y = wordObj.startY + (wordObj.isHorizontal ? 0 : i);
-            const isRevealed = hintedLetters.some(hl => hl.x === x && hl.y === y);
-            if (!isRevealed) {
-              candidates.push({ x, y, char: wordObj.word[i] });
-            }
-          }
-        });
+  const notEnough = () => {
+    showFeedback('wrong', t('balance_low'));
+    if (hapticEnabled) Haptics.notification({ type: NotificationType.Warning }).catch(()=>{});
+  };
+  // Ödeme: ücretsiz ipucu hakkı ya da bakiye (analitik yalnızca parayla alınan ipucunu sayar)
+  const payHint = (cost, type) => {
+    const via = hintPayment({ hints, balance, cost });
+    if (via === 'hint') addHints(-1);
+    else if (via === 'balance') { addBalance(-cost); track('hint_used', { type, level: levelIndex + 1 }); }
+    return via;
+  };
 
-        if (candidates.length > 0) {
-          if (hints > 0) {
-            addHints(-1);
-          } else {
-            addBalance(-hintCosts.letter);
-            track('hint_used', { type: 'letter', level: levelIndex + 1 });
-          }
-          const pick = candidates[Math.floor(Math.random() * candidates.length)];
-          setHintedLetters(prev => [...prev, pick]);
-          if (soundEnabled) playTurnike();
-          if (hapticEnabled) Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
-        }
-      }
-    } else {
-      showFeedback('wrong', t('balance_low'));
-      if (hapticEnabled) Haptics.notification({ type: NotificationType.Warning }).catch(()=>{});
-    }
+  const handleLetterHint = () => {
+    if (!hintPayment({ hints, balance, cost: hintCosts.letter })) return notEnough();
+    const pick = randomHiddenCell();
+    if (!pick) return;
+    payHint(hintCosts.letter, 'letter');
+    setHintedLetters(prev => [...prev, pick]);
+    if (soundEnabled) playTurnike();
+    if (hapticEnabled) Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
   };
 
   const handleTargetHint = () => {
     if (pickMode) { setPickMode(false); return; }
-    if (hints > 0 || balance >= hintCosts.target) setPickMode(true);
-    else {
-      showFeedback('wrong', t('balance_low'));
-      if (hapticEnabled) Haptics.notification({ type: NotificationType.Warning }).catch(()=>{});
-    }
+    if (hintPayment({ hints, balance, cost: hintCosts.target })) setPickMode(true);
+    else notEnough();
   };
 
   const handleCellPick = (cell) => {
     setPickMode(false);
     if (hintedLetters.some(hl => hl.x === cell.x && hl.y === cell.y)) return;
-    if (hints > 0) addHints(-1);
-    else if (balance >= hintCosts.target) addBalance(-hintCosts.target);
-    else return;
+    if (!payHint(hintCosts.target, 'pick')) return;
     setHintedLetters(prev => [...prev, cell]);
-    track('hint_used', { type: 'pick', level: levelIndex + 1 });
     if (soundEnabled) playTurnike();
     if (hapticEnabled) Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
   };
 
   const handleHint = () => {
-    const hintCost = hintCosts.word;
-
-    if (hints > 0 || balance >= hintCost) {
-      const missing = levelData.words.filter(w => !foundWords.includes(w.word));
-      if (missing.length > 0) {
-        if (hints > 0) {
-          addHints(-1);
-        } else {
-          addBalance(-hintCost);
-          track('hint_used', { type: 'word', level: levelIndex + 1 });
-        }
-        const pick = missing[Math.floor(Math.random() * missing.length)];
-        const newFound = [...foundWords, pick.word];
-        setFoundWords(newFound);
-        incrementTotalWords();
-        // Hint ile açılan kelimeyi hemen sözlüğe ekle
-        addLearnedWord(pick.word);
-        const meaning = WORD_MEANINGS[pick.word] ? `${pick.word}: ${WORD_MEANINGS[pick.word]}` : pick.word;
-        showFeedback('exists', meaning);
-        if (soundEnabled) playTurnike();
-        if (hapticEnabled) Haptics.impact({ style: ImpactStyle.Medium }).catch(()=>{});
-        if (newFound.length === levelData.words.length) completeLevel(newFound);
-      }
-    } else { 
-      showFeedback('wrong', t('balance_low')); 
-      if (hapticEnabled) Haptics.notification({ type: NotificationType.Warning }).catch(()=>{});
-    }
+    if (!hintPayment({ hints, balance, cost: hintCosts.word })) return notEnough();
+    const pick = pickRandom(levelData.words.filter(w => !foundWords.includes(w.word)));
+    if (!pick) return;
+    payHint(hintCosts.word, 'word');
+    const newFound = [...foundWords, pick.word];
+    setFoundWords(newFound);
+    incrementTotalWords();
+    // Hint ile açılan kelimeyi hemen sözlüğe ekle
+    addLearnedWord(pick.word);
+    const meaning = WORD_MEANINGS[pick.word] ? `${pick.word}: ${WORD_MEANINGS[pick.word]}` : pick.word;
+    showFeedback('exists', meaning);
+    if (soundEnabled) playTurnike();
+    if (hapticEnabled) Haptics.impact({ style: ImpactStyle.Medium }).catch(()=>{});
+    if (newFound.length === levelData.words.length) completeLevel(newFound);
   };
 
   // Faz 2: Kesişim noktası bulunduğunda (Aktarma İstasyonu Bonusu)
@@ -754,17 +713,13 @@ export default function GameContainer({
       return;
     }
     if (!termRevealed) {
-      if (balance < hintCosts.term) {
-        showFeedback('wrong', t('balance_low'));
-        if (hapticEnabled) Haptics.notification({ type: NotificationType.Warning }).catch(()=>{});
-        return;
-      }
+      if (balance < hintCosts.term) return notEnough(); // Terim yalnızca bakiyeyle alınır
       addBalance(-hintCosts.term);
       setTermRevealed(true);
       track('hint_used', { type: 'term', level: levelIndex + 1 });
       if (soundEnabled) playTurnike();
     }
-    const masked = meaning.split(term).join('●'.repeat(term.length));
+    const masked = maskTerm(meaning, term);
     setInfoCard({ word: `${t('tool_term')}: ${'●'.repeat(term.length)} (${term.length})`, meaning: masked, id: Date.now() });
     if (hapticEnabled) Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
   };

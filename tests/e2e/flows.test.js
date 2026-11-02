@@ -6,9 +6,9 @@ import { existsSync } from 'node:fs';
 import puppeteer from 'puppeteer';
 import { generateLevel } from '../../src/utils/gameLogic.js';
 
-const URL = process.env.E2E_URL || 'http://localhost:5174/';
+const URL = globalThis.process.env.E2E_URL || 'http://localhost:5174/';
 const EDGE = 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe';
-const executablePath = process.env.PUPPETEER_EXECUTABLE_PATH || (existsSync(EDGE) ? EDGE : undefined);
+const executablePath = globalThis.process.env.PUPPETEER_EXECUTABLE_PATH || (existsSync(EDGE) ? EDGE : undefined);
 const DICT = generateLevel(0, 'tr').validWordsSet;
 const wait = (ms) => new Promise(r => setTimeout(r, ms));
 
