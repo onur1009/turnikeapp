@@ -588,6 +588,23 @@ export default function GameContainer({
     return false;
   };
 
+  // Bölüm saati: açılıştan 3,5 sn sonra (durak tabelası kalkınca) "yerleşti", aynı bölümde 30 sn
+  // yeni kelime bulunmazsa "takıldı". İpucu baloncukları yerleşince, reklam düğmesi takılınca çıkar.
+  const progressKey = `${levelIndex}:${foundWords.length}`;
+  const [settledLevel, setSettledLevel] = useState(-1);
+  const [stuckKey, setStuckKey] = useState('');
+  useEffect(() => {
+    const id = setTimeout(() => setSettledLevel(levelIndex), 3500);
+    return () => clearTimeout(id);
+  }, [levelIndex]);
+  useEffect(() => {
+    const id = setTimeout(() => setStuckKey(progressKey), 30000);
+    return () => clearTimeout(id);
+  }, [progressKey]);
+  const settled = settledLevel === levelIndex;
+  const stuck = stuckKey === progressKey;
+  const tipPickSeen = useGameStore(s => s.seenTips.includes('tip-pick'));
+
   const hintCosts = getHintCosts(completedSets);
   const maxLives = getMaxLives(completedSets);
 
@@ -948,7 +965,8 @@ export default function GameContainer({
         </header>
 
         {/* Durum satırı: can | kelime ilerlemesi | kasa */}
-        <div className="flex items-center justify-between px-4 pb-2 shrink-0">
+        {/* Opak zemin: sahne bulutları ve güneş sayacın arkasına geçip okunmaz yapıyordu */}
+        <div className="flex items-center justify-between mx-3 mb-2 px-3 py-1 shrink-0 rounded-full" style={{ background: 'rgba(5,20,36,0.55)' }}>
           <div className="flex gap-0.5" role="img" aria-label={`${lives}/${maxLives} can`}>
             {Array.from({ length: maxLives }, (_, i) => (
               <span key={i} aria-hidden="true" className={`material-symbols-outlined text-[18px] transition-all ${i < lives ? 'text-red-500' : 'text-white/15'}`} style={{ fontVariationSettings: "'FILL' 1" }}>favorite</span>
@@ -958,7 +976,7 @@ export default function GameContainer({
             {levelData.words.map((w, i) => (
               <span key={i} className={`h-2 rounded-full transition-all duration-500 ${i < foundWords.length ? 'w-5 bg-green-400' : 'w-2 bg-white/20'}`} />
             ))}
-            <span className="text-[12px] font-bold text-white/60 ml-1 tabular-nums">{foundWords.length}/{levelData.words.length}</span>
+            <span className="text-[13px] font-bold text-white ml-1 tabular-nums">{foundWords.length}/{levelData.words.length}</span>
             {combo > 1 && <span className="ml-1 text-[12px] font-black text-orange-400">🔥x{combo}</span>}
           </div>
           <div className="status-chip" title={t('vault')}>
@@ -1012,16 +1030,17 @@ export default function GameContainer({
 
         {/* Çark ve araçlar */}
         <div className="w-full shrink-0 flex flex-col items-center pb-5 relative z-20">
-          {isRewardedAdSupported() && levelIndex >= 5 && hints === 0 && balance < hintCosts.letter && (
+          {isRewardedAdSupported() && levelIndex >= 5 && stuck && hints === 0 && balance < hintCosts.letter && (
             <button onClick={handleAdLetter} disabled={adBusy} className="ad-chip mb-2">
               <span aria-hidden="true" className="material-symbols-outlined text-[18px]">smart_display</span>
               {adBusy ? 'Reklam yükleniyor…' : 'Reklam izle, ücretsiz harf aç'}
             </button>
           )}
-          <TipBubble id="tip-pick" when={!pickMode && levelIndex >= 3} className="mb-2 mx-4">
+          {/* Aynı anda en fazla bir baloncuk: kavanoz ipucu, Nokta ipucu okunduktan sonra sıraya girer */}
+          <TipBubble id="tip-pick" when={settled && !pickMode && levelIndex >= 3} className="mb-2 mx-4">
             Yeni: <b>Nokta</b> ipucuyla açmak istediğin kutuyu kendin seç.
           </TipBubble>
-          <TipBubble id="tip-jar" when={vaultCount > 0} className="mb-2 mx-4">
+          <TipBubble id="tip-jar" when={settled && vaultCount > 0 && (levelIndex < 3 || tipPickSeen)} className="mb-2 mx-4">
             Izgarada olmayan geçerli kelimeler <b>kavanoza</b> gider. 10 kelimede bakiye ödülü!
           </TipBubble>
           {pickMode && (

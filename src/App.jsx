@@ -69,8 +69,8 @@ function App() {
   }, [balance]);
 
   useEffect(() => {
-    // Yeni oyuncu önce oynasın: günlük çark ilk seviye bitince devreye girer
-    if (isAppReady && screen === 'home' && maxUnlockedLevel >= 1) {
+    // Yeni oyuncu önce oynasın: günlük çark ilk 3 seviye bitince devreye girer (ilk dakikada tek açılır pencere)
+    if (isAppReady && screen === 'home' && maxUnlockedLevel >= 3) {
       const today = new Date().toLocaleDateString();
       // Oturumda bir kez: "Sonra" deyip menülerden dönen oyuncunun önü tekrar kesilmesin
       if (lastSpinDate !== today && !spinOffered.current) {

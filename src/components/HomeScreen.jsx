@@ -50,10 +50,8 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
     <div className="game-bg scenic h-full flex flex-col relative z-10 fade-in overflow-hidden">
       <SceneBackground station={station} />
       <style>{`
-        @keyframes ybsMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         @keyframes ybsLedBlink { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
         @keyframes homeFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-        .ybs-marquee-inner { display: inline-block; white-space: nowrap; animation: ybsMarquee 14s linear infinite; }
       `}</style>
 
       {/* Üst çubuk */}
@@ -90,14 +88,14 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
           </div>
           <div className="px-3 pt-2 pb-1">
             <div className="text-[10px] tracking-[3px] mb-1" style={{ color: 'rgba(255,255,255,0.55)' }}>{t('next_stop')}</div>
-            <div className="overflow-hidden whitespace-nowrap">
-              <div className="ybs-marquee-inner">
-                {[0, 1].map(k => (
-                  <span key={k} className="ybs-led font-black tracking-[4px] pr-10" style={{ fontSize: 20 }}>
-                    ► {station.displayName.toLocaleUpperCase('tr-TR')}  ■  {t('leg').toLocaleUpperCase('tr-TR')} {station.leg}/{station.legsPerStation}  ■
-                  </span>
-                ))}
-              </div>
+            {/* Sabit tabela: kayan yazıda durak adı yarıda kesiliyordu ("KÖY ■ BÖLÜM 3/5 ■ ▶ MI") */}
+            <div className="flex items-baseline justify-between gap-3">
+              <span className="ybs-led font-black tracking-[2px] truncate min-w-0" style={{ fontSize: 20 }}>
+                ► {station.displayName.toLocaleUpperCase('tr-TR')}
+              </span>
+              <span className="ybs-led font-bold tracking-[1px] shrink-0 text-[12px]">
+                {t('leg').toLocaleUpperCase('tr-TR')} {station.leg}/{station.legsPerStation}
+              </span>
             </div>
           </div>
           {/* Duraktaki bölüm ilerlemesi */}
@@ -153,7 +151,7 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
               <span className="text-[11px] font-bold opacity-80 tracking-wider">{t('level_short')} {maxUnlockedLevel + 1}</span>
             </span>
           </button>
-          <TipBubble id="tip-duel" when={maxUnlockedLevel >= 5}>
+          <TipBubble id="tip-duel" when={maxUnlockedLevel >= 10}>
             Arkadaşına meydan oku: aynı bulmacayı kim daha hızlı çözecek?
           </TipBubble>
           <button onClick={() => setScreen('duels')} className="duel-btn w-full flex items-center justify-center gap-3">
