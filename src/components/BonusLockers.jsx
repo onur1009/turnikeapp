@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { formatKurus } from '../utils/format';
 import { useGameStore } from '../store/gameStore';
-import { useTranslation } from '../utils/i18n';
 import { Haptics, ImpactStyle, NotificationType } from '@capacitor/haptics';
 import { playCorrect, playWrong, playBalanceUp, playBadgeUnlock } from '../utils/soundManager';
 
@@ -45,7 +44,6 @@ const BonusLockers = ({ onComplete }) => {
   const [totalWon, setTotalWon] = useState({ cash: 0, hints: 0, lives: 0 });
 
   const { soundEnabled, hapticEnabled, addBalance, addHints, addLives } = useGameStore();
-  const { t } = useTranslation();
 
   useEffect(() => {
     setLockers(generateLockerContents());

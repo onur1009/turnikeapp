@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useGameStore } from '../store/gameStore';
 import { LOST_ITEMS_CATALOG, LOST_ITEMS_SETS, getRandomItem } from '../data/lostItems';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';

@@ -6,7 +6,7 @@ import MissionsSheet, { useMissionProgress } from './MissionsSheet';
 import { todayKey, dayNumber } from '../utils/daily';
 import { currentEvent, timeLeft } from '../utils/events';
 import EventSheet from './EventSheet';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import AnimatedBalance from './AnimatedBalance';
 import { useGameStore, VAULT_SIZE } from '../store/gameStore';
 import { useTranslation } from '../utils/i18n';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { LINES, STATION_INFO } from '../utils/transitNetwork';
 import { getSceneFor } from '../data/scenes';
 import { PHOTO_CREDITS, photoFor } from '../data/postcardPhotos';

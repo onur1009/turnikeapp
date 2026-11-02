@@ -1,4 +1,3 @@
-import React from 'react';
 
 // Sahneden arada geçen hayvan: gündüz kıyıda martı, karada sokak kedisi, gece baykuş.
 // Hepsi sağdan sola (kedi soldan sağa yürür); kanat/bacak hareketi CSS ile.

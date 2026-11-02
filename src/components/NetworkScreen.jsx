@@ -1,4 +1,3 @@
-import React from 'react';
 import { LINES, MODE_META, MODE_GROUPS, getNetworkProgress } from '../utils/transitNetwork';
 
 // Tüm İstanbul ağı: hatlar ulaşım moduna göre gruplu; ilerleme ve kilit durumu ile.

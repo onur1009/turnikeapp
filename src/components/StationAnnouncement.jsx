@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useGameStore } from '../store/gameStore';
 import { playStationAnnouncement } from '../utils/soundManager';
 import { getStationData } from '../utils/transitNetwork';

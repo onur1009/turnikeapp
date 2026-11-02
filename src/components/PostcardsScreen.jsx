@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useGameStore } from '../store/gameStore';
 import ScreenHeader from './ScreenHeader';
 import Postcard from './Postcard';

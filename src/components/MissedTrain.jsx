@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import VehicleSprite from './VehicleSprite';
 import { playTrainDepart } from '../utils/soundManager';
 

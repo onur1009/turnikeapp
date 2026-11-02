@@ -1,4 +1,3 @@
-import React from 'react';
 import { useGameStore } from '../store/gameStore';
 import { formatKurus } from '../utils/format';
 import { track } from '../utils/analytics';

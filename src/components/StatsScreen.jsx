@@ -1,4 +1,3 @@
-import React from 'react';
 import { useGameStore } from '../store/gameStore';
 import { useTranslation } from '../utils/i18n';
 import ScreenHeader from './ScreenHeader';

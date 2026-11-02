@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { getStationData, getStationXPosition, LEVELS_PER_STATION, LINES, STATION_NAMES } from '../utils/transitNetwork';
 
 const MapScreen = ({ onLevelSelect, currentLevel, initialLineId }) => {
@@ -46,9 +46,6 @@ const MapScreen = ({ onLevelSelect, currentLevel, initialLineId }) => {
   const handleNextLine = () => {
     const currentLineIndex = LINES.findIndex(l => l.id === viewLineId);
     
-    // Yalnızca kilitli olmayan (veya en fazla 1 ileriki) hatlara geçişe izin ver
-    // Gelecekteki ilk kilitli istasyonun olduğu hatta kadar gidebilir
-    const maxGlobalIndex = currentStationIndex + 1; // Sadece bulunduğumuz istasyonun bir sonrasına kadar görebiliriz
     
     // Eğer 'sonraki' hat, gelecekteki sınırı aşıyorsa gitme
     let nextLoop = viewLoop;
@@ -212,7 +209,6 @@ const MapScreen = ({ onLevelSelect, currentLevel, initialLineId }) => {
 
             // Bu istasyondaki level aralığı
             const stationStartLvl = globalIdx * LEVELS_PER_STATION + 1;
-            const stationEndLvl = stationStartLvl + LEVELS_PER_STATION - 1;
             
             // Eğer isCurrentStation ise, kullanıcının bu istasyondaki kaçıncı bölümde olduğunu bulalım
             let progressRatio = 0;

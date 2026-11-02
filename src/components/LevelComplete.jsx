@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
 import { useTranslation } from '../utils/i18n';
 import { formatKurus } from '../utils/format';

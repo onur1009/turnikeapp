@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useGameStore } from '../store/gameStore';
 import { formatKurus } from '../utils/format';
 import { isCloudConfigured } from '../utils/supabaseClient';

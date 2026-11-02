@@ -1,4 +1,3 @@
-import React from 'react';
 
 // Hat aracı: bulunulan hattın ulaşım moduna göre yan görünüş çizimi.
 // 96x28 çizim alanı, araç sola gider (ön taraf solda), zemin çizgisi y=26.

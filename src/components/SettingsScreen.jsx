@@ -1,4 +1,3 @@
-import React from 'react';
 import { setAnalyticsConsent } from '../utils/analytics';
 import { useGameStore } from '../store/gameStore';
 import { useTranslation } from '../utils/i18n';

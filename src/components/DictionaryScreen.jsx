@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { WORD_MEANINGS_TR, WORD_MEANINGS_EN, PROVIDER_MAP_TR, PROVIDER_MAP_EN } from '../utils/gameLogic';
 import { useTranslation } from '../utils/i18n';
 

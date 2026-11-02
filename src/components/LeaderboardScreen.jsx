@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useGameStore } from '../store/gameStore';
 import { cloudService, isCloudConfigured } from '../utils/supabaseClient';
 import ScreenHeader from './ScreenHeader';

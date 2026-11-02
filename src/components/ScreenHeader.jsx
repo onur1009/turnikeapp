@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslation } from '../utils/i18n';
 
 // Yan ekranların ortak başlığı: geri düğmesi | başlık | isteğe bağlı sağ öğe (ör. bakiye)

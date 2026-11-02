@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useGameStore, VAULT_SIZE, VAULT_REWARD } from '../store/gameStore';
 import { useTranslation } from '../utils/i18n';
 import ScreenHeader from './ScreenHeader';

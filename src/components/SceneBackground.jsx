@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { getSceneFor } from '../data/scenes';
 import SceneAnimal, { pickAnimal } from './SceneAnimal';
 

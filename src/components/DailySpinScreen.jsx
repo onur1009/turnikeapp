@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useGameStore } from '../store/gameStore';
 import { Haptics, ImpactStyle, NotificationType } from '@capacitor/haptics';
 import { formatKurus } from '../utils/format';

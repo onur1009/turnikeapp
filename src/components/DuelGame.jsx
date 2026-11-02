@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Grid from './Grid';
 import Wheel from './Wheel';
 import { generateDuelLevel } from '../utils/gameLogic';

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { LINES, STATION_NAMES, MODE_META, getNetworkProgress } from '../utils/transitNetwork';
 import { MAP_W, MAP_H, WATER, getStationPoints, toPath } from '../data/networkGeometry';
 

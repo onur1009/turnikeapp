@@ -83,7 +83,7 @@ LINES.forEach(line => {
 const BASE_STATION_LIST = [];
 LINES.forEach(line => {
   const names = STATION_NAMES[line.id];
-  names.forEach((name, index) => {
+  names.forEach((name) => {
     BASE_STATION_LIST.push({
       ...line,
       stationName: name,

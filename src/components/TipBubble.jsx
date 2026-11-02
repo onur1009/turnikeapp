@@ -1,4 +1,3 @@
-import React from 'react';
 import { useGameStore } from '../store/gameStore';
 
 // Bir kez gösterilen ipucu baloncuğu (ilk oturum rehberi). Okundu deyince seenTips'e yazılır

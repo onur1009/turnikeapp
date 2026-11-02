@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useGameStore } from '../store/gameStore';
 
 const UsernameModal = ({ onCancel }) => {

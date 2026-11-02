@@ -1,19 +1,16 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { generateLevel, VALID_WORDS_TR, VALID_WORDS_EN, WORD_MEANINGS_TR, WORD_MEANINGS_EN, getTimeForLevel } from '../utils/gameLogic';
 import { playCorrect, playWrong, playLevelComplete, playTurnike, playCombo, playBadgeUnlock, playBalanceUp, playTick, playTimeUp } from '../utils/soundManager';
 import { useTranslation } from '../utils/i18n';
 import Grid from './Grid';
 import Wheel from './Wheel';
-import DailySpinScreen from './DailySpinScreen';
 import LevelComplete from './LevelComplete';
 import AnimatedBalance from './AnimatedBalance';
 import BonusLockers from './BonusLockers';
 import { useGameStore } from '../store/gameStore';
 import { useGameTimer } from '../hooks/useGameTimer';
 import { Haptics, ImpactStyle, NotificationType } from '@capacitor/haptics';
-import { StatusBar, Style } from '@capacitor/status-bar';
-import { App as CapacitorApp } from '@capacitor/app';
-import { LOST_ITEMS_CATALOG, LOST_ITEMS_SETS, getRandomItem } from '../data/lostItems';
+import { LOST_ITEMS_CATALOG, getRandomItem } from '../data/lostItems';
 import { calculateWordScore } from '../utils/scoring';
 import { classifyWord, wrongWordCostsLife, vaultOutcome, levelRewards, dropsLostItem, showsBonusLockers, EXTRA_WORD_REWARD } from '../game/rules';
 import { computeRawSignal, updateEwmvAndZScore, getAlpha, detectVolatility } from '../utils/dda';
@@ -59,7 +56,6 @@ const GRID_ROW_PX = 46;
 
 export default function GameContainer({
   setScreen,
-  setPreviousScreen,
 }) {
   const [internalState, setInternalState] = useState('playing'); // 'playing' or 'levelComplete'
 
@@ -85,11 +81,8 @@ export default function GameContainer({
   const incrementCombo = useGameStore(state => state.incrementCombo);
   const resetCombo = useGameStore(state => state.resetCombo);
   const deductLife = useGameStore(state => state.deductLife);
-  const resetGame = useGameStore(state => state.resetGame);
   const unlockBadge = useGameStore(state => state.unlockBadge);
-  const incrementTotalGames = useGameStore(state => state.incrementTotalGames);
   const incrementTotalWords = useGameStore(state => state.incrementTotalWords);
-  const setMaxUnlockedLevel = useGameStore(state => state.setMaxUnlockedLevel);
   const addLearnedWord = useGameStore(state => state.addLearnedWord);
   
   // Kayıp Eşya Seçicileri
@@ -98,15 +91,12 @@ export default function GameContainer({
   const vaultCount = useGameStore(state => state.vaultWords.length);
   const refreshDailyItem = useGameStore(state => state.refreshDailyItem);
   const dailyItemTarget = useGameStore(state => state.dailyItemTarget);
-  const checkStreak = useGameStore(state => state.checkStreak);
   const { t } = useTranslation();
 
   // Dil bazlı kelime seti
   const VALID_WORDS = language === 'en' ? VALID_WORDS_EN : VALID_WORDS_TR;
   const WORD_MEANINGS = language === 'en' ? WORD_MEANINGS_EN : WORD_MEANINGS_TR;
 
-  const [showDailySpin, setShowDailySpin] = useState(false);
-  const [showTutorial, setShowTutorial] = useState(false);
   const [hintedLetters, setHintedLetters] = useState([]);
   // "Nokta" ipucu: oyuncu açılacak kutuyu kendisi seçer (WoW'daki hedef ipucu)
   const [pickMode, setPickMode] = useState(false);
@@ -256,10 +246,6 @@ export default function GameContainer({
   // Hat Arızası eventi kaldırıldı (kullanıcı talebi)
 
 
-  const handleInfoCard = (info) => {
-    setInfoCard(info);
-    if (hapticEnabled) Haptics.selectionStart().catch(()=>{});
-  };
 
   // Teknik Bilgi Kartı (Tooltip) State'i
   const [infoCard, setInfoCard] = useState(null);
@@ -720,7 +706,7 @@ export default function GameContainer({
   };
 
   // Faz 2: Kesişim noktası bulunduğunda (Aktarma İstasyonu Bonusu)
-  const handleIntersectionFound = useCallback((intersectionKey) => {
+  const handleIntersectionFound = useCallback(() => {
     // Aynı kesişim için tekrar bonus vermemek adına bir Set kullanılabilir, 
     // ama basitçe her çağrıldığında bakiye artışı ve UI geri bildirimi sağlayabiliriz.
     addBalance(10);

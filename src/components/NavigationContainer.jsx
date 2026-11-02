@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import NetworkScreen from './NetworkScreen';
 import NetworkMap from './NetworkMap';
 import MapScreen from './MapScreen';

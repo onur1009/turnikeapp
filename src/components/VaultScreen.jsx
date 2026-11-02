@@ -1,4 +1,3 @@
-import React from 'react';
 import { useGameStore, VAULT_REWARD } from '../store/gameStore';
 import { formatKurus } from '../utils/format';
 import ScreenHeader from './ScreenHeader';

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { formatKurus } from '../utils/format';
 import { compareScores, DUEL_WIN_REWARD } from '../utils/duel';
 import { LEAGUE_POINTS } from '../utils/league';

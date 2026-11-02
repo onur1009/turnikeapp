@@ -1,4 +1,3 @@
-import React from 'react';
 import VehicleSprite from './VehicleSprite';
 
 // Ana ekranın ortası: şehrin üstünden geçen ayaklı bir hat; bulunulan hattın aracı soldan gelip

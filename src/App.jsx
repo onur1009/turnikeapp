@@ -1,30 +1,23 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { generateLevel, VALID_WORDS_TR, VALID_WORDS_EN, WORD_MEANINGS_TR, WORD_MEANINGS_EN, getTimeForLevel } from './utils/gameLogic';
-import { playCorrect, playWrong, playLevelComplete, playTurnike, playCombo, playBadgeUnlock, playBalanceUp, playTick, playTimeUp, playGameOver } from './utils/soundManager';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { playBadgeUnlock } from './utils/soundManager';
 import { useTranslation } from './utils/i18n';
 import DailySpinScreen from './components/DailySpinScreen';
 import IntroScreen from './components/IntroScreen';
-import AnimatedBalance from './components/AnimatedBalance';
 import NavigationContainer from './components/NavigationContainer';
 import GameContainer from './components/GameContainer';
 import HomeScreen from './components/HomeScreen';
 import { useGameStore, getMaxLives } from './store/gameStore';
-import { useGameTimer } from './hooks/useGameTimer';
-import { Haptics, ImpactStyle, NotificationType } from '@capacitor/haptics';
+import { Haptics, NotificationType } from '@capacitor/haptics';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { App as CapacitorApp } from '@capacitor/app';
 import './index.css';
 
 function App() {
   const [screen, setScreen] = useState('loading');
-  const [previousScreen, setPreviousScreen] = useState('home');
   const [isAppReady, setIsAppReady] = useState(false);
 
   // Zustand Store — Selector bazlı erişim
   const balance = useGameStore(state => state.balance);
-  const hints = useGameStore(state => state.hints);
-  const levelIndex = useGameStore(state => state.levelIndex);
-  const lives = useGameStore(state => state.lives);
   const combo = useGameStore(state => state.combo);
   const streak = useGameStore(state => state.streak);
   const unlockedBadges = useGameStore(state => state.unlockedBadges);
@@ -32,18 +25,10 @@ function App() {
   const theme = useGameStore(state => state.theme);
   const soundEnabled = useGameStore(state => state.soundEnabled);
   const hapticEnabled = useGameStore(state => state.hapticEnabled);
-  const language = useGameStore(state => state.language);
   const totalWordsFound = useGameStore(state => state.totalWordsFound);
-  const username = useGameStore(state => state.username);
   const maxUnlockedLevel = useGameStore(state => state.maxUnlockedLevel);
 
   // Aksiyonlar
-  const addHints = useGameStore(state => state.addHints);
-  const addBalance = useGameStore(state => state.addBalance);
-  const incrementCombo = useGameStore(state => state.incrementCombo);
-  const resetCombo = useGameStore(state => state.resetCombo);
-  const deductLife = useGameStore(state => state.deductLife);
-  const resetGame = useGameStore(state => state.resetGame);
   const unlockBadge = useGameStore(state => state.unlockBadge);
   const checkStreak = useGameStore(state => state.checkStreak);
   const highContrast = useGameStore(state => state.highContrast);
@@ -54,12 +39,9 @@ function App() {
     document.body.classList.toggle('a11y-large', !!largeText);
   }, [highContrast, largeText]);
   const incrementTotalGames = useGameStore(state => state.incrementTotalGames);
-  const incrementTotalWords = useGameStore(state => state.incrementTotalWords);
   const { t } = useTranslation();
 
   // Dil bazlı kelime seti
-  const VALID_WORDS = language === 'en' ? VALID_WORDS_EN : VALID_WORDS_TR;
-  const WORD_MEANINGS = language === 'en' ? WORD_MEANINGS_EN : WORD_MEANINGS_TR;
 
   const [showDailySpin, setShowDailySpin] = useState(false);
   const spinOffered = useRef(false);
@@ -142,18 +124,9 @@ function App() {
     }
   }, [streak, combo, balance, maxUnlockedLevel, unlockedBadges.length, unlockBadge, totalWordsFound, screen]);
 
-  const [levelData, setLevelData] = useState(null);
-  const [foundWords, setFoundWords] = useState([]);
-  const [mistakeCount, setMistakeCount] = useState(0);
-  const [levelStartTime, setLevelStartTime] = useState(0);
 
   // Teknik Bilgi Kartı (Tooltip) State'i
-  const [infoCard, setInfoCard] = useState(null);
 
-  const [learnedWords, setLearnedWords] = useState(() => {
-    const saved = localStorage.getItem('turnike_dictionary');
-    return saved ? JSON.parse(saved) : [];
-  });
 
   // maxLevel ve learnedWords artık Zustand persist middleware tarafından otomatik kaydediliyor
 
@@ -164,11 +137,11 @@ function App() {
       try {
         await StatusBar.setStyle({ style: Style.Dark });
         await StatusBar.setBackgroundColor({ color: '#051424' });
-      } catch (e) {} // Sadece web'de çalışırken hata vermesin
+      } catch { /* Sadece web'de çalışırken hata vermesin */ }
     };
     setupNative();
 
-    const backListener = CapacitorApp.addListener('backButton', ({ canGoBack }) => {
+    const backListener = CapacitorApp.addListener('backButton', () => {
       if (screen === 'game') setScreen('home');
       else if (['dictionary', 'levels', 'badges', 'stats', 'settings', 'akbil', 'vault', 'leaderboard', 'lostitems', 'duels', 'daily', 'postcards', 'globalboard', 'pass'].includes(screen)) setScreen('home');
       else if (screen === 'home') CapacitorApp.exitApp();
@@ -256,7 +229,6 @@ function App() {
     return (
       <GameContainer 
         setScreen={setScreen}
-        setPreviousScreen={setPreviousScreen}
         
         
         
