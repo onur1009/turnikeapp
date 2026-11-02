@@ -54,16 +54,16 @@ tr:last-child td { border-bottom: 0; }
     <div class="table-wrap"><table>
       <thead><tr><th>İş</th><th>Durum</th><th>Not</th></tr></thead>
       <tbody>
-        <tr><td>1.1 Kuralları ayırmak</td><td>Kısmen</td><td><code>src/game/rules.js</code>; GameContainer 1.188 → 1.194 satır (kurallar çıktı ama duraklatma ve yeni özellikler eklendi). İpucu, süre ve reklam akışları hâlâ içeride.</td></tr>
-        <tr><td>1.2 Birim testleri</td><td>Bitti</td><td><code>npm test</code>, 18 test, ek paket yok</td></tr>
-        <tr><td>1.3 Uçtan uca testler</td><td>Bitti</td><td><code>npm run test:e2e</code>, 7 akış</td></tr>
-        <tr><td>1.4 Ölü kod</td><td>Bitti</td><td>Kullanılmayan değişken 104 → 0; React hook uyarıları (22) kaldı</td></tr>
+        <tr><td>1.1 Kuralları ayırmak</td><td>Kısmen</td><td><code>src/game/rules.js</code> ve <code>src/game/hints.js</code>; GameContainer 1.149 satır (duraklatma ve yeni özellikler eklendi). Süre ve reklam akışı hâlâ içeride.</td></tr>
+        <tr><td>1.2 Birim testleri</td><td>Bitti</td><td><code>npm test</code>, 22 test, ek paket yok</td></tr>
+        <tr><td>1.3 Uçtan uca testler</td><td>Bitti</td><td><code>npm run test:e2e</code>, 8 akış</td></tr>
+        <tr><td>1.4 Ölü kod</td><td>Bitti</td><td>Kullanılmayan değişken 104 → 0; lint 19 uyarı (React hook kalıpları)</td></tr>
         <tr><td>1.5 Supabase denetimi</td><td>Bekliyor</td><td>MCP proje erişimi gerekiyor</td></tr>
         <tr><td>CI</td><td>Bitti</td><td>GitHub Actions: test, seviye taraması, build</td></tr>
         <tr><td>2.1 Paket</td><td>Bitti</td><td>İlk yükleme 748 KB → 276 KB</td></tr>
-        <tr><td>2.2 Erişilebilirlik</td><td>Kısmen</td><td>Dolaplar, ayarlar, ızgara kelimeleri, duraklatma penceresi erişilebilir; çark ekran okuyucuyla henüz kullanılamıyor</td></tr>
+        <tr><td>2.2 Erişilebilirlik</td><td>Bitti</td><td>Çark ekran okuyucuyla kaydırmadan kullanılabiliyor (gizli harf düğmeleri); cihazda TalkBack ile denenmedi</td></tr>
         <tr><td>2.3 İngilizce</td><td>Bekliyor</td><td>Tamamlanacak mı, kaldırılacak mı: senin kararın</td></tr>
-        <tr><td>3.1 Kök havuzu</td><td>Bekliyor</td><td>İçerik işi (500+ kök)</td></tr>
+        <tr><td>3.1 Kök havuzu</td><td>Kısmen</td><td>+75 gündelik kök; farklı kök 174 → 191, en kısa tekrar 9 → 26 seviye. İleri seviyeler 7–8 harfli kök istiyor; 500 hedefi için bu uzunlukta kelime gerekiyor. Düello/günlük havuzu donduruldu.</td></tr>
         <tr><td>3B.1 Yanlış kelime cezası</td><td>Karar: kalıyor</td><td></td></tr>
         <tr><td>3B.2 Reklam düğmesi</td><td>Bitti</td><td>30 sn takılınca</td></tr>
         <tr><td>3B.3 Duraklatma</td><td>Bitti</td><td>Arka plana geçince de duruyor</td></tr>
