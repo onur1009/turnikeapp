@@ -223,48 +223,47 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
     };
   }, [clearRewind]);
 
+  // Kaydırmasız giriş (klavye ve ekran okuyucu düğmeleri): yalnızca ref ve setState kullanır,
+  // bu yüzden ilk render'daki kopyaları da güncel kalır
+  const pushIndex = (idx) => {
+    if (gestureRef.current.isAwaitingResult || idx === -1 || gestureRef.current.selectedIndices.includes(idx)) return;
+    const next = [...gestureRef.current.selectedIndices, idx];
+    gestureRef.current.selectedIndices = next;
+    setSelectedIndices(next);
+    Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
+  };
+  const popIndex = () => {
+    const prev = gestureRef.current.selectedIndices;
+    if (!prev.length) return;
+    gestureRef.current.selectedIndices = prev.slice(0, -1);
+    setSelectedIndices(prev.slice(0, -1));
+    Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
+  };
+  const submitSelection = async () => {
+    const currentIndices = gestureRef.current.selectedIndices;
+    if (currentIndices.length > 1) {
+      const word = currentIndices.map(i => callbacksRef.current.letters[i]).join('');
+      setIsAwaiting(true);
+      gestureRef.current.isAwaitingResult = true;
+      try {
+        await callbacksRef.current.onWordSubmit(word);
+      } catch { /* hata olsa da seçim aşağıda sıfırlanır */ }
+      setIsAwaiting(false);
+      gestureRef.current.isAwaitingResult = false;
+    }
+    // Her durumda anında sıfırla
+    gestureRef.current.selectedIndices = [];
+    setSelectedIndices([]);
+    Haptics.impact({ style: ImpactStyle.Medium }).catch(()=>{});
+  };
+
   useEffect(() => {
     const handleKeyDown = async (e) => {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-
-      if (e.key === 'Backspace') {
-        const prev = gestureRef.current.selectedIndices;
-        if (prev.length > 0) {
-          const next = prev.slice(0, -1);
-          gestureRef.current.selectedIndices = next;
-          setSelectedIndices(next);
-          Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
-        }
-        return;
-      }
-
-      if (e.key === 'Enter') {
-        const currentIndices = gestureRef.current.selectedIndices;
-        if (currentIndices.length > 1) {
-          const word = currentIndices.map(i => callbacksRef.current.letters[i]).join('');
-          setIsAwaiting(true);
-          gestureRef.current.isAwaitingResult = true;
-          try {
-            await callbacksRef.current.onWordSubmit(word);
-          } catch { /* hata olsa da seçim aşağıda sıfırlanır */ }
-          setIsAwaiting(false);
-          gestureRef.current.isAwaitingResult = false;
-        }
-        // Her durumda anında sıfırla
-        gestureRef.current.selectedIndices = [];
-        setSelectedIndices([]);
-        Haptics.impact({ style: ImpactStyle.Medium }).catch(()=>{});
-        return;
-      }
-
+      if (e.key === 'Backspace') return popIndex();
+      if (e.key === 'Enter') return submitSelection();
       const key = e.key.toLocaleUpperCase('tr-TR');
-      const matchingIndex = callbacksRef.current.letters.findIndex((l, idx) => l === key && !gestureRef.current.selectedIndices.includes(idx));
-      if (matchingIndex !== -1) {
-        const next = [...gestureRef.current.selectedIndices, matchingIndex];
-        gestureRef.current.selectedIndices = next;
-        setSelectedIndices(next);
-        Haptics.impact({ style: ImpactStyle.Light }).catch(()=>{});
-      }
+      pushIndex(callbacksRef.current.letters.findIndex((l, idx) => l === key && !gestureRef.current.selectedIndices.includes(idx)));
     };
 
     window.addEventListener('keydown', handleKeyDown);
@@ -278,6 +277,7 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
   const currentWord = selectedIndices.map(i => letters[i]).join('');
 
   return (
+    <>
     <div
       className="relative w-full aspect-square max-w-[340px] mx-auto z-20 touch-none select-none"
       ref={containerRef}
@@ -407,6 +407,7 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
           <div
             key={i}
             className={isSelected ? 'wheel-letter-active' : 'wheel-letter'}
+            aria-hidden="true"
             style={{
               position: 'absolute',
               left: pos.x - half,
@@ -433,6 +434,17 @@ const Wheel = ({ letters, onWordSubmit, onShuffle, bonusLetter, wrongWordTrigger
         );
       })}
     </div>
+    {/* Ekran okuyucu (TalkBack) için kaydırmasız giriş: çarkın dışında, görünmez. Çarkın içinde olsaydı
+        kaydırma dinleyicisi dokunuşu yutardı. */}
+    <div className="sr-only" role="group" aria-label="Harf çarkı">
+      <p aria-live="polite">{currentWord ? `Seçilen: ${currentWord}` : 'Harf seçilmedi'}</p>
+      {letters.map((l, i) => (
+        <button key={i} type="button" onClick={() => pushIndex(i)} disabled={selectedIndices.includes(i) || eliminatedLetters?.includes(l)}>{l} harfini ekle</button>
+      ))}
+      <button type="button" onClick={popIndex}>Son harfi sil</button>
+      <button type="button" onClick={submitSelection}>Kelimeyi gönder</button>
+    </div>
+    </>
   );
 };
 

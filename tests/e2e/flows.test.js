@@ -171,3 +171,22 @@ test('bulunan kelimeye dokununca anlamı açılır', async () => {
   assert.ok((await text(p)).includes(word));
   await p.close();
 });
+
+test('ekran okuyucu: kaydırmadan, gizli düğmelerle kelime bulunur', async () => {
+  const { p } = await openGame({ level: 41 });
+  await click(p, 'DEVAM ET');
+  await p.waitForSelector('.wheel-letter', { timeout: 15000 });
+  await wait(2500);
+  assert.ok(await p.$('[role=group][aria-label="Harf çarkı"]'));
+  const letters = await p.evaluate(() => [...document.querySelectorAll('.wheel-letter')].map(x => x.textContent));
+  for (const w of solve(letters)) {
+    for (const ch of w) {
+      await p.evaluate((ch) => [...document.querySelectorAll('[aria-label="Harf çarkı"] button')].find(b => !b.disabled && b.innerText === `${ch} harfini ekle`)?.click(), ch);
+    }
+    await p.evaluate(() => [...document.querySelectorAll('[aria-label="Harf çarkı"] button')].find(b => b.innerText === 'Kelimeyi gönder').click());
+    await wait(500);
+    if (await p.$('button[aria-label$="anlamını göster"]')) break;
+  }
+  assert.ok(await p.$('button[aria-label$="anlamını göster"]'), 'gizli düğmelerle hiçbir ızgara kelimesi bulunamadı');
+  await p.close();
+});
