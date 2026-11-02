@@ -49,7 +49,7 @@ const MapScreen = ({ onLevelSelect, currentLevel, initialLineId }) => {
     
     // Eğer 'sonraki' hat, gelecekteki sınırı aşıyorsa gitme
     let nextLoop = viewLoop;
-    let nextLineId = viewLineId;
+    let nextLineId;
     
     if (currentLineIndex < LINES.length - 1) {
       nextLineId = LINES[currentLineIndex + 1].id;
@@ -95,7 +95,7 @@ const MapScreen = ({ onLevelSelect, currentLevel, initialLineId }) => {
   
   // Next butonu kilit kontrolü
   let nextLoopTest = viewLoop;
-  let nextLineIdTest = viewLineId;
+  let nextLineIdTest;
   const currentLineIndexTest = LINES.findIndex(l => l.id === viewLineId);
   if (currentLineIndexTest < LINES.length - 1) {
     nextLineIdTest = LINES[currentLineIndexTest + 1].id;

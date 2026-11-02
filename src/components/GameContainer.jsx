@@ -701,7 +701,7 @@ export default function GameContainer({
     // Etiket eskiden "+10 ₺" diyordu; eklenen 10 kuruş
     showFeedback('correct', `Aktarma Bonusu! +${formatKurus(10)}`);
     if (soundEnabled) playBalanceUp();
-  }, [addBalance, showFeedback, soundEnabled, t]);
+  }, [addBalance, showFeedback, soundEnabled]);
 
   // "Terim" ipucu: kök ulaşım teriminin anlamını gösterir, kelimenin kendisini maskeler.
   // ("Ele" aracının yerini aldı: çarktaki tüm harfler kökten geldiği için elenecek harf olmuyordu.)
