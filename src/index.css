@@ -1091,3 +1091,6 @@ body.a11y-contrast .tool-btn, body.a11y-contrast .status-chip, body.a11y-contras
 .postcard.is-large .postcard-media { position: relative; aspect-ratio: 3 / 2; }
 .postcard.is-large .postcard-caption { position: absolute; left: 12px; bottom: 12px; padding: 0; }
 .postcard-stamp { z-index: 2; background: var(--stamp, rgba(16,38,63,0.35)); border-color: #fdf6e3; }
+
+/* Bölüm sonu katlanır satırları: WebKit varsayılan üçgeni gizle (Chromium list-none ile gizler) */
+summary::-webkit-details-marker { display: none; }

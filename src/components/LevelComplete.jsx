@@ -89,25 +89,31 @@ const LevelComplete = ({ level, station, summary, mistakes, meanings, onNextLeve
             </div>
             <h1 className="text-white text-[24px] font-black leading-tight">{station.displayName}</h1>
             <p className="text-white/60 text-[13px] font-semibold mt-0.5">{station.isLastLeg ? `${t('arrived_at')} · ${t('leg')} ${station.leg}/${station.legsPerStation}` : `${t('leg')} ${station.leg}/${station.legsPerStation} ${t('leg_done')}`}</p>
-            <p className="text-white/70 text-[13px] leading-relaxed mt-3">{station.stationInfo}</p>
+            {station.isLastLeg && <p className="text-white/70 text-[13px] leading-relaxed mt-3">{station.stationInfo}</p>}
           </div>
         </div>
 
         {/* Kazanç dökümü */}
-        <div className="w-full card-panel p-4 mb-4">
-          {earnings.map(e => (
-            <div key={e.label} className={`flex justify-between text-[14px] py-1 ${e.value ? 'text-white/85' : 'text-white/35'}`}>
-              <span className="font-semibold">{e.label}</span>
-              <span className="font-bold tabular-nums">+{formatKurus(e.value)}</span>
-            </div>
-          ))}
-          <div className="flex justify-between items-center border-t border-white/10 mt-2 pt-2">
-            <span className="text-white font-black text-[15px]">İstanbulkart</span>
+        {/* Toplam her zaman görünür; döküm dokununca açılır (devam düğmesi kaydırmadan görünsün) */}
+        <details className="w-full card-panel px-4 py-3 mb-4 group">
+          <summary className="flex justify-between items-center cursor-pointer list-none">
+            <span className="text-white font-black text-[15px] flex items-center gap-1">
+              İstanbulkart
+              <span aria-hidden="true" className="material-symbols-outlined text-[18px] text-white/50 transition-transform group-open:rotate-180">expand_more</span>
+            </span>
             <span className="font-black text-[18px] tabular-nums" style={{ color: 'var(--coin)' }}>
               +<CountUp end={total} format={formatKurus} />
             </span>
+          </summary>
+          <div className="border-t border-white/10 mt-2 pt-1">
+            {earnings.map(e => (
+              <div key={e.label} className={`flex justify-between text-[14px] py-1 ${e.value ? 'text-white/85' : 'text-white/35'}`}>
+                <span className="font-semibold">{e.label}</span>
+                <span className="font-bold tabular-nums">+{formatKurus(e.value)}</span>
+              </div>
+            ))}
           </div>
-        </div>
+        </details>
 
         {/* Öğrenilen terimler */}
         {summary?.lostItem && (
@@ -126,15 +132,18 @@ const LevelComplete = ({ level, station, summary, mistakes, meanings, onNextLeve
           </div>
         )}
         {learned.length > 0 && (
-          <div className="w-full card-panel p-4 mb-4">
-            <p className="text-[11px] font-black tracking-[2px] text-white/50 uppercase mb-2">{t('learned_terms')}</p>
+          <details className="w-full card-panel px-4 py-3 mb-4 group">
+            <summary className="flex justify-between items-center cursor-pointer list-none text-[11px] font-black tracking-[2px] text-white/60 uppercase">
+              {t('learned_terms')} ({learned.length})
+              <span aria-hidden="true" className="material-symbols-outlined text-[18px] transition-transform group-open:rotate-180">expand_more</span>
+            </summary>
             {learned.slice(0, 3).map(w => (
               <div key={w} className="py-1.5">
                 <span className="text-white font-black text-[14px] tracking-wide">{w}</span>
                 <p className="text-white/65 text-[13px] leading-snug">{meanings[w]}</p>
               </div>
             ))}
-          </div>
+          </details>
         )}
 
         {/* Sıradaki durak */}
