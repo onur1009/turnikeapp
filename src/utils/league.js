@@ -103,7 +103,7 @@ export const ensureLeagueWeek = () => {
     lastResult = { week: state.week, rank, fromTier: state.tier, toTier: tier, reward };
     track('league_week_end', { rank, tier: state.tier, move });
   }
-  const next = { week, tier, points: 0, groupNo: null, cachedGroup: [], userId: state.userId || null, lastResult, seenResult: false };
+  const next = { week, tier, points: 0, pending: 0, groupNo: null, cachedGroup: [], userId: state.userId || null, lastResult, seenResult: false };
   useGameStore.setState({ leagueState: next });
   return next;
 };
@@ -118,16 +118,46 @@ export const syncLeague = async () => {
   const cur = useGameStore.getState().leagueState;
   const merged = { ...cur, tier: joined.tier, groupNo: joined.group_no, userId, points: Math.max(cur.points, joined.points || 0), cachedGroup: group || cur.cachedGroup };
   useGameStore.setState({ leagueState: merged });
-  return merged;
+  // Lig ekranı açılmadan önce cihazda biriken puan şimdi gönderilir
+  await flushLeaguePoints();
+  return useGameStore.getState().leagueState;
 };
 
-// Puan ekle (yerelde hemen, sunucuya arka planda)
-// Aynı eylemler Hat Pasosu XP'si de kazandırır
+// Sunucu tek çağrıda en çok 50 puan kabul eder (league_add_points); birikmiş puan parçalara bölünür
+export const chunkPoints = (total, max = 50) => {
+  const out = [];
+  for (let left = total; left > 0; left -= max) out.push(Math.min(max, left));
+  return out;
+};
+
+// Bekleyen puanı gönder: yalnızca bu hafta lige katılmış (groupNo dolu) oyuncu için.
+// Gönderilemeyen kısım bekleyenlere geri eklenir.
+let flushing = false;
+export const flushLeaguePoints = async () => {
+  const state = useGameStore.getState().leagueState;
+  if (flushing || !state.pending || state.groupNo == null) return;
+  flushing = true;
+  const week = state.week;
+  useGameStore.setState({ leagueState: { ...state, pending: 0 } });
+  let unsent = 0;
+  for (const part of chunkPoints(state.pending)) {
+    if (unsent || (await leagueAddPoints(week, part)) == null) unsent += part;
+  }
+  flushing = false;
+  const cur = useGameStore.getState().leagueState;
+  if (unsent && cur.week === week) useGameStore.setState({ leagueState: { ...cur, pending: (cur.pending || 0) + unsent } });
+};
+
+// Puan ekle: yerelde hemen. Sunucuya yalnızca bu hafta lig ekranını açıp gruba katılmış oyuncunun
+// puanı gider; diğerlerinin puanı cihazda bekler ve lig ekranı açılınca topluca gönderilir.
+// Eskiden her bölüm sonu sunucuya gidip her oyuncu için anonim hesap açıyordu (Supabase MAU maliyeti);
+// üstelik gruba katılmamış oyuncunun puanı sunucuda zaten yazılmıyordu.
+// Aynı eylemler Hat Pasosu XP'si de kazandırır.
 export const addLeaguePoints = (kind) => {
   addPassXp(kind);
   const pts = LEAGUE_POINTS[kind] || 0;
   if (!pts) return;
   const state = ensureLeagueWeek();
-  useGameStore.setState({ leagueState: { ...state, points: state.points + pts } });
-  leagueAddPoints(state.week, pts);
+  useGameStore.setState({ leagueState: { ...state, points: state.points + pts, pending: (state.pending || 0) + pts } });
+  if (state.groupNo != null) flushLeaguePoints();
 };

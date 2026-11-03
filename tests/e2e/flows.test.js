@@ -205,3 +205,16 @@ test('KVKK onayı: iki ayrı seçim varsayılan kapalı, "Seçilenleri kaydet" i
   assert.equal(await p.$('[aria-labelledby="consent-title"]'), null);
   await p.close();
 });
+
+test('lige katılmamış oyuncu bölüm oynarken Supabase\'e istek gitmez (MAU maliyeti)', async () => {
+  const { p } = await openGame({ level: 41 });
+  const calls = [];
+  p.on('request', r => { if (/supabase\.co/.test(r.url())) calls.push(new URL(r.url()).pathname); });
+  await click(p, 'DEVAM ET');
+  assert.ok(await playOut(p, /ANA MENÜ|HAKKIN KALDI/i), 'bölüm bitmedi');
+  await wait(2000);
+  assert.deepEqual(calls, []);
+  const s = await p.evaluate(() => JSON.parse(localStorage.getItem('turnike-game-storage')).state.leagueState);
+  assert.ok(s.pending > 0, 'puan cihazda beklemeli');
+  await p.close();
+});
