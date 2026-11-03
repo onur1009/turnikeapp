@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Turnike · KVKK Aydınlatma Metni</title>
+<style>
+  :root { --bg: #f6f7f9; --fg: #10263f; --muted: #52637a; --line: #d7dee8; --chip: #e8edf4; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #0b1726; --fg: #e6edf6; --muted: #9aabc2; --line: #24384f; --chip: #1b304b; } }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 system-ui, "Segoe UI", sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 32px max(16px, env(safe-area-inset-left)) 64px; }
+  h1 { font-size: 26px; margin: 0 0 4px; } h2 { font-size: 19px; margin: 30px 0 8px; }
+  .muted { color: var(--muted); font-size: 14px; }
+  .t { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; }
+  table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: 14px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  tr:last-child td { border-bottom: 0; }
+  .box { background: var(--chip); border-radius: 10px; padding: 14px 16px; }
+  a { color: inherit; }
+</style>
+</head>
+<body>
+<main>
+<!-- Yayından önce [GELİŞTİRİCİ_ADI], [ADRES], [İLETİŞİM_E_POSTASI] ve [SUPABASE_BÖLGESİ] alanlarını doldur.
+     Bu metin hukuki danışmanlık değildir; bir avukata okutulması önerilir. -->
+<h1>Kişisel Verilerin Korunması Aydınlatma Metni</h1>
+<p class="muted">Turnike: Sözcük Seferi · 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) m.10 · Son güncelleme: 3 Kasım 2026</p>
+
+<h2>1. Veri sorumlusu</h2>
+<p>[GELİŞTİRİCİ_ADI], [ADRES]. İletişim: [İLETİŞİM_E_POSTASI]</p>
+
+<h2>2. İşlenen kişisel veriler, amaçları ve hukuki sebepleri</h2>
+<div class="t"><table>
+  <thead><tr><th>Veri</th><th>Amaç</th><th>Hukuki sebep (KVKK m.5)</th></tr></thead>
+  <tbody>
+    <tr><td>Anonim oyuncu kimliği, seçtiğin kullanıcı adı, skor, haftalık lig puanı, düello turları</td><td>Liderlik tablosu, haftalık lig ve düello hizmetini sunmak</td><td>Sözleşmenin kurulması ve ifası (m.5/2-c)</td></tr>
+    <tr><td>Oyun içinde yazdığın ve oyunun sözlüğünde olmayan kelime (bağlantı sırasında IP adresi)</td><td>Kelimenin Türk Dil Kurumu sözlüğünde olup olmadığını kontrol etmek</td><td>Sözleşmenin ifası (m.5/2-c)</td></tr>
+    <tr><td>Uygulama kullanım olayları (seviye, ipucu kullanımı, oturum), anonim cihaz kimliği</td><td>Oyunu geliştirmek</td><td>Açık rıza (m.5/1); yalnızca izin verirsen</td></tr>
+    <tr><td>Reklam kimliği, IP adresi, cihaz ve reklam etkileşim bilgileri</td><td>Oyunu ücretsiz sunmak için kişiselleştirilmemiş reklam göstermek, reklam dolandırıcılığını önlemek</td><td>Meşru menfaat (m.5/2-f)</td></tr>
+    <tr><td>Aynı reklam verileri, ilgi alanına göre</td><td>Kişiselleştirilmiş reklam göstermek</td><td>Açık rıza (m.5/1); yalnızca izin verirsen</td></tr>
+    <tr><td>Web sürümünde sunucu kayıtları (IP adresi, tarayıcı bilgisi)</td><td>Hizmetin güvenliği ve çalışması</td><td>Meşru menfaat (m.5/2-f)</td></tr>
+  </tbody>
+</table></div>
+<p>Adın, e-posta adresin, telefon numaran, konumun, kişi listen ve özel nitelikli kişisel veri işlenmez. Oyun ilerlemen, bakiye ve ayarların yalnızca kendi cihazında saklanır.</p>
+
+<h2>3. Toplama yöntemi</h2>
+<p>Veriler, uygulamayı kullanırken elektronik ortamda otomatik olarak ve senin girdiğin kadarıyla (kullanıcı adı) toplanır.</p>
+
+<h2>4. Aktarılan taraflar</h2>
+<div class="t"><table>
+  <thead><tr><th>Alıcı</th><th>Ülke</th><th>Neden</th></tr></thead>
+  <tbody>
+    <tr><td>Supabase Inc. (veri işleyen)</td><td>[SUPABASE_BÖLGESİ]</td><td>Liderlik, lig ve düello verilerinin saklanması</td></tr>
+    <tr><td>Google LLC / Google Ireland (AdMob)</td><td>ABD, İrlanda</td><td>Reklam sunumu</td></tr>
+    <tr><td>PostHog Inc. (veri işleyen)</td><td>AB (Almanya)</td><td>Anonim kullanım ölçümü, yalnızca rızanla</td></tr>
+    <tr><td>Vercel Inc. (veri işleyen)</td><td>ABD</td><td>Web sürümünün ve bu sayfaların barındırılması</td></tr>
+    <tr><td>Türk Dil Kurumu</td><td>Türkiye</td><td>Sözlük sorgusu</td></tr>
+  </tbody>
+</table></div>
+<p>Yurt dışına aktarım KVKK m.9 kapsamında yapılır: veri işleyenlerle Kişisel Verileri Koruma Kurulu'nun ilan ettiği standart sözleşmeler ve kişiselleştirilmiş reklam ile kullanım verisi bakımından ayrıca açık rızan esas alınır. Verilerin satışı yapılmaz.</p>
+
+<h2>5. Saklama süreleri</h2>
+<ul>
+  <li>Kullanıcı adı, skor ve hesap: sen silene kadar.</li>
+  <li>Düello turları: 90 gün.</li>
+  <li>Haftalık lig kayıtları: 8 hafta.</li>
+  <li>Kullanım verisi: en fazla 12 ay.</li>
+</ul>
+<p>Süresi dolan veriler silinir ya da anonim hâle getirilir.</p>
+
+<h2>6. Hakların (KVKK m.11)</h2>
+<p>Kişisel verilerinin işlenip işlenmediğini öğrenme; işlenmişse bilgi talep etme; işlenme amacını ve amaca uygun kullanılıp kullanılmadığını öğrenme; aktarıldığı üçüncü kişileri bilme; eksik ya da yanlış işlenmişse düzeltilmesini, KVKK m.7 çerçevesinde silinmesini veya yok edilmesini ve bu işlemlerin aktarılan üçüncü kişilere bildirilmesini isteme; otomatik sistemlerle analiz sonucu aleyhine bir sonuç çıkmasına itiraz etme; kanuna aykırı işleme nedeniyle zarara uğradıysan zararın giderilmesini talep etme haklarına sahipsin.</p>
+<div class="box">
+  <p><b>Nasıl başvurursun:</b> Sunucudaki verilerini uygulamada <b>Ayarlar &gt; Sunucudaki verilerimi sil</b> ile hemen silebilirsin. Diğer talepler için [İLETİŞİM_E_POSTASI] adresine, kimliğini doğrulamamızı sağlayacak bilgilerle (oyundaki kullanıcı adın) yaz. Başvurun en geç 30 gün içinde ücretsiz yanıtlanır. Başvurun reddedilirse ya da yanıt yetersiz bulunursa Kişisel Verileri Koruma Kurulu'na şikâyette bulunabilirsin.</p>
+</div>
+
+<h2 id="acik-riza">Açık rıza metinleri</h2>
+<p>Bu rızalar isteğe bağlıdır; vermesen de oyunun tamamını oynarsın. İstediğin zaman uygulamada <b>Ayarlar</b> bölümünden geri alabilirsin.</p>
+<div class="box">
+  <p><b>Anonim kullanım verisi:</b> Oyunu geliştirmek amacıyla hangi seviyede zorlandığım, hangi ipucunu kullandığım gibi uygulama kullanım olaylarımın ve anonim cihaz kimliğimin işlenmesine ve bu amaçla PostHog Inc.'in AB'deki sunucularına aktarılmasına, aydınlatma metnini okuyarak açık rıza veriyorum.</p>
+</div>
+<p></p>
+<div class="box">
+  <p><b>Kişiselleştirilmiş reklam:</b> Bana ilgi alanlarıma göre reklam gösterilmesi amacıyla reklam kimliğimin, IP adresimin ve reklam etkileşim bilgilerimin Google LLC tarafından işlenmesine ve bu amaçla ABD dahil yurt dışına aktarılmasına, aydınlatma metnini okuyarak açık rıza veriyorum.</p>
+</div>
+
+<h2>7. Çocuklar</h2>
+<p>Oyun 13 yaşından küçük çocuklara yönelik değildir. 18 yaşından küçüksen açık rıza vermeden önce velinle konuşmanı öneririz.</p>
+
+<p class="muted" style="margin-top:32px">Gizlilik politikası: <a href="/privacy.html">turnikeapp.vercel.app/privacy.html</a></p>
+</main>
+</body>
+</html>
