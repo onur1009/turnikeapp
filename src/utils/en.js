@@ -1,5 +1,5 @@
 // Türkçe arayüz metni (kırpılmış) -> İngilizce. i18n.js'teki L() kullanır; karşılığı olmayan metin
-// Türkçe kalır. Özel adlar ve markalar (İstanbulkart, Turnike, durak adları) çevrilmez.
+// Türkçe kalır. Özel adlar (Turnike, durak ve hat adları) çevrilmez.
 export default {
   '· Günün aranan eşyası!': '· Today\'s wanted item!',
   '· eşitleniyor…': '· syncing…',
@@ -270,8 +270,9 @@ export default {
   'İstanbul Boğazı': 'Bosphorus',
   'İstanbul Ulaşım Ağı': 'Istanbul Transit Network',
   'İstanbul raylı sistem ve deniz hatları haritası': 'Map of Istanbul rail and sea lines',
-  'İstanbulkart Bakiyesi': 'İstanbulkart balance',
-  'İstanbulkart bakiyesi': 'İstanbulkart balance',
+  'Turnike Kart bakiyesi': 'Turnike Card balance',
+  'Turnike Kart': 'Turnike Card',
+  'Kart': 'Card',
   'İzin ver': 'Allow',
   'İzin verme': 'Don\'t allow',
   'İzle': 'Watch',
@@ -351,7 +352,7 @@ export default {
   'İstanbul\'un batısındaki modern yerleşimlerin merkezi.': 'The center of Istanbul\'s modern western suburbs.',
   'Avrupa yönüne giden uluslararası trenlerin de kalktığı ana istasyon.': 'The main station where international trains to Europe depart.',
   'Kocaeli sınırlarında yer alan Marmaray\'ın en doğu ucu.': 'The eastern end of Marmaray, on the Kocaeli border.',
-  'Unutulmuş\nİstanbulkart\n(+₺0,50)': 'Forgotten\nİstanbulkart\n(+₺0.50)',
+  'Unutulmuş\nTurnike Kart\n(+₺0,50)': 'Forgotten\nTurnike Card\n(+₺0.50)',
   'Dolu Cüzdan\n(+₺2)': 'Full Wallet\n(+₺2)',
   'Gözlük\n(+2 İpucu)': 'Glasses\n(+2 Hints)',
   'Şemsiye\n(+1 Can)': 'Umbrella\n(+1 Life)',

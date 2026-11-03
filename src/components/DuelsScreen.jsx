@@ -225,7 +225,7 @@ const DuelsScreen = ({ onBack }) => {
             <p className="text-center text-white/55 text-[12px] font-semibold -mt-3">{L("Beklemeden bir oyuncunun turuna karşı yarış")}</p>
             <button onClick={() => play(newDuelSeed())} className="duel-btn w-full flex items-center justify-center gap-2">
               <span aria-hidden="true" className="material-symbols-outlined text-[24px]">swords</span>{L("ARKADAŞINA MEYDAN OKU")}</button>
-            <p className="text-center text-white/55 text-[12px] font-semibold -mt-3">{L("Kazanana ")}{formatKurus(DUEL_WIN_REWARD)}{L(" İstanbulkart bakiyesi")}</p>
+            <p className="text-center text-white/55 text-[12px] font-semibold -mt-3">{L("Kazanana ")}{formatKurus(DUEL_WIN_REWARD)}{L(" Turnike Kart bakiyesi")}</p>
 
             {showCode ? (
               <div className="flex gap-2">

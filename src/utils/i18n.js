@@ -10,7 +10,7 @@ export const translations = {
     badges: 'ROZETLERİM',
     settings: 'AYARLAR',
     stats: 'İSTATİSTİKLER',
-    akbil: 'İSTANBULKART',
+    akbil: 'TURNİKE KART',
     back: 'GERİ',
 
     // Ana Ekran
@@ -133,7 +133,7 @@ export const translations = {
     badges: 'MY BADGES',
     settings: 'SETTINGS',
     stats: 'STATISTICS',
-    akbil: 'TRANSIT CARD',
+    akbil: 'TURNIKE CARD',
     back: 'BACK',
 
     // Home Screen

@@ -7,7 +7,7 @@ import { playCorrect, playWrong, playBalanceUp, playBadgeUnlock } from '../utils
 
 const REWARD_TYPES = [
   // Durak başına ortalama ~₺1,5 (eskiden ₺10/₺50 ile durak başına ~₺33 veriyordu, ekonomiyi şişiriyordu)
-  { type: 'cash_small', id: 'istanbulkart', value: 50 /* kuruş */, label: 'Unutulmuş\nİstanbulkart\n(+₺0,50)', icon: 'credit_card', color: '#22c55e', chance: 35 },
+  { type: 'cash_small', id: 'istanbulkart', value: 50 /* kuruş */, label: 'Unutulmuş\nTurnike Kart\n(+₺0,50)', icon: 'credit_card', color: '#22c55e', chance: 35 },
   { type: 'cash_big', id: 'cuzdan', value: 200 /* kuruş */, label: 'Dolu Cüzdan\n(+₺2)', icon: 'account_balance_wallet', color: '#fbbf24', chance: 15 },
   { type: 'hints', id: 'gozluk', value: 2, label: 'Gözlük\n(+2 İpucu)', icon: 'eyeglasses', color: '#3b82f6', chance: 20 },
   { type: 'life', id: 'semsiye', value: 1, label: 'Şemsiye\n(+1 Can)', icon: 'umbrella', color: '#ec4899', chance: 15 },

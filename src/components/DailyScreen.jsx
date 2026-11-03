@@ -176,7 +176,7 @@ export default function DailyScreen({ onBack, onPlay }) {
               </div>
               {/* Günün Seferi'nin katkısı */}
               <div className="grid grid-cols-2 gap-2">
-                <div className="daily-gain"><b>+{formatKurus(DAILY_REWARD)}</b><span>{L("İstanbulkart")}</span></div>
+                <div className="daily-gain"><b>+{formatKurus(DAILY_REWARD)}</b><span>{L("Turnike Kart")}</span></div>
                 <div className="daily-gain"><b>+{LEAGUE_POINTS.daily}</b><span>{L("lig puanı")}</span></div>
                 <div className="daily-gain"><b>+{PASS_XP.daily}{L(" XP")}</b><span>{L("Hat Pasosu")}</span></div>
                 <div className="daily-gain"><b>🔥 {streak}{L(" gün")}</b><span>{streak % STREAK_HINT_EVERY === 0 ? L("+1 ipucu kazandın") : L("{0} gün sonra +1 ipucu", STREAK_HINT_EVERY - (streak % STREAK_HINT_EVERY))}</span></div>

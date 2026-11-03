@@ -128,7 +128,7 @@ export const IstanbulCard = ({ color, pattern, name, sticker, balance, onClick }
     >
       <CardPattern pattern={pattern} />
       <div className="flex justify-between items-start relative">
-        <span className="text-white font-black text-[18px] tracking-tight">{L("İstanbul")}<span className="font-semibold">kart</span></span>
+        <span className="text-white font-black text-[18px] tracking-tight">Turnike<span className="font-semibold"> {L("Kart")}</span></span>
         {stickerLine && <span className="line-badge" style={{ background: stickerLine.color }}>{stickerLine.code}</span>}
       </div>
       {/* Temassız çip */}

@@ -113,7 +113,7 @@ export const WORD_MEANINGS_TR = {
   "TREN": "Raylar üzerinde hareket eden, lokomotif ve vagonlardan oluşan ulaşım aracı.",
   "DEPO": "Raylı sistem araçlarının bakım, onarım ve park edildiği kapalı tesis.",
   "GİŞE": "İstasyonlarda bilet satışı ve bilgilendirme hizmeti verilen pencere.",
-  "KART": "İstanbulkart; temassız ödeme yapılan elektronik ulaşım kartı.",
+  "KART": "Temassız ödeme yapılan elektronik ulaşım kartı.",
   "FREN": "Araç hızını düşüren veya durduran mekanik/elektrik/pnömatik sistem.",
   "PERON": "Yolcuların trene binip indikleri, raylara paralel uzanan platform.",
   "VAGON": "Tren katarını oluşturan, yolcu veya yük taşıyan birimlerden her biri.",

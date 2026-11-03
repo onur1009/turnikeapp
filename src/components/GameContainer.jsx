@@ -890,7 +890,7 @@ export default function GameContainer({
                  style={{ background: '#10263f', boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}>
               <span aria-hidden="true" className="material-symbols-outlined text-green-400 text-6xl animate-bounce" style={{ fontVariationSettings: "'FILL' 1" }}>lock_open</span>
               <h2 className="text-white text-2xl font-black tracking-widest mt-4">{L("KASA PATLATILDI!")}</h2>
-              <p className="text-green-400/80 font-bold text-lg mt-2">+{formatKurus(VAULT_REWARD)}{L(" İstanbulkart Bakiyesi")}</p>
+              <p className="text-green-400/80 font-bold text-lg mt-2">+{formatKurus(VAULT_REWARD)}{L(" Turnike Kart bakiyesi")}</p>
               <span className="text-white/40 text-xs mt-4 tracking-widest uppercase">{L("Güvenli Seferler Dileriz")}</span>
             </div>
           </div>

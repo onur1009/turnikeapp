@@ -4,9 +4,9 @@ Play Console → Mağazada görünüm → Ana mağaza girişi alanlarına kopyal
 Ekran görüntüleri ve 512 px simge `release/store/` ve `release/play-icon-512.png` altında üretilir
 (git'e eklenmez; yeniden üretmek için oturum notlarındaki puppeteer betiği kullanılır).
 
-> Marka notu: "İstanbulkart", "Metro İstanbul" ve "Şehir Hatları" tescilli marka olabilir. Mağaza
-> metinlerinde bu adlar kullanılmadı. Oyun içi kart adı yayından önce değiştirilecekse (ör. "Turnike
-> Kart") ekran görüntüleri de yeniden alınmalı.
+> Marka notu: Oyun içindeki kart adı "Turnike Kart" (eski adı "İstanbulkart" tescilli marka olduğu için değiştirildi).
+> "İETT", "Metro İstanbul" ve "Şehir Hatları" sözlük kategorilerinde ve terim kaynaklarında hâlâ geçiyor; mağaza metinlerinde kullanılmadı.
+> Ekran görüntüleri kart adı değişikliğinden önce alındıysa yeniden alınmalı.
 
 ## Uygulama adı (en fazla 30 karakter)
 

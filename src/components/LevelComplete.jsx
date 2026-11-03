@@ -109,7 +109,7 @@ const LevelComplete = ({ level, station, summary, mistakes, meanings, onNextLeve
         {/* Toplam her zaman görünür; döküm dokununca açılır (devam düğmesi kaydırmadan görünsün) */}
         <details className="w-full card-panel px-4 py-3 mb-4 group">
           <summary className="flex justify-between items-center cursor-pointer list-none">
-            <span className="text-white font-black text-[15px] flex items-center gap-1">{L("İstanbulkart")}<span aria-hidden="true" className="material-symbols-outlined text-[18px] text-white/50 transition-transform group-open:rotate-180">expand_more</span>
+            <span className="text-white font-black text-[15px] flex items-center gap-1">{L("Turnike Kart")}<span aria-hidden="true" className="material-symbols-outlined text-[18px] text-white/50 transition-transform group-open:rotate-180">expand_more</span>
             </span>
             <span className="font-black text-[18px] tabular-nums" style={{ color: 'var(--coin)' }}>
               +<CountUp end={total} format={formatKurus} />

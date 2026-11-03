@@ -24,7 +24,7 @@ const TERMS_TR = [
   ['MARŞANDİZ', 'M', 'Yük taşıyan, yolcu almayan tren.'],
   ['TEKERLEK', 'M', 'Aracın dönerek ilerlemesini sağlayan yuvarlak parça.'],
   ['TELEFERİK', 'M', 'Havada gerili halatlara asılı kabinlerle yolcu taşıyan sistem.'],
-  ['VALİDATÖR', 'M', 'Turnikede İstanbulkart okutulan ve geçiş ücretini düşen cihaz.'],
+  ['VALİDATÖR', 'M', 'Turnikede ulaşım kartı okutulan ve geçiş ücretini düşen cihaz.'],
   ['VARDİYA', 'M', 'Makinist ve görevlilerin dönüşümlü çalışma süresi.'],
   ['YOLCULUK', 'M', 'Bir yerden başka bir yere yapılan gidiş.'],
   ['RAYLI', 'M', 'Ray üzerinde giden; metro, tramvay ve tren gibi sistemler için kullanılır.'],
