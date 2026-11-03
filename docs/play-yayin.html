@@ -1,0 +1,199 @@
+<title>Turnike Play Yayın Rehberi</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Düzen: tek sütun rehber; önce yol haritası şeridi, sonra sıralı adımlar (her adım: kim yapar, ne, nasıl, bitti) */
+:root {
+  --bg: #f4f6f9; --surface: #ffffff; --fg: #10263f; --muted: #52637a; --line: #d7dee8; --chip: #e8edf4;
+  --you: #a14a06; --done: #15803d; --warn: #b91c1c; --accent: #1d4ed8;
+  --display: "Archivo", "Segoe UI", sans-serif; --body: "Atkinson Hyperlegible", "Segoe UI", sans-serif; --mono: "JetBrains Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #0b1726; --surface: #12233a; --fg: #e6edf6; --muted: #9aabc2; --line: #24384f; --chip: #1b304b; --you: #fbbf24; --done: #4ade80; --warn: #f87171; --accent: #60a5fa; color-scheme: dark } }
+:root[data-theme="dark"] { --bg: #0b1726; --surface: #12233a; --fg: #e6edf6; --muted: #9aabc2; --line: #24384f; --chip: #1b304b; --you: #fbbf24; --done: #4ade80; --warn: #f87171; --accent: #60a5fa; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font: 16px/1.6 var(--body); }
+.wrap { max-width: 860px; margin: 0 auto; padding-block: 32px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; flex-direction: column; gap: 26px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; line-height: 1.2; }
+h1 { font-size: clamp(28px, 6vw, 40px); font-weight: 800; } h2 { font-size: 22px; font-weight: 800; } h3 { font-size: 16px; font-weight: 600; }
+p { margin: 0; max-width: 70ch; } ul, ol { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 4px; }
+.eyebrow { font: 600 12px/1 var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.lede, .note { color: var(--muted); } .note { font-size: 14px; }
+.road { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.road div { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; gap: 2px; }
+.road b { font: 800 15px/1.2 var(--display); } .road span { color: var(--muted); font-size: 13px; }
+section { display: flex; flex-direction: column; gap: 12px; }
+.step { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 10px; }
+.tag { font: 600 11px/1 var(--display); letter-spacing: .08em; text-transform: uppercase; color: var(--k); border: 1px solid var(--k); border-radius: 999px; padding: 6px 12px; }
+.you { --k: var(--you) } .done { --k: var(--done) } .warn { --k: var(--warn) }
+code { font: 500 13px var(--mono); background: var(--chip); padding: 3px 8px; border-radius: 4px; overflow-wrap: anywhere; }
+pre { margin: 0; background: var(--chip); border-radius: 8px; padding: 12px 14px; overflow-x: auto; font: 500 13px/1.6 var(--mono); }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 600px; font-size: 15px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font: 600 12px var(--display); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+tr:last-child td { border-bottom: 0; }
+</style>
+
+<main class="wrap">
+  <header style="display:flex;flex-direction:column;gap:10px">
+    <span class="eyebrow">Turnike: Sözcük Seferi · 3 Kasım 2026</span>
+    <h1>Google Play yayın rehberi ve reklam geliri modeli</h1>
+    <p class="lede">Kod tarafı hazır: reklam kimlikleri, Google onay penceresi, yayın imzası ve gizlilik politikası. Geriye senin hesaplarla yapacağın adımlar kalıyor. Aşağıdaki sıra, Google'ın 2026 kurallarına göre en kısa yol.</p>
+  </header>
+
+  <div class="road" aria-label="Yol haritası">
+    <div><b>1–2. gün</b><span>Hesaplar, kimlik doğrulama, AdMob</span></div>
+    <div><b>2–3. gün</b><span>İmzalı paket, mağaza sayfası, uygulama içeriği</span></div>
+    <div><b>3–17. gün</b><span>Kapalı test: 12 kişi, 14 gün kesintisiz</span></div>
+    <div><b>~24. gün</b><span>Üretim başvurusu (inceleme ≤7 gün), yayın</span></div>
+  </div>
+
+  <section>
+    <h2>Reklam geliri modeli</h2>
+    <p>Gelirin ana kaynağı ödüllü reklamlar: oyuncu reklamı kendisi seçer ve karşılığında bir şey alır. Bu yüzden oyunu bozmaz, gelir getirisi de en yüksek reklam türüdür. Geçiş reklamları ölçülü gösterilir. Banner eklemedim: oyun ekranında dikkati dağıtır ve getirisi düşüktür.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Yer</th><th>Tür</th><th>Kural</th></tr></thead>
+      <tbody>
+        <tr><td>Takılınca ücretsiz harf</td><td>Ödüllü</td><td>30 sn yeni kelime bulunamazsa ve ipucuna para yetmezse görünür</td></tr>
+        <tr><td>Bölüm sonu "kazancı 2 kat"</td><td>Ödüllü</td><td>Her bölüm sonunda isteğe bağlı</td></tr>
+        <tr><td>Kartta bakiye yükleme</td><td>Ödüllü</td><td>Günde 5 hak</td></tr>
+        <tr><td>Bölümler arası</td><td>Geçiş</td><td>12. seviyeden sonra, 3 bölümde bir; oturumun ilk iki bölümünde, düelloda, Günün Seferi'nde ve ödüllü reklamdan sonraki 2 dk içinde asla</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">AdMob'da iki reklam birimi açman yeterli: bir ödüllü, bir geçiş. Kod ikisini de tüm yerlerde kullanır. İleride hangi yerin ne kazandırdığını ayrı görmek istersen her yer için ayrı birim açılabilir.</p>
+  </section>
+
+  <section>
+    <h2>Adımlar</h2>
+
+    <article class="step">
+      <div class="head"><h3>0. Yayından önce karar vermen gerekenler</h3><span class="tag warn">Önemli</span></div>
+      <ul>
+        <li><b>Marka adları:</b> Oyunda "İstanbulkart" adı geçiyor; bu ad tescilli bir marka. Play, başkasının markasını izinsiz kullanan uygulamaları reddedebilir ya da kaldırabilir. Mağaza metni bu adı zaten kullanmıyor (<code>docs/store-listing.md</code>). Oyun içindeki kart adını "Turnike Kart" gibi bir adla değiştirmeni öneririm; istersen ben yaparım.</li>
+        <li><b>Hesap türü:</b> Kişisel hesap 12 kişilik kapalı test gerektiriyor. Şirket hesabı için D-U-N-S numarası gerekiyor ve bu numaranın alınması 30 güne kadar sürebiliyor. Tek başına geliştirici için kişisel hesap daha hızlı.</li>
+        <li><b>İletişim e-postası:</b> Mağazada ve gizlilik politikasında görünecek. Kişisel adresin yerine ayrı bir adres açabilirsin.</li>
+      </ul>
+    </article>
+
+    <article class="step">
+      <div class="head"><h3>1. Play Console hesabı</h3><span class="tag you">Sen</span></div>
+      <ol>
+        <li><a href="https://play.google.com/console/signup">play.google.com/console/signup</a> adresinden kaydol. Tek seferlik 25 dolar ödeniyor.</li>
+        <li>Kimlik doğrulaması için resmi kimlik isteniyor; onay birkaç gün sürebilir.</li>
+        <li>Telefonuna "Play Console" uygulamasını kurup cihaz doğrulamasını yap (Android 10+, rootsuz telefon).</li>
+      </ol>
+    </article>
+
+    <article class="step">
+      <div class="head"><h3>2. AdMob hesabı ve reklam birimleri</h3><span class="tag you">Sen</span></div>
+      <ol>
+        <li><a href="https://admob.google.com">admob.google.com</a> adresinden aynı Google hesabıyla kaydol. Ödeme bilgilerini ve vergi formunu doldur; AdMob ödemeyi bakiye ödeme eşiğine ulaşınca yapar.</li>
+        <li><b>Uygulamalar &gt; Uygulama ekle &gt; Android</b> yolunu izle. "Uygulama henüz yayında değil" seçeneğini seç, adı "Turnike" yaz.</li>
+        <li>İki reklam birimi oluştur: <b>Ödüllü</b> ("Ücretsiz harf ve 2 kat") ve <b>Geçiş</b> ("Bölüm arası").</li>
+        <li><b>Gizlilik ve mesajlaşma &gt; GDPR</b> altında bir mesaj oluşturup yayımla. Bu mesaj olmadan Avrupa'daki oyunculara onay penceresi çıkmaz ve onlara yalnızca sınırlı reklam sunulur.</li>
+        <li><b>Ayarlar &gt; Test cihazları</b> altında kendi telefonunu ekle.</li>
+      </ol>
+      <p class="note">Kendi gerçek reklamlarına asla tıklama, onları test etmek için de yapma. AdMob bunu geçersiz trafik sayar ve hesabı kapatabilir. Test cihazı olarak eklenen telefonda gerçek kimliklerle bile test reklamı gösterilir.</p>
+    </article>
+
+    <article class="step">
+      <div class="head"><h3>3. Kimlikleri projeye gir</h3><span class="tag you">Sen</span><span class="tag done">Kod hazır</span></div>
+      <p>AdMob kimlikleri gizli değildir (her uygulamanın içinde açıkça yazar), ama yine de koda sabit yazmadım; derleme sırasında okunuyorlar. Proje klasöründe <code>.env.local</code> dosyasına şunları ekle:</p>
+      <pre>VITE_ADMOB_REWARDED_ANDROID=ca-app-pub-XXXXXXXXXXXXXXXX/NNNNNNNNNN
+VITE_ADMOB_INTERSTITIAL_ANDROID=ca-app-pub-XXXXXXXXXXXXXXXX/NNNNNNNNNN</pre>
+      <p><code>android/gradle.properties</code> dosyasına da uygulama kimliğini ekle (kimlikteki <code>~</code> işaretine dikkat):</p>
+      <pre>ADMOB_APP_ID=ca-app-pub-XXXXXXXXXXXXXXXX~NNNNNNNNNN</pre>
+      <p class="note">İki reklam kimliği birlikte girilmedikçe uygulama test kimlikleriyle ve test modunda çalışır. Böylece yanlışlıkla gerçek reklamla test yapılmaz.</p>
+    </article>
+
+    <article class="step">
+      <div class="head"><h3>4. Yayın imzası (keystore)</h3><span class="tag you">Sen</span><span class="tag done">Kod hazır</span></div>
+      <p>Bu anahtarı bir kez oluşturur ve uygulamanın ömrü boyunca saklarsın. Şifreleri ben görmeyeceğim; komutu kendi terminalinde çalıştır. Komut şifreyi sana soracak.</p>
+      <pre>keytool -genkeypair -v -keystore turnike-upload.jks -alias turnike -keyalg RSA -keysize 2048 -validity 10000</pre>
+      <p>Oluşan <code>turnike-upload.jks</code> dosyasını <code>android/</code> klasörüne koy ve aynı klasörde <code>keystore.properties</code> dosyasını oluştur:</p>
+      <pre>storeFile=../turnike-upload.jks
+storePassword=ŞİFREN
+keyAlias=turnike
+keyPassword=ŞİFREN</pre>
+      <ul>
+        <li>İkisi de Git'e girmiyor (<code>.gitignore</code>'a ekledim).</li>
+        <li><code>.jks</code> dosyasının ve şifrenin yedeğini başka bir yerde sakla.</li>
+        <li>Play Console'da "Play Uygulama İmzalama"yı kabul et. Bu anahtar yükleme anahtarı olur; kaybedersen Google'dan sıfırlama isteyebilirsin.</li>
+      </ul>
+    </article>
+
+    <article class="step">
+      <div class="head"><h3>5. Yayın paketini (AAB) üret</h3><span class="tag done">Kod hazır</span></div>
+      <pre>npm run android:aab</pre>
+      <p>Paket <code>android/app/build/outputs/bundle/release/app-release.aab</code> klasöründe çıkar. Her yeni yüklemede sürüm numarası artmalı:</p>
+      <pre>cd android
+gradlew bundleRelease -PversionCode=2 -PversionName=1.0.1</pre>
+      <p class="note">Hedef API 36 (Android 16); Google'ın 2026 şartı karşılanıyor. İmzasız paketin derlendiğini denedim; imzalı paket keystore dosyası eklenince çıkar. İstersen bu adımı ben yaparım.</p>
+    </article>
+
+    <article class="step">
+      <div class="head"><h3>6. Play Console'da uygulamayı oluştur ve içeriği doldur</h3><span class="tag you">Sen</span></div>
+      <ol>
+        <li><b>Uygulama oluştur:</b> ad "Turnike: Kelime Oyunu", varsayılan dil Türkçe, tür Oyun, ücretsiz.</li>
+        <li><b>Gizlilik politikası:</b> <code>https://turnikeapp.vercel.app/privacy.html</code>. Önce sayfadaki <code>[GELİŞTİRİCİ_ADI]</code> ve <code>[İLETİŞİM_E_POSTASI]</code> alanlarını doldur (<code>public/privacy.html</code>) ve yayına al.</li>
+        <li><b>Reklamlar:</b> "Evet, reklam içeriyor".</li>
+        <li><b>Uygulama erişimi:</b> "Tüm işlevler giriş yapmadan kullanılabilir".</li>
+        <li><b>Hedef kitle:</b> 13 yaş ve üstünü seç; uygulama çocuklara yönelik değil. 13 yaş altı seçilirse uygulama Aile programına girer: o zaman yalnızca aile sertifikalı reklamlar gösterilebilir ve kişiselleştirilmiş reklam kapanır.</li>
+        <li><b>İçerik derecelendirmesi:</b> IARC anketi. Şiddet, kumar ve korku içeriği yok. Kullanıcı etkileşimi sorusuna "kullanıcı adları diğer oyunculara görünür (liderlik)" diye yanıt ver.</li>
+        <li><b>Veri güvenliği:</b> aşağıdaki tabloya göre doldur.</li>
+        <li><b>Mağaza sayfası:</b> metinler <code>docs/store-listing.md</code> dosyasında. Grafikler: 512×512 simge, 1024×500 öne çıkan görsel, en az 2 telefon ekran görüntüsü.</li>
+      </ol>
+    </article>
+
+    <div class="table-wrap"><table>
+      <thead><tr><th>Veri güvenliği: veri türü</th><th>Toplanıyor mu</th><th>Neden</th></tr></thead>
+      <tbody>
+        <tr><td>Cihaz veya diğer kimlikler (reklam kimliği)</td><td>Evet, paylaşılıyor (Google AdMob)</td><td>Reklamcılık, dolandırıcılık önleme</td></tr>
+        <tr><td>Kullanıcı kimlikleri (anonim kimlik, kullanıcı adı)</td><td>Evet</td><td>Uygulama işlevi (liderlik, lig, düello)</td></tr>
+        <tr><td>Uygulama etkinliği (oyun içi olaylar)</td><td>Evet, isteğe bağlı</td><td>Analiz (yalnızca oyuncu izin verirse)</td></tr>
+        <tr><td>Konum, kişiler, fotoğraf, ses, finans</td><td>Hayır</td><td>—</td></tr>
+        <tr><td>Aktarımda şifreleme</td><td>Evet</td><td>Tüm bağlantılar HTTPS</td></tr>
+        <tr><td>Silme talebi</td><td>Evet</td><td>E-postayla (gizlilik politikasında)</td></tr>
+      </tbody>
+    </table></div>
+
+    <article class="step">
+      <div class="head"><h3>7. Kapalı test: 12 kişi, 14 gün</h3><span class="tag you">Sen</span></div>
+      <ul>
+        <li>13 Kasım 2023'ten sonra açılmış kişisel hesaplar için zorunlu.</li>
+        <li><b>Test ve yayın &gt; Test &gt; Kapalı test</b> yolunu izle. Bir Google Grubu oluşturup test kişilerini ekle, AAB'yi yükle ve yayımla.</li>
+        <li>Katılım bağlantısı yayın "Yayımlandı" durumuna geçince görünür.</li>
+        <li>En az 12 kişi 14 gün kesintisiz katılımda kalmalı. Testten çıkan biri yeniden katılırsa onun 14 günü baştan başlar. Pay olarak 15–20 kişi topla.</li>
+        <li>Test süresince gelen geri bildirimlere göre aynı kanala güncelleme yükle; bu, üretim başvurusunda olumlu sayılır.</li>
+      </ul>
+    </article>
+
+    <article class="step">
+      <div class="head"><h3>8. Üretime başvur ve yayınla</h3><span class="tag you">Sen</span></div>
+      <ol>
+        <li><b>Gösterge tablosu &gt; Üretim için başvur</b> yolunu izle. Kapalı test, uygulama ve hazır olma durumu hakkındaki soruları yanıtla. İnceleme genellikle 7 gün içinde biter.</li>
+        <li>Onaydan sonra üretim sürümünü önce %20 kademeli dağıtımla başlat. Çökme ve ANR oranlarını izle, sorun yoksa %100'e çıkar.</li>
+      </ol>
+    </article>
+
+    <article class="step">
+      <div class="head"><h3>9. Yayından sonra: AdMob'u mağazaya bağla</h3><span class="tag you">Sen</span></div>
+      <ol>
+        <li>AdMob'da uygulama ayarlarından <b>Uygulama mağazası ekle</b> diyerek Play kaydını bağla. AdMob uygulamayı inceler; inceleme bitene kadar reklam sınırlı gösterilir.</li>
+        <li><b>app-ads.txt:</b> AdMob'daki yayıncı kimliğinle <code>docs/app-ads.txt.ornek</code> dosyasını doldurup <code>public/app-ads.txt</code> olarak kaydet. Play kaydındaki "Web sitesi" alanına <code>https://turnikeapp.vercel.app</code> yaz. Dosya böylece <code>https://turnikeapp.vercel.app/app-ads.txt</code> adresinde yayımlanır; AdMob'da doğrula. Bu dosya olmadan reklam sunumu düşer.</li>
+      </ol>
+    </article>
+  </section>
+
+  <section>
+    <h2>Kodda hazırlananlar</h2>
+    <ul>
+      <li><code>src/utils/adService.js</code>: kimlikler ortam değişkeninden geliyor. Google onay penceresi (UMP) açılışta, reklamlardan önce çalışıyor. Onay yoksa reklam istenmiyor.</li>
+      <li>Ayarlar'da "Reklam gizlilik seçenekleri" düğmesi var; yalnızca onay gereken bölgelerde görünüyor. Bu GDPR'ın şartı.</li>
+      <li><code>src/utils/adPolicy.js</code>: geçiş reklamı kuralları herkese uygulanıyor.</li>
+      <li><code>android/app/build.gradle</code>: AdMob uygulama kimliği, sürüm numarası ve yayın imzası dışarıdan okunuyor. <code>npm run android:aab</code> komutu eklendi.</li>
+      <li><code>public/privacy.html</code>: Türkçe ve İngilizce gizlilik politikası.</li>
+    </ul>
+    <p class="note">Bunları gerçek AdMob hesabıyla deneyemedim. Onay penceresi yalnızca AdMob'da GDPR mesajı yayımlandıktan sonra ve Avrupa'dan bağlanınca çıkar. Türkiye'den bağlanınca onay gerekmez ve reklamlar doğrudan yüklenir.</p>
+  </section>
+</main>
