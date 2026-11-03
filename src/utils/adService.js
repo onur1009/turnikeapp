@@ -7,6 +7,7 @@
 // Geliştirme sunucusunda (npm run dev) web'de 1,5 sn'lik sahte bir "test reklamı" çalışır ki
 // reklam akışları tarayıcıda denenebilsin; üretim web sürümünde reklam yoktur.
 import { Capacitor } from '@capacitor/core';
+import { useGameStore } from '../store/gameStore';
 
 const env = import.meta.env;
 const TEST_IDS = {
@@ -23,6 +24,8 @@ const live = () => !!(LIVE_IDS[platform()].rewarded && LIVE_IDS[platform()].inte
 export const IS_TESTING = !live();
 const ids = () => (live() ? LIVE_IDS : TEST_IDS)[platform()];
 const DEV_SIMULATE = env.DEV && !Capacitor.isNativePlatform();
+// KVKK: kişiselleştirilmiş reklam için açık rıza yoksa kişiselleştirilmemiş reklam istenir (npa)
+const npa = () => useGameStore.getState().adsConsent !== true;
 
 // Dikkat: Capacitor eklenti nesnesi bir Promise'ten döndürülmemeli. Döndürülürse JS onu
 // "thenable" sanıp AdMob.then() çağırır; Android'de bu "not implemented" hatası verir ve
@@ -76,7 +79,7 @@ export const showRewardedAd = async () => {
   try {
     await withTimeout(ensureAdMob());
     if (!canRequestAds) return false;
-    await withTimeout(AdMob.prepareRewardVideoAd({ adId: ids().rewarded, isTesting: IS_TESTING }));
+    await withTimeout(AdMob.prepareRewardVideoAd({ adId: ids().rewarded, isTesting: IS_TESTING, npa: npa() }));
     const reward = await withTimeout(AdMob.showRewardVideoAd(), 180000);
     return !!reward;
   } catch {
@@ -91,7 +94,7 @@ export const showInterstitialAd = async () => {
   try {
     await withTimeout(ensureAdMob());
     if (!canRequestAds) return false;
-    await withTimeout(AdMob.prepareInterstitial({ adId: ids().interstitial, isTesting: IS_TESTING }));
+    await withTimeout(AdMob.prepareInterstitial({ adId: ids().interstitial, isTesting: IS_TESTING, npa: npa() }));
     await withTimeout(AdMob.showInterstitial(), 180000);
     return true;
   } catch {

@@ -56,3 +56,17 @@ export const leagueGroup = (week, tier, groupNo) => call(async (supabase) => {
 });
 
 export const currentUserId = () => call(async () => (await ensureSession())?.user?.id || null);
+
+// KVKK m.7 / Play hesap silme: oyuncunun sunucudaki tüm kaydı (kullanıcı adı, skor, düello, lig)
+// anonim hesapla birlikte silinir (supabase/migrations/0003_delete_my_data.sql). Oturum yoksa sunucuda
+// veri de yoktur; call() kullanılmaz çünkü o, silmek için yeni bir anonim hesap açardı.
+export const deleteMyData = async () => {
+  if (!isCloudConfigured) return 'none';
+  const supabase = await getSupabase();
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) return 'none';
+  const { error } = await supabase.rpc('delete_my_data');
+  if (error) throw error;
+  await supabase.auth.signOut();
+  return 'deleted';
+};

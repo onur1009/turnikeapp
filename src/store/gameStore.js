@@ -82,6 +82,7 @@ export const useGameStore = create(
 
       // Ölçüm ve ilk oturum
       analyticsConsent: null, // null: henüz sorulmadı, true/false: oyuncunun seçimi
+      adsConsent: null, // KVKK açık rıza: kişiselleştirilmiş reklam (yoksa AdMob'a npa ile kişiselleştirilmemiş istek)
       seenTips: [], // bir kez gösterilen ipucu baloncukları (id listesi)
 
       // Günlük alışkanlık (B aşaması)

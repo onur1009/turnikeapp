@@ -36,7 +36,7 @@ const openGame = async ({ level = 0, spunToday = true } = {}) => {
   await p.evaluate(({ level, spunToday }) => {
     const k = 'turnike-game-storage';
     const j = JSON.parse(localStorage.getItem(k));
-    Object.assign(j.state, { maxUnlockedLevel: level, analyticsConsent: false, lastSpinDate: spunToday ? new Date().toLocaleDateString() : '' });
+    Object.assign(j.state, { maxUnlockedLevel: level, analyticsConsent: false, adsConsent: false, lastSpinDate: spunToday ? new Date().toLocaleDateString() : '' });
     localStorage.setItem(k, JSON.stringify(j));
     localStorage.setItem('turnike_tutorial_seen', 'true');
   }, { level, spunToday });
@@ -188,5 +188,20 @@ test('ekran okuyucu: kaydırmadan, gizli düğmelerle kelime bulunur', async () 
     if (await p.$('button[aria-label$="anlamını göster"]')) break;
   }
   assert.ok(await p.$('button[aria-label$="anlamını göster"]'), 'gizli düğmelerle hiçbir ızgara kelimesi bulunamadı');
+  await p.close();
+});
+
+test('KVKK onayı: iki ayrı seçim varsayılan kapalı, "Seçilenleri kaydet" ikisini de reddeder', async () => {
+  const { p } = await openGame({ level: 12 });
+  await p.evaluate(() => { const k = 'turnike-game-storage'; const j = JSON.parse(localStorage.getItem(k)); Object.assign(j.state, { analyticsConsent: null, adsConsent: null }); localStorage.setItem(k, JSON.stringify(j)); });
+  await p.reload({ waitUntil: 'networkidle2' }); await wait(4500); await p.mouse.click(5, 5); await wait(2000);
+  const boxes = await p.$$eval('[aria-labelledby="consent-title"] input[type=checkbox]', els => els.map(e => e.checked));
+  assert.deepEqual(boxes, [false, false]);
+  assert.ok(await p.$('[aria-labelledby="consent-title"] a[href$="kvkk.html"]'));
+  assert.ok(await click(p, 'Seçilenleri kaydet'));
+  await wait(500);
+  const st = await p.evaluate(() => { const s = JSON.parse(localStorage.getItem('turnike-game-storage')).state; return [s.analyticsConsent, s.adsConsent]; });
+  assert.deepEqual(st, [false, false]);
+  assert.equal(await p.$('[aria-labelledby="consent-title"]'), null);
   await p.close();
 });

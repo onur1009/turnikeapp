@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import { deleteMyData } from '../utils/cloudGame';
+import { KVKK_URL, PRIVACY_URL } from '../utils/legal';
 import { setAnalyticsConsent } from '../utils/analytics';
 import { isPrivacyOptionsRequired, showPrivacyOptions } from '../utils/adService';
 import { useGameStore } from '../store/gameStore';
@@ -25,6 +28,19 @@ const Row = ({ icon, color, title, hint, on, onClick }) => (
 const SettingsScreen = ({ onBack }) => {
   const soundEnabled = useGameStore(state => state.soundEnabled);
   const analyticsConsent = useGameStore(state => state.analyticsConsent);
+  const adsConsent = useGameStore(state => state.adsConsent);
+  const [deleteState, setDeleteState] = useState(null); // null | 'confirm' | 'busy' | 'done' | 'error'
+  const deleteNow = async () => {
+    setDeleteState('busy');
+    try {
+      await deleteMyData();
+      // Sunucu kaydına bağlı yerel bilgiler de sıfırlanır; ilerleme ve bakiye cihazda kalır
+      useGameStore.setState(s => ({ username: '', duels: [], leagueState: { ...s.leagueState, groupNo: null, cachedGroup: [], userId: null, points: 0 } }));
+      setDeleteState('done');
+    } catch {
+      setDeleteState('error');
+    }
+  };
   const announceEnabled = useGameStore(state => state.announceEnabled);
   const musicEnabled = useGameStore(state => state.musicEnabled);
   const musicVolume = useGameStore(state => state.musicVolume);
@@ -81,6 +97,8 @@ const SettingsScreen = ({ onBack }) => {
               </span>
               <Toggle on={analyticsConsent === true} onClick={() => setAnalyticsConsent(analyticsConsent !== true)} label={L("Anonim kullanım verisi")} />
             </div>
+            <Row icon="ads_click" color="text-amber-300" title={L("Kişiselleştirilmiş reklam")} hint={L("Kapalıyken reklamlar ilgi alanına göre seçilmez")}
+              on={adsConsent === true} onClick={() => useGameStore.setState({ adsConsent: adsConsent !== true })} />
             {/* GDPR: AB/BK'daki oyuncu reklam onayını her zaman değiştirebilmeli (yalnızca gerekince görünür) */}
             {isPrivacyOptionsRequired() && (
               <button onClick={showPrivacyOptions} className="mt-4 w-full flex items-center gap-2 text-white font-bold text-left">
@@ -88,6 +106,29 @@ const SettingsScreen = ({ onBack }) => {
                 {L("Reklam gizlilik seçenekleri")}
               </button>
             )}
+            <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-[13px] font-bold">
+              <a href={KVKK_URL} target="_blank" rel="noopener noreferrer" className="text-white/80 underline">{L("Aydınlatma metni")}</a>
+              <a href={PRIVACY_URL} target="_blank" rel="noopener noreferrer" className="text-white/80 underline">{L("Gizlilik politikası")}</a>
+            </div>
+            {/* KVKK m.7 / Play: sunucudaki veriyi silme; iki adımlı onay (confirm() WebView'da güvenilmez) */}
+            <div className="mt-4 pt-4 border-t border-white/10 flex flex-col gap-2">
+              {deleteState === 'done' ? (
+                <p className="text-green-300 text-[13px] font-bold" role="status">{L("Sunucudaki verilerin silindi.")}</p>
+              ) : deleteState === 'confirm' ? (
+                <>
+                  <p className="text-white/80 text-[13px]">{L("Kullanıcı adın, skorların, düello ve lig kayıtların sunucudan kalıcı olarak silinir. Cihazdaki ilerlemen kalır.")}</p>
+                  <div className="grid grid-cols-2 gap-2">
+                    <button onClick={() => setDeleteState(null)} className="py-2.5 rounded-full bg-white/10 text-white font-bold text-[13px]">{L("Vazgeç")}</button>
+                    <button onClick={deleteNow} className="py-2.5 rounded-full bg-red-600 text-white font-black text-[13px]">{L("Evet, sil")}</button>
+                  </div>
+                </>
+              ) : (
+                <button onClick={() => setDeleteState('confirm')} disabled={deleteState === 'busy'} className="w-full flex items-center gap-2 text-red-300 font-bold text-left text-[14px]">
+                  <span aria-hidden="true" className="material-symbols-outlined">delete</span>
+                  {deleteState === 'busy' ? L("Siliniyor…") : deleteState === 'error' ? L("Silinemedi, internet bağlantını kontrol edip tekrar dene") : L("Sunucudaki verilerimi sil")}
+                </button>
+              )}
+            </div>
           </div>
 
           <div className="bg-white/5 rounded-2xl p-4 border border-white/10">
