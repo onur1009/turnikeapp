@@ -13,6 +13,7 @@
     "check:levels": "node scripts/check-levels.mjs",
     "test": "node scripts/run-tests.mjs",
     "test:e2e": "node scripts/run-e2e.mjs",
+    "android:aab": "vite build && npx cap sync android && cd android && gradlew bundleRelease",
     "fonts": "node scripts/fonts/icon-names.cjs . > scripts/fonts/icons.txt && node scripts/fonts/fetch-fonts.mjs . scripts/fonts/icons.txt"
   },
   "dependencies": {

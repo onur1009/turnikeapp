@@ -1,5 +1,13 @@
 apply plugin: 'com.android.application'
 
+// Yayın imzası: android/keystore.properties (Git'e girmez) — storeFile, storePassword, keyAlias, keyPassword.
+// Dosya yoksa release derlemesi imzasız çıkar; Play'e yükleme için bu dosya gerekli (docs/play-yayin.html).
+def keystoreProps = new Properties()
+def keystoreFile = rootProject.file('keystore.properties')
+if (keystoreFile.exists()) keystoreProps.load(new FileInputStream(keystoreFile))
+// AdMob uygulama kimliği: gradle.properties'teki ADMOB_APP_ID ya da aynı adlı ortam değişkeni; yoksa Google test kimliği
+def admobAppId = project.findProperty('ADMOB_APP_ID') ?: System.getenv('ADMOB_APP_ID') ?: 'ca-app-pub-3940256099942544~3347511713'
+
 android {
     namespace = "com.turnike.app"
     compileSdk = rootProject.ext.compileSdkVersion
@@ -7,8 +15,10 @@ android {
         applicationId "com.turnike.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        // Her Play yüklemesinde versionCode artmalı: -PversionCode=2 ya da gradle.properties
+        versionCode((project.findProperty('versionCode') ?: '1') as Integer)
+        versionName(project.findProperty('versionName') ?: '1.0.0')
+        manifestPlaceholders = [admobAppId: admobAppId]
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
@@ -16,8 +26,19 @@ android {
             ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    signingConfigs {
+        release {
+            if (keystoreFile.exists()) {
+                storeFile file(keystoreProps['storeFile'])
+                storePassword keystoreProps['storePassword']
+                keyAlias keystoreProps['keyAlias']
+                keyPassword keystoreProps['keyPassword']
+            }
+        }
+    }
     buildTypes {
         release {
+            if (keystoreFile.exists()) signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

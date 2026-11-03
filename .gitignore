@@ -39,3 +39,8 @@ graphify-out/.graphify_root
 
 # Derlenen APK kopyaları
 release/
+
+# Yayın imzası: asla Git'e girmemeli (docs/play-yayin.html)
+android/keystore.properties
+*.jks
+*.keystore

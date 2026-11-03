@@ -1,0 +1,5 @@
+# AdMob yayıncı kimliğini aldıktan sonra bu satırı public/app-ads.txt olarak kaydet
+# (pub-XXXXXXXXXXXXXXXX yerine AdMob > Uygulamalar > Tüm uygulamaları görüntüle > app-ads.txt'deki kimliğin).
+# Dosya, Play mağaza kaydındaki "Web sitesi" alanına yazdığın alan adının kökünde olmalı:
+#   https://<alan-adın>/app-ads.txt
+google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0

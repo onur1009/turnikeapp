@@ -9,11 +9,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!-- AdMob: Google'ın TEST uygulama kimliği. Yayından önce kendi AdMob kimliğinle değiştir
-             (src/utils/adService.js ile birlikte). -->
+        <!-- AdMob uygulama kimliği android/app/build.gradle'dan gelir (ADMOB_APP_ID; yoksa Google test kimliği) -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713"/>
+            android:value="${admobAppId}"/>
 
         <activity
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode|navigation|density"

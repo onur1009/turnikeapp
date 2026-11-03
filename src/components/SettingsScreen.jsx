@@ -1,4 +1,5 @@
 import { setAnalyticsConsent } from '../utils/analytics';
+import { isPrivacyOptionsRequired, showPrivacyOptions } from '../utils/adService';
 import { useGameStore } from '../store/gameStore';
 import { useTranslation, L } from '../utils/i18n';
 import ScreenHeader from './ScreenHeader';
@@ -80,6 +81,13 @@ const SettingsScreen = ({ onBack }) => {
               </span>
               <Toggle on={analyticsConsent === true} onClick={() => setAnalyticsConsent(analyticsConsent !== true)} label={L("Anonim kullanım verisi")} />
             </div>
+            {/* GDPR: AB/BK'daki oyuncu reklam onayını her zaman değiştirebilmeli (yalnızca gerekince görünür) */}
+            {isPrivacyOptionsRequired() && (
+              <button onClick={showPrivacyOptions} className="mt-4 w-full flex items-center gap-2 text-white font-bold text-left">
+                <span aria-hidden="true" className="material-symbols-outlined text-amber-300">shield</span>
+                {L("Reklam gizlilik seçenekleri")}
+              </button>
+            )}
           </div>
 
           <div className="bg-white/5 rounded-2xl p-4 border border-white/10">

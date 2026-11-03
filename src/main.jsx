@@ -9,6 +9,7 @@ import { initAnalytics, track } from './utils/analytics'
 import { Capacitor } from '@capacitor/core'
 import { registerSW } from 'virtual:pwa-register'
 import { initMusic } from './utils/soundManager'
+import { initAds } from './utils/adService'
 
 // Çevrimdışı önbellek (PWA) yalnızca web'de. Android uygulamasında dosyalar zaten APK'nın
 // içinde; servis çalışanı orada eski sürümün kodunu sunup yeni APK'yı bozuyordu
@@ -59,6 +60,7 @@ const start = async () => {
   await useGameStore.persist.rehydrate();
   initAnalytics();
   initMusic();
+  initAds(); // AdMob onay formu (AB kullanıcıları) reklamdan önce, açılışta
   createRoot(document.getElementById('root')).render(
     <StrictMode>
       <ErrorBoundary>

@@ -1,11 +1,11 @@
-// Geçiş reklamı kuralları ve A/B grubu.
-// Oyuncular ilk açılışta rastgele A (geçiş reklamı yok) ya da B (ölçülü geçiş reklamı) grubuna
-// girer; grup analitik olaylarına eklenir ki 7. gün bağlılığı iki grupta karşılaştırılabilsin.
-// B grubunda: 20. seviyeden sonra, en az 3 bölümde bir, son ödüllü reklamdan 2 dk sonra;
-// düello, Günün Seferi ve ilk oturumda asla.
+// Geçiş reklamı kuralları. Herkese: 12. seviyeden sonra, en az 3 bölümde bir, oturumun ilk iki
+// bölümünde değil, son ödüllü reklamdan 2 dk sonra; düello ve Günün Seferi'nde asla.
+// (Eskiden yalnızca B grubuna ve 20. seviyeden sonra gösteriliyordu; oyuncuların çoğu 20'ye varmadan
+// ayrıldığı için neredeyse hiç gelir getirmiyordu.) adGroup analitikte kalır: A grubu artık yalnızca
+// etiket, ileride başka bir deney için kullanılabilir.
 import { useGameStore } from '../store/gameStore';
 
-export const INTERSTITIAL_MIN_LEVEL = 20;
+export const INTERSTITIAL_MIN_LEVEL = 12;
 export const INTERSTITIAL_EVERY = 3;
 const REWARDED_COOLDOWN_MS = 120000;
 let sessionLevels = 0;
@@ -24,7 +24,6 @@ export const shouldShowInterstitial = (levelIndex) => {
   const s = useGameStore.getState();
   const since = (s.levelsSinceInterstitial || 0) + 1;
   useGameStore.setState({ levelsSinceInterstitial: since });
-  if (adGroup() !== 'B') return false;
   if (levelIndex + 1 < INTERSTITIAL_MIN_LEVEL || sessionLevels < 2) return false;
   if (since < INTERSTITIAL_EVERY) return false;
   if (Date.now() - (s.lastRewardedAt || 0) < REWARDED_COOLDOWN_MS) return false;

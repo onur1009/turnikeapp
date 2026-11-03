@@ -402,6 +402,7 @@ export default {
   'Boğaz Ligi': 'Bosphorus League',
   'Izgarada olmayan {0} kelime bul, {1} kazan': 'Find {0} words that are not in the grid, earn {1}',
   '{0} Pasosu': '{0} Pass',
+  'Reklam gizlilik seçenekleri': 'Ad privacy options',
   'Ocak': 'January', 'Şubat': 'February', 'Mart': 'March', 'Nisan': 'April', 'Mayıs': 'May', 'Haziran': 'June',
   'Temmuz': 'July', 'Ağustos': 'August', 'Eylül': 'September', 'Ekim': 'October', 'Kasım': 'November', 'Aralık': 'December',
 };
