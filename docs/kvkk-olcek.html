@@ -1,0 +1,176 @@
+<title>Turnike KVKK ve Ölçek Planı</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Düzen: tek sütun; önce özet, sonra iki bölüm (hukuk, ölçek/maliyet); her bölümde "yapıldı / senin yapacakların" */
+:root {
+  --bg: #f4f6f9; --surface: #ffffff; --fg: #10263f; --muted: #52637a; --line: #d7dee8; --chip: #e8edf4;
+  --you: #a14a06; --done: #15803d; --warn: #b91c1c;
+  --display: "Archivo", "Segoe UI", sans-serif; --body: "Atkinson Hyperlegible", "Segoe UI", sans-serif; --mono: "JetBrains Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #0b1726; --surface: #12233a; --fg: #e6edf6; --muted: #9aabc2; --line: #24384f; --chip: #1b304b; --you: #fbbf24; --done: #4ade80; --warn: #f87171; color-scheme: dark } }
+:root[data-theme="dark"] { --bg: #0b1726; --surface: #12233a; --fg: #e6edf6; --muted: #9aabc2; --line: #24384f; --chip: #1b304b; --you: #fbbf24; --done: #4ade80; --warn: #f87171; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font: 16px/1.6 var(--body); }
+.wrap { max-width: 880px; margin: 0 auto; padding-block: 32px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; flex-direction: column; gap: 26px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; line-height: 1.2; }
+h1 { font-size: clamp(28px, 6vw, 40px); font-weight: 800; } h2 { font-size: 23px; font-weight: 800; } h3 { font-size: 16px; font-weight: 600; }
+p { margin: 0; max-width: 70ch; } ul, ol { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 5px; }
+.eyebrow { font: 600 12px/1 var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.lede, .note { color: var(--muted); } .note { font-size: 14px; }
+section { display: flex; flex-direction: column; gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 10px; }
+.tag { font: 600 11px/1 var(--display); letter-spacing: .08em; text-transform: uppercase; color: var(--k); border: 1px solid var(--k); border-radius: 999px; padding: 6px 12px; }
+.you { --k: var(--you) } .done { --k: var(--done) } .warn { --k: var(--warn) }
+code { font: 500 13px var(--mono); background: var(--chip); padding: 3px 8px; border-radius: 4px; overflow-wrap: anywhere; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: 15px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font: 600 12px var(--display); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+td.n { font-variant-numeric: tabular-nums; white-space: nowrap; }
+tr:last-child td { border-bottom: 0; }
+.callout { border-left: 0; background: var(--chip); border-radius: 8px; padding: 14px 16px; }
+</style>
+
+<main class="wrap">
+  <header style="display:flex;flex-direction:column;gap:10px">
+    <span class="eyebrow">Turnike: Sözcük Seferi · 3 Kasım 2026</span>
+    <h1>KVKK uyumu ve büyüme maliyet planı</h1>
+    <p class="lede">İki soruya cevap: oyun Türk hukukuna göre veri toplarken neye dikkat etmeli, ve çok oyuncuya ulaşınca altyapı nasıl ölçeklenir, ne kadar tutar.</p>
+    <p class="callout">Bu belge hukuki danışmanlık değildir. Metinler KVKK'nın ve Kurul'un yayımladığı kurallara göre hazırlandı, ama yayından önce bir avukata okutmanı öneririm. Özellikle yurt dışına aktarım (madde A4) uzman görüşü isteyen bir konu.</p>
+  </header>
+
+  <section>
+    <h2>A. KVKK ve veri toplama</h2>
+
+    <article class="card">
+      <div class="head"><h3>A1. Uygulamada yapılanlar</h3><span class="tag done">Hazır</span></div>
+      <ul>
+        <li><b>Açık rıza penceresi:</b> İki ayrı, varsayılanı kapalı seçim var: anonim kullanım verisi ve kişiselleştirilmiş reklam. Pencerede aydınlatma metnine bağlantı var ve reddetmek kabul etmek kadar kolay. Hiçbir seçim yapmadan devam eden oyuncu ikisini de reddetmiş sayılıyor. Mevcut oyunculara pencere bir kez daha gösterilecek.</li>
+        <li><b>Rıza yoksa kişiselleştirilmemiş reklam:</b> AdMob'a <code>npa</code> isteği gidiyor. Avrupa'daki oyuncular için Google'ın onay penceresi ayrıca çalışıyor.</li>
+        <li><b>Ayarlar:</b> İki onay her zaman değiştirilebiliyor. Aydınlatma metni ve gizlilik politikası bağlantıları var. "Sunucudaki verilerimi sil" düğmesi anonim hesabı ve ona bağlı bütün kayıtları siliyor; bu KVKK m.7'nin ve Play'in hesap silme şartının karşılığı.</li>
+        <li><b>Metinler:</b> <code>public/kvkk.html</code> (m.10 aydınlatma metni ve iki açık rıza metni) ile <code>public/privacy.html</code> (Türkçe ve İngilizce gizlilik politikası).</li>
+        <li><b>Veri azaltma:</b> Ad, e-posta, telefon, konum ve özel nitelikli veri toplanmıyor. Oyun ilerlemesi yalnızca cihazda tutuluyor.</li>
+      </ul>
+    </article>
+
+    <div class="table-wrap"><table>
+      <thead><tr><th>Veri envanteri</th><th>Nerede</th><th>Hukuki sebep</th><th>Saklama</th></tr></thead>
+      <tbody>
+        <tr><td>Oyun ilerlemesi, bakiye, ayarlar</td><td>Cihaz</td><td>Sunucuya gitmiyor</td><td>Uygulama kaldırılana kadar</td></tr>
+        <tr><td>Anonim kimlik, kullanıcı adı, skor</td><td>Supabase</td><td>Sözleşmenin ifası</td><td>Oyuncu silene kadar</td></tr>
+        <tr><td>Düello turları</td><td>Supabase</td><td>Sözleşmenin ifası</td><td>90 gün</td></tr>
+        <tr><td>Haftalık lig kaydı</td><td>Supabase</td><td>Sözleşmenin ifası</td><td>8 hafta</td></tr>
+        <tr><td>Kullanım olayları</td><td>PostHog (AB)</td><td>Açık rıza</td><td>En çok 12 ay</td></tr>
+        <tr><td>Reklam kimliği, IP</td><td>Google AdMob</td><td>Meşru menfaat; kişiselleştirme için açık rıza</td><td>Google'ın politikası</td></tr>
+        <tr><td>Sözlükte olmayan kelime ve IP</td><td>TDK</td><td>Sözleşmenin ifası</td><td>TDK'nın politikası</td></tr>
+        <tr><td>Web sunucu kayıtları</td><td>Vercel</td><td>Meşru menfaat</td><td>Vercel'in politikası</td></tr>
+      </tbody>
+    </table></div>
+
+    <article class="card">
+      <div class="head"><h3>A2. Yayından önce senin yapacakların</h3><span class="tag you">Sen</span></div>
+      <ol>
+        <li><b>Yer tutucuları doldur:</b> <code>public/kvkk.html</code> ve <code>public/privacy.html</code> içinde <code>[GELİŞTİRİCİ_ADI]</code>, <code>[ADRES]</code>, <code>[İLETİŞİM_E_POSTASI]</code> ve <code>[SUPABASE_BÖLGESİ]</code> alanları var. Supabase bölgesini panelde Project Settings &gt; General bölümünde görürsün. KVKK, veri sorumlusunun kimliğinin ve başvuru adresinin yazılmasını istiyor. Ev adresini yayımlamak istemezsen bir posta kutusu ya da KEP adresi kullanabilirsin.</li>
+        <li><b>Silme fonksiyonunu kur:</b> <code>supabase/migrations/0003_delete_my_data.sql</code> dosyasını Supabase SQL Editor'da bir kez çalıştır. Bu yapılmadan uygulamadaki silme düğmesi hata verir.</li>
+        <li><b>Saklama sürelerini otomatikleştir:</b> Aynı dosyanın sonundaki <code>pg_cron</code> komutunu çalıştır. Metinlerde yazan 90 günlük ve 8 haftalık süreler ancak böyle gerçekten uygulanır.</li>
+        <li><b>Veri ihlali planı:</b> Bir sızıntı olursa Kurul'a en geç 72 saat içinde bildirim yapılması gerekiyor. Bunun için bir kayıt defteri tut: ne oldu, ne zaman fark edildi, kimler etkilendi.</li>
+        <li><b>Play veri güvenliği formu:</b> Bu belgedeki envanterle tutarlı doldur; yayın rehberindeki tabloya TDK sorgusunu da ekle.</li>
+      </ol>
+    </article>
+
+    <article class="card">
+      <div class="head"><h3>A3. VERBİS kaydı</h3><span class="tag done">Büyük ihtimalle gerekmez</span></div>
+      <p>Yıllık çalışan sayısı 50'nin ve yıllık mali bilanço toplamı 100 milyon TL'nin altında olan, ana faaliyeti özel nitelikli veri işlemek olmayan veri sorumluları VERBİS'e kayıt olmak zorunda değil. Turnike özel nitelikli veri işlemiyor. 2025'te bu eşikler yalnızca özel nitelikli veri işleyenler için 10 çalışana ve 10 milyon TL'ye indirildi; bu oyun o kapsamda değil. Kayıttan muaf olmak, aydınlatma, veri güvenliği ve silme yükümlülüklerini ortadan kaldırmaz.</p>
+    </article>
+
+    <article class="card">
+      <div class="head"><h3>A4. Yurt dışına aktarım: en zor kısım</h3><span class="tag warn">Avukata danış</span></div>
+      <p>Supabase, PostHog ve Vercel'in sunucuları yurt dışında; AdMob verisi de Google'a gidiyor. KVKK m.9 Haziran 2024'te değişti. Kurul henüz hiçbir ülke için yeterlilik kararı vermediği için düzenli aktarımın ana yolu standart sözleşme. Kurul'un ilan ettiği metin imzalanıyor ve imzadan sonraki 5 iş günü içinde Kurum'un çevrim içi "Standart Sözleşme Bildirim Modülü"nden bildiriliyor. Açık rıza artık yalnızca arızi, yani süreklilik taşımayan aktarımlar için bir istisna. Sunucuda sürekli veri tutmanın dayanağı olarak kullanılamıyor. Sözleşmeyi bildirmemek tek başına idari para cezası gerektiriyor; bir kaynağa göre bu ceza yaklaşık 90 bin TL ile 1,8 milyon TL arasında.</p>
+      <ul>
+        <li><b>Supabase, PostHog, Vercel:</b> Sen veri sorumlususun, onlar veri işleyen. Kullanılacak metin, sorumludan işleyene aktarım için olan <b>SS-2</b>. Her sağlayıcıdan KVKK standart sözleşmesini imzalamasını iste. Büyük ABD şirketleri bunu her zaman kabul etmiyor; o durumda ne yapılacağı avukata danışılmalı.</li>
+        <li><b>Riski azaltan seçenek:</b> PostHog'u kullanmıyorsan (Vercel'de <code>VITE_POSTHOG_KEY</code> tanımlı değilse) o aktarım hiç yok. Analitiği tamamen kapatmak, aktarılan veri türünü azaltır.</li>
+        <li><b>Google AdMob:</b> Google kendi başına veri sorumlusu olarak çalışıyor. Kişiselleştirilmiş reklam için açık rıza alınıyor; kişiselleştirilmemiş reklamın dayanağı ise avukatla netleştirilmeli.</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <div class="head"><h3>A5. Diğer konular</h3></div>
+      <ul>
+        <li><b>Çocuklar:</b> Play'de hedef kitleyi 13 yaş ve üstü seç. 18 yaş altı kullanıcılar için açık rıza konusu tartışmalı; metinde veliye danışma önerisi var.</li>
+        <li><b>Rızanın ispatı:</b> Rızanın alındığını ispat yükü veri sorumlusunda. Şu an rıza yalnızca cihazda saklanıyor. Rızanın tarihini ve metnin sürümünü de kaydetmek iyi olur; istersen eklerim.</li>
+        <li><b>TDK sözlüğü:</b> Oyun TDK'nın herkese açık sözlük servisini kullanıyor. Bu servisin ticari kullanım şartları belli değil; çok kullanıcıda erişim kısıtlanabilir. Bunun için B4'e bak.</li>
+        <li><b>İleti Yönetim Sistemi (İYS) ve ticari elektronik ileti:</b> Oyun pazarlama e-postası ya da SMS göndermiyor; bu kurallar şimdilik uygulanmıyor.</li>
+      </ul>
+    </article>
+  </section>
+
+  <section>
+    <h2>B. Çok kullanıcıda altyapı ve maliyet</h2>
+
+    <article class="card">
+      <div class="head"><h3>B1. Vercel sorun mu?</h3><span class="tag warn">Plan değişmeli</span></div>
+      <p><b>Performans açısından hayır.</b> Android uygulaması oyunun tüm dosyalarını kendi içinde taşıyor; telefondaki oyun Vercel'e hiç bağlanmıyor. Vercel yalnızca web sürümünü, düello bağlantılarını, gizlilik sayfalarını ve <code>app-ads.txt</code> dosyasını sunuyor. Bu trafik küçük kalır.</p>
+      <p><b>Kullanım şartları açısından evet.</b> Vercel'in ücretsiz Hobby planı yalnızca kişisel ve ticari olmayan kullanım için. Reklamla gelir elde eden bir uygulamanın web sürümü ticari kullanım sayılıyor. Uygulama yayınlanmadan önce iki seçenekten birini uygula:</p>
+      <ul>
+        <li><b>Vercel Pro:</b> ayda 20 dolar, içinde 20 dolarlık kullanım kredisi var. Hiçbir şey taşınmıyor.</li>
+        <li><b>Cloudflare Pages'e taşımak (önerim):</b> Ücretsiz planı ticari kullanıma izin veriyor ve trafiği sınırlamıyor. Site yalnızca durağan dosyalardan oluştuğu için taşıması kolay. Ancak adres değişirse eski düello bağlantıları çalışmaz.</li>
+        <li><b>Her iki durumda da:</b> Kendi alan adını al (yılda yaklaşık 10–20 dolar). Düello bağlantıları, gizlilik sayfası ve <code>app-ads.txt</code> o adreste dursun; ileride sağlayıcı değiştirmek bir DNS ayarına iner.</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <div class="head"><h3>B2. Asıl maliyet: Supabase</h3><span class="tag warn">Büyüyen kalem</span></div>
+      <p>Her bölüm sonunda lig puanı sunucuya gidiyor ve bu, oyuncu için anonim bir hesap açıyor. Yani oyunu oynayan herkes ayda bir aktif kullanıcı (MAU) sayılıyor. Supabase'in fiyatı da MAU'ya göre artıyor:</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Aylık aktif oyuncu</th><th>Plan</th><th>Aylık Supabase</th><th>Not</th></tr></thead>
+        <tbody>
+          <tr><td class="n">50 bine kadar</td><td>Ücretsiz</td><td class="n">0 $</td><td>Proje bir hafta hareketsiz kalırsa durur, yedek yok: yayında riskli</td></tr>
+          <tr><td class="n">100 bine kadar</td><td>Pro</td><td class="n">25 $</td><td>Günlük yedek, 8 GB disk, 250 GB çıkış trafiği</td></tr>
+          <tr><td class="n">300 bin</td><td>Pro + ek MAU</td><td class="n">≈ 675 $</td><td>100 bin üstü her MAU 0,00325 $</td></tr>
+          <tr><td class="n">1 milyon</td><td>Pro + ek MAU</td><td class="n">≈ 2.950 $</td><td>Disk ve trafik ayrıca artabilir</td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">Fiyatlar Supabase'in 3 Kasım 2026'daki fiyat sayfasından alındı.</p>
+      <p><b>Maliyeti düşürmenin en etkili yolu:</b> Sunucuya yalnızca bulut özelliğini kullanan oyuncu bağlansın. Lig puanı cihazda birikir, oyuncu lig ekranını, liderlik tablosunu ya da düelloyu açınca tek seferde gönderilir. Bu durumda MAU, tüm oyuncular yerine yalnızca bu özellikleri kullananlar olur. Oyuncuların ancak bir kısmı bu ekranlara girdiği için fatura birkaç kat düşebilir; oranı yayından sonraki gerçek kullanım belirleyecek. Bu değişikliği yayından önce yapmanı öneririm.</p>
+    </article>
+
+    <article class="card">
+      <div class="head"><h3>B3. Diğer servisler</h3></div>
+      <ul>
+        <li><b>PostHog:</b> Ücretsiz katman aylık bir olay kotası içeriyor ve yalnızca rıza veren oyuncular sayılıyor. Kota dolarsa olayların yalnızca bir kısmını göndermek (örnekleme) yeterli olur.</li>
+        <li><b>AdMob:</b> Ücretsiz. Google gelirden pay alıp sana ödeme yapıyor.</li>
+        <li><b>Play Console:</b> Bir kerelik 25 dolar.</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <div class="head"><h3>B4. Dış bağımlılık: TDK sözlüğü</h3><span class="tag warn">Risk</span></div>
+      <p>Oyunun sözlüğünde olmayan her kelime, oyuncunun telefonundan doğrudan TDK'nın sunucusuna soruluyor. Çok oyuncuda TDK isteği sınırlayabilir ya da engelleyebilir. Oyun buna hazırlıklı: TDK'ya ulaşılamazsa oyuncu ceza almıyor. Riski azaltmak için:</p>
+      <ul>
+        <li>Kendi sözlüğünü büyüt. Sözlük ne kadar genişse TDK'ya o kadar az gidilir.</li>
+        <li>TDK'nın yanıtlarını cihazda önbelleğe al; aynı kelime ikinci kez sorulmasın.</li>
+        <li>Ticari kullanım için TDK'dan izin iste ya da TDK'yı yalnızca yedek olarak kullan.</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <div class="head"><h3>B5. Gelir maliyeti ne zaman karşılar?</h3></div>
+      <p>Aylık reklam geliri yaklaşık olarak <b>gösterim sayısı × eCPM ÷ 1000</b> eder. eCPM, bin gösterim başına kazançtır ve ülkeye, reklam türüne ve döneme göre çok değişir. Türkiye'de Batı Avrupa ve ABD'ye göre düşüktür, ödüllü reklamda geçiş reklamından yüksektir. Gerçek değeri yayından sonra AdMob raporundan görürsün.</p>
+      <p><b>Örnek hesap</b> (sayılar varsayım): Aylık 45 dolar altyapı (Supabase Pro + Vercel Pro), eCPM 1 dolar ise ayda 45.000 gösterimle, yani günde yaklaşık 1.500 gösterimle karşılanır. Bu, günde birkaç yüz aktif oyuncunun her birinin birkaç reklam izlemesi demek.</p>
+    </article>
+
+    <article class="card">
+      <div class="head"><h3>B6. Aşamalı yol haritası</h3></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Aşama</th><th>Yapılacak</th></tr></thead>
+        <tbody>
+          <tr><td>Yayından önce</td><td>Vercel Pro ya da Cloudflare Pages; kendi alan adı; Supabase Pro (yedek için); lig puanını isteğe bağlı senkronizasyona çevirmek; silme ve saklama SQL'lerini çalıştırmak</td></tr>
+          <tr><td>10 bin oyuncu</td><td>Supabase kullanım uyarıları; AdMob eCPM ve gösterim takibi; TDK önbelleği</td></tr>
+          <tr><td>100 bin oyuncu</td><td>Sorgu ve indeks kontrolü (<code>get_advisors</code>); eski verinin temizliğinin çalıştığını doğrulamak; PostHog örneklemesi</td></tr>
+          <tr><td>500 bin ve üstü</td><td>MAU başı maliyeti düşürmek için kendi Postgres sunucusu ya da Supabase'in kurumsal fiyatı; liderlik tablolarını önbellekli bir servise taşımak</td></tr>
+        </tbody>
+      </table></div>
+    </article>
+  </section>
+</main>
