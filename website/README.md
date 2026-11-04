@@ -2,7 +2,15 @@
 
 Statik, JavaScript'siz tek sayfa. `src/` → `node build.mjs` → `dist/`.
 
-## Yayına alma (Vercel, ayrı proje)
+## Yayına alma (Cloudflare Pages, önerilen)
+
+1. dash.cloudflare.com → Workers & Pages → Create → Pages → Connect to Git → `onur1009/turnikeapp`.
+2. Production branch: `main`. Framework preset: None. Build command: `node build.mjs`. Build output: `dist`. Root directory: `website`.
+3. Environment variables (Production): aşağıdaki değişkenlerin aynısı.
+4. Custom domains → `turnikeapp.com.tr` (alan adının DNS'i Cloudflare'de olmalı).
+Başlıklar `src/_headers` dosyasından gelir; uzantısız adresler (`/gizlilik`) Pages'te kendiliğinden çalışır.
+
+## Yayına alma (Vercel, eski)
 
 1. Vercel → Add New Project → aynı GitHub deposu → Root Directory: `website`.
 2. Framework: Other. Build/Output `vercel.json`'dan gelir.
