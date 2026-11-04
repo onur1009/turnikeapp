@@ -77,7 +77,7 @@ export default function DuelGame({ seed, me, opponent, onFinish, onQuit }) {
   const ahead = opponent ? found.length - rivalNow : 0;
 
   return (
-    <div className="duel-bg flex-1 min-h-0 flex flex-col relative" style={{ '--accent': '#e11d48' }}>
+    <div className="duel-bg scene-ink flex-1 min-h-0 flex flex-col relative" style={{ '--accent': '#e11d48' }}>
       {/* Skor tabelası */}
       <div className="flex items-center gap-2 px-3 pt-3 pb-2 shrink-0">
         <button className="icon-btn" onClick={onQuit} aria-label={L("Düellodan çık")}>

@@ -32,9 +32,10 @@ import '../index.css';
 
 
 // Çarkın altındaki güç düğmesi: ikon solda, etiket ve fiyat sağda (alçak, ızgaraya yer bırakır)
-const ToolButton = ({ icon, label, price, affordable, onClick, accent = '#ffffff', active = false }) => (
+// Dört düğme aynı görünür: renkli ikonlar (sarı/mavi/pembe) tutarsız duruyordu
+const ToolButton = ({ icon, label, price, affordable, onClick, active = false }) => (
   <button onClick={onClick} aria-pressed={active} className={`tool-btn ${active ? 'is-active' : ''} ${affordable || active ? '' : 'opacity-45'}`}>
-    <span aria-hidden="true" className="material-symbols-outlined text-[20px]" style={{ color: accent, fontVariationSettings: "'FILL' 1" }}>{icon}</span>
+    <span aria-hidden="true" className="material-symbols-outlined text-[20px] text-white" style={{ fontVariationSettings: "'FILL' 1" }}>{icon}</span>
     <span className="flex flex-col items-start gap-0.5">
       <span className="text-[12px] font-bold text-white/90 leading-none">{label}</span>
       <span className="text-[11px] font-bold text-white/55 leading-none tabular-nums">{price}</span>
@@ -876,7 +877,7 @@ export default function GameContainer({
     };
 
     return (
-      <div className={`game-bg scenic h-full w-screen overflow-hidden flex flex-col relative z-10 fade-in ${shake ? 'animate-shake' : ''}`} style={{ '--accent': station.color }}>
+      <div className={`game-bg scenic scene-ink h-full w-screen overflow-hidden flex flex-col relative z-10 fade-in ${shake ? 'animate-shake' : ''}`} style={{ '--accent': station.color }}>
         <SceneBackground station={station} />
         <StationAnnouncement station={station} levelKey={`${levelIndex}-${levelData.technicalTerm}`} />
         {showBonus && (
@@ -1052,11 +1053,11 @@ export default function GameContainer({
             <ToolButton icon="spellcheck" label={t('tool_letter')} price={hints > 0 ? `${hints} ✦` : formatKurus(hintCosts.letter)}
               affordable={hints > 0 || balance >= hintCosts.letter} onClick={handleLetterHint} />
             <ToolButton icon="lightbulb" label={t('tool_word')} price={hints > 0 ? `${hints} ✦` : formatKurus(hintCosts.word)}
-              affordable={hints > 0 || balance >= hintCosts.word} onClick={handleHint} accent="#fbbf24" />
+              affordable={hints > 0 || balance >= hintCosts.word} onClick={handleHint} />
             <ToolButton icon="menu_book" label={t('tool_term')} price={termRevealed ? '✓' : formatKurus(hintCosts.term)}
-              affordable={termRevealed || balance >= hintCosts.term} onClick={handleTermHint} accent="#60a5fa" />
+              affordable={termRevealed || balance >= hintCosts.term} onClick={handleTermHint} />
             <ToolButton icon="ads_click" label={t('tool_target')} price={hints > 0 ? `${hints} ✦` : formatKurus(hintCosts.target)}
-              affordable={hints > 0 || balance >= hintCosts.target} onClick={handleTargetHint} accent="#f472b6" active={pickMode} />
+              affordable={hints > 0 || balance >= hintCosts.target} onClick={handleTargetHint} active={pickMode} />
           </div>
         </div>
 

@@ -71,7 +71,7 @@ const Play = ({ onDone }) => {
   };
 
   return (
-    <div className="flex-1 min-h-0 flex flex-col" style={{ '--accent': '#d97706' }}>
+    <div className="scene-ink flex-1 min-h-0 flex flex-col" style={{ '--accent': '#d97706' }}>
       <div className="flex items-center justify-center gap-3 px-4 pb-2 shrink-0">
         <span className="status-chip tabular-nums">⏱️ {mmss(seconds)}</span>
         <span className="status-chip tabular-nums">{found.length}/{level.words.length}</span>

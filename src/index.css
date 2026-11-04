@@ -88,7 +88,7 @@
   /* --- Izgara taşları: boşta düz beyaz, bulununca hat renginde dolu ---
      Kesişimler ayrıca işaretlenmez; iki kelimenin ortak harfi zaten görünür. */
   .grid-cell-empty {
-    background: rgba(255, 255, 255, 0.9);
+    background: #f8fafc;
     border-radius: 8px;
     box-shadow: inset 0 -3px 0 rgba(15, 23, 42, 0.12), 0 2px 4px rgba(0, 0, 0, 0.18);
   }
@@ -239,25 +239,24 @@
 
 /* ===== THEME OVERRIDES ===== */
 /* LIGHT THEME */
-body.theme-light .game-bg {
+body.theme-light .game-bg:not(.scene-ink *) {
   background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%) !important;
 }
 body.theme-light .game-bg::before {
   opacity: 0.3;
 }
-body.theme-light .text-white { color: #0f172a !important; }
-body.theme-light .text-white\/80 { color: rgba(15,23,42,0.8) !important; }
-body.theme-light .text-white\/70 { color: rgba(15,23,42,0.7) !important; }
-body.theme-light .text-white\/60 { color: rgba(15,23,42,0.6) !important; }
-body.theme-light .text-white\/50 { color: rgba(15,23,42,0.5) !important; }
-body.theme-light .text-white\/40 { color: rgba(15,23,42,0.4) !important; }
-body.theme-light .bg-white\/5 { background: rgba(0,0,0,0.05) !important; }
-body.theme-light .bg-white\/10 { background: rgba(0,0,0,0.1) !important; }
-body.theme-light .border-white\/10 { border-color: rgba(0,0,0,0.1) !important; }
-body.theme-light .border-white\/20 { border-color: rgba(0,0,0,0.2) !important; }
-body.theme-light .card-panel { background: rgba(255,255,255,0.7); border-color: rgba(0,0,0,0.1); box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
-body.theme-light .grid-cell-empty { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.1); }
-body.theme-light .capsule { background: rgba(255,255,255,0.8); border-color: rgba(0,0,0,0.1); color: #0f172a; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+body.theme-light .text-white:not(.scene-ink *) { color: #0f172a !important; }
+body.theme-light .text-white\/80:not(.scene-ink *) { color: rgba(15,23,42,0.8) !important; }
+body.theme-light .text-white\/70:not(.scene-ink *) { color: rgba(15,23,42,0.7) !important; }
+body.theme-light .text-white\/60:not(.scene-ink *) { color: rgba(15,23,42,0.6) !important; }
+body.theme-light .text-white\/50:not(.scene-ink *) { color: rgba(15,23,42,0.5) !important; }
+body.theme-light .text-white\/40:not(.scene-ink *) { color: rgba(15,23,42,0.4) !important; }
+body.theme-light .bg-white\/5:not(.scene-ink *) { background: rgba(0,0,0,0.05) !important; }
+body.theme-light .bg-white\/10:not(.scene-ink *) { background: rgba(0,0,0,0.1) !important; }
+body.theme-light .border-white\/10:not(.scene-ink *) { border-color: rgba(0,0,0,0.1) !important; }
+body.theme-light .border-white\/20:not(.scene-ink *) { border-color: rgba(0,0,0,0.2) !important; }
+body.theme-light .card-panel:not(.scene-ink *) { background: rgba(255,255,255,0.7); border-color: rgba(0,0,0,0.1); box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+body.theme-light .capsule:not(.scene-ink *) { background: rgba(255,255,255,0.8); border-color: rgba(0,0,0,0.1); color: #0f172a; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
 
 /* RETRO THEME */
 body.theme-retro {
@@ -614,9 +613,9 @@ body.theme-retro .rounded-full, body.theme-retro .rounded-xl, body.theme-retro .
 .tool-btn:active { transform: scale(0.94); background: var(--surface-strong); }
 .tool-btn.is-active { background: var(--accent, #2563eb); border-color: transparent; }
 
-/* Çark tabağı: denizin üstünde beyaz, hafif saydam daire */
+/* Çark tabağı: opak beyaz daire (saydamken arkadaki şehir ve hayvanlar harflerin arkasında görünüyordu) */
 .wheel-plate {
-  background: rgba(255,255,255,0.86);
+  background: #eef2f7;
   box-shadow: 0 10px 28px rgba(0,0,0,0.3), inset 0 -4px 0 rgba(15,23,42,0.08);
 }
 
@@ -649,7 +648,7 @@ body.theme-retro .rounded-full, body.theme-retro .rounded-xl, body.theme-retro .
 .tab-item:active { background: rgba(255,255,255,0.06); }
 .tab-item.locked { color: rgba(255,255,255,0.3); }
 
-body.theme-light .icon-btn, body.theme-light .balance-pill, body.theme-light .status-chip, body.theme-light .tool-btn {
+body.theme-light .icon-btn:not(.scene-ink *), body.theme-light .balance-pill:not(.scene-ink *), body.theme-light .status-chip:not(.scene-ink *), body.theme-light .tool-btn:not(.scene-ink *) {
   background: rgba(255,255,255,0.85); border-color: rgba(0,0,0,0.1); color: #0f172a;
 }
 body.theme-light .tab-bar { background: rgba(255,255,255,0.92); border-color: rgba(0,0,0,0.1); }
