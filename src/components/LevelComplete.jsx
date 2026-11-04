@@ -1,3 +1,4 @@
+import { SITE_URL } from '../utils/legal';
 import { useState, useEffect } from 'react';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
 import { useTranslation, L } from '../utils/i18n';
@@ -57,12 +58,12 @@ const LevelComplete = ({ level, station, summary, mistakes, meanings, onNextLeve
     const shareText = L("🚇 Turnike: Sözcük Seferi\n📍 {0} · {1} ({2})\n⏱️ {3}s · 🎯 %{4}\n{5}\n\nSen de İstanbul'u keşfet!", station.id, station.displayName, level, summary?.timeSpent || 0, accuracy, '⭐'.repeat(stars));
     if (navigator.share) {
       try {
-        await navigator.share({ title: 'Turnike: Sözcük Seferi', text: shareText, url: window.location.origin });
+        await navigator.share({ title: 'Turnike: Sözcük Seferi', text: shareText, url: SITE_URL });
       } catch {
         // Kullanıcı paylaşımı iptal etti
       }
     } else {
-      navigator.clipboard?.writeText(`${shareText} ${window.location.origin}`);
+      navigator.clipboard?.writeText(`${shareText} ${SITE_URL}`);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     }

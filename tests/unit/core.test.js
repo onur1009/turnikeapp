@@ -96,3 +96,15 @@ test('lig: bot isimleri grupta tekrar etmiyor', () => {
     assert.equal(new Set(names).size, names.length);
   }
 });
+
+test('düello bağlantısı siteye gider ve uygulamada geri okunur', async () => {
+  const { duelLink, duelCodeFromUrl } = await import('../../src/utils/duel.js');
+  const duel = { seed: 42, from: 'Ece', fromScore: { w: 5, t: 80 } };
+  const link = duelLink(duel);
+  assert.match(link, /^https:\/\/turnikeapp\.com\.tr\/duello\?duel=/);
+  const back = decodeDuel(duelCodeFromUrl(link));
+  assert.equal(back.seed, 42);
+  assert.equal(back.from, 'Ece');
+  assert.equal(duelCodeFromUrl('https://turnikeapp.com.tr/'), null);
+  assert.equal(duelCodeFromUrl('çöp'), null);
+});

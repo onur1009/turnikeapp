@@ -1,11 +1,10 @@
 // Arkadaş düellosu (sunucusuz): bulmacanın seed'i ve skorlar bir bağlantıya gömülür.
 // Akış: A çözer → bağlantıyı paylaşır → B aynı bulmacayı çözer → B'nin cevap bağlantısı
 // iki skoru da taşır → A açınca sonucu görür. Kazanan: daha çok kelime, eşitse daha kısa süre.
-import { Capacitor } from '@capacitor/core';
+import { SITE_URL } from './legal';
 
 export const DUEL_SECONDS = 120;
 export const DUEL_WIN_REWARD = 100; // kuruş
-const PUBLIC_ORIGIN = 'https://turnikeapp.vercel.app';
 
 const toB64Url = (str) => btoa(unescape(encodeURIComponent(str))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 const fromB64Url = (b64) => decodeURIComponent(escape(atob(b64.replace(/-/g, '+').replace(/_/g, '/'))));
@@ -46,9 +45,13 @@ export const decodeDuel = (code) => {
   }
 };
 
-export const duelLink = (duel) => {
-  const origin = Capacitor.isNativePlatform() ? PUBLIC_ORIGIN : window.location.origin;
-  return `${origin}/?duel=${encodeDuel(duel)}`;
+// turnikeapp.com.tr/duello: uygulama yüklüyse Android App Links ile doğrudan uygulamada açılır,
+// değilse sitede mağaza bağlantıları görünür
+export const duelLink = (duel) => `${SITE_URL}/duello?duel=${encodeDuel(duel)}`;
+
+// Gelen bağlantıdan düello kodu (https://turnikeapp.com.tr/duello?duel=… ya da eski ?duel=…)
+export const duelCodeFromUrl = (url) => {
+  try { return new URL(url).searchParams.get('duel'); } catch { return null; }
 };
 
 // 1: a kazandı, -1: b kazandı, 0: berabere

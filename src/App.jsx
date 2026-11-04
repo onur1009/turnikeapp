@@ -10,6 +10,7 @@ import { useGameStore, getMaxLives } from './store/gameStore';
 import { Haptics, NotificationType } from '@capacitor/haptics';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { App as CapacitorApp } from '@capacitor/app';
+import { duelCodeFromUrl } from './utils/duel';
 import './index.css';
 
 function App() {
@@ -165,6 +166,20 @@ function App() {
       useGameStore.setState({ incomingDuel: code });
       window.history.replaceState(null, '', window.location.pathname);
     }
+    // Uygulama turnikeapp.com.tr/duello bağlantısıyla açıldı (Android App Links)
+    CapacitorApp.getLaunchUrl?.().then(res => {
+      const c = res?.url && duelCodeFromUrl(res.url);
+      if (c) { openDuelOnStart.current = true; useGameStore.setState({ incomingDuel: c }); }
+    }).catch(() => {});
+    // Uygulama açıkken gelen bağlantı: düello ekranına geç
+    const linkListener = CapacitorApp.addListener('appUrlOpen', ({ url }) => {
+      const c = duelCodeFromUrl(url);
+      if (!c) return;
+      useGameStore.setState({ incomingDuel: c });
+      setScreen(s => (s === 'loading' ? s : 'duels'));
+      openDuelOnStart.current = true;
+    });
+    return () => { linkListener.then?.(l => l.remove()); };
   }, []);
 
 

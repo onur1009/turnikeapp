@@ -1,3 +1,4 @@
+import { SITE_URL } from '../utils/legal';
 import { L } from '../utils/i18n';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Grid from './Grid';
@@ -133,10 +134,10 @@ export default function DailyScreen({ onBack, onPlay }) {
     const text = buildShareText(today);
     track('daily_share');
     if (navigator.share) {
-      try { await navigator.share({ title: 'Turnike · Günün Seferi', text: `${text}\nhttps://turnikeapp.vercel.app` }); } catch { /* vazgeçildi */ }
+      try { await navigator.share({ title: 'Turnike · Günün Seferi', text: `${text}\n${SITE_URL}` }); } catch { /* vazgeçildi */ }
       return;
     }
-    try { await navigator.clipboard.writeText(`${text}\nhttps://turnikeapp.vercel.app`); setNote('Kopyalandı! WhatsApp\'ta yapıştır.'); } catch { setNote(text); }
+    try { await navigator.clipboard.writeText(`${text}\n${SITE_URL}`); setNote('Kopyalandı! WhatsApp\'ta yapıştır.'); } catch { setNote(text); }
   };
 
   return (

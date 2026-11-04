@@ -1,7 +1,8 @@
 // Statik tanıtım sitesi: src/ → dist/, alan adları ortam değişkeninden gelir.
 // Vercel'de: Root Directory = website, Build Command = node build.mjs, Output = dist,
-// Environment Variables: SITE_URL (ör. https://turnikeoyun.com), GAME_URL, INSTAGRAM_URL.
-import { cpSync, readdirSync, readFileSync, writeFileSync, rmSync, statSync } from 'node:fs';
+// Environment Variables: SITE_URL (ör. https://turnikeapp.com.tr), INSTAGRAM_URL,
+// ANDROID_CERT_SHA256 (isteğe bağlı: Play Console > Uygulama imzalama > SHA-256; düello bağlantıları uygulamayı açsın).
+import { cpSync, readdirSync, readFileSync, writeFileSync, rmSync, statSync, mkdirSync } from 'node:fs';
 import { join, extname } from 'node:path';
 
 const env = (k, fallback) => {
@@ -12,7 +13,6 @@ const env = (k, fallback) => {
 };
 const vars = {
   '%SITE%': env('SITE_URL'),
-  '%GAME%': env('GAME_URL', 'https://turnikeapp.vercel.app'),
   '%INSTAGRAM%': env('INSTAGRAM_URL', 'https://www.instagram.com/'),
   '%DATE%': new Date().toISOString().slice(0, 10),
 };
@@ -26,4 +26,12 @@ for (const f of walk('dist').filter(f => ['.html', '.xml', '.txt'].includes(extn
   if (/%[A-Z]+%/.test(s)) throw new Error(`${f}: doldurulmamış yer tutucu`);
   writeFileSync(f, s);
 }
-console.log('site hazır →', vars['%SITE%']);
+// Android App Links: turnikeapp.com.tr/duello bağlantıları yüklü uygulamayı doğrudan açar
+const certs = (process.env.ANDROID_CERT_SHA256 || '').split(',').map(x => x.trim().toUpperCase()).filter(Boolean);
+if (certs.some(c => !/^([0-9A-F]{2}:){31}[0-9A-F]{2}$/.test(c))) throw new Error('ANDROID_CERT_SHA256 biçimi AA:BB:… (32 bayt) olmalı');
+if (certs.length) {
+  mkdirSync('dist/.well-known', { recursive: true });
+  writeFileSync('dist/.well-known/assetlinks.json', JSON.stringify([{ relation: ['delegate_permission/common.handle_all_urls'],
+    target: { namespace: 'android_app', package_name: 'com.turnike.app', sha256_cert_fingerprints: certs } }], null, 2));
+}
+console.log('site hazır →', vars['%SITE%'], certs.length ? '(assetlinks.json var)' : '(assetlinks.json yok: ANDROID_CERT_SHA256 tanımsız)');
