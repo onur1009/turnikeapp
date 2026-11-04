@@ -950,7 +950,7 @@ export default function GameContainer({
 
         {/* Durum satırı: can | kelime ilerlemesi | kasa */}
         {/* Opak zemin: sahne bulutları ve güneş sayacın arkasına geçip okunmaz yapıyordu */}
-        <div className="flex items-center justify-between mx-3 mb-2 px-3 py-1 shrink-0 rounded-full" style={{ background: 'rgba(5,20,36,0.55)' }}>
+        <div className="flex items-center justify-between mx-3 mb-2 px-3 py-1 shrink-0 rounded-full" style={{ background: 'rgba(5,20,36,0.92)' }}>
           <div className="flex gap-0.5" role="img" aria-label={`${lives}/${maxLives} can`}>
             {Array.from({ length: maxLives }, (_, i) => (
               <span key={i} aria-hidden="true" className={`material-symbols-outlined text-[18px] transition-all ${i < lives ? 'text-red-500' : 'text-white/15'}`} style={{ fontVariationSettings: "'FILL' 1" }}>favorite</span>
