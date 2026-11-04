@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Turnike: Sözcük Seferi | İstanbul temalı kelime bulmaca oyunu</title>
+  <meta name="description" content="İstanbul'un metro, Marmaray, tramvay ve vapur hatlarında durak durak ilerlediğin ücretsiz kelime bulmaca oyunu. Harfleri birleştir, kelimeleri bul, Günün Seferi'ni çöz.">
+  <link rel="canonical" href="%SITE%/">
+  <meta name="theme-color" content="#051424">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Turnike: Sözcük Seferi">
+  <meta property="og:locale" content="tr_TR">
+  <meta property="og:title" content="Turnike: Sözcük Seferi">
+  <meta property="og:description" content="İstanbul'u durak durak gez, harfleri birleştir, kelime bulmacalarını çöz. Ücretsiz.">
+  <meta property="og:url" content="%SITE%/">
+  <meta property="og:image" content="%SITE%/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Turnike oyununun ana ekranı: M2 metro hattı ve sıradaki durak tabelası">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preload" href="/fonts/jakarta-1.woff2" as="font" type="font/woff2" crossorigin>
+  <style>
+    @font-face { font-family: 'Jakarta'; font-style: normal; font-weight: 400 800; font-display: swap; src: url(/fonts/jakarta-1.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+FEFF; }
+    @font-face { font-family: 'Jakarta'; font-style: normal; font-weight: 400 800; font-display: swap; src: url(/fonts/jakarta-0.woff2) format('woff2');
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+1E00-1E9F, U+20A0-20C4; }
+
+    :root {
+      --bg: #051424; --bg-2: #0b2038; --ink: #f4f1ea; --muted: #a9b6c6; --line: rgba(255,255,255,0.12);
+      --led: #f5b041; --go: #22c55e; --go-ink: #052e16; --m2: #15803d; --marmaray: #0f766e; --tram: #b91c1c; --vapur: #1d4ed8;
+      --radius: 18px; --max: 1080px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { animation: none !important; } }
+    body { margin: 0; background: var(--bg); color: var(--ink); font: 400 17px/1.6 'Jakarta', system-ui, -apple-system, 'Segoe UI', sans-serif; }
+    a { color: inherit; }
+    img { max-width: 100%; height: auto; display: block; }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+    .skip { position: absolute; left: -999px; } .skip:focus { left: 12px; top: 12px; background: var(--ink); color: var(--bg); padding: 8px 12px; border-radius: 8px; z-index: 9; }
+    :focus-visible { outline: 3px solid var(--led); outline-offset: 3px; border-radius: 6px; }
+
+    header.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 0; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: .3px; text-decoration: none; }
+    .brand img { width: 36px; height: 36px; border-radius: 10px; }
+    nav.top a { color: var(--muted); text-decoration: none; font-weight: 600; font-size: 15px; margin-left: 20px; }
+    nav.top a:hover { color: var(--ink); }
+    @media (max-width: 640px) { nav.top { display: none; } }
+
+    /* Durak tabelası: oyundaki YBS panosunun sitedeki karşılığı */
+    .board { background: #0a1a2e; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; max-width: 460px; }
+    .board-row { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; letter-spacing: 1px; }
+    .badge { display: inline-flex; align-items: center; padding: 2px 9px; border-radius: 999px; color: #fff; font-weight: 800; font-size: 12px; }
+    .board-next { padding: 10px 14px 14px; }
+    .board-next small { display: block; color: var(--muted); font-size: 11px; letter-spacing: 3px; }
+    .led { color: var(--led); font-weight: 800; letter-spacing: 2px; font-size: 22px; }
+    .blink { animation: blink 1.2s ease-in-out infinite; } @keyframes blink { 50% { opacity: .35; } }
+
+    .hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: center; padding: 40px 0 72px; }
+    .hero h1 { font-size: clamp(36px, 6vw, 60px); line-height: 1.05; margin: 22px 0 16px; font-weight: 800; letter-spacing: -1px; }
+    .hero h1 span { color: var(--led); }
+    .hero p.lead { color: var(--muted); font-size: 19px; max-width: 34ch; margin: 0 0 28px; }
+    .cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 24px; border-radius: 999px; font-weight: 800; text-decoration: none; font-size: 16px; }
+    .btn-go { background: var(--go); color: var(--go-ink); box-shadow: 0 6px 0 #15803d; }
+    .btn-go:active { transform: translateY(3px); box-shadow: 0 3px 0 #15803d; }
+    .btn-ghost { border: 1px solid var(--line); color: var(--ink); }
+    .soon { font-size: 12px; color: var(--muted); font-weight: 600; }
+    .phone { justify-self: center; width: min(320px, 80vw); border-radius: 34px; padding: 10px; background: #0e1c2e; border: 1px solid var(--line); box-shadow: 0 30px 80px rgba(0,0,0,.45); transform: rotate(2deg); }
+    .phone img { border-radius: 26px; }
+    @media (max-width: 860px) { .hero { grid-template-columns: 1fr; gap: 40px; padding-top: 16px; } .phone { transform: none; } }
+
+    section { padding: 64px 0; border-top: 1px solid var(--line); }
+    h2 { font-size: clamp(28px, 4vw, 40px); line-height: 1.15; margin: 0 0 12px; font-weight: 800; letter-spacing: -.5px; }
+    .sub { color: var(--muted); max-width: 60ch; margin: 0 0 36px; }
+
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; counter-reset: s; list-style: none; padding: 0; margin: 0; }
+    .steps li { counter-increment: s; }
+    .steps li::before { content: counter(s); display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--bg-2); border: 2px solid var(--led); color: var(--led); font-weight: 800; margin-bottom: 14px; }
+    .steps h3 { margin: 0 0 6px; font-size: 19px; }
+    .steps p { margin: 0; color: var(--muted); }
+    @media (max-width: 760px) { .steps { grid-template-columns: 1fr; } }
+
+    .lines { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 32px; padding: 0; list-style: none; }
+    .lines li { padding: 6px 12px; border-radius: 999px; font-weight: 700; font-size: 14px; color: #fff; }
+
+    .modes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .mode { background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+    .mode h3 { margin: 0 0 6px; font-size: 20px; }
+    .mode p { margin: 0; color: var(--muted); }
+    @media (max-width: 760px) { .modes { grid-template-columns: 1fr; } }
+
+    .shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 0; }
+    .shots figure { margin: 0; }
+    .shots img { border-radius: 22px; border: 1px solid var(--line); }
+    .shots figcaption { color: var(--muted); font-size: 14px; margin-top: 10px; text-align: center; }
+    @media (max-width: 760px) { .shots { grid-template-columns: repeat(3, 70%); overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; } .shots figure { scroll-snap-align: center; } }
+
+    .postcard { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; }
+    .postcard img { border-radius: 14px; }
+    .credit { font-size: 12px; color: var(--muted); margin-top: 8px; }
+    @media (max-width: 760px) { .postcard { grid-template-columns: 1fr; } }
+
+    details { border-bottom: 1px solid var(--line); padding: 16px 0; }
+    summary { cursor: pointer; font-weight: 700; font-size: 18px; list-style: none; display: flex; justify-content: space-between; gap: 12px; min-height: 32px; align-items: center; }
+    summary::after { content: '+'; color: var(--led); font-size: 24px; } details[open] summary::after { content: '–'; }
+    details p { color: var(--muted); margin: 10px 0 0; }
+
+    .final { text-align: center; }
+    .final .cta { justify-content: center; }
+    footer { border-top: 1px solid var(--line); padding: 32px 0 48px; color: var(--muted); font-size: 14px; }
+    footer .wrap { display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: space-between; }
+    footer a { color: var(--muted); }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "%SITE%/#site",
+        "url": "%SITE%/",
+        "name": "Turnike: Sözcük Seferi",
+        "inLanguage": "tr-TR"
+      },
+      {
+        "@type": ["VideoGame", "MobileApplication"],
+        "@id": "%SITE%/#game",
+        "name": "Turnike: Sözcük Seferi",
+        "description": "İstanbul toplu taşıma hatlarında durak durak ilerlenen kelime bulmaca oyunu.",
+        "url": "%SITE%/",
+        "image": "%SITE%/og.png",
+        "screenshot": ["%SITE%/img/ekran-ana.webp", "%SITE%/img/ekran-oyun.webp", "%SITE%/img/ekran-harita.webp"],
+        "genre": ["Kelime oyunu", "Bulmaca"],
+        "gamePlatform": ["Android", "Web tarayıcı"],
+        "operatingSystem": "Android, Web",
+        "applicationCategory": "GameApplication",
+        "inLanguage": ["tr", "en"],
+        "playMode": "SinglePlayer",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "TRY" }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "Turnike ücretsiz mi?", "acceptedAnswer": { "@type": "Answer", "text": "Evet. Oyunun tamamı ücretsizdir. Oyun içi para birimi oynayarak kazanılır; gerçek para ile satın alma yoktur. Reklam izleyerek ek ipucu alabilirsin." } },
+          { "@type": "Question", "name": "Hesap açmam gerekiyor mu?", "acceptedAnswer": { "@type": "Answer", "text": "Hayır. Adın, e-postan ya da konumun istenmez. İlerlemen cihazında saklanır." } },
+          { "@type": "Question", "name": "İnternetsiz oynanır mı?", "acceptedAnswer": { "@type": "Answer", "text": "Evet, bölümler internetsiz oynanır. Düello ve Hat Ligi için internet gerekir." } },
+          { "@type": "Question", "name": "Hangi cihazlarda oynanır?", "acceptedAnswer": { "@type": "Answer", "text": "Tarayıcıda telefon ya da bilgisayardan hemen oynayabilirsin. Android uygulaması Google Play'e geliyor." } }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip" href="#ana">İçeriğe geç</a>
+  <div class="wrap">
+    <header class="top">
+      <a class="brand" href="/"><img src="/icon-192.png" width="36" height="36" alt="">Turnike</a>
+      <nav class="top" aria-label="Sayfa bölümleri">
+        <a href="#nasil">Nasıl oynanır</a>
+        <a href="#modlar">Modlar</a>
+        <a href="#sss">Sorular</a>
+      </nav>
+    </header>
+
+    <main id="ana">
+      <div class="hero">
+        <div>
+          <div class="board" aria-hidden="true">
+            <div class="board-row"><span class="badge" style="background:var(--m2)">M2</span>YENİKAPI – HACIOSMAN<span class="blink" style="margin-left:auto;color:var(--led)">●</span></div>
+            <div class="board-next"><small>SIRADAKİ DURAK</small><span class="led">► TAKSİM</span></div>
+          </div>
+          <h1>İstanbul'u durak durak gez, <span>kelimeleri bul.</span></h1>
+          <p class="lead">Turnike, metro, Marmaray, tramvay ve vapur hatlarında ilerlediğin ücretsiz bir kelime bulmaca oyunu. Çarktaki harfleri birleştir, bir sonraki durağa geç.</p>
+          <div class="cta">
+            <a class="btn btn-go" href="%GAME%/">Tarayıcıda hemen oyna</a>
+            <span class="btn btn-ghost" aria-disabled="true">Google Play <span class="soon">· yakında</span></span>
+          </div>
+        </div>
+        <div class="phone"><img src="/img/ekran-ana.webp" width="390" height="844" alt="Oyunun ana ekranı: M2 hattı tabelası, sıradaki durak Sanayi Mahallesi, Devam Et ve Düello düğmeleri" fetchpriority="high"></div>
+      </div>
+
+      <section id="nasil" aria-labelledby="nasil-b">
+        <h2 id="nasil-b">Nasıl oynanır?</h2>
+        <p class="sub">Kuralları bir dakikada öğrenirsin; her durakta bulmacalar biraz daha dolar.</p>
+        <ol class="steps">
+          <li><h3>Harfleri kaydır</h3><p>Çarktaki harfleri parmağınla sırayla birleştir, kelimeyi yaz.</p></li>
+          <li><h3>Izgarayı doldur</h3><p>Bulduğun kelimeler çapraz bulmacaya yerleşir. Hepsini bulunca bölüm biter.</p></li>
+          <li><h3>Durağa var</h3><p>Her durak 5 bölüm. Bitirince kartpostalını al, hattın bir sonraki durağına geç.</p></li>
+        </ol>
+      </section>
+
+      <section aria-labelledby="hat-b">
+        <h2 id="hat-b">23 hat, 350'den fazla durak</h2>
+        <p class="sub">Gerçek İstanbul hatları ve durak adlarıyla. Yolculuk Yenikapı'dan başlar; Boğaz'a, Adalar'a, havalimanına uzanır.</p>
+        <ul class="lines" aria-label="Hat örnekleri">
+          <li style="background:var(--m2)">M2 Yenikapı – Hacıosman</li>
+          <li style="background:var(--marmaray)">Marmaray Halkalı – Gebze</li>
+          <li style="background:var(--tram)">T1 Kabataş – Bağcılar</li>
+          <li style="background:var(--vapur)">Vapur Kabataş – Adalar</li>
+          <li style="background:#7c3aed">Teleferik</li>
+          <li style="background:#a16207">Metrobüs</li>
+        </ul>
+        <div class="shots">
+          <figure><img src="/img/ekran-oyun.webp" width="390" height="844" loading="lazy" alt="Bulmaca ekranı: harf çarkı, kelime ızgarası ve ipucu düğmeleri"><figcaption>Harf çarkı ve ızgara</figcaption></figure>
+          <figure><img src="/img/ekran-harita.webp" width="390" height="844" loading="lazy" alt="İstanbul ulaşım ağı haritası: hatlar ve tamamlanan duraklar"><figcaption>Ulaşım ağı haritası</figcaption></figure>
+          <figure><img src="/img/ekran-ana.webp" width="390" height="844" loading="lazy" alt="Ana ekran: sıradaki durak tabelası"><figcaption>Sıradaki durak</figcaption></figure>
+        </div>
+      </section>
+
+      <section id="modlar" aria-labelledby="mod-b">
+        <h2 id="mod-b">Her gün oynanacak bir şey var</h2>
+        <p class="sub">Yolculuğun dışında kısa oturumlar için dört mod.</p>
+        <div class="modes">
+          <div class="mode"><h3>Günün Seferi</h3><p>Her gün herkes aynı bulmacayı çözer. Sonucunu, cevabı ele vermeden paylaş; serini sürdür.</p></div>
+          <div class="mode"><h3>Düello</h3><p>Aynı bulmacayı 120 saniyede kim daha iyi çözecek? Bağlantıyı arkadaşına gönder.</p></div>
+          <div class="mode"><h3>Haftalık Hat Ligi</h3><p>30 kişilik grubunda ilk beşe gir; Tramvay Ligi'nden Boğaz Ligi'ne yüksel.</p></div>
+          <div class="mode"><h3>Kartpostal koleksiyonu</h3><p>Tamamladığın her semtten gerçek bir fotoğraflı kartpostal topla.</p></div>
+        </div>
+      </section>
+
+      <section aria-labelledby="kart-b">
+        <div class="postcard">
+          <div>
+            <h2 id="kart-b">Oynarken İstanbul'u öğren</h2>
+            <p class="sub" style="margin-bottom:0">Kelimeler ulaşım ve şehir hayatından gelir. Her terimin açıklaması sözlüğüne eklenir; bulduğun kelimeleri istediğin zaman tekrar okuyabilirsin.</p>
+          </div>
+          <figure style="margin:0">
+            <img src="/img/kizkulesi.webp" width="640" height="480" loading="lazy" alt="Kız Kulesi ve Boğaz, oyundaki Üsküdar kartpostalının fotoğrafı">
+            <figcaption class="credit">Fotoğraf: Matti Blume, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.tr" rel="license noopener">CC BY-SA 4.0</a>, <a href="https://commons.wikimedia.org/wiki/File:Maiden_tower,_Istanbul_(P1100207).jpg" rel="noopener">Wikimedia Commons</a></figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section id="sss" aria-labelledby="sss-b">
+        <h2 id="sss-b">Sık sorulanlar</h2>
+        <details><summary>Turnike ücretsiz mi?</summary><p>Evet. Oyunun tamamı ücretsizdir. Oyun içi para birimi oynayarak kazanılır; gerçek para ile satın alma yoktur. Reklam izleyerek ek ipucu alabilirsin.</p></details>
+        <details><summary>Hesap açmam gerekiyor mu?</summary><p>Hayır. Adın, e-postan ya da konumun istenmez. İlerlemen cihazında saklanır.</p></details>
+        <details><summary>İnternetsiz oynanır mı?</summary><p>Evet, bölümler internetsiz oynanır. Düello ve Hat Ligi için internet gerekir.</p></details>
+        <details><summary>Hangi cihazlarda oynanır?</summary><p>Tarayıcıda telefon ya da bilgisayardan hemen oynayabilirsin. Android uygulaması Google Play'e geliyor.</p></details>
+      </section>
+
+      <section class="final" aria-labelledby="son-b">
+        <h2 id="son-b">Turnikeden geç, yolculuk başlasın.</h2>
+        <p class="sub" style="margin-left:auto;margin-right:auto">İndirmeden, kayıt olmadan, şimdi.</p>
+        <div class="cta"><a class="btn btn-go" href="%GAME%/">Tarayıcıda hemen oyna</a></div>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <span>© 2026 Turnike: Sözcük Seferi</span>
+      <span>
+        <a href="%GAME%/privacy.html">Gizlilik politikası</a> ·
+        <a href="%GAME%/kvkk.html">KVKK aydınlatma metni</a> ·
+        <a href="%INSTAGRAM%" rel="me noopener">Instagram</a>
+      </span>
+    </div>
+    <div class="wrap" style="margin-top:12px;font-size:12px">Turnike bağımsız bir oyundur; İstanbul Büyükşehir Belediyesi, Metro İstanbul, İETT ya da Şehir Hatları ile bağlantısı yoktur.</div>
+  </footer>
+</body>
+</html>

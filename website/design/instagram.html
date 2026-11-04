@@ -1,0 +1,147 @@
+<!doctype html>
+<!-- Instagram açılış gridi: 9 gönderi (1080×1350), profil fotoğrafı ve 5 öne çıkan kapağı.
+     Her .post ayrı PNG olarak dışa aktarılır (website/design/instagram/). -->
+<html lang="tr"><head><meta charset="utf-8">
+<style>
+  @font-face { font-family: J; font-weight: 400 800; src: url(../src/fonts/jakarta-1.woff2) format('woff2'); }
+  @font-face { font-family: J; font-weight: 400 800; src: url(../src/fonts/jakarta-0.woff2) format('woff2'); unicode-range: U+0100-02BA; }
+  :root { --bg: #051424; --panel: #0a1a2e; --ink: #f4f1ea; --muted: #a9b6c6; --led: #f5b041; --go: #22c55e;
+          --m2: #15803d; --marmaray: #0f766e; --tram: #b91c1c; --vapur: #1d4ed8; --line: rgba(255,255,255,.14); }
+  body { margin: 0; background: #222; font-family: J, sans-serif; color: var(--ink); }
+  .post { width: 1080px; height: 1350px; position: relative; overflow: hidden; box-sizing: border-box; padding: 96px; display: flex; flex-direction: column; margin-bottom: 40px; background: var(--bg); }
+  .handle { position: absolute; left: 96px; bottom: 72px; font-weight: 700; font-size: 30px; color: var(--muted); letter-spacing: .5px; }
+  .badge { display: inline-flex; align-items: center; padding: 6px 22px; border-radius: 999px; font-weight: 800; font-size: 34px; color: #fff; }
+  .board { background: var(--panel); border: 2px solid var(--line); border-radius: 28px; }
+  .row { display: flex; gap: 20px; align-items: center; padding: 26px 34px; border-bottom: 2px solid var(--line); font-weight: 800; letter-spacing: 3px; font-size: 32px; }
+  .next { padding: 26px 34px 34px; } .next small { display: block; color: var(--muted); letter-spacing: 8px; font-size: 24px; }
+  .led { color: var(--led); font-weight: 800; letter-spacing: 6px; }
+  h1, h2 { margin: 0; font-weight: 800; letter-spacing: -2px; line-height: 1.02; }
+  h1 { font-size: 118px; } h2 { font-size: 92px; }
+  .y { color: var(--led); }
+  p { margin: 0; font-size: 40px; line-height: 1.35; color: var(--muted); }
+  .tiles { display: flex; gap: 22px; }
+  .tile { width: 150px; height: 150px; border-radius: 26px; background: var(--ink); color: var(--bg); display: grid; place-items: center; font-weight: 800; font-size: 84px; box-shadow: 0 10px 0 #c9c2b3; }
+  .tile.empty { background: rgba(255,255,255,.08); box-shadow: none; border: 3px dashed rgba(255,255,255,.25); }
+  .phone { border-radius: 60px; padding: 18px; background: #0e1c2e; border: 2px solid var(--line); }
+  .phone img { display: block; border-radius: 46px; width: 100%; }
+  .wheel { width: 560px; height: 560px; border-radius: 50%; background: rgba(244,241,234,.95); position: relative; margin: 0 auto; }
+  .wheel span { position: absolute; font-weight: 800; font-size: 92px; color: var(--bg); transform: translate(-50%, -50%); }
+  .chip { display: inline-block; padding: 14px 28px; border-radius: 999px; background: rgba(255,255,255,.08); border: 2px solid var(--line); font-weight: 700; font-size: 32px; }
+  .num { display: grid; place-items: center; width: 92px; height: 92px; border-radius: 50%; border: 5px solid var(--led); color: var(--led); font-weight: 800; font-size: 48px; flex-shrink: 0; }
+  .step { display: flex; gap: 36px; align-items: center; }
+  .step h3 { margin: 0 0 6px; font-size: 52px; } .step p { font-size: 36px; }
+  .grid4 { display: grid; grid-template-columns: repeat(7, 112px); gap: 14px; }
+  .grid4 i { width: 112px; height: 112px; border-radius: 20px; background: rgba(255,255,255,.1); display: block; }
+  .grid4 i.f { background: var(--ink); }
+  .grid4 i.x { visibility: hidden; }
+  /* Profil fotoğrafı ve öne çıkan kapakları */
+  .avatar { width: 1080px; height: 1080px; background: var(--bg); display: grid; place-items: center; margin-bottom: 40px; }
+  .avatar img { width: 640px; height: 640px; }
+  .hl { width: 1080px; height: 1080px; display: grid; place-items: center; background: var(--bg); margin-bottom: 40px; }
+  .hl div { width: 700px; height: 700px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 150px; letter-spacing: 4px; }
+</style></head>
+<body>
+
+<!-- 1: Tanıtım (gridde en üstte kalır, en son paylaşılır) -->
+<section class="post" id="p1">
+  <div class="board"><div class="row"><span class="badge" style="background:var(--m2)">M2</span>YENİKAPI – HACIOSMAN</div><div class="next"><small>SIRADAKİ DURAK</small><span class="led" style="font-size:64px">► TAKSİM</span></div></div>
+  <h1 style="margin-top:72px">İstanbul'u<br>durak durak gez,<br><span class="y">kelimeleri bul.</span></h1>
+  <p style="margin-top:40px">Ücretsiz kelime bulmaca oyunu. Kayıt yok.</p>
+  <span class="handle">@turnikeoyun</span>
+</section>
+
+<!-- 2: Bulmaca – VAPUR -->
+<section class="post" id="p2" style="background:var(--vapur)">
+  <span class="badge" style="background:rgba(0,0,0,.25);align-self:flex-start">⛴️ VAPUR HATTI</span>
+  <h2 style="margin-top:64px">Bu harflerden<br>kaç kelime çıkar?</h2>
+  <div class="tiles" style="margin-top:110px;justify-content:center"><div class="tile">V</div><div class="tile">A</div><div class="tile">P</div><div class="tile">U</div><div class="tile">R</div></div>
+  <p style="margin-top:110px;color:#fff;text-align:center;font-weight:700">Cevabını yoruma yaz. Kaç tane bulduk? Yarın hikâyede.</p>
+  <span class="handle" style="color:rgba(255,255,255,.8)">@turnikeoyun</span>
+</section>
+
+<!-- 3: Reel kapağı – çark -->
+<section class="post" id="p3" style="justify-content:center">
+  <p class="led" style="font-size:36px;text-align:center">▶ SESİ AÇ</p>
+  <h2 style="text-align:center;margin:40px 0 80px">Bu sese<br><span class="y">bağımlı olacaksın.</span></h2>
+  <div class="wheel">
+    <span style="left:50%;top:15%">T</span><span style="left:83%;top:38%">R</span><span style="left:72%;top:78%">E</span><span style="left:28%;top:78%">N</span><span style="left:17%;top:38%">İ</span>
+  </div>
+  <span class="handle">@turnikeoyun</span>
+</section>
+
+<!-- 4: Nasıl oynanır (carousel kapağı) -->
+<section class="post" id="p4">
+  <span class="chip" style="align-self:flex-start">KAYDIR →</span>
+  <h2 style="margin:56px 0 90px">Nasıl oynanır?<br><span class="y">1 dakikada.</span></h2>
+  <div style="display:flex;flex-direction:column;gap:64px">
+    <div class="step"><span class="num">1</span><div><h3>Harfleri kaydır</h3><p>Çarktaki harfleri sırayla birleştir.</p></div></div>
+    <div class="step"><span class="num">2</span><div><h3>Izgarayı doldur</h3><p>Bulduğun kelime bulmacaya oturur.</p></div></div>
+    <div class="step"><span class="num">3</span><div><h3>Durağa var</h3><p>5 bölüm bitince sıradaki durağa geç.</p></div></div>
+  </div>
+  <span class="handle">@turnikeoyun</span>
+</section>
+
+<!-- 5: Mizah – Marmaray -->
+<section class="post" id="p5" style="background:var(--marmaray);justify-content:center">
+  <span class="badge" style="background:rgba(0,0,0,.25);align-self:flex-start">MARMARAY</span>
+  <h1 style="margin-top:72px;font-size:150px">40 dakika<br>=<br><span style="color:#fde68a">6 bölüm.</span></h1>
+  <p style="margin-top:56px;color:#ecfeff">Halkalı'dan Gebze'ye giden herkesin bildiği matematik.</p>
+  <span class="handle" style="color:rgba(255,255,255,.8)">@turnikeoyun</span>
+</section>
+
+<!-- 6: Reel kapağı – hangi hattasın -->
+<section class="post" id="p6" style="justify-content:center">
+  <h2>Sen hangi<br><span class="y">hattasın?</span></h2>
+  <div style="display:flex;flex-wrap:wrap;gap:22px;margin-top:90px">
+    <span class="badge" style="background:var(--m2)">M2</span><span class="badge" style="background:var(--marmaray)">MARMARAY</span>
+    <span class="badge" style="background:var(--tram)">T1</span><span class="badge" style="background:var(--vapur)">VAPUR</span>
+    <span class="badge" style="background:#7c3aed">TELEFERİK</span><span class="badge" style="background:#a16207">METROBÜS</span>
+    <span class="badge" style="background:#be185d">M4</span><span class="badge" style="background:#0369a1">M5</span>
+  </div>
+  <p style="margin-top:90px">23 hat, 350'den fazla durak. Yorumda hattını yaz, o hattan bir bulmaca gönderelim.</p>
+  <span class="handle">@turnikeoyun</span>
+</section>
+
+<!-- 7: Günün Seferi #1 -->
+<section class="post" id="p7">
+  <span class="badge" style="background:#a16207;align-self:flex-start">📅 GÜNÜN SEFERİ #1</span>
+  <h2 style="margin:56px 0 80px">Herkes aynı<br>bulmacayı çözüyor.</h2>
+  <div class="grid4">
+    <i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="x"></i><i class="x"></i>
+    <i></i><i class="x"></i><i class="x"></i><i></i><i class="x"></i><i class="x"></i><i class="x"></i>
+    <i></i><i></i><i></i><i></i><i class="x"></i><i class="x"></i><i class="x"></i>
+    <i></i><i class="x"></i><i class="x"></i><i></i><i></i><i></i><i></i>
+  </div>
+  <p style="margin-top:80px">İpucu: <b style="color:var(--ink)">ulaşım</b>. Sonucunu cevabı ele vermeden paylaş.</p>
+  <span class="handle">@turnikeoyun</span>
+</section>
+
+<!-- 8: Kartpostal -->
+<section class="post" id="p8" style="padding:0">
+  <img src="../src/img/kizkulesi.webp" alt="" style="width:100%;height:860px;object-fit:cover;display:block">
+  <div style="padding:64px 96px">
+    <h2 style="font-size:80px">Selamlar, <span class="y">Üsküdar!</span></h2>
+    <p style="margin-top:24px">Her durağı bitirene o semtin kartpostalı. 16 kartpostal, hepsi gerçek fotoğraf.</p>
+    <p style="margin-top:24px;font-size:22px">Fotoğraf: Matti Blume, CC BY-SA 4.0, Wikimedia Commons</p>
+  </div>
+</section>
+
+<!-- 9: Duyuru (ilk paylaşılan) -->
+<section class="post" id="p9" style="justify-content:center;align-items:center;text-align:center">
+  <div class="board" style="width:100%"><div class="row" style="justify-content:center">ANONS</div><div class="next"><span class="led" style="font-size:72px">TURNİKE YOLDA</span></div></div>
+  <h2 style="margin-top:96px">İlk sefer<br><span class="y">kalkmak üzere.</span></h2>
+  <p style="margin-top:48px">İstanbul temalı kelime oyunu. Takipte kal, ilk bulmaca bu hafta.</p>
+  <span class="handle" style="left:0;right:0">@turnikeoyun</span>
+</section>
+
+<!-- Profil fotoğrafı (Instagram daire olarak keser: simge ortada, kenarlarda boşluk) -->
+<section class="avatar" id="avatar"><img src="../src/icon.svg" alt=""></section>
+
+<!-- Öne çıkan kapakları -->
+<section class="hl" id="hl-nasil"><div style="background:var(--m2)">NASIL</div></section>
+<section class="hl" id="hl-gunun"><div style="background:#a16207">GÜN</div></section>
+<section class="hl" id="hl-duello"><div style="background:#be123c">DÜEL</div></section>
+<section class="hl" id="hl-hatlar"><div style="background:var(--vapur)">HAT</div></section>
+<section class="hl" id="hl-sss"><div style="background:#334155">SSS</div></section>
+
+</body></html>
