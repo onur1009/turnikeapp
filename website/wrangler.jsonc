@@ -1,0 +1,14 @@
+// Cloudflare Workers (statik dosyalar): Git'e bağlı derleme `node build.mjs` çıktısını (dist) yayınlar.
+// Başlıklar dist/_headers dosyasından gelir. /gizlilik gibi uzantısız adresler kendiliğinden .html'e gider.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "turnike-site",
+  "compatibility_date": "2026-11-03",
+  "assets": {
+    "directory": "dist",
+    "html_handling": "auto-trailing-slash",
+    // Olmayan adreslerde kendi "Bu durak yok" sayfamız (dist/404.html)
+    "not_found_handling": "404-page"
+  },
+  "observability": { "enabled": true }
+}
