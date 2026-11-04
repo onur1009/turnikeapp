@@ -1,4 +1,5 @@
-# AdMob yayıncı kimliğini aldıktan sonra bu satırı public/app-ads.txt olarak kaydet
+# Elle kaydetmek gerekmez: website/build.mjs, ADMOB_PUBLISHER_ID ortam değişkeninden
+# https://turnikeapp.com.tr/app-ads.txt dosyasını bu biçimde üretir.
 # (pub-XXXXXXXXXXXXXXXX yerine AdMob > Uygulamalar > Tüm uygulamaları görüntüle > app-ads.txt'deki kimliğin).
 # Dosya, Play mağaza kaydındaki "Web sitesi" alanına yazdığın alan adının kökünde olmalı:
 #   https://<alan-adın>/app-ads.txt

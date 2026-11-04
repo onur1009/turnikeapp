@@ -34,4 +34,9 @@ if (certs.length) {
   writeFileSync('dist/.well-known/assetlinks.json', JSON.stringify([{ relation: ['delegate_permission/common.handle_all_urls'],
     target: { namespace: 'android_app', package_name: 'com.turnike.app', sha256_cert_fingerprints: certs } }], null, 2));
 }
+// AdMob app-ads.txt: Play kaydındaki web sitesinin kökünde olmalı
+const pub = (process.env.ADMOB_PUBLISHER_ID || '').trim();
+if (pub && !/^pub-\d{16}$/.test(pub)) throw new Error('ADMOB_PUBLISHER_ID biçimi pub-1234567890123456 olmalı');
+if (pub) writeFileSync('dist/app-ads.txt', `google.com, ${pub}, DIRECT, f08c47fec0942fa0
+`);
 console.log('site hazır →', vars['%SITE%'], certs.length ? '(assetlinks.json var)' : '(assetlinks.json yok: ANDROID_CERT_SHA256 tanımsız)');

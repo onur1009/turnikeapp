@@ -5,7 +5,7 @@
 // AdMob uygulama kimliği ayrıca android/gradle.properties ya da ADMOB_APP_ID ortam değişkeniyle
 // manifest'e yazılır (android/app/build.gradle).
 // Geliştirme sunucusunda (npm run dev) web'de 1,5 sn'lik sahte bir "test reklamı" çalışır ki
-// reklam akışları tarayıcıda denenebilsin; üretim web sürümünde reklam yoktur.
+// reklam akışları geliştirme sırasında tarayıcıda denenebilsin; oyunun web sürümü yayında değildir.
 import { Capacitor } from '@capacitor/core';
 import { useGameStore } from '../store/gameStore';
 

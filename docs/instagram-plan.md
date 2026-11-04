@@ -20,9 +20,9 @@ Saat dilimi: Europe/Istanbul. Hesap ilk haftalarda kişisel değil marka sesiyle
   ```
   İstanbul'u durak durak gez, kelimeleri bul 🚇
   Her gün yeni bulmaca: Günün Seferi
-  Ücretsiz · kayıt yok · tarayıcıda oyna ⬇️
+  Yakında Google Play ve App Store ⬇️
   ```
-- Bağlantı: tanıtım sitesi (UTM: `?utm_source=instagram&utm_medium=bio`). Play çıkınca site üzerinden yönlendir; bio bağlantısını değiştirme.
+- Bağlantı: `https://turnikeapp.com.tr/?utm_source=instagram&utm_medium=bio`. Oyun yalnızca Google Play ve App Store'da; mağazalar açılınca site üzerinden yönlendir, bio bağlantısını değiştirme.
 - Öne çıkanlar (kapaklar: hat rozeti biçiminde, renkli daire + kısa kod):
   1. `NASIL` (yeşil, M2) – 3 karede nasıl oynanır
   2. `GÜNÜN` (sarı) – günlük bulmaca hikâyeleri
@@ -78,7 +78,7 @@ HAFTA 2
 SAL  18:30  REEL      TEACH    #10 If This Then     – "Metroda sinyal yoksa: Turnike internetsiz çalışır"
 PER  20:30  GÖRSEL    TEACH    bulmaca              – "M A R M A R A Y: kaç kelime?" (yorumda yarış)
 CUM  18:30  REEL      PROOF    #6 The Receipt       – "Hacıosman'dan Yenikapı'ya tek seferde kaç bölüm bitti" (gerçek süre, gerçek sayı)
-PAZ  20:00  CAROUSEL  OFFER    –                    – "Ücretsiz, kayıt yok, tarayıcıda: 3 adımda başla" + bio bağlantısı
+PAZ  20:00  CAROUSEL  OFFER    –                    – "Ücretsiz, kayıt yok: çıkınca 3 adımda başla" + bio bağlantısı (turnikeapp.com.tr)
 
 HAFTA 3
 SAL  18:30  REEL      OPINION  #2 Negative Command  – "Aktarmada sosyal medyada kaydırma. Harf kaydır."

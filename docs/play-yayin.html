@@ -135,7 +135,7 @@ gradlew bundleRelease -PversionCode=2 -PversionName=1.0.1</pre>
       <div class="head"><h3>6. Play Console'da uygulamayı oluştur ve içeriği doldur</h3><span class="tag you">Sen</span></div>
       <ol>
         <li><b>Uygulama oluştur:</b> ad "Turnike: Kelime Oyunu", varsayılan dil Türkçe, tür Oyun, ücretsiz.</li>
-        <li><b>Gizlilik politikası:</b> <code>https://turnikeapp.vercel.app/privacy.html</code>. Önce sayfadaki <code>[GELİŞTİRİCİ_ADI]</code> ve <code>[İLETİŞİM_E_POSTASI]</code> alanlarını doldur (<code>public/privacy.html</code>) ve yayına al.</li>
+        <li><b>Gizlilik politikası:</b> <code>https://turnikeapp.com.tr/gizlilik</code>. Önce sayfadaki <code>[GELİŞTİRİCİ_ADI]</code> ve <code>[İLETİŞİM_E_POSTASI]</code> alanlarını doldur (<code>website/src/gizlilik.html</code> ve <code>website/src/kvkk.html</code>) ve yayına al.</li>
         <li><b>Reklamlar:</b> "Evet, reklam içeriyor".</li>
         <li><b>Uygulama erişimi:</b> "Tüm işlevler giriş yapmadan kullanılabilir".</li>
         <li><b>Hedef kitle:</b> 13 yaş ve üstünü seç; uygulama çocuklara yönelik değil. 13 yaş altı seçilirse uygulama Aile programına girer: o zaman yalnızca aile sertifikalı reklamlar gösterilebilir ve kişiselleştirilmiş reklam kapanır.</li>
@@ -180,7 +180,7 @@ gradlew bundleRelease -PversionCode=2 -PversionName=1.0.1</pre>
       <div class="head"><h3>9. Yayından sonra: AdMob'u mağazaya bağla</h3><span class="tag you">Sen</span></div>
       <ol>
         <li>AdMob'da uygulama ayarlarından <b>Uygulama mağazası ekle</b> diyerek Play kaydını bağla. AdMob uygulamayı inceler; inceleme bitene kadar reklam sınırlı gösterilir.</li>
-        <li><b>app-ads.txt:</b> AdMob'daki yayıncı kimliğinle <code>docs/app-ads.txt.ornek</code> dosyasını doldurup <code>public/app-ads.txt</code> olarak kaydet. Play kaydındaki "Web sitesi" alanına <code>https://turnikeapp.vercel.app</code> yaz. Dosya böylece <code>https://turnikeapp.vercel.app/app-ads.txt</code> adresinde yayımlanır; AdMob'da doğrula. Bu dosya olmadan reklam sunumu düşer.</li>
+        <li><b>app-ads.txt:</b> AdMob'daki yayıncı kimliğinle <code>docs/app-ads.txt.ornek</code> yerine Vercel'deki <code>turnikeapp-website</code> projesine <code>ADMOB_PUBLISHER_ID</code> (ör. <code>pub-1234567890123456</code>) ortam değişkenini ekleyip yeniden dağıt. Play kaydındaki "Web sitesi" alanına <code>https://turnikeapp.com.tr</code> yaz. Dosya böylece <code>https://turnikeapp.com.tr/app-ads.txt</code> adresinde yayımlanır; AdMob'da doğrula. Bu dosya olmadan reklam sunumu düşer.</li>
       </ol>
     </article>
   </section>
