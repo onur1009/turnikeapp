@@ -29,7 +29,7 @@ export default function ConsentSheet() {
         <h2 id="consent-title" className="text-white font-black text-[18px]">{L("Gizlilik tercihlerin")}</h2>
         <p className="text-white/75 text-[13px] leading-relaxed">
           {L("Oyunu oynamak için hiçbirine izin vermen gerekmez. Adın, e-postan ya da konumun toplanmaz.")}{' '}
-          <a href={KVKK_URL} target="_blank" rel="noopener noreferrer" className="underline font-bold text-white">{L("Aydınlatma metni")}</a>
+          <a href={KVKK_URL} target="_blank" rel="noopener noreferrer" className="underline font-bold text-white">{L("Aydınlatma metni")} <span aria-hidden="true">↗</span></a>
         </p>
         <Choice on={analytics} set={setAnalytics} title={L("Anonim kullanım verisi")}
           text={L("Hangi seviyede zorlandığın, hangi ipucunu kullandığın gibi bilgiler; oyunu geliştirmek için. PostHog (AB sunucuları) aracılığıyla işlenir.")} />

@@ -26,7 +26,7 @@ export default function Postcard({ card, large = false }) {
         <div className="postcard-info">
           {STATION_INFO[card.name] && <p className="m-0 mb-1.5">{L(STATION_INFO[card.name])}</p>}
           {credit && (
-            <p className="m-0 text-[11px] opacity-70">{L("Fotoğraf: ")}{credit.artist} · {credit.license} · <a href={credit.source} target="_blank" rel="noreferrer" className="underline">{L("Wikimedia Commons")}</a>
+            <p className="m-0 text-[11px] opacity-70">{L("Fotoğraf: ")}{credit.artist} · {credit.license} · <a href={credit.source} target="_blank" rel="noopener noreferrer" className="underline">{L("Wikimedia Commons")} <span aria-hidden="true">↗</span></a>
             </p>
           )}
         </div>

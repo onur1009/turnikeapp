@@ -561,7 +561,7 @@ body.theme-retro .rounded-full, body.theme-retro .rounded-xl, body.theme-retro .
 }
 
 .icon-btn {
-  width: 40px; height: 40px; flex-shrink: 0;
+  width: 44px; height: 44px; flex-shrink: 0; position: relative;
   display: flex; align-items: center; justify-content: center;
   border-radius: 9999px;
   background: var(--surface);
@@ -570,6 +570,8 @@ body.theme-retro .rounded-full, body.theme-retro .rounded-xl, body.theme-retro .
   transition: transform 0.15s;
 }
 .icon-btn:active { transform: scale(0.92); }
+/* Dokunma alanı 48dp (Android): görünen daire 44px, çevresi 2px görünmez taşma */
+.icon-btn::after { content: ''; position: absolute; inset: -2px; border-radius: 9999px; }
 
 .line-badge {
   flex-shrink: 0;
@@ -600,7 +602,7 @@ body.theme-retro .rounded-full, body.theme-retro .rounded-xl, body.theme-retro .
 }
 
 .tool-btn {
-  min-width: 0; height: 46px; padding: 0 6px;
+  min-width: 0; height: 48px; padding: 0 6px;
   display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 8px;
   border-radius: 14px;
   background: var(--surface);
@@ -640,7 +642,7 @@ body.theme-retro .rounded-full, body.theme-retro .rounded-xl, body.theme-retro .
 }
 .tab-item {
   display: flex; flex-direction: column; align-items: center; gap: 3px;
-  padding: 6px 0; border-radius: 12px;
+  padding: 6px 0; border-radius: 12px; min-height: 52px; justify-content: center;
   color: rgba(255,255,255,0.7); font-weight: 700; font-size: 11px;
   transition: background 0.15s;
 }

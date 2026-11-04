@@ -107,8 +107,8 @@ const SettingsScreen = ({ onBack }) => {
               </button>
             )}
             <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-[13px] font-bold">
-              <a href={KVKK_URL} target="_blank" rel="noopener noreferrer" className="text-white/80 underline">{L("Aydınlatma metni")}</a>
-              <a href={PRIVACY_URL} target="_blank" rel="noopener noreferrer" className="text-white/80 underline">{L("Gizlilik politikası")}</a>
+              <a href={KVKK_URL} target="_blank" rel="noopener noreferrer" className="text-white/80 underline">{L("Aydınlatma metni")} <span aria-hidden="true">↗</span></a>
+              <a href={PRIVACY_URL} target="_blank" rel="noopener noreferrer" className="text-white/80 underline">{L("Gizlilik politikası")} <span aria-hidden="true">↗</span></a>
             </div>
             {/* KVKK m.7 / Play: sunucudaki veriyi silme; iki adımlı onay (confirm() WebView'da güvenilmez) */}
             <div className="mt-4 pt-4 border-t border-white/10 flex flex-col gap-2">
@@ -138,6 +138,7 @@ const SettingsScreen = ({ onBack }) => {
                 <button
                   key={themeOption}
                   onClick={() => setSettings({ theme: themeOption })}
+                  aria-pressed={theme === themeOption}
                   className={`w-full py-3 rounded-xl font-bold text-sm tracking-wide transition-colors flex items-center justify-between px-4 ${theme === themeOption ? 'bg-blue-600 text-white' : 'bg-white/5 text-white/70 hover:bg-white/10'}`}
                 >
                   {t(`${themeOption}_theme`)}

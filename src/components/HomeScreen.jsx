@@ -167,7 +167,8 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
         {TABS.map(tab => {
           const locked = maxUnlockedLevel < tab.unlockAt;
           return (
-            <button key={tab.id} onClick={() => openTab(tab)} className={`tab-item ${locked ? 'locked' : ''}`}>
+            <button key={tab.id} onClick={() => openTab(tab)} className={`tab-item ${locked ? 'locked' : ''}`}
+              aria-label={locked ? `${t(tab.labelKey)}, ${t('unlocks_at').replace('{n}', tab.unlockAt + 1)}` : undefined}>
               <span aria-hidden="true" className="material-symbols-outlined text-[22px]">{locked ? 'lock' : tab.icon}</span>
               <span className="truncate max-w-full px-1">{t(tab.labelKey)}</span>
             </button>
@@ -178,7 +179,7 @@ export default function HomeScreen({ setScreen, onPlay, showFeedback, flashBalan
       {/* Koleksiyon seçimi: Kasa ve Kayıp Eşya */}
       {showCollection && (
         <div className="fixed inset-0 z-[150] bg-black/60 flex items-end fade-in" onClick={() => setShowCollection(false)}>
-          <div className="w-full rounded-t-3xl p-5 pb-8 flex flex-col gap-3" style={{ background: '#0b1428', borderTop: '1px solid var(--border)' }} onClick={e => e.stopPropagation()}>
+          <div role="dialog" aria-modal="true" aria-label={t('collection')} className="w-full rounded-t-3xl p-5 pb-8 flex flex-col gap-3" style={{ background: '#0b1428', borderTop: '1px solid var(--border)' }} onClick={e => e.stopPropagation()}>
             <div className="w-10 h-1 rounded-full bg-white/20 mx-auto mb-2" />
             <button onClick={() => setScreen('postcards')} className="card-panel flex items-center gap-3 p-4 text-left active:scale-[0.98] transition-transform">
               <span aria-hidden="true" className="material-symbols-outlined text-[28px] text-amber-300" style={{ fontVariationSettings: "'FILL' 1" }}>mail</span>

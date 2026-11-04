@@ -575,7 +575,7 @@ export default function GameContainer({
       clearTimeout(timeoutId);
       const data = await res.json();
       if (data && !data.error && data.length > 0) {
-        acceptExtraWord(word, data[0]?.anlamlarListe?.[0]?.anlam || "TDK onaylı kelime.");
+        acceptExtraWord(word, String(data[0]?.anlamlarListe?.[0]?.anlam || "TDK onaylı kelime.").slice(0, 300));
         return true;
       }
     } catch (err) {
@@ -1062,7 +1062,7 @@ export default function GameContainer({
 
         {/* Teknik Bilgi Kartı Overlay */}
         {infoCard && (
-          <div key={infoCard.id} className="absolute inset-x-0 top-24 z-50 pointer-events-none flex justify-center fade-in px-5">
+          <div key={infoCard.id} role="status" aria-live="polite" className="absolute inset-x-0 top-24 z-50 pointer-events-none flex justify-center fade-in px-5">
             <div
               className="relative overflow-hidden rounded-2xl w-full max-w-md p-5 pointer-events-auto transition-transform"
               onClick={() => setInfoCard(null)}
