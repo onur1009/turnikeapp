@@ -108,3 +108,25 @@ test('düello bağlantısı siteye gider ve uygulamada geri okunur', async () =>
   assert.equal(duelCodeFromUrl('https://turnikeapp.com.tr/'), null);
   assert.equal(duelCodeFromUrl('çöp'), null);
 });
+
+test('her durağın kartpostalı kendine özgü ve tuval içinde', async () => {
+  const { buildPostcard, W, H } = await import('../../src/utils/pixelPostcard.js');
+  const { LINES, STATION_NAMES } = await import('../../src/utils/transitNetwork.js');
+  const sigs = new Set();
+  let total = 0;
+  for (const line of LINES) {
+    (STATION_NAMES[line.id] || []).forEach((name, i) => {
+      const a = buildPostcard({ name, lineId: line.id, mode: line.mode, color: line.color, stationIndex: i });
+      const b = buildPostcard({ name, lineId: line.id, mode: line.mode, color: line.color, stationIndex: i });
+      assert.deepEqual(a.rects, b.rects, `${line.id} ${name} deterministik değil`);
+      for (const [x, y, w, h, c] of a.rects) {
+        assert.ok(w > 0 && h > 0 && x < W && y < H && x + w > 0 && y + h > 0, `${name}: tuval dışı`);
+        assert.match(c, /^#[0-9a-f]{6}$/, `${name}: renk ${c}`);
+      }
+      sigs.add(JSON.stringify(a.rects));
+      total++;
+    });
+  }
+  assert.ok(total > 300);
+  assert.equal(sigs.size, total, 'iki durak aynı kartpostalı aldı');
+});

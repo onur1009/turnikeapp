@@ -1,34 +1,38 @@
+import { useMemo } from 'react';
 import { L } from '../utils/i18n';
 import { LINES, STATION_INFO } from '../utils/transitNetwork';
-import { getSceneFor } from '../data/scenes';
-import { PHOTO_CREDITS, photoFor } from '../data/postcardPhotos';
+import { buildPostcard, W, H } from '../utils/pixelPostcard';
 
-// Durak kartpostalı: semtin gerçek fotoğrafı (Wikimedia Commons, açık lisans) + "Selamlar, …!",
-// hat rozeti ve tarihli pul. Aynı semtteki duraklar farklı fotoğraflar alır. Büyük görünümde
-// durağın tarih notu ve fotoğrafçı/lisans bilgisi yazar (CC BY/BY-SA atıf şartı).
+// Durak kartpostalı: durağa ve hatta göre üretilen piksel sanat sahne (her durak kendine özgü)
+// + "Selamlar, …!", hat rozeti ve tarihli pul. Büyük görünümde durağın tarih notu yazar.
+export function PixelScene({ name, line, stationIndex, className = '' }) {
+  const { rects } = useMemo(
+    () => buildPostcard({ name, lineId: line.id, mode: line.mode, color: line.color, stationIndex }),
+    [name, line.id, line.mode, line.color, stationIndex],
+  );
+  return (
+    <svg className={className} viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid slice" shapeRendering="crispEdges" aria-hidden="true">
+      {rects.map(([x, y, w, h, c], i) => <rect key={i} x={x} y={y} width={w} height={h} fill={c} />)}
+    </svg>
+  );
+}
+
 export default function Postcard({ card, large = false }) {
   const line = LINES.find(l => l.id === card.lineId) || LINES[0];
-  const { regionId } = getSceneFor({ id: line.id, displayName: card.name, leg: 4, stationIndex: card.stationIndex });
-  const photo = photoFor(regionId, card.stationIndex);
-  const credit = PHOTO_CREDITS[photo];
-  // Kartın eğimi ve pul rengi durağa göre değişir (aynı görünmesin)
+  // Kartın eğimi durağa göre değişir (aynı görünmesin)
   const tilt = ((card.stationIndex * 37) % 7) - 3;
   return (
     <figure className={`postcard ${large ? 'is-large' : ''}`} style={{ '--tilt': `${large ? 0 : tilt}deg`, '--stamp': line.color }}>
       <div className="postcard-media">
-        <img className="postcard-photo" src={`/postcards/${photo}.webp`} alt="" loading="lazy" decoding="async" />
+        <PixelScene className="postcard-photo" name={card.name} line={line} stationIndex={card.stationIndex} />
         <figcaption className="postcard-caption">
           <span className="line-badge" style={{ background: line.color }}>{line.code}</span>
           <span className="postcard-hello">{L("Selamlar,")}<br /><b>{card.name}!</b></span>
         </figcaption>
       </div>
-      {large && (
+      {large && STATION_INFO[card.name] && (
         <div className="postcard-info">
-          {STATION_INFO[card.name] && <p className="m-0 mb-1.5">{L(STATION_INFO[card.name])}</p>}
-          {credit && (
-            <p className="m-0 text-[11px] opacity-70">{L("Fotoğraf: ")}{credit.artist} · {credit.license} · <a href={credit.source} target="_blank" rel="noopener noreferrer" className="underline">{L("Wikimedia Commons")} <span aria-hidden="true">↗</span></a>
-            </p>
-          )}
+          <p className="m-0 mb-1.5">{L(STATION_INFO[card.name])}</p>
         </div>
       )}
       <span className="postcard-stamp" aria-hidden="true">{L("TURNİKE")}<br />{new Date(card.at).toLocaleDateString('tr-TR', { day: 'numeric', month: 'short' })}</span>
