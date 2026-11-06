@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.turnike.app",
+      "sha256_cert_fingerprints": [
+        "AA:CF:2F:BF:CB:2E:DF:5D:C6:AD:80:3C:8F:68:DC:36:28:FA:14:A7:BF:58:7D:9B:10:C5:4F:79:F1:2E:94:CA",
+        "4E:A2:4D:A2:8C:76:28:04:34:B6:11:C4:CD:F9:72:8C:EC:21:0A:F2:41:AE:2F:DF:02:59:C5:04:6E:97:74:EC"
+      ]
+    }
+  }
+]
