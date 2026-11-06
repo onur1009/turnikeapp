@@ -3,4 +3,5 @@
   <url><loc>%SITE%/</loc><lastmod>%DATE%</lastmod></url>
   <url><loc>%SITE%/gizlilik</loc><lastmod>%DATE%</lastmod></url>
   <url><loc>%SITE%/kvkk</loc><lastmod>%DATE%</lastmod></url>
+  <url><loc>%SITE%/veri-silme</loc><lastmod>%DATE%</lastmod></url>
 </urlset>
