@@ -1,6 +1,6 @@
 // Reklamlar (AdMob): ödüllü video ve geçiş reklamı. Yalnızca Android/iOS uygulamasında çalışır.
 // Kimlikler derleme sırasında ortam değişkenlerinden okunur (.env.local ya da CI):
-//   VITE_ADMOB_REWARDED_ANDROID, VITE_ADMOB_INTERSTITIAL_ANDROID
+//   VITE_ADMOB_REWARDED_ANDROID, VITE_ADMOB_INTERSTITIAL_ANDROID, VITE_ADMOB_REWARDED_IOS, VITE_ADMOB_INTERSTITIAL_IOS
 // Verilmezse Google'ın herkese açık TEST kimlikleri ve test modu kullanılır (gelir getirmez).
 // AdMob uygulama kimliği ayrıca android/gradle.properties ya da ADMOB_APP_ID ortam değişkeniyle
 // manifest'e yazılır (android/app/build.gradle).
@@ -48,6 +48,14 @@ const startAds = async () => {
   } catch {
     // Onay bilgisi alınamazsa (ağ yok, mesaj tanımlı değil) önceki oturumun kararı geçerlidir
     canRequestAds = true;
+  }
+  // iOS: Apple izleme izni (ATT) onay formundan sonra sorulur. AdMob'da IDFA açıklayıcı mesajı varsa
+  // UMP bunu zaten sormuştur; durum hâlâ "notDetermined" ise sistem penceresi burada açılır.
+  if (platform() === 'ios') {
+    try {
+      const { status } = await AdMob.trackingAuthorizationStatus();
+      if (status === 'notDetermined') await AdMob.requestTrackingAuthorization();
+    } catch { /* izin sorulamazsa reklam yine kişiselleştirilmemiş sunulur */ }
   }
   if (canRequestAds) await AdMob.initialize({ initializeForTesting: IS_TESTING });
 };
